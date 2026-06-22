@@ -14,6 +14,7 @@ export default function Home() {
   const [showNameModal, setShowNameModal] = useState(false);
   const [showMessageModal, setShowMessageModal] = useState(false);
   const [name, setName] = useState("");
+  const [messageName, setMessageName] = useState("");
   const [message, setMessage] = useState("");
 
   const handleNameSubmit = () => {
@@ -25,9 +26,10 @@ export default function Home() {
   };
 
   const handleMessageSubmit = () => {
-    if (message.trim()) {
-      alert("Your message will be added soon! ✨");
+    if (messageName.trim() && message.trim()) {
+      alert(`Thank you ${messageName}! Your message will be added soon! ✨`);
       setShowMessageModal(false);
+      setMessageName("");
       setMessage("");
     }
   };
@@ -93,7 +95,7 @@ export default function Home() {
             <span className="text-blue-400">$1</span> - Pay & see the count
           </p>
           <p>
-            <span className="text-purple-400">$2</span> - Leave your personal message
+            <span className="text-purple-400">$2</span> - Leave your name & message
           </p>
         </div>
       </section>
@@ -139,6 +141,17 @@ export default function Home() {
             <p className="text-gray-300 mb-6 text-center">
               Pay $2 and share your kind wish with the world
             </p>
+            
+            {/* Name field */}
+            <input
+              type="text"
+              value={messageName}
+              onChange={(e) => setMessageName(e.target.value)}
+              placeholder="Your name or nickname"
+              className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 mb-4 focus:outline-none focus:ring-2 focus:ring-purple-400"
+            />
+            
+            {/* Message field */}
             <textarea
               value={message}
               onChange={(e) => setMessage(e.target.value)}
@@ -146,6 +159,7 @@ export default function Home() {
               rows={4}
               className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 mb-4 focus:outline-none focus:ring-2 focus:ring-purple-400 resize-none"
             />
+            
             <div className="flex gap-3">
               <button
                 onClick={() => setShowMessageModal(false)}
