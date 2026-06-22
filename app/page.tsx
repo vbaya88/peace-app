@@ -10,7 +10,7 @@ const translations = {
     brand: "Universe of Kindness 🌌",
     peopleCount: "People who paid $1",
     countDescription: "See how many people joined the universe of kindness",
-    paySee: "💙 Pay $1 - Pay & See",
+    paySee: " Pay $1 - Pay & See",
     leaveMessage: "✨ Leave Message - $2",
     paySeeDesc: "$1 - Pay & see the count",
     leaveMessageDesc: "$2 - Leave your name & message",
@@ -67,7 +67,7 @@ const translations = {
   fr: {
     title: "Payez $1 pour voir combien de personnes ont payé $1",
     subtitle: "pour voir combien de personnes ont payé $1",
-    brand: "Univers de Bonté 🌌",
+    brand: "Univers de Bonté ",
     peopleCount: "Personnes ayant payé $1",
     countDescription: "Voyez combien de personnes ont rejoint l'univers de bonté",
     paySee: "💙 Payer $1 - Voir",
@@ -127,7 +127,7 @@ const translations = {
   hi: {
     title: "$1 भुगतान करें और देखें कितने लोगों ने $1 का भुगतान किया",
     subtitle: "देखें कितने लोगों ने $1 का भुगतान किया",
-    brand: "दयालुता ब्रह्मांड 🌌",
+    brand: "दयालुता ब्रह्मांड ",
     peopleCount: "लोगों ने $1 का भुगतान किया",
     countDescription: "देखें कितने लोग दयालुता ब्रह्मांड में शामिल हुए",
     paySee: "💙 $1 का भुगतान - देखें",
@@ -150,7 +150,7 @@ const translations = {
     brand: "كون اللطف 🌌",
     peopleCount: "الأشخاص الذين دفعوا دولارًا واحدًا",
     countDescription: "انظر كم شخص انضم إلى كون اللطف",
-    paySee: "💙 ادفع $1 - اعرض",
+    paySee: " ادفع $1 - اعرض",
     leaveMessage: "✨ اترك رسالة - $2",
     paySeeDesc: "$1 - اعرض العداد",
     leaveMessageDesc: "$2 - اترك اسمك ورسالتك",
@@ -174,7 +174,7 @@ const languageFlags = {
   fr: "🇫🇷",
   de: "🇩🇪",
   zh: "🇨",
-  hi: "🇳",
+  hi: "",
   ar: "🇸",
 };
 
@@ -240,20 +240,25 @@ export default function Home() {
 
       {/* Content */}
       <div className="relative z-10 flex flex-col min-h-screen">
-        {/* Language Switcher */}
-        <div className="absolute top-4 right-4 z-50 flex gap-2 flex-wrap justify-end max-w-xs">
-          {Object.keys(translations).map((lang) => (
-            <button
-              key={lang}
-              onClick={() => switchLanguage(lang)}
-              className={`text-2xl transition-all duration-200 hover:scale-125 ${
-                language === lang ? "opacity-100 scale-110" : "opacity-50"
-              }`}
-              title={lang.toUpperCase()}
-            >
-              {languageFlags[lang as keyof typeof languageFlags]}
-            </button>
-          ))}
+        {/* Language Switcher - Visible */}
+        <div className="absolute top-6 right-6 z-50 bg-white/10 backdrop-blur-lg rounded-full px-4 py-2 border border-white/20 shadow-lg">
+          <div className="flex gap-3 items-center">
+            <span className="text-white text-sm font-medium">Language:</span>
+            <div className="flex gap-2">
+              {Object.keys(translations).map((lang) => (
+                <button
+                  key={lang}
+                  onClick={() => switchLanguage(lang)}
+                  className={`text-xl transition-all duration-200 hover:scale-125 ${
+                    language === lang ? "opacity-100 scale-125" : "opacity-40 hover:opacity-70"
+                  }`}
+                  title={lang.toUpperCase()}
+                >
+                  {languageFlags[lang as keyof typeof languageFlags]}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Header - Viral Phrase */}
