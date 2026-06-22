@@ -1,0 +1,230 @@
+// Prisma schema for Universe of Kindness
+// Provider: PostgreSQL (Railway)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── Auth (NextAuth) ──────────────────────────────────────────────────────────
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ─── Core Models ──────────────────────────────────────────────────────────────
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?   // hashed, for credentials auth
+  locale        String    @default("en")
+
+  // Relations
+  accounts    Account[]
+  sessions    Session[]
+  payments    Payment[]
+  messages    Message[]
+  stars       Star[]
+  company     Company?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ─── Payments ─────────────────────────────────────────────────────────────────
+
+model Payment {
+  id                 String   @id @default(cuid())
+  userId             String?
+  user               User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  // Payment details
+  amount             Int      // in cents (100 = $1)
+  currency           String   @default("USD")
+  status             PaymentStatus @default(PENDING)
+
+  // Provider
+  provider           PaymentProvider @default(VOLLET)
+  providerPaymentId  String?  @unique
+  providerWebhookId  String?  @unique
+  orderId            String   @unique
+
+  // Product type
+  productType        ProductType
+
+  // Metadata
+  name               String?
+  messageText        String?  @db.Text
+  starName           String?
+  companyName        String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+  @@index([providerPaymentId])
+}
+
+enum PaymentStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+  REFUNDED
+  CANCELLED
+}
+
+enum PaymentProvider {
+  VOLLET   // Volet (volet.com)
+  CRYPTOMUS
+  ECOMMPAY
+}
+
+enum ProductType {
+  PAY_SEE        // $1 — see counter
+  LEAVE_MESSAGE  // $2 — leave a message in the ticker
+  BUY_STAR       // $5 — personal star
+  COMPANY_PROFILE // $10–100 — verified company
+}
+
+// ─── Messages (Ticker) ────────────────────────────────────────────────────────
+
+model Message {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  // Content
+  name      String
+  text      String   @db.Text
+  locale    String   @default("en")
+
+  // Moderation
+  isVisible Boolean  @default(false)
+  isPaid    Boolean  @default(false)
+  paymentId String?  @unique
+
+  // Position on globe (optional, for geo-messages)
+  latitude  Float?
+  longitude Float?
+
+  createdAt DateTime @default(now())
+
+  @@index([isVisible, createdAt])
+}
+
+// ─── Stars ($5 tier) ─────────────────────────────────────────────────────────
+
+model Star {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  // Star details
+  name      String   // Name of the star (e.g., "Star of Maria")
+  message   String?  @db.Text
+
+  // 3D Globe position (RA/Dec coordinates or XYZ)
+  ra        Float?   // Right Ascension (0-360)
+  dec       Float?   // Declination (-90 to 90)
+  x         Float?   // 3D position X
+  y         Float?   // 3D position Y
+  z         Float?   // 3D position Z
+
+  // Visual
+  color     String   @default("#ffffff")
+  size      Float    @default(1.0)
+
+  // Payment
+  paymentId String   @unique
+  isActive  Boolean  @default(true)
+
+  createdAt DateTime @default(now())
+
+  @@index([isActive])
+}
+
+// ─── Companies ($10–100 tier) ────────────────────────────────────────────────
+
+model Company {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  name      String
+  tagline   String?
+  description String? @db.Text
+  logoUrl   String?
+  website   String?
+  email     String?
+  phone     String?
+
+  // Location
+  address   String?
+  latitude  Float?
+  longitude Float?
+
+  // Verification
+  isVerified Boolean @default(false)
+  tier       CompanyTier @default(BASIC)
+
+  // Mapbox marker color
+  markerColor String   @default("#4F46E5")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum CompanyTier {
+  BASIC      // $10/mo
+  PREMIUM    // $50/mo
+  ENTERPRISE // $100/mo
+}
+
+// ─── Counter (singleton) ──────────────────────────────────────────────────────
+
+model Counter {
+  id      String @id @default("global")
+  count   Int    @default(0)
+
+  updatedAt DateTime @updatedAt
+}
