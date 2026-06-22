@@ -7,18 +7,12 @@ const globalForPrisma = globalThis as unknown as {
 };
 
 function createPrismaClient(): PrismaClient {
-  const connectionString = process.env.DATABASE_URL;
-
-  if (!connectionString) {
-    // Allow build without DB (env vars injected at runtime)
-    console.warn("[Prisma] DATABASE_URL not set — using lazy initialization");
-    return new PrismaClient({
-      log:
-        process.env.NODE_ENV === "development"
-          ? (["query", "error", "warn"] as const)
-          : (["error"] as const),
-    });
-  }
+  const connectionString =
+    process.env.DATABASE_URL ??
+    // Railway injects DATABASE_URL at runtime.
+    // At build time, use a placeholder so Prisma 7's client engine
+    // can at least be imported (it will connect lazily at runtime).
+    "postgresql://placeholder:placeholder@localhost:5432/placeholder";
 
   const pool = new Pool({ connectionString });
   const adapter = new PrismaPg(pool);
