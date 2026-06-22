@@ -40,7 +40,7 @@ export default function Home() {
           Pay $1 to see how many people paid $1
         </h1>
         <p className="text-xl md:text-2xl text-gray-300 mb-2">
-          to see how many people paid $1 for kindness
+          to see how many people paid $1
         </p>
         <p className="text-lg text-gray-400 mt-4">
           Universe of Kindness 🌌
@@ -77,7 +77,7 @@ export default function Home() {
             onClick={() => setShowNameModal(true)}
             className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-bold py-3 px-6 rounded-full text-base shadow-lg transform hover:scale-105 transition-all duration-300"
           >
-            💙 Pay $1 - Leave Name
+            💙 Pay $1 - Pay & See
           </button>
           <button
             onClick={() => setShowMessageModal(true)}
@@ -90,7 +90,7 @@ export default function Home() {
         {/* Explanation */}
         <div className="text-center text-sm text-gray-400 mt-6 max-w-md">
           <p className="mb-2">
-            <span className="text-blue-400">$1</span> - Leave your name & see the count
+            <span className="text-blue-400">$1</span> - Pay & see the count
           </p>
           <p>
             <span className="text-purple-400">$2</span> - Leave your personal message
@@ -102,9 +102,9 @@ export default function Home() {
       {showNameModal && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
           <div className="bg-gradient-to-b from-indigo-900 to-purple-900 rounded-2xl p-8 max-w-md w-full border border-white/20 shadow-2xl">
-            <h2 className="text-2xl font-bold mb-4 text-center">Leave Your Name</h2>
+            <h2 className="text-2xl font-bold mb-4 text-center">Pay & See</h2>
             <p className="text-gray-300 mb-6 text-center">
-              Pay $1 and leave your name in the universe of kindness
+              Pay $1 to see how many people joined the universe
             </p>
             <input
               type="text"
