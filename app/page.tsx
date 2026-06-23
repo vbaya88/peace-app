@@ -487,7 +487,16 @@ export default function Home() {
     <main className="h-[100dvh] w-full relative overflow-hidden">
       {/* ── Full-Screen Map Background ── */}
       <div className="absolute inset-0 z-0">
-        <KindnessMap messages={messages} />
+        <KindnessMap
+          messages={messages}
+          onMapClick={(lat) => {
+            // Block Antarctica
+            if (lat < -60) {
+              alert("Antarctica is not available. Please choose another location! 🌍");
+              return;
+            }
+          }}
+        />
       </div>
 
         {/* ── Chat-style Message Panel (right side) — OUTSIDE pointer-events-none container ── */}

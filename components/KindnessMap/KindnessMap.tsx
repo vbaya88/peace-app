@@ -19,6 +19,8 @@ interface CheckinMarker {
 interface KindnessMapProps {
   onMapReady?: () => void;
   onMarkerClick?: (marker: CheckinMarker) => void;
+  /** Fires when user clicks anywhere on the map (not on a marker) */
+  onMapClick?: (lat: number, lng: number) => void;
   messages?: string[];
 }
 
@@ -62,12 +64,16 @@ function createPhotoMarkerEl(marker: CheckinMarker): HTMLElement {
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 
-export default function KindnessMap({ onMapReady, onMarkerClick, messages = [] }: KindnessMapProps) {
+export default function KindnessMap({ onMapReady, onMarkerClick, onMapClick, messages = [] }: KindnessMapProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const markersRef = useRef<mapboxgl.Marker[]>([]);
   const [mapLoaded, setMapLoaded] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Capture onMapClick in a ref to avoid stale closures inside map events
+  const onMapClickRef = useRef(onMapClick);
+  onMapClickRef.current = onMapClick;
 
   // ── Initialize map ─────────────────────────────────────────────────────────
 
@@ -121,26 +127,43 @@ export default function KindnessMap({ onMapReady, onMarkerClick, messages = [] }
     map.on("load", () => {
       setMapLoaded(true);
       onMapReady?.();
+
+      // User clicked on map (not on a marker) — fire onMapClick
+      map.on("click", (e) => {
+        const { lng, lat } = e.lngLat;
+        onMapClickRef.current?.(lat, lng);
+      });
     });
 
     mapRef.current = map;
 
     return () => {
-      markersRef.current.forEach((m) => m.remove());
+      const m = mapRef.current;
+      if (!m) return;
+      if (m.getLayer("checkins-clusters")) m.removeLayer("checkins-clusters");
+      if (m.getLayer("checkins-cluster-count")) m.removeLayer("checkins-cluster-count");
+      if (m.getLayer("checkins-unclustered-point")) m.removeLayer("checkins-unclustered-point");
+      if (m.getSource("checkins")) m.removeSource("checkins");
+      markersRef.current.forEach((mk) => mk.remove());
       markersRef.current = [];
-      map.remove();
+      m.remove();
       mapRef.current = null;
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // ── Load check-ins from API ────────────────────────────────────────────────
+  // ── Load check-ins from API (GeoJSON + clustering for 1000+ markers) ───────
 
   const loadCheckins = useCallback(async () => {
-    if (!mapRef.current || !mapLoaded) return;
+    const map = mapRef.current;
+    if (!map || !mapLoaded) return;
 
-    // Remove old markers
-    markersRef.current.forEach((m) => m.remove());
-    markersRef.current = [];
+    // Remove old GeoJSON source + layers if they exist
+    if (map.getSource("checkins")) {
+      map.removeLayer("checkins-clusters");
+      map.removeLayer("checkins-cluster-count");
+      map.removeLayer("checkins-unclustered-point");
+      map.removeSource("checkins");
+    }
 
     try {
       const res = await fetch("/api/checkins");
@@ -149,37 +172,141 @@ export default function KindnessMap({ onMapReady, onMarkerClick, messages = [] }
       const data = await res.json();
       const checkins: CheckinMarker[] = data.checkins ?? [];
 
-      checkins.forEach((checkin) => {
-        const el = createPhotoMarkerEl(checkin);
+      const geojson: GeoJSON.FeatureCollection = {
+        type: "FeatureCollection",
+        features: checkins.map((c) => ({
+          type: "Feature" as const,
+          geometry: { type: "Point" as const, coordinates: [c.longitude, c.latitude] },
+          properties: {
+            id: c.id,
+            name: c.name,
+            message: c.message ?? "",
+            photoUrl: c.photoUrl ?? "",
+            latitude: c.latitude,
+            longitude: c.longitude,
+          },
+        })),
+      };
 
-        // Popup on click
-        const popup = new mapboxgl.Popup({
-          offset: 25,
-          closeButton: false,
-          className: "kindness-popup",
-        }).setHTML(`
-          <div style="text-align:center;min-width:140px;">
-            ${
-              checkin.photoUrl
-                ? `<img src="${checkin.photoUrl}" alt="${checkin.name}" style="width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid #818cf8;margin-bottom:6px;" />`
-                : `<div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;margin:0 auto 6px;font-size:28px;color:white;font-weight:bold;">${checkin.name.charAt(0).toUpperCase()}</div>`
-            }
-            <strong style="color:#333;font-size:14px;">${checkin.name}</strong>
-            ${checkin.message ? `<p style="color:#666;font-size:12px;margin:4px 0 0;">${checkin.message}</p>` : ""}
-          </div>
-        `);
-
-        const marker = new mapboxgl.Marker({ element: el })
-          .setLngLat([checkin.longitude, checkin.latitude])
-          .setPopup(popup)
-          .addTo(mapRef.current!);
-
-        el.addEventListener("click", () => {
-          onMarkerClick?.(checkin);
-        });
-
-        markersRef.current.push(marker);
+      // ── Add GeoJSON source with clustering ────────────────────────────────
+      map.addSource("checkins", {
+        type: "geojson",
+        data: geojson,
+        cluster: true,
+        clusterMaxZoom: 10,   // stop clustering at zoom 10
+        clusterRadius: 50,    // cluster radius in pixels
       });
+
+      // Cluster circles
+      map.addLayer({
+        id: "checkins-clusters",
+        type: "circle",
+        source: "checkins",
+        filter: ["has", "point_count"],
+        paint: {
+          "circle-color": [
+            "step", ["get", "point_count"],
+            "#818cf8", 10,  "#a78bfa", 50,
+            "#c084fc", 100, "#e879f9", 500,
+            "#f0abfc",
+          ],
+          "circle-radius": [
+            "step", ["get", "point_count"],
+            18, 10, 24, 50, 32, 100, 40, 500, 50,
+          ],
+          "circle-stroke-width": 2,
+          "circle-stroke-color": "rgba(255,255,255,0.4)",
+          "circle-opacity": 0.85,
+        },
+      });
+
+      // Cluster count labels
+      map.addLayer({
+        id: "checkins-cluster-count",
+        type: "symbol",
+        source: "checkins",
+        filter: ["has", "point_count"],
+        layout: {
+          "text-field": "{point_count_abbreviated}",
+          "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+          "text-size": 12,
+        },
+        paint: { "text-color": "#ffffff" },
+      });
+
+      // Individual markers (unclustered)
+      map.addLayer({
+        id: "checkins-unclustered-point",
+        type: "circle",
+        source: "checkins",
+        filter: ["!", ["has", "point_count"]],
+        paint: {
+          "circle-color": "#818cf8",
+          "circle-radius": 7,
+          "circle-stroke-width": 2,
+          "circle-stroke-color": "#ffffff",
+        },
+      });
+
+      // ── Click on cluster → zoom in ─────────────────────────────────────────
+      map.on("click", "checkins-clusters", (e) => {
+        const features = map.queryRenderedFeatures(e.point, {
+          layers: ["checkins-clusters"],
+        });
+        const clusterId = features[0].properties?.cluster_id;
+        const source = map.getSource("checkins") as mapboxgl.GeoJSONSource;
+        source.getClusterExpansionZoom(clusterId, (err, zoom) => {
+          if (err) return;
+          const geometry = features[0].geometry;
+          if (geometry.type === "Point") {
+            map.easeTo({
+              center: geometry.coordinates as [number, number],
+              zoom: zoom ?? 10,
+            });
+          }
+        });
+      });
+
+      // ── Click on individual marker → show popup ─────────────────────────────
+      map.on("click", "checkins-unclustered-point", (e) => {
+        const features = map.queryRenderedFeatures(e.point, {
+          layers: ["checkins-unclustered-point"],
+        });
+        if (!features.length) return;
+        const p = features[0].properties;
+        const coords = (features[0].geometry as GeoJSON.Point).coordinates as [number, number];
+
+        new mapboxgl.Popup({ closeButton: false, offset: 15, className: "kindness-popup" })
+          .setLngLat(coords)
+          .setHTML(`
+            <div style="text-align:center;min-width:140px;">
+              ${p?.photoUrl
+                ? `<img src="${p.photoUrl}" alt="${p.name}" style="width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid #818cf8;margin-bottom:6px;" />`
+                : `<div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;margin:0 auto 6px;font-size:28px;color:white;font-weight:bold;">${(p?.name as string ?? "?").charAt(0).toUpperCase()}</div>`
+              }
+              <strong style="color:#333;font-size:14px;">${p?.name ?? ""}</strong>
+              ${p?.message ? `<p style="color:#666;font-size:12px;margin:4px 0 0;">${p.message}</p>` : ""}
+            </div>
+          `)
+          .addTo(map);
+
+        onMarkerClick?.({
+          id: p?.id ?? "",
+          name: p?.name ?? "",
+          message: p?.message ?? undefined,
+          photoUrl: p?.photoUrl ?? undefined,
+          latitude: p?.latitude ?? 0,
+          longitude: p?.longitude ?? 0,
+          zoomLevel: 10,
+        });
+      });
+
+      // ── Cursor changes ──────────────────────────────────────────────────────
+      map.on("mouseenter", "checkins-clusters", () => { map.getCanvas().style.cursor = "pointer"; });
+      map.on("mouseleave", "checkins-clusters", () => { map.getCanvas().style.cursor = ""; });
+      map.on("mouseenter", "checkins-unclustered-point", () => { map.getCanvas().style.cursor = "pointer"; });
+      map.on("mouseleave", "checkins-unclustered-point", () => { map.getCanvas().style.cursor = ""; });
+
     } catch {
       // Silently fail
     }

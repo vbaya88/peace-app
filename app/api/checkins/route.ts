@@ -34,6 +34,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid coordinates" }, { status: 400 });
     }
 
+    // BLOCK ANTARCTICA — dedicated task coming later
+    if (latitude < -60) {
+      return NextResponse.json(
+        { error: "Antarctica is not available for check-ins yet. This region will be enabled in a future update." },
+        { status: 400 }
+      );
+    }
+
     // Rough country/city detection based on coordinates (simplified reverse geocoding)
     // In production: use Mapbox Geocoding API
     const countryCode = "XX"; // placeholder — can call Mapbox Geocoding API here
