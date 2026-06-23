@@ -62,13 +62,20 @@ export default function KindnessMap({
       return () => clearTimeout(timer);
     }
 
-    // Try build-time env first, then fallback to runtime fetch
+    // Try build-time env first, then server-rendered meta tag, then runtime fetch
     let token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
     if (!token || token.startsWith("pk.YOUR_")) {
-      fetch("/api/config?key=mapbox_token")
-        .then(r => r.ok ? r.json() : Promise.reject())
-        .then(d => { if (d.value) initMap(d.value as string); })
-        .catch(() => setStatusMsg("Mapbox token not configured"));
+      // Read from server-rendered meta tag (available immediately, no fetch needed)
+      const metaToken = document.querySelector('meta[name="mapbox-token"]')?.getAttribute("content");
+      if (metaToken && metaToken.startsWith("pk.")) {
+        initMap(metaToken);
+      } else {
+        // Final fallback: runtime fetch from API
+        fetch("/api/config?key=mapbox_token")
+          .then(r => r.ok ? r.json() : Promise.reject())
+          .then(d => { if (d.value) initMap(d.value as string); })
+          .catch(() => setStatusMsg("Mapbox token not configured"));
+      }
       return;
     } else if (!token.startsWith("pk.")) {
       setStatusMsg("Mapbox token not configured");

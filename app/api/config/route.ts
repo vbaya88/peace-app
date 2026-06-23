@@ -6,7 +6,7 @@ export async function GET(request: Request) {
   const key = searchParams.get("key");
 
   const allowedKeys: Record<string, string> = {
-    mapbox_token: process.env.NEXT_PUBLIC_MAPBOX_TOKEN || "",
+    mapbox_token: process.env.MAPBOX_TOKEN || process.env.NEXT_PUBLIC_MAPBOX_TOKEN || "",
     site_url: process.env.NEXT_PUBLIC_SITE_URL || "",
   };
 

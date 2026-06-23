@@ -18,6 +18,8 @@ const MapboxCSS = () => (
   />
 );
 
+const MAPBOX_TOKEN = process.env.MAPBOX_TOKEN || "";
+
 export const metadata: Metadata = {
   title: "Universe of Kindness | PaySeeWhoPay",
   description:
@@ -33,6 +35,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <MapboxCSS />
+        <meta name="mapbox-token" content={MAPBOX_TOKEN} />
       </head>
       <body>
         <MapboxScript />
