@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 
 interface EquatorRingProps {
   messages: string[];
@@ -10,113 +10,115 @@ export default function EquatorRing({ messages }: EquatorRingProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number>(0);
   const offsetRef = useRef(0);
-  const [globeInfo, setGlobeInfo] = useState({ cx: 0, cy: 0, rx: 0, ry: 0 });
-  const [ready, setReady] = useState(false);
+  // Use the container's own dimensions instead of querying mapbox canvas
+  const [size, setSize] = useState({ w: 0, h: 0 });
+  const msgRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const widthsCache = useRef<number[]>([]);
 
-  // ── Calculate globe ellipse (equator appears as horizontal line through center) ──
-  useEffect(() => {
-    const updateGlobeBounds = () => {
-      const canvas = document.querySelector(".mapboxgl-canvas") as HTMLCanvasElement;
-      if (!canvas) return;
-
-      const rect = canvas.getBoundingClientRect();
-      // Globe center
-      const cx = rect.width / 2;
-      const cy = rect.height / 2;
-
-      // Globe is roughly circular; equator at default view is a horizontal line
-      // rx ≈ globe radius, ry ≈ 0 for pure horizontal line
-      // But we add slight vertical curve to simulate perspective tilt
-      const baseRadius = Math.min(rect.width, rect.height) * 0.38;
-
-      setGlobeInfo({
-        cx,
-        cy,
-        rx: baseRadius * 1.15,   // slightly wider than globe (equator wraps around)
-        ry: baseRadius * 0.08,    // very slight curve — almost flat line
-      });
-      setReady(true);
-    };
-
-    updateGlobeBounds();
-
-    let debounce: ReturnType<typeof setTimeout>;
-    const onMapChange = () => {
-      clearTimeout(debounce);
-      debounce = setTimeout(updateGlobeBounds, 150);
-    };
-
-    window.addEventListener("resize", onMapChange);
-
-    const mapEl = document.querySelector(".mapboxgl-map");
-    if (mapEl) mapEl.addEventListener("wheel", onMapChange, { passive: true });
-
-    return () => {
-      clearTimeout(debounce);
-      window.removeEventListener("resize", onMapChange);
-      if (mapEl) mapEl.removeEventListener("wheel", onMapChange);
-    };
+  // ── Measure container size on mount, resize, and periodically ──
+  const measureSize = useCallback(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    if (rect.width > 0 && rect.height > 0) {
+      setSize({ w: rect.width, h: rect.height });
+    }
   }, []);
 
-  // ── Animation loop — scroll messages along the equator line ──
   useEffect(() => {
-    if (!ready || messages.length === 0) return;
+    measureSize();
 
-    const SPEED = 0.4; // pixels per frame
+    // Initial + resize observer
+    const ro = new ResizeObserver(measureSize);
+    if (containerRef.current) ro.observe(containerRef.current);
+
+    // Also poll a few times in case map loads late
+    const timers = [
+      setTimeout(measureSize, 500),
+      setTimeout(measureSize, 1500),
+      setTimeout(measureSize, 3000),
+    ];
+
+    window.addEventListener("resize", measureSize);
+
+    return () => {
+      ro.disconnect();
+      timers.forEach(clearTimeout);
+      window.removeEventListener("resize", measureSize);
+    };
+  }, [measureSize]);
+
+  // ── Cache message widths after render ──
+  useEffect(() => {
+    const widths: number[] = [];
+    msgRefs.current.forEach((el) => {
+      if (el) widths.push(el.offsetWidth || el.scrollWidth || 120);
+    });
+    if (widths.length > 0 && widths.some((w) => w > 0)) {
+      widthsCache.current = widths;
+    }
+  }, [messages, size]);
+
+  // ── Animation loop ──
+  useEffect(() => {
+    if (size.w === 0 || messages.length === 0) return;
+
+    const SPEED = 0.5; // px per frame
 
     const animate = () => {
       offsetRef.current -= SPEED;
-      // Wrap around when offset exceeds message total width
-      renderFrame();
+      positionMessages();
       animationRef.current = requestAnimationFrame(animate);
     };
 
     animationRef.current = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animationRef.current);
-  }, [ready, messages]);
+  }, [messages, size.w, size.h]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Position all messages in a single horizontal line through globe center
-  const renderFrame = () => {
-    const container = containerRef.current;
-    if (!container || globeInfo.rx === 0) return;
+  // ── Position all messages along equator line ──
+  const positionMessages = () => {
+    const els = msgRefs.current.filter(Boolean) as HTMLSpanElement[];
+    if (els.length === 0 || size.w === 0) return;
 
-    const els = container.querySelectorAll<HTMLElement>(".eq-msg");
-    const { cx, cy, rx, ry } = globeInfo;
-    let totalWidth = 0;
-    const widths: number[] = [];
+    const { w, h } = size;
+    const cx = w / 2;
+    const cy = h / 2;
+    const baseRadius = Math.min(w, h) * 0.38;
+    const rx = baseRadius * 1.15;
+    const ry = baseRadius * 0.06;
 
-    els.forEach((el) => {
-      const w = el.offsetWidth;
-      widths.push(w);
-      totalWidth += w + 16; // +16px gap
-    });
+    // Calculate total width for wrapping
+    const widths = widthsCache.current.length === els.length
+      ? widthsCache.current
+      : els.map((el) => el.offsetWidth || 120);
 
-    // Wrap offset within total width
+    let totalWidth = widths.reduce((sum, wd) => sum + wd + 16, 0);
+    if (totalWidth === 0) totalWidth = els.length * 136; // fallback
+
     const wrapOffset = ((offsetRef.current % totalWidth) + totalWidth) % totalWidth;
 
     let currentX = cx - rx + wrapOffset;
-    els.forEach((el, i) => {
-      const w = widths[i];
 
-      // Position along the equator line (horizontal through center)
-      // Add slight elliptical Y based on X position for subtle 3D curve
-      const relX = (currentX - cx) / rx; // -1 to 1
-      const y = cy + ry * (1 - relX * relX); // parabola: peaks at edges
+    els.forEach((el, i) => {
+      const wd = widths[i] || 120;
+
+      // Elliptical position along equator
+      const relX = (currentX - cx) / rx;
+      const y = cy + ry * (1 - relX * relX);
 
       el.style.left = `${currentX}px`;
       el.style.top = `${y}px`;
 
-      // Fade at edges of the visible band
-      const distFromCenter = Math.abs(relX);
-      const opacity = distFromCenter > 0.95 ? 0 : distFromCenter > 0.8 ? 0.4 : 1;
-      el.style.opacity = String(opacity);
+      // Fade at edges
+      const dist = Math.abs(relX);
+      el.style.opacity = dist > 0.95 ? "0" : dist > 0.8 ? "0.35" : "1";
 
-      currentX += w + 16;
+      currentX += wd + 16;
     });
   };
 
-  // Build messages array — duplicate many times for seamless infinite scroll
-  const displayMessages = messages.length > 0
+  // ── Build display messages (duplicated for seamless loop) ──
+  const rawMessages = messages.length > 0
     ? [...messages, ...messages, ...messages, ...messages, ...messages, ...messages]
     : ["Peace and love! 🌍", "Kindness matters! ❤️", "Spread the light! ✨",
        "Together we shine! 🌟", "Be the change! 🦋"];
@@ -126,10 +128,11 @@ export default function EquatorRing({ messages }: EquatorRingProps) {
       ref={containerRef}
       className="absolute inset-0 pointer-events-none z-[5] overflow-hidden"
     >
-      {displayMessages.map((msg, i) => (
+      {rawMessages.map((msg, i) => (
         <span
           key={`${i}-${msg.slice(0, 20)}`}
-          className="eq-msg absolute whitespace-nowrap text-white font-medium"
+          ref={(el) => { msgRefs.current[i] = el; }}
+          className="absolute whitespace-nowrap text-white font-medium"
           style={{
             fontSize: "12px",
             letterSpacing: "0.03em",
