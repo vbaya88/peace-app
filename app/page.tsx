@@ -290,8 +290,9 @@ export default function Home() {
 
   // State
   const [count, setCount] = useState<number>(0);
+  const [displayCount, setDisplayCount] = useState<number>(0);
   const [messages, setMessages] = useState<string[]>([]);
-  const [chatMessages, setChatMessages] = useState<{ id: string; name: string; text: string }[]>([]);
+  const [chatMessages, setChatMessages] = useState<{ id: string; name: string; text: string; tier?: "paid2" | "paid5" }[]>([]);
   const [language, setLanguage] = useState("en");
   const [langOpen, setLangOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -314,6 +315,16 @@ export default function Home() {
       if (res.ok) {
         const data = await res.json();
         setCount(data.count);
+        // Animate count up from 0 to target over ~1.8s
+        let start = 0;
+        const end = data.count as number;
+        const duration = 1800;
+        const step = Math.ceil(end / (duration / 16));
+        const timer = setInterval(() => {
+          start = Math.min(start + step, end);
+          setDisplayCount(start);
+          if (start >= end) clearInterval(timer);
+        }, 16);
       }
     } catch {
       // fallback to 0
@@ -333,10 +344,11 @@ export default function Home() {
             )
           );
           setChatMessages(
-            data.messages.map((m: { name: string; text: string }, i: number) => ({
+            data.messages.map((m: { name: string; text: string; amount?: number }, i: number) => ({
               id: `msg-${i}-${Date.now()}`,
               name: m.name,
               text: m.text,
+              tier: (m.amount ?? 2) >= 5 ? ("paid5" as const) : ("paid2" as const),
             }))
           );
         } else {
@@ -358,6 +370,7 @@ export default function Home() {
         "Together we shine! 🌟",
         "Be the change! 🦋",
       ]);
+      // chatMessages stays empty — demo messages shown by MessageChat component
     }
   }, []);
 
@@ -555,7 +568,7 @@ export default function Home() {
                 <div className="text-4xl font-bold text-gray-400 animate-pulse">···</div>
               ) : (
                 <div className="text-4xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
-                  {count.toLocaleString()}
+                  {displayCount.toLocaleString()}
                 </div>
               )}
             </div>
