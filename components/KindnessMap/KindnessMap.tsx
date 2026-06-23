@@ -3,9 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import dynamic from "next/dynamic";
-
-const EquatorRing = dynamic(() => import("./EquatorRing"), { ssr: false });
+import EquatorRing from "./EquatorRing";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
