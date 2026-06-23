@@ -248,17 +248,17 @@ const translations = {
   },
 };
 
-// Language flags
-const languageFlags: Record<string, string> = {
-  en: "🇬🇧",
-  es: "🇪🇸",
-  pt: "🇧🇷",
-  fr: "🇫🇷",
-  de: "🇩🇪",
-  zh: "🇨🇳",
-  hi: "🇮🇳",
-  ar: "🇸🇦",
-};
+// Language options: flag + label
+const languageOptions: { code: string; flag: string; label: string }[] = [
+  { code: "en", flag: "🇬🇧", label: "English" },
+  { code: "es", flag: "🇪🇸", label: "Español" },
+  { code: "pt", flag: "🇧🇷", label: "Português" },
+  { code: "fr", flag: "🇫🇷", label: "Français" },
+  { code: "de", flag: "🇩🇪", label: "Deutsch" },
+  { code: "zh", flag: "🇨🇳", label: "中文" },
+  { code: "hi", flag: "🇮🇳", label: "हिन्दी" },
+  { code: "ar", flag: "🇸🇦", label: "العربية" },
+];
 
 type ProductType = "PAY_SEE" | "LEAVE_MESSAGE" | "BUY_STAR";
 type ModalType = ProductType | null;
@@ -271,6 +271,7 @@ export default function Home() {
   const [count, setCount] = useState<number>(0);
   const [messages, setMessages] = useState<string[]>([]);
   const [language, setLanguage] = useState("en");
+  const [langOpen, setLangOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [activeModal, setActiveModal] = useState<ModalType>(null);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -443,24 +444,46 @@ export default function Home() {
 
       {/* Content */}
       <div className="relative z-10 flex flex-col min-h-screen">
-        {/* Language Switcher */}
-        <div className="absolute top-6 right-6 z-50 bg-white/10 backdrop-blur-lg rounded-full px-4 py-2 border border-white/20 shadow-lg">
-          <div className="flex gap-3 items-center">
-            <span className="text-white text-sm font-medium">Language:</span>
-            <div className="flex gap-2">
-              {Object.keys(translations).map((lang) => (
-                <button
-                  key={lang}
-                  onClick={() => switchLanguage(lang)}
-                  className={`text-xl transition-all duration-200 hover:scale-125 ${
-                    language === lang ? "opacity-100 scale-125" : "opacity-40 hover:opacity-70"
-                  }`}
-                  title={lang.toUpperCase()}
-                >
-                  {languageFlags[lang]}
-                </button>
-              ))}
-            </div>
+        {/* Language Switcher — compact dropdown */}
+        <div className="absolute top-6 right-6 z-50">
+          <div className="relative">
+            <button
+              onClick={() => setLangOpen((o) => !o)}
+              className="flex items-center gap-2 bg-white/10 backdrop-blur-lg rounded-full px-3 py-1.5 border border-white/20 shadow-lg text-white text-sm hover:bg-white/20 transition-all"
+            >
+              <span className="text-base">
+                {languageOptions.find((l) => l.code === language)?.flag ?? "🌐"}
+              </span>
+              <span className="hidden sm:inline">
+                {languageOptions.find((l) => l.code === language)?.label ?? "English"}
+              </span>
+              <span className="text-xs opacity-60">▾</span>
+            </button>
+
+            {langOpen && (
+              <>
+                {/* Backdrop to close on click outside */}
+                <div className="fixed inset-0 z-0" onClick={() => setLangOpen(false)} />
+                <div className="absolute right-0 mt-2 bg-slate-900/95 backdrop-blur-lg rounded-xl border border-white/20 shadow-2xl overflow-hidden z-10 min-w-[140px]">
+                  {languageOptions.map((opt) => (
+                    <button
+                      key={opt.code}
+                      onClick={() => {
+                        setLanguage(opt.code);
+                        setLangOpen(false);
+                      }}
+                      className={`flex items-center gap-2 w-full px-4 py-2 text-sm text-left hover:bg-white/10 transition-colors ${
+                        language === opt.code ? "bg-white/10 text-yellow-300" : "text-white"
+                      }`}
+                    >
+                      <span className="text-base">{opt.flag}</span>
+                      <span>{opt.label}</span>
+                      {language === opt.code && <span className="ml-auto text-yellow-400">✓</span>}
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         </div>
 
