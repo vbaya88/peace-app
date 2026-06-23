@@ -1,6 +1,11 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useState, useEffect, useCallback } from "react";
+
+// 3D components — loaded client-side only to avoid SSR issues
+const Earth3D = dynamic(() => import("@/components/Earth/Earth3D"), { ssr: false, loading: () => <div className="w-full h-full flex items-center justify-center"><div className="w-16 h-16 border-4 border-purple-400 border-t-transparent rounded-full animate-spin" /></div> });
+const StarField = dynamic(() => import("@/components/Stars/StarField"), { ssr: false });
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -425,22 +430,13 @@ export default function Home() {
 
   return (
     <main className="min-h-screen relative overflow-hidden flex flex-col">
-      {/* Cosmic Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-indigo-950 to-slate-950">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-gradient-to-b from-indigo-900/20 via-transparent to-purple-900/20" />
-        {/* Stars background */}
-        <div className="absolute inset-0 opacity-60" style={{
-          backgroundImage: `radial-gradient(1px 1px at 10% 20%, white 1px, transparent 0),
-            radial-gradient(1px 1px at 30% 60%, white 1px, transparent 0),
-            radial-gradient(1.5px 1.5px at 50% 10%, white 1px, transparent 0),
-            radial-gradient(1px 1px at 70% 80%, white 1px, transparent 0),
-            radial-gradient(1px 1px at 90% 40%, white 1px, transparent 0),
-            radial-gradient(1.5px 1.5px at 20% 90%, white 1px, transparent 0),
-            radial-gradient(1px 1px at 60% 30%, white 1px, transparent 0),
-            radial-gradient(1px 1px at 80% 60%, white 1px, transparent 0)`,
-          backgroundSize: "200px 200px",
-        }} />
+      {/* ── 3D Cosmic Background ── */}
+      <div className="absolute inset-0 z-0">
+        <StarField className="absolute inset-0" />
       </div>
+
+      {/* Deep space gradient overlay */}
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-slate-950/60 via-indigo-950/40 to-slate-950/70" />
 
       {/* Content */}
       <div className="relative z-10 flex flex-col min-h-screen">
@@ -545,6 +541,13 @@ export default function Home() {
 
         {/* Main Content */}
         <section className="flex-grow flex flex-col justify-center items-center py-8 px-4">
+
+          {/* ── 3D Earth Canvas ── */}
+          <div className="w-full max-w-xl h-72 sm:h-80 mb-6 relative">
+            <Earth3D className="w-full h-full" />
+            {/* Subtle glow ring */}
+            <div className="absolute inset-0 rounded-full bg-purple-500/10 blur-3xl -z-10 left-1/2 -translate-x-1/2 w-64 h-64" />
+          </div>
           {/* Counter */}
           <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-center border border-white/30 shadow-2xl mb-6 w-full max-w-md">
             <p className="text-lg text-white mb-2 font-medium">{t.peopleCount}</p>
