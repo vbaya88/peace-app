@@ -13,6 +13,7 @@ const KindnessMap = dynamic(() => import("@/components/KindnessMap/KindnessMap")
   ),
 });
 const StarField = dynamic(() => import("@/components/Stars/StarField"), { ssr: false });
+import MessageChat from "@/components/MessageChat/MessageChat";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -22,6 +23,7 @@ const translations = {
     title: "Pay $1 to see how many people paid $1",
     subtitle: "to see how many people joined the universe",
     brand: "Universe of Kindness 🌌",
+    chatTitle: "Your Messages",
     peopleCount: "People who paid $1",
     countDescription: "See how many kind souls are spreading goodness",
     paySee: " Pay $1 - Pay & See",
@@ -52,6 +54,7 @@ const translations = {
     title: "Paga $1 para ver cuántas personas pagaron $1",
     subtitle: "para ver cuántas personas se unieron al universo",
     brand: "Universo de Bondad 🌌",
+    chatTitle: "Tus Mensajes",
     peopleCount: "Personas que pagaron $1",
     countDescription: "Mira cuántas almas bondadosas están propagando bondad",
     paySee: "💙 Pagar $1 - Ver",
@@ -82,6 +85,7 @@ const translations = {
     title: "Pague $1 para ver quantas pessoas pagaram $1",
     subtitle: "para ver quantas pessoas se juntaram ao universo",
     brand: "Universo da Bondade 🌌",
+    chatTitle: "Suas Mensagens",
     peopleCount: "Pessoas que pagaram $1",
     countDescription: "Veja quantas almas bondosas estão espalhando bondade",
     paySee: "💙 Pagar $1 - Ver",
@@ -112,6 +116,7 @@ const translations = {
     title: "Payez $1 pour voir combien de personnes ont payé $1",
     subtitle: "pour voir combien de personnes ont rejoint l'univers",
     brand: "Univers de Bonté 🌌",
+    chatTitle: "Vos Messages",
     peopleCount: "Personnes ayant payé $1",
     countDescription: "Voyez combien d'âmes bienveillantes propagent la bonté",
     paySee: "💙 Payer $1 - Voir",
@@ -142,6 +147,7 @@ const translations = {
     title: "Zahle $1 um zu sehen, wie viele Personen $1 zahlten",
     subtitle: "um zu sehen, wie viele Personen dem Universum beitraten",
     brand: "Universum der Güte 🌌",
+    chatTitle: "Ihre Nachrichten",
     peopleCount: "Personen, die $1 zahlten",
     countDescription: "Siehe, wie viele gute Seelen Güte verbreiten",
     paySee: "💙 $1 Zahlen - Sehen",
@@ -172,6 +178,7 @@ const translations = {
     title: "支付1美元，看看有多少人支付了1美元",
     subtitle: "看看有多少人加入了这个善良宇宙",
     brand: "善良宇宙 🌌",
+    chatTitle: "您的留言",
     peopleCount: "支付1美元的人们",
     countDescription: "看看有多少善良的灵魂在传播美好",
     paySee: "💙 支付1美元 - 查看",
@@ -202,6 +209,7 @@ const translations = {
     title: "$1 भुगतान करें और देखें कितने लोगों ने $1 का भुगतान किया",
     subtitle: "देखें कितने लोगों ने दयालुता ब्रह्मांड में शामिल हुए",
     brand: "दयालुता ब्रह्मांड 🌌",
+    chatTitle: "आपके संदेश",
     peopleCount: "लोगों ने $1 का भुगतान किया",
     countDescription: "देखें कितने दयालु आत्माएं दया फैला रही हैं",
     paySee: "💙 $1 का भुगतान - देखें",
@@ -232,6 +240,7 @@ const translations = {
     title: "ادفع دولارًا واحدًا لترى كم شخص دفع دولارًا واحدًا",
     subtitle: "لترى كم شخص انضم إلى كون اللطف",
     brand: "كون اللطف 🌌",
+    chatTitle: "رسائلكم",
     peopleCount: "الأشخاص الذين دفعوا دولارًا واحدًا",
     countDescription: "انظر كم روح لطيفة تشارك اللطف",
     paySee: "💙 ادفع $1 - اعرض",
@@ -282,6 +291,7 @@ export default function Home() {
   // State
   const [count, setCount] = useState<number>(0);
   const [messages, setMessages] = useState<string[]>([]);
+  const [chatMessages, setChatMessages] = useState<{ id: string; name: string; text: string }[]>([]);
   const [language, setLanguage] = useState("en");
   const [langOpen, setLangOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -321,6 +331,13 @@ export default function Home() {
             data.messages.map(
               (m: { name: string; text: string }) => `${m.name}: ${m.text}`
             )
+          );
+          setChatMessages(
+            data.messages.map((m: { name: string; text: string }, i: number) => ({
+              id: `msg-${i}-${Date.now()}`,
+              name: m.name,
+              text: m.text,
+            }))
           );
         } else {
           // fallback default messages
@@ -520,6 +537,9 @@ export default function Home() {
         </header>
 
         {/* Scrolling Messages Ticker REMOVED — now rendered as EquatorRing inside KindnessMap */}
+
+        {/* ── Chat-style Message Panel (right side) ── */}
+        <MessageChat messages={chatMessages} title={t.chatTitle} />
 
         {/* Spacer pushes bottom panel down */}
         <div className="flex-grow" />

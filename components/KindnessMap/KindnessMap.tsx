@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import EquatorRing from "./EquatorRing";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -21,7 +20,6 @@ interface KindnessMapProps {
   onMapReady?: () => void;
   onMarkerClick?: (marker: CheckinMarker) => void;
   messages?: string[];
-  onMapZoom?: (zoom: number, center: [number, number]) => void;
 }
 
 // ─── Cluster popup HTML ──────────────────────────────────────────────────────
@@ -64,13 +62,12 @@ function createPhotoMarkerEl(marker: CheckinMarker): HTMLElement {
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 
-export default function KindnessMap({ onMapReady, onMarkerClick, messages = [], onMapZoom }: KindnessMapProps) {
+export default function KindnessMap({ onMapReady, onMarkerClick, messages = [] }: KindnessMapProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const markersRef = useRef<mapboxgl.Marker[]>([]);
   const [mapLoaded, setMapLoaded] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [currentZoom, setCurrentZoom] = useState<number>(2);
 
   // ── Initialize map ─────────────────────────────────────────────────────────
 
@@ -119,21 +116,11 @@ export default function KindnessMap({ onMapReady, onMarkerClick, messages = [], 
     // ── Scale ───────────────────────────────────────────────────────────────
     map.addControl(new mapboxgl.ScaleControl({ maxWidth: 120, unit: "metric" }), "bottom-left");
 
-    // ── Track zoom changes internally for equator scaling ──
-    const reportZoom = () => {
-      const z = map.getZoom();
-      console.log(`[KindnessMap] zoom: ${z}`);
-      setCurrentZoom(z);
-      onMapZoom?.(z, [map.getCenter().lng, map.getCenter().lat]);
-    };
 
-    map.on("zoom", reportZoom);
-    map.on("moveend", reportZoom);
 
     map.on("load", () => {
       setMapLoaded(true);
       onMapReady?.();
-      reportZoom();
     });
 
     mapRef.current = map;
@@ -225,8 +212,7 @@ export default function KindnessMap({ onMapReady, onMarkerClick, messages = [], 
     <div className="relative w-full h-full">
       <div ref={mapContainerRef} className="w-full h-full" />
 
-      {/* Equator Message Ring */}
-      {mapLoaded && <EquatorRing messages={messages} mapZoom={currentZoom} />}
+
 
       {/* Loading overlay */}
       {!mapLoaded && (
