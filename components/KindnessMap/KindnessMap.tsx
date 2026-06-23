@@ -95,17 +95,27 @@ export default function KindnessMap({
   }, [loadCheckins]);
 
   const initMap = (token: string) => {
+    // Ensure container has dimensions before creating map
+    const container = mapContainer.current;
+    if (!container) return;
+
     map.current = new (window as any).mapboxgl.Map({
-      container: mapContainer.current,
+      container: container,
       style: "mapbox://styles/mapbox/dark-v11",
       center: [37.6173, 55.7558],
       zoom: 2,
+      attributionControl: false,
     });
 
     map.current.addControl(new (window as any).mapboxgl.NavigationControl(), "top-right");
     map.current.addControl(new (window as any).mapboxgl.FullscreenControl(), "top-right");
+    map.current.addControl(new (window as any).mapboxgl.AttributionControl({ compact: true }), "bottom-right");
 
     map.current.on("load", () => {
+      // CRITICAL: resize after load to fix transformMat4 bug when container has 0 dimensions at init
+      map.current.resize();
+
+      // Set atmosphere/fog for dark space look
       map.current.setFog({
         color: "rgb(10, 10, 30)",
         "high-color": "rgb(30, 30, 80)",
@@ -113,20 +123,16 @@ export default function KindnessMap({
         "space-color": "rgb(5, 5, 15)",
         "star-intensity": 0.6,
       });
+
       setMapLoaded(true);
       loadCheckins();
     });
 
-    // General map click (Antarctica block etc)
+    // General map click
     map.current.on("click", (e: any) => {
       const { lat } = e.lngLat;
       onMapClickRef.current?.(lat);
     });
-
-    return () => {
-      map.current?.remove();
-      map.current = null;
-    };
   };
 
   // Cleanup on unmount
