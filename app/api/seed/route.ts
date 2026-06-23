@@ -1,6 +1,26 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
+// Ensure pixel columns exist in DB (idempotent — safe to call every time)
+async function ensurePixelColumns() {
+  try {
+    await prisma.$executeRaw`
+      DO $$
+      BEGIN
+        IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'Checkin' AND column_name = 'pixelLat') THEN
+          ALTER TABLE "Checkin" ADD COLUMN "color" TEXT NOT NULL DEFAULT '#818cf8';
+          ALTER TABLE "Checkin" ADD COLUMN "pixelLat" DOUBLE PRECISION NOT NULL DEFAULT 0;
+          ALTER TABLE "Checkin" ADD COLUMN "pixelLng" DOUBLE PRECISION NOT NULL DEFAULT 0;
+          ALTER TABLE "Checkin" ADD COLUMN "level" TEXT NOT NULL DEFAULT 'pixel';
+          ALTER TABLE "Checkin" ADD COLUMN "placeId" TEXT;
+        END IF;
+      END $$;
+    `;
+  } catch (e) {
+    // Columns may already exist — safe to ignore
+  }
+}
+
 const CITIES: [string,string,number,number][] = [
   ["New York","US",40.7128,-74.0060],["Los Angeles","US",34.0522,-118.2437],
   ["London","GB",51.5074,-0.1278],["Paris","FR",48.8566,2.3522],
@@ -39,6 +59,7 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   const clear = new URL(req.url).searchParams.get("clear") === "true";
   try {
+    await ensurePixelColumns();
     if (clear) await prisma.checkin.deleteMany({});
 
     const TOTAL = 1000, BATCH = 100;
