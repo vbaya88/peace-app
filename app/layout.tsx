@@ -2,6 +2,22 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { SessionProvider } from "./session-provider";
 
+// Mapbox GL JS (required by KindnessMap)
+const MapboxScript = () => (
+  <script
+    src="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.js"
+    crossOrigin="anonymous"
+  />
+);
+
+const MapboxCSS = () => (
+  <link
+    rel="stylesheet"
+    href="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.css"
+    crossOrigin="anonymous"
+  />
+);
+
 export const metadata: Metadata = {
   title: "Universe of Kindness | PaySeeWhoPay",
   description:
@@ -15,7 +31,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <MapboxCSS />
+      </head>
       <body>
+        <MapboxScript />
         <SessionProvider>{children}</SessionProvider>
       </body>
     </html>

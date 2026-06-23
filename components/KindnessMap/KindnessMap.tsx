@@ -54,6 +54,14 @@ export default function KindnessMap({
   // Init map
   useEffect(() => {
     if (map.current || !mapContainer.current) return;
+
+    // Wait for mapboxgl to load from CDN script
+    if (!(window as any).mapboxgl) {
+      setStatusMsg("Loading map...");
+      const timer = setTimeout(() => { /* re-trigger effect */ }, 200);
+      return () => clearTimeout(timer);
+    }
+
     const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
     if (!token || token.startsWith("pk.YOUR_")) {
       setStatusMsg("Mapbox token not configured");
