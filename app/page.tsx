@@ -269,16 +269,15 @@ const translations = {
   },
 };
 
-// Language options: flag SVG + label
+// Language options: flag CDN URL + label
 const languageOptions: { code: string; flag: string; label: string }[] = [
-  { code: "en", flag: "🇬🇧", label: "English" },
-  { code: "es", flag: "🇪🇸", label: "Español" },
-  { code: "pt", flag: "🇧🇷", label: "Português" },
-  { code: "fr", flag: "🇫🇷", label: "Français" },
-  { code: "de", flag: "🇩🇪", label: "Deutsch" },
-  { code: "zh", flag: "🇨🇳", label: "中文" },
-  { code: "hi", flag: "🇮🇳", label: "हिन्दी" },
-  { code: "ar", flag: "🇸🇦", label: "العربية" },
+  { code: "en", flag: "https://flagcdn.com/w20/gb.png", label: "English" },
+  { code: "es", flag: "https://flagcdn.com/w20/es.png", label: "Español" },
+  { code: "pt", flag: "https://flagcdn.com/w20/br.png", label: "Português" },
+  { code: "fr", flag: "https://flagcdn.com/w20/fr.png", label: "Français" },
+  { code: "de", flag: "https://flagcdn.com/w20/de.png", label: "Deutsch" },
+  { code: "zh", flag: "https://flagcdn.com/w20/cn.png", label: "中文" },
+  { code: "ar", flag: "https://flagcdn.com/w20/sa.png", label: "العربية" },
 ];
 
 type ProductType = "PAY_SEE" | "LEAVE_MESSAGE" | "BUY_STAR";
@@ -314,10 +313,11 @@ export default function Home() {
       const res = await fetch("/api/counter");
       if (res.ok) {
         const data = await res.json();
-        setCount(data.count);
+        const end = data.count as number;
+        hasRealDataRef.current = end > 0;
+        setCount(end);
         // Animate count up from 0 to target over ~1.8s
         let start = 0;
-        const end = data.count as number;
         const duration = 1800;
         const step = Math.ceil(end / (duration / 16));
         const timer = setInterval(() => {
@@ -325,13 +325,11 @@ export default function Home() {
           setDisplayCount(start);
           if (start >= end) clearInterval(timer);
         }, 16);
-      } else if (displayCount === 0) {
-        // No DB data yet — simulation will start via separate useEffect
       }
     } catch {
-      // fallback: simulation will start via separate useEffect
+      // Simulation will handle counter via separate useEffect
     }
-  }, [displayCount]);
+  }, []);
 
   // Fetch messages for ticker
   const fetchMessages = useCallback(async () => {
@@ -377,23 +375,20 @@ export default function Home() {
   }, []);
 
   // Simulate counter growth when no real data (demo mode)
+  // Uses hasRealDataRef so this is independent of fetchCounter result
+  const hasRealDataRef = useRef(false);
   const simulationStarted = useRef(false);
   const simulationIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   useEffect(() => {
+    if (hasRealDataRef.current) return; // skip if real data arrived via fetchCounter
     if (simulationStarted.current) return;
-    // Start simulation after 3s
-    const timer = setTimeout(() => {
-      if (simulationStarted.current) return;
-      simulationStarted.current = true;
-      // Set initial demo value
-      setDisplayCount(147);
-      // Then grow by +1 every 10-30s
-      simulationIntervalRef.current = setInterval(() => {
-        setDisplayCount((prev) => prev + 1);
-      }, 10_000 + Math.random() * 20_000);
-    }, 3000);
+    simulationStarted.current = true;
+    // Start at 147 after 3s
+    setDisplayCount(147);
+    simulationIntervalRef.current = setInterval(() => {
+      setDisplayCount((prev) => prev + 1);
+    }, 10_000 + Math.random() * 20_000);
     return () => {
-      clearTimeout(timer);
       if (simulationIntervalRef.current) clearInterval(simulationIntervalRef.current);
     };
   }, []);
@@ -508,7 +503,7 @@ export default function Home() {
               className="flex items-center gap-2 bg-transparent backdrop-blur-none rounded-full px-3 py-1.5 shadow-none text-white text-sm hover:bg-white/10 transition-all border border-white/10"
             >
               <img
-                src={`https://flagcdn.com/w20/${language === "en" ? "gb" : language === "zh" ? "cn" : language === "ar" ? "sa" : language}.png`}
+                src={languageOptions.find((l) => l.code === language)?.flag ?? "https://flagcdn.com/w20/gb.png"}
                 alt=""
                 className="w-5 h-3.5 rounded-sm object-cover"
               />
@@ -535,7 +530,7 @@ export default function Home() {
                       }`}
                     >
                       <img
-                        src={`https://flagcdn.com/w20/${opt.code === "en" ? "gb" : opt.code === "zh" ? "cn" : opt.code === "ar" ? "sa" : opt.code}.png`}
+                        src={opt.flag}
                         alt=""
                         className="w-5 h-3.5 rounded-sm object-cover"
                       />
@@ -573,12 +568,22 @@ export default function Home() {
           )}
         </div>
 
-        {/* Header — recursive title, 2 lines, aligned with auth/lang buttons */}
-        <header className="absolute top-4 left-1/2 -translate-x-1/2 text-center px-4 z-30 pointer-events-none">
+        {/* Header — title + brand + counter, centered */}
+        <header className="absolute top-4 left-1/2 -translate-x-1/2 text-center px-4 z-30 pointer-events-none flex flex-col items-center">
           <h1 className="text-lg sm:text-xl md:text-2xl font-bold drop-shadow-lg bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 bg-clip-text text-transparent leading-tight whitespace-nowrap">
             {t.title}
           </h1>
           <p className="text-sm sm:text-base text-white drop-shadow-md mt-0.5">{t.brand}</p>
+          {/* Counter — below brand, no label */}
+          <div className="mt-2">
+            {isLoading ? (
+              <div className="text-3xl font-bold text-gray-400 animate-pulse">···</div>
+            ) : (
+              <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+                {displayCount.toLocaleString()}
+              </div>
+            )}
+          </div>
         </header>
 
         {/* Scrolling Messages Ticker REMOVED — now rendered as EquatorRing inside KindnessMap */}
@@ -586,24 +591,10 @@ export default function Home() {
         {/* Spacer pushes bottom panel down */}
         <div className="flex-grow" />
 
-        {/* Bottom Panel — Counter (left) + Buttons (center) */}
+        {/* Bottom Panel — 3 buttons centered at bottom */}
         <section className="px-4 pb-4 pointer-events-auto">
-          <div className="flex flex-row items-end justify-between gap-3 max-w-6xl mx-auto">
-
-            {/* Counter — bottom left, aligned middle with buttons */}
-            <div className="bg-transparent backdrop-blur-none rounded-2xl p-4 text-center border-0 shadow-none min-w-[160px] pb-6">
-              <p className="text-xs text-white/70 uppercase tracking-wide">{t.peopleCount}</p>
-              {isLoading ? (
-                <div className="text-4xl font-bold text-gray-400 animate-pulse">···</div>
-              ) : (
-                <div className="text-4xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
-                  {displayCount.toLocaleString()}
-                </div>
-              )}
-            </div>
-
-            {/* Action Buttons — centered, Leave Message in middle */}
-            <div className="flex gap-2 flex-wrap justify-center absolute left-1/2 -translate-x-1/2 bottom-4">
+          <div className="flex justify-center">
+            <div className="flex gap-2 flex-wrap justify-center">
               <button
                 onClick={() => openModal("PAY_SEE")}
                 className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold py-2.5 px-5 rounded-full text-sm shadow-lg transform hover:scale-105 transition-all duration-300"
@@ -623,9 +614,6 @@ export default function Home() {
                 {t.buyStar}
               </button>
             </div>
-
-            {/* Right spacer for balance */}
-            <div className="min-w-[160px]" />
           </div>
         </section>
 
