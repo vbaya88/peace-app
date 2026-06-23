@@ -242,6 +242,19 @@ model Checkin {
   // Zoom level at which user placed the marker
   zoomLevel Int      @default(10)
 
+  // Pixel War — exact pixel grid position (10m grid)
+  pixelLat  Float?
+  pixelLng  Float?
+
+  // Pixel War — level of the pixel region
+  level     String  @default("pixel")
+
+  // Pixel War — user-chosen color
+  color     String  @default("#818cf8")
+
+  // OSM place ID (for water check)
+  placeId   String?
+
   // For clustering: country / city / neighborhood / street
   countryCode String?
   city        String?

@@ -21,7 +21,8 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, message, latitude, longitude, zoomLevel, photoUrl, paymentId } = body;
+    const { name, message, latitude, longitude, zoomLevel, photoUrl, paymentId, level } = body;
+    const color = body.color || "#818cf8";
 
     // Validate required fields
     if (!name?.trim()) {
@@ -34,7 +35,19 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid coordinates" }, { status: 400 });
     }
 
-    // BLOCK ANTARCTICA — dedicated task coming later
+    // Validate not on water
+    const origin = req.headers.get("origin") || "http://localhost:3000";
+    const waterRes = await fetch(`${origin}/api/geo/water-check`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ latitude, longitude }),
+    });
+    const waterData = await waterRes.json();
+    if (!waterData.allowed) {
+      return NextResponse.json({ error: waterData.reason }, { status: 400 });
+    }
+
+    // BLOCK ANTARCTICA
     if (latitude < -60) {
       return NextResponse.json(
         { error: "Antarctica is not available for check-ins yet. This region will be enabled in a future update." },
@@ -42,10 +55,9 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Rough country/city detection based on coordinates (simplified reverse geocoding)
-    // In production: use Mapbox Geocoding API
-    const countryCode = "XX"; // placeholder — can call Mapbox Geocoding API here
-    const city = "Unknown";
+    // Use location from water check response
+    const countryCode = waterData.countryCode || "XX";
+    const city = waterData.city || "Unknown";
 
     const checkin = await prisma.checkin.create({
       data: {
@@ -60,6 +72,11 @@ export async function POST(req: NextRequest) {
         paymentId: paymentId || null,
         isPaid: !!paymentId,
         isVisible: true,
+        // Pixel War fields
+        color,
+        pixelLat: latitude,
+        pixelLng: longitude,
+        level: level || "pixel",
       },
     });
 

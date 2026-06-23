@@ -14,6 +14,7 @@ const CITIES: [string,string,number,number][] = [
   ["Istanbul","TR",41.0082,28.9784],["Buenos Aires","AR",-34.6037,-58.3816],
 ];
 const MSGS = ["Kindness! 😊","Love 🌍","We are connected 💜","One act changes everything","Peace ✨","Make the world better!","Kindness is contagious 💕","Every small act counts 🌟","We rise by lifting others 🌅","Small gestures, big impact ✊","Share your light ✨","Every heartbeat matters ❤️","Plant seeds of kindness 🌱","Choose kindness 💛","Together stronger 🤝","A kinder world 🦋","Love and peace 🕊️","Be the change 🌈","One person makes a difference 💫","Kindness makes the world go round 🌍"];
+const COLORS = ["#818cf8","#f472b6","#34d399","#fbbf24","#60a5fa","#a78bfa","#f87171","#4ade80","#e879f9","#facc15","#38bdf8","#c084fc","#fb923c","#2dd4bf","#f43f5e","#a3e635"];
 const FIRST = ["Alex","Maria","Sam","Priya","Chen","Amara","Liam","Sofia","Yuki","Fatima","Carlos","Anna","Raj","Emma","Ivan","Olivia","Mika","Julia","Dani","Nia"];
 const LAST  = ["Smith","Garcia","Patel","Chen","Johnson","Williams","Brown","Jones","Miller","Davis","Wilson","Moore","Taylor","Anderson","Thomas","Jackson","White","Harris","Martin","Thompson"];
 const CAT_IMG = "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=100&q=80";
@@ -53,6 +54,10 @@ export async function POST(req: NextRequest) {
           photoUrl: CAT_IMG,
           latitude: parseFloat(j(bl, 0.025).toFixed(6)),
           longitude: parseFloat(j(bln, 0.035).toFixed(6)),
+          color: r(COLORS),
+          pixelLat: parseFloat(j(bl, 0.00009).toFixed(6)),
+          pixelLng: parseFloat(j(bln, 0.00013).toFixed(6)),
+          level: "pixel",
           zoomLevel: Math.floor(Math.random() * 4) + 8,
           countryCode: cc,
           city,

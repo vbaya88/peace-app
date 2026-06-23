@@ -305,6 +305,13 @@ export default function Home() {
   const [messageText, setMessageText] = useState("");
   const [starName, setStarName] = useState("");
 
+  // Pixel War state
+  const [chosenColor, setChosenColor] = useState("#818cf8");
+  const [isPlacing, setIsPlacing] = useState(false);
+  const [selectedCoords, setSelectedCoords] = useState<{lat: number; lng: number} | null>(null);
+  const [showForm, setShowForm] = useState(false);
+  const [formAddress, setFormAddress] = useState("");
+
   const t = translations[language as keyof typeof translations] ?? translations.en;
 
   // Fetch counter from DB
@@ -490,11 +497,17 @@ export default function Home() {
         <KindnessMap
           messages={messages}
           onMapClick={(lat) => {
-            // Block Antarctica
             if (lat < -60) {
               alert("Antarctica is not available. Please choose another location! 🌍");
               return;
             }
+          }}
+          selectedColor={chosenColor}
+          isPlacingMode={isPlacing}
+          onLocationSelect={(lat, lng, address) => {
+            setSelectedCoords({ lat, lng });
+            setShowForm(true);
+            setFormAddress(address);
           }}
         />
       </div>
@@ -577,6 +590,40 @@ export default function Home() {
           )}
         </div>
 
+        {/* Color picker + Place button — above header */}
+        <div className="absolute top-16 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-30 pointer-events-auto">
+          {/* Color picker */}
+          <div style={{ display: "flex", gap: 6, alignItems: "center", background: "rgba(0,0,0,0.5)", backdropFilter: "blur(8px)", borderRadius: 24, padding: "8px 12px", border: "1px solid rgba(255,255,255,0.15)" }}>
+            {["#818cf8","#f472b6","#34d399","#fbbf24","#60a5fa","#a78bfa","#f87171","#4ade80","#e879f9","#facc15","#38bdf8","#c084fc","#fb923c","#2dd4bf","#f43f5e","#a3e635"].map(c => (
+              <button
+                key={c}
+                onClick={() => setChosenColor(c)}
+                title={c}
+                style={{
+                  width: 22, height: 22, borderRadius: "50%", background: c,
+                  border: chosenColor === c ? "3px solid white" : "2px solid rgba(255,255,255,0.3)",
+                  cursor: "pointer", transform: chosenColor === c ? "scale(1.25)" : "scale(1)",
+                  transition: "transform 0.15s, border 0.15s",
+                }}
+              />
+            ))}
+          </div>
+          {/* Place My Kindness button */}
+          <button
+            onClick={() => setIsPlacing(p => !p)}
+            style={{
+              background: isPlacing ? "#818cf8" : "rgba(255,255,255,0.1)",
+              color: isPlacing ? "white" : "rgba(255,255,255,0.8)",
+              border: "1px solid rgba(255,255,255,0.2)",
+              borderRadius: 20, padding: "8px 20px", cursor: "pointer",
+              fontWeight: 600, fontSize: 13, backdropFilter: "blur(8px)",
+              transition: "all 0.2s",
+            }}
+          >
+            {isPlacing ? "✓ Click on map to place..." : "📍 Place My Kindness"}
+          </button>
+        </div>
+
         {/* Header — title + brand + counter, centered */}
         <header className="absolute top-4 left-1/2 -translate-x-1/2 text-center px-4 z-30 pointer-events-none flex flex-col items-center">
           <h1 className="text-lg sm:text-xl md:text-2xl font-bold drop-shadow-lg bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 bg-clip-text text-transparent leading-tight whitespace-nowrap">
@@ -627,6 +674,82 @@ export default function Home() {
         </section>
 
       </div>
+
+      {/* ── Inline Check-in Form (after pixel placement) ────────────────────── */}
+      {showForm && selectedCoords && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-gradient-to-b from-indigo-950 to-purple-950 rounded-2xl p-8 max-w-md w-full border border-white/20 shadow-2xl">
+            <h2 className="text-2xl font-bold mb-2 text-center text-white">✨ Place Your Kindness</h2>
+            <p className="text-gray-400 text-sm mb-4 text-center">{formAddress}</p>
+            <div className="flex items-center gap-2 mb-4">
+              <div style={{ width: 24, height: 24, borderRadius: "50%", background: chosenColor, border: "2px solid white" }} />
+              <span className="text-white text-sm">{chosenColor}</span>
+            </div>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder={t.namePlaceholder}
+              className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 mb-3 focus:outline-none focus:ring-2 focus:ring-purple-400"
+              maxLength={80}
+            />
+            <textarea
+              value={messageText}
+              onChange={(e) => setMessageText(e.target.value)}
+              placeholder={t.messagePlaceholder}
+              rows={3}
+              className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 mb-4 focus:outline-none focus:ring-2 focus:ring-purple-400 resize-none"
+              maxLength={200}
+            />
+            {error && <div className="text-red-400 text-sm mb-4">{error}</div>}
+            <div className="flex gap-3">
+              <button
+                onClick={() => { setShowForm(false); setSelectedCoords(null); setIsPlacing(false); }}
+                className="flex-1 py-3 rounded-lg bg-gray-600 hover:bg-gray-700 transition-colors text-white font-bold"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={async () => {
+                  if (!name.trim()) { setError("Please enter your name."); return; }
+                  setIsProcessing(true);
+                  setError(null);
+                  try {
+                    const res = await fetch("/api/checkins", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({
+                        name: name.trim(),
+                        message: messageText.trim() || undefined,
+                        latitude: selectedCoords.lat,
+                        longitude: selectedCoords.lng,
+                        color: chosenColor,
+                        level: "pixel",
+                      }),
+                    });
+                    const data = await res.json();
+                    if (!res.ok) throw new Error(data.error || "Failed to place kindness");
+                    setShowForm(false);
+                    setSelectedCoords(null);
+                    setName(""); setMessageText("");
+                    setIsPlacing(false);
+                    // Refresh counter
+                    fetchCounter();
+                  } catch (err) {
+                    setError(err instanceof Error ? err.message : "Failed to place kindness");
+                  } finally {
+                    setIsProcessing(false);
+                  }
+                }}
+                disabled={isProcessing || !name.trim()}
+                className="flex-1 py-3 rounded-lg bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 transition-colors font-bold text-white disabled:opacity-60"
+              >
+                {isProcessing ? "Placing..." : "✦ Place Kindness"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ── Payment Modal (Pay & See) ─────────────────────────────────────── */}
       {activeModal === "PAY_SEE" && (
