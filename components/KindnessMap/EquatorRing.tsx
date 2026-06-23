@@ -1,70 +1,128 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface EquatorRingProps {
   messages: string[];
 }
 
 export default function EquatorRing({ messages }: EquatorRingProps) {
-  const ref = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [size, setSize] = useState({ w: 0, h: 0 });
 
-  // ── Just ensure container exists and has size ──
+  // ── Measure container ──
   useEffect(() => {
-    const el = ref.current;
+    const el = containerRef.current;
     if (!el) return;
 
-    // Debug: log that we rendered
-    console.log("[EquatorRing] mounted, container size:", el.getBoundingClientRect().width, "x", el.getBoundingClientRect().height);
+    const measure = () => {
+      const r = el.getBoundingClientRect();
+      if (r.width > 0) setSize({ w: r.width, h: r.height });
+    };
+
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+
+    // Poll for late map load
+    measure();
+    setTimeout(measure, 500);
+    setTimeout(measure, 1500);
+    setTimeout(measure, 3000);
+
+    return () => ro.disconnect();
   }, []);
 
+  const { w, h } = size;
+
+  // No size yet → render nothing visible
+  if (w === 0 || h === 0) {
+    return (
+      <div ref={containerRef} className="absolute inset-0 pointer-events-none z-[5]" />
+    );
+  }
+
+  // Globe parameters
+  const cx = w / 2;
+  const cy = h / 2;
+  const globeRadius = Math.min(w, h) * 0.38; // visible globe radius
+  const rx = globeRadius * 1.12; // ellipse rx (slightly wider)
+  const ry = globeRadius * 0.22; // ellipse ry (curved around sphere)
+
+  // Build messages
   const rawMessages = messages.length > 0
     ? [...messages, ...messages, ...messages, ...messages]
     : ["Peace and love! 🌍", "Kindness matters! ❤️", "Spread the light! ✨",
        "Together we shine! 🌟", "Be the change! 🦋"];
 
+  // Duplicate for seamless loop
+  const allMsgs = [...rawMessages, ...rawMessages];
+
+  // Auto-scale font based on message count
+  const baseFontSize = Math.max(8, Math.min(14, 180 / allMsgs.length));
+
   return (
     <div
-      ref={ref}
-      className="absolute inset-0 pointer-events-none z-[5] overflow-hidden"
-      style={{ contain: "layout style" }}
+      ref={containerRef}
+      className="absolute inset-0 pointer-events-none z-[5] overflow-visible"
     >
-      {/* The equator line — positioned at vertical center */}
-      <div
-        className="absolute left-0 right-0 flex items-center overflow-hidden"
-        style={{
-          top: "50%",
-          transform: "translateY(-50%)",
-        }}
+      <svg
+        width={w}
+        height={h}
+        className="absolute inset-0"
+        style={{ overflow: "visible" }}
       >
-        {/* Scrolling content via CSS animation */}
-        <div
-          className="flex whitespace-nowrap"
-          style={{
-            animation: "equator-scroll 30s linear infinite",
-          }}
-        >
-          {[...rawMessages, ...rawMessages].map((msg, i) => (
-            <span
-              key={`eq-${i}`}
-              className="inline-block whitespace-nowrap mx-4 text-white font-medium select-none"
-              style={{
-                fontSize: "12px",
-                letterSpacing: "0.03em",
-                textShadow: "0 0 8px rgba(0,0,0,1), 0 0 20px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.9)",
-              }}
-            >
-              {msg} ✨
-            </span>
-          ))}
-        </div>
-      </div>
+        {/* Define the elliptical equator path */}
+        <defs>
+          <path
+            id="equator-path"
+            d={`M ${cx - rx} ${cy}
+                A ${rx} ${ry} 0 1 1 ${cx + rx} ${cy}
+                A ${rx} ${ry} 0 1 1 ${cx - rx} ${cy}`}
+            fill="none"
+          />
+        </defs>
 
-      {/* Inline keyframes — no external CSS needed */}
-      <style jsx>{`
-        @keyframes equator-scroll {
-          from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
+        {/* Render each message along the path with animation offset */}
+        {allMsgs.map((msg, i) => {
+          // Distribute evenly along path, then animate offset
+          const totalMessages = allMsgs.length;
+          const baseOffset = (i / totalMessages) * 100;
+
+          return (
+            <text key={`eq-${i}`}>
+              <textPath
+                href="#equator-path"
+                startOffset={`${baseOffset}%`}
+                textAnchor="middle"
+                dominantBaseline="central"
+                className="equator-text"
+                style={{
+                  fontSize: `${baseFontSize}px`,
+                  fill: "#ffffff",
+                  letterSpacing: "0.03em",
+                  fontFamily: "system-ui, sans-serif",
+                  fontWeight: 500,
+                  filter: "drop-shadow(0 0 6px rgba(0,0,0,0.9)) drop-shadow(0 0 16px rgba(0,0,0,0.7)) drop-shadow(0 2px 4px rgba(0,0,0,0.9))",
+                  animation: `eq-flow ${30 + totalMessages * 2}s linear infinite`,
+                  animationDelay: `-${(i / totalMessages) * (30 + totalMessages * 2)}s`,
+                }}
+              >
+                {msg} ✨
+              </textPath>
+            </text>
+          );
+        })}
+      </svg>
+
+      {/* Inline styles for animation */}
+      <style jsx global>{`
+        @keyframes eq-flow {
+          from { offset-distance: 0%; }
+          to   { offset-distance: 100%; }
+        }
+
+        .equator-text {
+          /* Fade effect handled by SVG visibility on back-half of ellipse */
         }
       `}</style>
     </div>
