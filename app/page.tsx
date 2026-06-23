@@ -3,8 +3,15 @@
 import dynamic from "next/dynamic";
 import { useState, useEffect, useCallback } from "react";
 
-// 3D components — loaded client-side only to avoid SSR issues
-const Earth3D = dynamic(() => import("@/components/Earth/Earth3D"), { ssr: false, loading: () => <div className="w-full h-full flex items-center justify-center"><div className="w-16 h-16 border-4 border-purple-400 border-t-transparent rounded-full animate-spin" /></div> });
+// Map — loaded client-side only to avoid SSR issues
+const KindnessMap = dynamic(() => import("@/components/KindnessMap/KindnessMap"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-full flex items-center justify-center">
+      <div className="w-16 h-16 border-4 border-purple-400 border-t-transparent rounded-full animate-spin" />
+    </div>
+  ),
+});
 const StarField = dynamic(() => import("@/components/Stars/StarField"), { ssr: false });
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -540,13 +547,15 @@ export default function Home() {
         </div>
 
         {/* Main Content */}
-        <section className="flex-grow flex flex-col justify-center items-center py-8 px-4">
+        <section className="flex-grow flex flex-col items-center py-8 px-4 gap-6">
 
-          {/* ── 3D Earth Canvas ── */}
-          <div className="w-full max-w-xl h-72 sm:h-80 mb-6 relative">
-            <Earth3D className="w-full h-full" />
-            {/* Subtle glow ring */}
-            <div className="absolute inset-0 rounded-full bg-purple-500/10 blur-3xl -z-10 left-1/2 -translate-x-1/2 w-64 h-64" />
+          {/* ── Kindness Map ── */}
+          <div className="w-full max-w-5xl h-[65vh] sm:h-[70vh] rounded-2xl overflow-hidden border-2 border-purple-500/40 shadow-2xl relative">
+            <KindnessMap />
+            {/* Map overlay hint */}
+            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-sm rounded-full px-4 py-1.5 text-xs text-white/70 pointer-events-none z-[5]">
+              🗺️ Click anywhere to place your mark · Scroll to zoom · Drag to explore
+            </div>
           </div>
           {/* Counter */}
           <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-center border border-white/30 shadow-2xl mb-6 w-full max-w-md">

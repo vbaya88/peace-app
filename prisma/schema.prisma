@@ -65,6 +65,7 @@ model User {
   messages    Message[]
   stars       Star[]
   company     Company?
+  checkins    Checkin[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -218,6 +219,47 @@ enum CompanyTier {
   BASIC      // $10/mo
   PREMIUM    // $50/mo
   ENTERPRISE // $100/mo
+}
+
+// ─── Kindness Map — User Check-ins ─────────────────────────────────────────────
+
+model Checkin {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  // Photo (uploaded by user, stored as URL or base64)
+  photoUrl  String?  @db.Text
+
+  // Identity
+  name      String
+  message   String?  @db.Text
+
+  // Geographic position (clicked on map)
+  latitude  Float
+  longitude Float
+
+  // Zoom level at which user placed the marker
+  zoomLevel Int      @default(10)
+
+  // For clustering: country / city / neighborhood / street
+  countryCode String?
+  city        String?
+  neighborhood String?
+
+  // Payment
+  paymentId  String?  @unique
+  isPaid     Boolean  @default(false)
+
+  // Visibility
+  isVisible  Boolean  @default(true)
+
+  createdAt  DateTime @default(now())
+
+  @@index([latitude, longitude])
+  @@index([countryCode])
+  @@index([isVisible])
+  @@index([paymentId])
 }
 
 // ─── Counter (singleton) ──────────────────────────────────────────────────────
