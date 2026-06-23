@@ -70,9 +70,7 @@ export default function KindnessMap({
         .then(d => { if (d.value) initMap(d.value as string); })
         .catch(() => setStatusMsg("Mapbox token not configured"));
       return;
-    }
-
-    if (!token || !token.startsWith("pk.")) {
+    } else if (!token.startsWith("pk.")) {
       setStatusMsg("Mapbox token not configured");
       return;
     }
