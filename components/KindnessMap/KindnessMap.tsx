@@ -3,6 +3,9 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import dynamic from "next/dynamic";
+
+const EquatorRing = dynamic(() => import("./EquatorRing"), { ssr: false });
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -19,6 +22,7 @@ interface CheckinMarker {
 interface KindnessMapProps {
   onMapReady?: () => void;
   onMarkerClick?: (marker: CheckinMarker) => void;
+  messages?: string[];
 }
 
 // ─── Cluster popup HTML ──────────────────────────────────────────────────────
@@ -61,7 +65,7 @@ function createPhotoMarkerEl(marker: CheckinMarker): HTMLElement {
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 
-export default function KindnessMap({ onMapReady, onMarkerClick }: KindnessMapProps) {
+export default function KindnessMap({ onMapReady, onMarkerClick, messages = [] }: KindnessMapProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const markersRef = useRef<mapboxgl.Marker[]>([]);
@@ -208,6 +212,9 @@ export default function KindnessMap({ onMapReady, onMarkerClick }: KindnessMapPr
   return (
     <div className="relative w-full h-full">
       <div ref={mapContainerRef} className="w-full h-full" />
+
+      {/* Equator Message Ring */}
+      {mapLoaded && <EquatorRing messages={messages} />}
 
       {/* Loading overlay */}
       {!mapLoaded && (

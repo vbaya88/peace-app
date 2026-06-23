@@ -439,7 +439,7 @@ export default function Home() {
     <main className="h-[100dvh] w-full relative overflow-hidden">
       {/* ── Full-Screen Map Background ── */}
       <div className="absolute inset-0 z-0">
-        <KindnessMap />
+        <KindnessMap messages={messages} />
       </div>
 
       {/* Content overlay on top of map */}
@@ -519,28 +519,7 @@ export default function Home() {
           <p className="text-sm sm:text-base text-white/90 drop-shadow-md mt-1">{t.brand}</p>
         </header>
 
-        {/* Scrolling Messages Ticker — thin strip over map */}
-        <div className="bg-black/30 backdrop-blur-sm py-1.5 overflow-hidden border-y border-white/10 mx-4 rounded-xl">
-          {messages.length > 0 ? (
-            <div className="flex animate-scroll whitespace-nowrap">
-              {[...messages, ...messages].map((msg, index) => (
-                <span key={index} className="mx-6 text-sm text-white/90 font-medium drop-shadow">
-                  {msg} ✨
-                </span>
-              ))}
-            </div>
-          ) : (
-            <div className="flex animate-scroll whitespace-nowrap">
-              {[1, 2].flatMap((i) =>
-                ["Peace and love! 🌍", "Kindness matters! ❤️", "Spread the light! ✨", "Together we shine! 🌟", "Be the change! 🦋"].map((msg, j) => (
-                  <span key={`${i}-${j}`} className="mx-6 text-sm text-white/90 font-medium drop-shadow">
-                    {msg}
-                  </span>
-                ))
-              )}
-            </div>
-          )}
-        </div>
+        {/* Scrolling Messages Ticker REMOVED — now rendered as EquatorRing inside KindnessMap */}
 
         {/* Spacer pushes bottom panel down */}
         <div className="flex-grow" />
