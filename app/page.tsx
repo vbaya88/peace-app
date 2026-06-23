@@ -269,16 +269,16 @@ const translations = {
   },
 };
 
-// Language options: code + label
+// Language options: flag emoji + label
 const languageOptions: { code: string; flag: string; label: string }[] = [
-  { code: "en", flag: "EN", label: "English" },
-  { code: "es", flag: "ES", label: "Español" },
-  { code: "pt", flag: "PT", label: "Português" },
-  { code: "fr", flag: "FR", label: "Français" },
-  { code: "de", flag: "DE", label: "Deutsch" },
-  { code: "zh", flag: "ZH", label: "中文" },
-  { code: "hi", flag: "HI", label: "हिन्दी" },
-  { code: "ar", flag: "AR", label: "العربية" },
+  { code: "en", flag: "\u{1F1EC}\u{1F1E7}", label: "English" },
+  { code: "es", flag: "\u{1F1EA}\u{1F1F8}", label: "Español" },
+  { code: "pt", flag: "\u{1F1E7}\u{1F1F7}", label: "Português" },
+  { code: "fr", flag: "\u{1F1EB}\u{1F1F7}", label: "Français" },
+  { code: "de", flag: "\u{1F1E9}\u{1F1EA}", label: "Deutsch" },
+  { code: "zh", flag: "\u{1F1E8}\u{1F1F3}", label: "中文" },
+  { code: "hi", flag: "\u{1F1EE}\u{1F1F3}", label: "हिन्दी" },
+  { code: "ar", flag: "\u{1F1F8}\u{1F1E6}", label: "العربية" },
 ];
 
 type ProductType = "PAY_SEE" | "LEAVE_MESSAGE" | "BUY_STAR";
@@ -492,6 +492,9 @@ export default function Home() {
         <KindnessMap messages={messages} />
       </div>
 
+        {/* ── Chat-style Message Panel (right side) — OUTSIDE pointer-events-none container ── */}
+        <MessageChat messages={chatMessages} title={t.chatTitle} />
+
       {/* Content overlay on top of map */}
       <div className="relative z-10 h-full flex flex-col pointer-events-none">
         {/* Language Switcher — compact dropdown, transparent */}
@@ -571,18 +574,27 @@ export default function Home() {
 
         {/* Scrolling Messages Ticker REMOVED — now rendered as EquatorRing inside KindnessMap */}
 
-        {/* ── Chat-style Message Panel (right side) ── */}
-        <MessageChat messages={chatMessages} title={t.chatTitle} />
-
         {/* Spacer pushes bottom panel down */}
         <div className="flex-grow" />
 
-        {/* Bottom Panel — Buttons centered + Counter to the right */}
+        {/* Bottom Panel — Counter (left) + Buttons (center) */}
         <section className="px-4 pb-4 pointer-events-auto">
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-6xl mx-auto">
+          <div className="flex flex-row items-end justify-between gap-3 max-w-6xl mx-auto">
 
-            {/* Action Buttons — centered block (Leave Message = middle) */}
-            <div className="flex gap-2 flex-wrap justify-center order-1 sm:order-1">
+            {/* Counter — bottom left, separate from buttons */}
+            <div className="bg-transparent backdrop-blur-none rounded-2xl p-4 text-center border-0 shadow-none min-w-[160px] self-end">
+              <p className="text-xs text-white/70 uppercase tracking-wide">{t.peopleCount}</p>
+              {isLoading ? (
+                <div className="text-4xl font-bold text-gray-400 animate-pulse">···</div>
+              ) : (
+                <div className="text-4xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+                  {displayCount.toLocaleString()}
+                </div>
+              )}
+            </div>
+
+            {/* Action Buttons — centered, Leave Message in middle */}
+            <div className="flex gap-2 flex-wrap justify-center absolute left-1/2 -translate-x-1/2 bottom-4">
               <button
                 onClick={() => openModal("PAY_SEE")}
                 className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold py-2.5 px-5 rounded-full text-sm shadow-lg transform hover:scale-105 transition-all duration-300"
@@ -603,17 +615,8 @@ export default function Home() {
               </button>
             </div>
 
-            {/* Counter — transparent background, to the right of buttons */}
-            <div className="bg-transparent backdrop-blur-none rounded-2xl p-4 text-center border-0 shadow-none sm:min-w-[200px] order-2 sm:order-2 ml-4">
-              <p className="text-xs text-white/70 uppercase tracking-wide">{t.peopleCount}</p>
-              {isLoading ? (
-                <div className="text-4xl font-bold text-gray-400 animate-pulse">···</div>
-              ) : (
-                <div className="text-4xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
-                  {displayCount.toLocaleString()}
-                </div>
-              )}
-            </div>
+            {/* Right spacer for balance */}
+            <div className="min-w-[160px]" />
           </div>
         </section>
 
