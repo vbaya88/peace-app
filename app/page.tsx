@@ -436,19 +436,16 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen relative overflow-hidden flex flex-col">
-      {/* ── 3D Cosmic Background ── */}
+    <main className="h-[100dvh] w-full relative overflow-hidden">
+      {/* ── Full-Screen Map Background ── */}
       <div className="absolute inset-0 z-0">
-        <StarField className="absolute inset-0" />
+        <KindnessMap />
       </div>
 
-      {/* Deep space gradient overlay */}
-      <div className="absolute inset-0 z-0 bg-gradient-to-b from-slate-950/60 via-indigo-950/40 to-slate-950/70" />
-
-      {/* Content */}
-      <div className="relative z-10 flex flex-col min-h-screen">
+      {/* Content overlay on top of map */}
+      <div className="relative z-10 h-full flex flex-col pointer-events-none">
         {/* Language Switcher — compact dropdown */}
-        <div className="absolute top-6 right-6 z-50">
+        <div className="absolute top-4 right-4 z-50 pointer-events-auto">
           <div className="relative">
             <button
               onClick={() => setLangOpen((o) => !o)}
@@ -491,7 +488,7 @@ export default function Home() {
         </div>
 
         {/* Auth Button */}
-        <div className="absolute top-6 left-6 z-50">
+        <div className="absolute top-4 left-4 z-50 pointer-events-auto">
           {session ? (
             <div className="flex items-center gap-3 bg-white/10 backdrop-blur-lg rounded-full px-4 py-2 border border-white/20">
               <span className="text-white text-sm">
@@ -514,21 +511,20 @@ export default function Home() {
           )}
         </div>
 
-        {/* Header */}
-        <header className="text-center py-6 px-4 pt-20">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+        {/* Header — compact, over map */}
+        <header className="text-center pt-14 pb-1 px-4">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold drop-shadow-lg bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 bg-clip-text text-transparent leading-tight">
             {t.title}
           </h1>
-          <p className="text-xl md:text-2xl text-white mb-2">{t.subtitle}</p>
-          <p className="text-lg text-gray-300 mt-4">{t.brand}</p>
+          <p className="text-sm sm:text-base text-white/90 drop-shadow-md mt-1">{t.brand}</p>
         </header>
 
-        {/* Scrolling Messages Ticker */}
-        <div className="bg-black/40 backdrop-blur-md py-3 overflow-hidden border-y border-white/10">
+        {/* Scrolling Messages Ticker — thin strip over map */}
+        <div className="bg-black/30 backdrop-blur-sm py-1.5 overflow-hidden border-y border-white/10 mx-4 rounded-xl">
           {messages.length > 0 ? (
             <div className="flex animate-scroll whitespace-nowrap">
               {[...messages, ...messages].map((msg, index) => (
-                <span key={index} className="mx-8 text-lg text-white font-medium">
+                <span key={index} className="mx-6 text-sm text-white/90 font-medium drop-shadow">
                   {msg} ✨
                 </span>
               ))}
@@ -537,7 +533,7 @@ export default function Home() {
             <div className="flex animate-scroll whitespace-nowrap">
               {[1, 2].flatMap((i) =>
                 ["Peace and love! 🌍", "Kindness matters! ❤️", "Spread the light! ✨", "Together we shine! 🌟", "Be the change! 🦋"].map((msg, j) => (
-                  <span key={`${i}-${j}`} className="mx-8 text-lg text-white font-medium">
+                  <span key={`${i}-${j}`} className="mx-6 text-sm text-white/90 font-medium drop-shadow">
                     {msg}
                   </span>
                 ))
@@ -546,64 +542,49 @@ export default function Home() {
           )}
         </div>
 
-        {/* Main Content */}
-        <section className="flex-grow flex flex-col items-center py-8 px-4 gap-6">
+        {/* Spacer pushes bottom panel down */}
+        <div className="flex-grow" />
 
-          {/* ── Kindness Map ── */}
-          <div className="w-full max-w-5xl h-[65vh] sm:h-[70vh] rounded-2xl overflow-hidden border-2 border-purple-500/40 shadow-2xl relative">
-            <KindnessMap />
-            {/* Map overlay hint */}
-            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-sm rounded-full px-4 py-1.5 text-xs text-white/70 pointer-events-none z-[5]">
-              🗺️ Click anywhere to place your mark · Scroll to zoom · Drag to explore
+        {/* Bottom Panel — Counter + Buttons (over map, right-aligned feel) */}
+        <section className="px-4 pb-4 pointer-events-auto">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-end justify-between gap-3 max-w-6xl mx-auto">
+            
+            {/* Counter — compact card */}
+            <div className="bg-black/40 backdrop-blur-lg rounded-2xl p-4 text-center border border-white/20 shadow-2xl sm:min-w-[200px] order-2 sm:order-1">
+              <p className="text-xs text-white/70 uppercase tracking-wide">{t.peopleCount}</p>
+              {isLoading ? (
+                <div className="text-4xl font-bold text-gray-400 animate-pulse">···</div>
+              ) : (
+                <div className="text-4xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+                  {count.toLocaleString()}
+                </div>
+              )}
             </div>
-          </div>
-          {/* Counter */}
-          <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-center border border-white/30 shadow-2xl mb-6 w-full max-w-md">
-            <p className="text-lg text-white mb-2 font-medium">{t.peopleCount}</p>
-            {isLoading ? (
-              <div className="text-6xl font-bold text-gray-500 animate-pulse">···</div>
-            ) : (
-              <div className="text-6xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent mb-2">
-                {count.toLocaleString()}
-              </div>
-            )}
-            <p className="text-sm text-gray-300">{t.countDescription}</p>
-          </div>
 
-          {/* Action Buttons */}
-          <div className="flex gap-3 flex-wrap justify-center">
-            <button
-              onClick={() => openModal("PAY_SEE")}
-              className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-bold py-3 px-6 rounded-full text-base shadow-lg transform hover:scale-105 transition-all duration-300"
-            >
-              {t.paySee}
-            </button>
-            <button
-              onClick={() => openModal("LEAVE_MESSAGE")}
-              className="bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white font-bold py-3 px-6 rounded-full text-base shadow-lg transform hover:scale-105 transition-all duration-300"
-            >
-              {t.leaveMessage}
-            </button>
-            <button
-              onClick={() => openModal("BUY_STAR")}
-              className="bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-white font-bold py-3 px-6 rounded-full text-base shadow-lg transform hover:scale-105 transition-all duration-300"
-            >
-              {t.buyStar}
-            </button>
-          </div>
-
-          {/* Tier explanation */}
-          <div className="text-center text-sm text-gray-300 mt-6 max-w-md space-y-1">
-            <p><span className="text-blue-400 font-bold">{t.paySeeDesc}</span></p>
-            <p><span className="text-purple-400 font-bold">{t.leaveMessageDesc}</span></p>
-            <p><span className="text-yellow-400 font-bold">{t.buyStarDesc}</span></p>
+            {/* Action Buttons — right side */}
+            <div className="flex gap-2 flex-wrap justify-end order-1 sm:order-2">
+              <button
+                onClick={() => openModal("PAY_SEE")}
+                className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold py-2.5 px-5 rounded-full text-sm shadow-lg transform hover:scale-105 transition-all duration-300"
+              >
+                {t.paySee}
+              </button>
+              <button
+                onClick={() => openModal("LEAVE_MESSAGE")}
+                className="bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white font-semibold py-2.5 px-5 rounded-full text-sm shadow-lg transform hover:scale-105 transition-all duration-300"
+              >
+                {t.leaveMessage}
+              </button>
+              <button
+                onClick={() => openModal("BUY_STAR")}
+                className="bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-white font-semibold py-2.5 px-5 rounded-full text-sm shadow-lg transform hover:scale-105 transition-all duration-300"
+              >
+                {t.buyStar}
+              </button>
+            </div>
           </div>
         </section>
 
-        {/* Footer */}
-        <footer className="text-center py-3 text-gray-400 text-xs">
-          <p>{t.footer}</p>
-        </footer>
       </div>
 
       {/* ── Payment Modal (Pay & See) ─────────────────────────────────────── */}
