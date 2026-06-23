@@ -51,7 +51,7 @@ export default function KindnessMap({
     } catch {}
   }, []);
 
-  // Init map
+  // Init map — async/await pattern, guaranteed token before initMap
   useEffect(() => {
     if (map.current || !mapContainer.current) return;
 
@@ -62,27 +62,36 @@ export default function KindnessMap({
       return () => clearTimeout(timer);
     }
 
-    // Try build-time env first, then server-rendered meta tag, then runtime fetch
-    let token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
-    if (!token || token.startsWith("pk.YOUR_")) {
-      // Read from server-rendered meta tag (available immediately, no fetch needed)
-      const metaToken = document.querySelector('meta[name="mapbox-token"]')?.getAttribute("content");
-      if (metaToken && metaToken.startsWith("pk.")) {
-        initMap(metaToken);
-      } else {
-        // Final fallback: runtime fetch from API
-        fetch("/api/config?key=mapbox_token")
-          .then(r => r.ok ? r.json() : Promise.reject())
-          .then(d => { if (d.value) initMap(d.value as string); })
-          .catch(() => setStatusMsg("Mapbox token not configured"));
-      }
-      return;
-    } else if (!token.startsWith("pk.")) {
-      setStatusMsg("Mapbox token not configured");
-      return;
-    }
+    let cancelled = false;
 
-    initMap(token);
+    (async () => {
+      // Strategy 1: Meta tag (server-injected in layout.tsx)
+      const metaToken = document.querySelector('meta[name="mapbox-token"]')?.getAttribute("content");
+      if (metaToken?.startsWith("pk.") && !cancelled) {
+        initMap(metaToken);
+        return;
+      }
+
+      // Strategy 2: Runtime API fetch
+      try {
+        const res = await fetch("/api/config?key=mapbox_token");
+        if (res.ok) {
+          const data = await res.json();
+          const token = data.value as string | undefined;
+          if (token?.startsWith("pk.") && !cancelled) {
+            initMap(token);
+            return;
+          }
+        }
+      } catch { /* ignore network errors */ }
+
+      // Strategy 3: Give up
+      if (!cancelled) {
+        setStatusMsg("⚠ Mapbox token not configured");
+      }
+    })();
+
+    return () => { cancelled = true; };
   }, [loadCheckins]);
 
   const initMap = (token: string) => {
