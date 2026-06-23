@@ -62,8 +62,19 @@ export default function KindnessMap({
       return () => clearTimeout(timer);
     }
 
-    const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
+    // Try build-time env first, then fallback to runtime fetch
+    let token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
     if (!token || token.startsWith("pk.YOUR_")) {
+      try {
+        const r = await fetch("/api/config?key=mapbox_token");
+        if (r.ok) {
+          const d = await r.json();
+          token = d.value;
+        }
+      } catch { /* ignore */ }
+    }
+
+    if (!token || !token.startsWith("pk.")) {
       setStatusMsg("Mapbox token not configured");
       return;
     }
