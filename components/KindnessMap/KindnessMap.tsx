@@ -216,6 +216,16 @@ export default function KindnessMap({ onMapReady, onMarkerClick, messages = [] }
           transform: scale(0.5) !important;
           transform-origin: bottom right;
         }
+        .mapboxgl-ctrl-logo,
+        .mapboxgl-ctrl-attrib {
+          transform: scale(0.5) !important;
+          transform-origin: bottom left;
+        }
+        .mapboxgl-ctrl-scale {
+          transform: scale(0.5) !important;
+          transform-origin: bottom left;
+          margin-bottom: 6px !important;
+        }
       `}</style>
       <div ref={mapContainerRef} className="w-full h-full" />
 

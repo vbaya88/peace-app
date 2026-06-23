@@ -109,7 +109,7 @@ export default function MessageChat({ messages, title }: MessageChatProps) {
     return (
       <button
         onClick={() => setVisible(true)}
-        className="absolute right-4 z-[60] bg-black/30 backdrop-blur-lg rounded-l-full px-3 py-3 border border-white/15 text-white text-xs hover:bg-white/20 transition-all"
+        className="fixed right-0 z-[60] bg-black/30 backdrop-blur-lg rounded-l-full px-3 py-3 border border-white/15 text-white text-xs hover:bg-white/20 transition-all cursor-pointer"
         style={{ top: "50%", transform: "translateY(-50%)" }}
       >
         <span style={{ writingMode: "vertical-rl" }}>▶ {title}</span>

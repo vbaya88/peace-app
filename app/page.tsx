@@ -379,16 +379,18 @@ export default function Home() {
   }, []);
 
   // Simulate counter growth when no real data (demo mode)
-  // Uses ref to prevent duplicate intervals
+  // Uses ref to prevent duplicate intervals and avoid dependency on displayCount
   const growthTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const simulationStarted = useRef(false);
   const simulateCounterGrowth = useCallback(() => {
-    if (growthTimerRef.current) return; // already running
+    if (simulationStarted.current) return;
+    simulationStarted.current = true;
     growthTimerRef.current = setInterval(() => {
       setDisplayCount((prev) => prev + 1);
     }, 10_000 + Math.random() * 20_000);
   }, []);
 
-  // Initial data load
+  // Initial data load — NOTE: simulateCounterGrowth NOT in deps to avoid restarts
   useEffect(() => {
     const userLang = navigator.language?.split("-")[0].toLowerCase() ?? "en";
     if (userLang in translations) {
@@ -398,10 +400,12 @@ export default function Home() {
     Promise.all([fetchCounter(), fetchMessages()]).finally(() => {
       setIsLoading(false);
       setTimeout(() => {
-        if (displayCount === 0) simulateCounterGrowth();
+        if (displayCount === 0 && !simulationStarted.current) {
+          simulateCounterGrowth();
+        }
       }, 3000);
     });
-  }, [fetchCounter, fetchMessages, displayCount, simulateCounterGrowth]);
+  }, [fetchCounter, fetchMessages, simulateCounterGrowth]);
 
   // Poll counter every 30 seconds for live updates
   useEffect(() => {
@@ -491,12 +495,12 @@ export default function Home() {
 
       {/* Content overlay on top of map */}
       <div className="relative z-10 h-full flex flex-col pointer-events-none">
-        {/* Language Switcher — compact dropdown */}
+        {/* Language Switcher — compact dropdown, transparent */}
         <div className="absolute top-4 right-4 z-50 pointer-events-auto">
           <div className="relative">
             <button
               onClick={() => setLangOpen((o) => !o)}
-              className="flex items-center gap-2 bg-white/10 backdrop-blur-lg rounded-full px-3 py-1.5 border border-white/20 shadow-lg text-white text-sm hover:bg-white/20 transition-all"
+              className="flex items-center gap-2 bg-transparent backdrop-blur-none rounded-full px-3 py-1.5 shadow-none text-white text-sm hover:bg-white/10 transition-all border border-white/10"
             >
               <span className="text-base">
                 {languageOptions.find((l) => l.code === language)?.flag ?? "🌐"}
@@ -511,7 +515,7 @@ export default function Home() {
               <>
                 {/* Backdrop to close on click outside */}
                 <div className="fixed inset-0 z-0" onClick={() => setLangOpen(false)} />
-                <div className="absolute right-0 mt-2 bg-slate-900/95 backdrop-blur-lg rounded-xl border border-white/20 shadow-2xl overflow-hidden z-10 min-w-[140px]">
+                <div className="absolute right-0 mt-2 bg-slate-900/90 backdrop-blur-lg rounded-xl border border-white/20 shadow-2xl overflow-hidden z-10 min-w-[140px]">
                   {languageOptions.map((opt) => (
                     <button
                       key={opt.code}
@@ -537,7 +541,7 @@ export default function Home() {
         {/* Auth Button */}
         <div className="absolute top-4 left-4 z-50 pointer-events-auto">
           {session ? (
-            <div className="flex items-center gap-3 bg-white/10 backdrop-blur-lg rounded-full px-4 py-2 border border-white/20">
+            <div className="flex items-center gap-3 bg-transparent backdrop-blur-none rounded-full px-4 py-2 border border-white/10">
               <span className="text-white text-sm">
                 {session.user?.name ?? session.user?.email}
               </span>
@@ -551,7 +555,7 @@ export default function Home() {
           ) : (
             <button
               onClick={() => router.push("/login")}
-              className="bg-white/10 backdrop-blur-lg rounded-full px-4 py-2 border border-white/20 text-white text-sm hover:bg-white/20 transition-colors"
+              className="bg-transparent backdrop-blur-none rounded-full px-4 py-2 border border-white/10 text-white text-sm hover:bg-white/10 transition-colors"
             >
               {t.login}
             </button>
@@ -574,12 +578,12 @@ export default function Home() {
         {/* Spacer pushes bottom panel down */}
         <div className="flex-grow" />
 
-        {/* Bottom Panel — Counter + Buttons (over map, right-aligned feel) */}
+        {/* Bottom Panel — Counter + Buttons centered */}
         <section className="px-4 pb-4 pointer-events-auto">
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-end justify-between gap-3 max-w-6xl mx-auto">
-            
-            {/* Counter — transparent background */}
-            <div className="bg-transparent backdrop-blur-none rounded-2xl p-4 text-center border-0 shadow-none sm:min-w-[200px] order-2 sm:order-1">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-6xl mx-auto">
+
+            {/* Counter — transparent background, slightly left */}
+            <div className="bg-transparent backdrop-blur-none rounded-2xl p-4 text-center border-0 shadow-none sm:min-w-[200px] order-2 sm:order-1 mr-auto sm:mr-4">
               <p className="text-xs text-white/70 uppercase tracking-wide">{t.peopleCount}</p>
               {isLoading ? (
                 <div className="text-4xl font-bold text-gray-400 animate-pulse">···</div>
@@ -590,8 +594,8 @@ export default function Home() {
               )}
             </div>
 
-            {/* Action Buttons — right side */}
-            <div className="flex gap-2 flex-wrap justify-end order-1 sm:order-2">
+            {/* Action Buttons — centered */}
+            <div className="flex gap-2 flex-wrap justify-center order-1 sm:order-2">
               <button
                 onClick={() => openModal("PAY_SEE")}
                 className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold py-2.5 px-5 rounded-full text-sm shadow-lg transform hover:scale-105 transition-all duration-300"
