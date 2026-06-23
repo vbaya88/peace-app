@@ -122,6 +122,7 @@ export default function KindnessMap({ onMapReady, onMarkerClick, messages = [], 
     // ── Track zoom changes internally for equator scaling ──
     const reportZoom = () => {
       const z = map.getZoom();
+      console.log(`[KindnessMap] zoom: ${z}`);
       setCurrentZoom(z);
       onMapZoom?.(z, [map.getCenter().lng, map.getCenter().lat]);
     };

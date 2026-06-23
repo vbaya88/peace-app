@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 
 interface EquatorRingProps {
   messages: string[];
-  /** Optional: receive map zoom for better globe size estimation */
   mapZoom?: number;
 }
 
@@ -13,12 +12,15 @@ export default function EquatorRing({ messages, mapZoom }: EquatorRingProps) {
   const animationRef = useRef<number>(0);
   const angleRef = useRef(0);
   const [size, setSize] = useState({ w: 0, h: 0 });
-  const [zoom, setZoom] = useState<number | undefined>(undefined);
+  const [zoom, setZoom] = useState<number>(2);
   const msgRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
-  // ── Accept external zoom updates from parent (mapbox) ──
+  // ── Accept external zoom updates from mapbox ──
   useEffect(() => {
-    if (mapZoom !== undefined) setZoom(mapZoom);
+    if (mapZoom !== undefined && Number.isFinite(mapZoom)) {
+      console.log(`[EquatorRing] zoom received: ${mapZoom}`);
+      setZoom(mapZoom);
+    }
   }, [mapZoom]);
 
   // ── Measure container ──
@@ -32,16 +34,10 @@ export default function EquatorRing({ messages, mapZoom }: EquatorRingProps) {
     };
 
     measure();
-
     const ro = new ResizeObserver(measure);
     ro.observe(el);
 
-    const timers = [
-      setTimeout(measure, 500),
-      setTimeout(measure, 1500),
-      setTimeout(measure, 3000),
-    ];
-
+    const timers = [setTimeout(measure, 500), setTimeout(measure, 1500), setTimeout(measure, 3000)];
     window.addEventListener("resize", measure);
 
     return () => {
@@ -51,11 +47,10 @@ export default function EquatorRing({ messages, mapZoom }: EquatorRingProps) {
     };
   }, []);
 
-  // ── Animation loop: rotate messages along ellipse ──
+  // ── Animation loop ──
   useEffect(() => {
     if (size.w === 0) return;
-
-    const SPEED = 0.3; // degrees per frame (~18°/sec at 60fps)
+    const SPEED = 0.3;
 
     const animate = () => {
       angleRef.current = (angleRef.current + SPEED) % 360;
@@ -65,27 +60,22 @@ export default function EquatorRing({ messages, mapZoom }: EquatorRingProps) {
 
     animationRef.current = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animationRef.current);
-  }, [size.w, size.h, zoom]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [size.w, size.h, zoom]);
 
-  // ── Calculate globe radius based on zoom and container size ──
+  // ── Globe radius from zoom ──
   const getGlobeRadius = (): number => {
     const { w, h } = size;
     if (w === 0) return 0;
 
-    // Mapbox globe projection: at zoom=2, globe fills ~76% of min dimension
-    // At higher zoom, globe appears larger
-    // At lower zoom, globe appears smaller
-    const baseZoom = zoom ?? 2;
-    // Empirical: each zoom level doubles apparent size
-    // Globe radius as fraction of viewport
-    const zoomFactor = Math.pow(1.5, baseZoom - 2); // 1.0 at z=2
+    // At default zoom=2, globe fills ~76% of min dimension
+    // Each zoom level ~doubles apparent globe size
+    const z = Math.max(1, Math.min(zoom, 10));
+    const zoomFactor = Math.pow(1.6, z - 2); // 1.0 at z=2
     const rawRadius = Math.min(w, h) * 0.38 * zoomFactor;
-
-    // Clamp: ellipse should always be visible but not exceed container
-    return Math.min(rawRadius, Math.min(w, h) * 0.48);
+    return Math.min(rawRadius, Math.min(w, h) * 0.49);
   };
 
-  // ── Position each message on the ellipse ──
+  // ── Position messages on ellipse ──
   const positionMessages = () => {
     const els = msgRefs.current.filter(Boolean) as HTMLSpanElement[];
     if (els.length === 0 || size.w === 0) return;
@@ -95,8 +85,8 @@ export default function EquatorRing({ messages, mapZoom }: EquatorRingProps) {
     const cy = h / 2;
 
     const globeRadius = getGlobeRadius();
-    const rx = globeRadius * 1.15;
-    const ry = globeRadius * 0.20;
+    const rx = globeRadius * 1.15; // ellipse width
+    const ry = globeRadius * 0.18; // ellipse height (gentle curve)
 
     const baseAngle = angleRef.current * (Math.PI / 180);
 
@@ -104,6 +94,7 @@ export default function EquatorRing({ messages, mapZoom }: EquatorRingProps) {
       const spacing = (2 * Math.PI) / els.length;
       const theta = baseAngle + i * spacing;
 
+      // Parametric ellipse
       const x = cx + rx * Math.cos(theta);
       const y = cy + ry * Math.sin(theta);
 
@@ -111,26 +102,38 @@ export default function EquatorRing({ messages, mapZoom }: EquatorRingProps) {
       el.style.top = `${y}px`;
 
       const cosT = Math.cos(theta);
+      const sinT = Math.sin(theta);
 
-      // Back half (behind globe): completely hidden
-      if (cosT < 0) {
+      // ═══ VISIBILITY ═══
+      //
+      //   θ=0 → rightmost point (front-center)
+      //   θ=π/2 → bottom of ellipse (BEHIND the globe)
+      //   θ=π → leftmost point (front-left)
+      //   θ=-π/2 or 3π/2 → top of ellipse (front-top)
+      //
+      // The BOTTOM half of the ellipse (sinT > 0) is what goes BEHIND the globe
+
+      const isBehind = sinT > 0; // bottom arc = behind globe
+
+      if (isBehind) {
         el.style.opacity = "0";
-        el.style.pointerEvents = "none";
         el.style.transform = `translate(-50%, -50%) scale(0.5)`;
+        el.style.pointerEvents = "none";
         return;
       }
 
-      // Front half: brightness based on position
-      // cosT: 0 at front-edges, 1 at front-center-right
-      const brightness = 0.55 + 0.45 * cosT; // 0.55 at edges, 1.0 at center
+      // Front half (top arc): visible with brightness gradient
+      // Brightest at center-front (θ=0, right), slightly dimmer at edges (θ=±π)
+      // Both left and right front edges should be reasonably bright
+      const brightness = 0.6 + 0.4 * Math.abs(cosT); // 0.6 at top-center, 1.0 at left/right edges
 
       el.style.opacity = String(brightness);
       el.style.pointerEvents = "none";
-      el.style.transform = `translate(-50%, -50%) scale(${0.85 + 0.15 * cosT})`;
+      el.style.transform = `translate(-50%, -50%) scale(${0.85 + 0.15 * Math.abs(cosT)})`;
     });
   };
 
-  // ── Build display messages ──
+  // ── Messages ──
   const rawMessages = messages.length > 0
     ? [...messages, ...messages, ...messages, ...messages]
     : ["Peace and love! 🌍", "Kindness matters! ❤️", "Spread the light! ✨",
@@ -139,10 +142,7 @@ export default function EquatorRing({ messages, mapZoom }: EquatorRingProps) {
   const fontSize = Math.max(8, Math.min(14, 180 / rawMessages.length));
 
   return (
-    <div
-      ref={containerRef}
-      className="absolute inset-0 pointer-events-none z-[5] overflow-hidden"
-    >
+    <div ref={containerRef} className="absolute inset-0 pointer-events-none z-[5] overflow-hidden">
       {rawMessages.map((msg, i) => (
         <span
           key={`eq-${i}`}
@@ -154,8 +154,7 @@ export default function EquatorRing({ messages, mapZoom }: EquatorRingProps) {
             fontFamily: "system-ui, sans-serif",
             fontWeight: 500,
             textShadow: "0 0 6px rgba(0,0,0,0.95), 0 0 16px rgba(0,0,0,0.7), 0 2px 4px rgba(0,0,0,0.9)",
-            left: "-2000px",
-            top: "0px",
+            left: "-2000px", top: "0px",
           }}
         >
           {msg} ✨
