@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 
 // Map — loaded client-side only to avoid SSR issues
 const KindnessMap = dynamic(() => import("@/components/KindnessMap/KindnessMap"), {
@@ -20,9 +20,9 @@ import { useRouter } from "next/navigation";
 // Translations
 const translations = {
   en: {
-    title: "Pay $1 to see how many people paid $1",
+    title: "Pay $1 to see how many people paid $1 to see how many people paid $1",
     subtitle: "to see how many people joined the universe",
-    brand: "Universe of Kindness 🌌",
+    brand: "Universe of Kindness",
     chatTitle: "Your Messages",
     peopleCount: "People who paid $1",
     countDescription: "See how many kind souls are spreading goodness",
@@ -51,9 +51,9 @@ const translations = {
     success: "Payment initiated! Check your Volet app to complete.",
   },
   es: {
-    title: "Paga $1 para ver cuántas personas pagaron $1",
+    title: "Paga $1 para ver cuántas personas pagaron $1 para ver cuántas personas pagaron $1",
     subtitle: "para ver cuántas personas se unieron al universo",
-    brand: "Universo de Bondad 🌌",
+    brand: "Universo de Bondad",
     chatTitle: "Tus Mensajes",
     peopleCount: "Personas que pagaron $1",
     countDescription: "Mira cuántas almas bondadosas están propagando bondad",
@@ -82,9 +82,9 @@ const translations = {
     success: "¡Pago iniciado! Completa en tu app Volet.",
   },
   pt: {
-    title: "Pague $1 para ver quantas pessoas pagaram $1",
+    title: "Pague $1 para ver quantas pessoas pagaram $1 para ver quantas pessoas pagaram $1",
     subtitle: "para ver quantas pessoas se juntaram ao universo",
-    brand: "Universo da Bondade 🌌",
+    brand: "Universo da Bondade",
     chatTitle: "Suas Mensagens",
     peopleCount: "Pessoas que pagaram $1",
     countDescription: "Veja quantas almas bondosas estão espalhando bondade",
@@ -113,9 +113,9 @@ const translations = {
     success: "Pagamento iniciado! Complete no app Volet.",
   },
   fr: {
-    title: "Payez $1 pour voir combien de personnes ont payé $1",
+    title: "Payez $1 pour voir combien de personnes ont payé $1 pour voir combien de personnes ont payé $1",
     subtitle: "pour voir combien de personnes ont rejoint l'univers",
-    brand: "Univers de Bonté 🌌",
+    brand: "Univers de Bonté",
     chatTitle: "Vos Messages",
     peopleCount: "Personnes ayant payé $1",
     countDescription: "Voyez combien d'âmes bienveillantes propagent la bonté",
@@ -144,9 +144,9 @@ const translations = {
     success: "Paiement initié! Complétez dans l'app Volet.",
   },
   de: {
-    title: "Zahle $1 um zu sehen, wie viele Personen $1 zahlten",
+    title: "Zahle $1 um zu sehen, wie viele Personen $1 zahlten um zu sehen, wie viele Personen $1 zahlten",
     subtitle: "um zu sehen, wie viele Personen dem Universum beitraten",
-    brand: "Universum der Güte 🌌",
+    brand: "Universum der Güte",
     chatTitle: "Ihre Nachrichten",
     peopleCount: "Personen, die $1 zahlten",
     countDescription: "Siehe, wie viele gute Seelen Güte verbreiten",
@@ -175,9 +175,9 @@ const translations = {
     success: "Zahlung eingeleitet! In der Volet-App abschließen.",
   },
   zh: {
-    title: "支付1美元，看看有多少人支付了1美元",
+    title: "支付1美元，看看有多少人支付了1美元来看看有多少人支付了1美元",
     subtitle: "看看有多少人加入了这个善良宇宙",
-    brand: "善良宇宙 🌌",
+    brand: "善良宇宙",
     chatTitle: "您的留言",
     peopleCount: "支付1美元的人们",
     countDescription: "看看有多少善良的灵魂在传播美好",
@@ -206,9 +206,9 @@ const translations = {
     success: "支付已启动！请在Volet应用中完成。",
   },
   hi: {
-    title: "$1 भुगतान करें और देखें कितने लोगों ने $1 का भुगतान किया",
+    title: "$1 भुगतान करें और देखें कितने लोगों ने $1 का भुगतान किया जितने लोगों ने $1 का भुगतान किया",
     subtitle: "देखें कितने लोगों ने दयालुता ब्रह्मांड में शामिल हुए",
-    brand: "दयालुता ब्रह्मांड 🌌",
+    brand: "दयालुता ब्रह्मांड",
     chatTitle: "आपके संदेश",
     peopleCount: "लोगों ने $1 का भुगतान किया",
     countDescription: "देखें कितने दयालु आत्माएं दया फैला रही हैं",
@@ -237,9 +237,9 @@ const translations = {
     success: "भुगतान शुरू! Volet ऐप में पूरा करें।",
   },
   ar: {
-    title: "ادفع دولارًا واحدًا لترى كم شخص دفع دولارًا واحدًا",
+    title: "ادفع دولارًا واحدًا لترى كم شخص دفع دولارًا واحدًا لترى كم شخص دفع دولارًا واحدًا",
     subtitle: "لترى كم شخص انضم إلى كون اللطف",
-    brand: "كون اللطف 🌌",
+    brand: "كون اللطف",
     chatTitle: "رسائلكم",
     peopleCount: "الأشخاص الذين دفعوا دولارًا واحدًا",
     countDescription: "انظر كم روح لطيفة تشارك اللطف",
@@ -379,11 +379,13 @@ export default function Home() {
   }, []);
 
   // Simulate counter growth when no real data (demo mode)
+  // Uses ref to prevent duplicate intervals
+  const growthTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const simulateCounterGrowth = useCallback(() => {
-    const timer = setInterval(() => {
+    if (growthTimerRef.current) return; // already running
+    growthTimerRef.current = setInterval(() => {
       setDisplayCount((prev) => prev + 1);
     }, 10_000 + Math.random() * 20_000);
-    return () => clearInterval(timer);
   }, []);
 
   // Initial data load
@@ -556,12 +558,12 @@ export default function Home() {
           )}
         </div>
 
-        {/* Header — compact, over map */}
-        <header className="text-center pt-14 pb-1 px-4">
-          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold drop-shadow-lg bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 bg-clip-text text-transparent leading-tight">
+        {/* Header — recursive title, 2 lines, aligned with auth/lang buttons */}
+        <header className="absolute top-4 left-1/2 -translate-x-1/2 text-center px-4 z-30 pointer-events-none">
+          <h1 className="text-lg sm:text-xl md:text-2xl font-bold drop-shadow-lg bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 bg-clip-text text-transparent leading-tight whitespace-nowrap">
             {t.title}
           </h1>
-          <p className="text-sm sm:text-base text-white/90 drop-shadow-md mt-1">{t.brand}</p>
+          <p className="text-sm sm:text-base text-white drop-shadow-md mt-0.5">{t.brand}</p>
         </header>
 
         {/* Scrolling Messages Ticker REMOVED — now rendered as EquatorRing inside KindnessMap */}
@@ -576,8 +578,8 @@ export default function Home() {
         <section className="px-4 pb-4 pointer-events-auto">
           <div className="flex flex-col sm:flex-row items-stretch sm:items-end justify-between gap-3 max-w-6xl mx-auto">
             
-            {/* Counter — compact card */}
-            <div className="bg-black/40 backdrop-blur-lg rounded-2xl p-4 text-center border border-white/20 shadow-2xl sm:min-w-[200px] order-2 sm:order-1">
+            {/* Counter — transparent background */}
+            <div className="bg-transparent backdrop-blur-none rounded-2xl p-4 text-center border-0 shadow-none sm:min-w-[200px] order-2 sm:order-1">
               <p className="text-xs text-white/70 uppercase tracking-wide">{t.peopleCount}</p>
               {isLoading ? (
                 <div className="text-4xl font-bold text-gray-400 animate-pulse">···</div>

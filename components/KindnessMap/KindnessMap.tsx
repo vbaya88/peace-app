@@ -103,7 +103,7 @@ export default function KindnessMap({ onMapReady, onMarkerClick, messages = [] }
       });
     });
 
-    // ── Navigation controls ─────────────────────────────────────────────────
+    // ── Navigation controls (smaller) ──────────────────────────────────────
     map.addControl(new mapboxgl.NavigationControl({ showCompass: true }), "bottom-right");
     map.addControl(
       new mapboxgl.GeolocateControl({
@@ -210,6 +210,13 @@ export default function KindnessMap({ onMapReady, onMarkerClick, messages = [] }
 
   return (
     <div className="relative w-full h-full">
+      {/* CSS: shrink Mapbox zoom buttons 2x */}
+      <style>{`
+        .mapboxgl-ctrl-group {
+          transform: scale(0.5) !important;
+          transform-origin: bottom right;
+        }
+      `}</style>
       <div ref={mapContainerRef} className="w-full h-full" />
 
 

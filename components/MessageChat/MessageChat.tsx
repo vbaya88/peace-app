@@ -67,22 +67,21 @@ function getInitials(name: string): string {
 export default function MessageChat({ messages, title }: MessageChatProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(true);
-  // Live message list — real messages on top + demo below
   const [liveMessages, setLiveMessages] = useState<ChatMessage[]>([]);
 
-  // ── Auto-scroll to top on new message ──
+  // Auto-scroll to top on new message
   useEffect(() => {
     if (containerRef.current) containerRef.current.scrollTop = 0;
   }, [liveMessages.length]);
 
-  // ── Inject real messages at top when they arrive ──
+  // Inject real messages at top when they arrive
   useEffect(() => {
     if (messages.length > 0) {
       setLiveMessages((prev) => [...messages, ...prev]);
     }
   }, [messages]);
 
-  // ── Simulate live demo activity: push a random demo msg every 3–6 seconds ──
+  // Simulate live demo activity: push a random demo msg every 3–6 seconds
   useEffect(() => {
     let idx = 0;
 
@@ -100,8 +99,8 @@ export default function MessageChat({ messages, title }: MessageChatProps) {
       setLiveMessages((prev) => [
         { ...demo, id: `demo-${Date.now()}-${idx}` },
         ...prev,
-      ].slice(0, 30)); // cap at 30 visible
-    }, 3000 + Math.random() * 3000); // 3–6 sec random
+      ].slice(0, 30));
+    }, 3000 + Math.random() * 3000);
 
     return () => clearInterval(timer);
   }, []);
@@ -136,7 +135,7 @@ export default function MessageChat({ messages, title }: MessageChatProps) {
         <h3 className="text-white text-sm font-semibold">{title}</h3>
         <button
           onClick={() => setVisible(false)}
-          className="text-white/50 hover:text-white text-xs transition-colors"
+          className="text-white/50 hover:text-white text-xs transition-colors cursor-pointer"
         >✕</button>
       </div>
 
