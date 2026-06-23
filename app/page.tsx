@@ -325,11 +325,15 @@ export default function Home() {
           setDisplayCount(start);
           if (start >= end) clearInterval(timer);
         }, 16);
+      } else if (displayCount === 0) {
+        // No DB data yet — simulate live counter growth
+        simulateCounterGrowth();
       }
     } catch {
-      // fallback to 0
+      // fallback: simulate growth
+      if (displayCount === 0) simulateCounterGrowth();
     }
-  }, []);
+  }, [displayCount]);
 
   // Fetch messages for ticker
   const fetchMessages = useCallback(async () => {
@@ -374,6 +378,14 @@ export default function Home() {
     }
   }, []);
 
+  // Simulate counter growth when no real data (demo mode)
+  const simulateCounterGrowth = useCallback(() => {
+    const timer = setInterval(() => {
+      setDisplayCount((prev) => prev + 1);
+    }, 10_000 + Math.random() * 20_000);
+    return () => clearInterval(timer);
+  }, []);
+
   // Initial data load
   useEffect(() => {
     const userLang = navigator.language?.split("-")[0].toLowerCase() ?? "en";
@@ -383,8 +395,11 @@ export default function Home() {
 
     Promise.all([fetchCounter(), fetchMessages()]).finally(() => {
       setIsLoading(false);
+      setTimeout(() => {
+        if (displayCount === 0) simulateCounterGrowth();
+      }, 3000);
     });
-  }, [fetchCounter, fetchMessages]);
+  }, [fetchCounter, fetchMessages, displayCount, simulateCounterGrowth]);
 
   // Poll counter every 30 seconds for live updates
   useEffect(() => {
