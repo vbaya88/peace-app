@@ -85,8 +85,24 @@ export default function EquatorRing({ messages, mapZoom }: EquatorRingProps) {
     const cy = h / 2;
 
     const globeRadius = getGlobeRadius();
-    const rx = globeRadius * 1.45; // ellipse width — wider to wrap around globe
-    const ry = globeRadius * 0.20; // ellipse height (gentle curve)
+
+    // ═══ ZOOM-ADAPTIVE SHAPE ═══
+    //
+    // Low zoom (z=2):   Curved ellipse wrapping around visible globe
+    // Mid zoom (z=5):   Larger ellipse, still slightly curved
+    // High zoom (z≥8):  Flat map view → straight horizontal line across screen
+    //
+    const z = Math.max(0.5, Math.min(zoom, 12));
+    const flatness = Math.max(0, Math.min(1, (z - 3.5) / 5)); // 0 at z≤3.5, 1 at z≥8.5
+
+    // rx: grows with zoom, at max zoom → spans most of screen width
+    const baseRx = globeRadius * 1.45;
+    const flatRx = w * 0.48; // at flat zoom: messages span ~96% of screen width
+    const rx = baseRx + (flatRx - baseRx) * flatness;
+
+    // ry: shrinks to zero as zoom increases → straight line at high zoom
+    const baseRy = globeRadius * 0.20;
+    const ry = baseRy * (1 - flatness);
 
     const baseAngle = angleRef.current * (Math.PI / 180);
 
