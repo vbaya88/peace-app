@@ -108,11 +108,11 @@ export default function MessageChat({ messages, title }: MessageChatProps) {
   if (!visible) {
     return (
       <button
-        onClick={() => setVisible(true)}
-        className="fixed right-0 z-[60] bg-black/30 backdrop-blur-lg rounded-l-full px-3 py-3 border border-white/15 text-white text-xs hover:bg-white/20 transition-all cursor-pointer"
+        onClick={(e) => { e.stopPropagation(); setVisible(true); }}
+        className="fixed right-0 z-[9999] bg-black/40 backdrop-blur-md rounded-l-lg px-2 py-6 border border-white/20 text-white text-xs hover:bg-white/20 transition-all cursor-pointer select-none"
         style={{ top: "50%", transform: "translateY(-50%)" }}
       >
-        <span style={{ writingMode: "vertical-rl" }}>▶ {title}</span>
+        <span style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}>▶ {title}</span>
       </button>
     );
   }

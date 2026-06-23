@@ -269,16 +269,16 @@ const translations = {
   },
 };
 
-// Language options: flag + label
+// Language options: code + label
 const languageOptions: { code: string; flag: string; label: string }[] = [
-  { code: "en", flag: "🇬🇧", label: "English" },
-  { code: "es", flag: "🇪🇸", label: "Español" },
-  { code: "pt", flag: "🇧🇷", label: "Português" },
-  { code: "fr", flag: "🇫🇷", label: "Français" },
-  { code: "de", flag: "🇩🇪", label: "Deutsch" },
-  { code: "zh", flag: "🇨🇳", label: "中文" },
-  { code: "hi", flag: "🇮🇳", label: "हिन्दी" },
-  { code: "ar", flag: "🇸🇦", label: "العربية" },
+  { code: "en", flag: "EN", label: "English" },
+  { code: "es", flag: "ES", label: "Español" },
+  { code: "pt", flag: "PT", label: "Português" },
+  { code: "fr", flag: "FR", label: "Français" },
+  { code: "de", flag: "DE", label: "Deutsch" },
+  { code: "zh", flag: "ZH", label: "中文" },
+  { code: "hi", flag: "HI", label: "हिन्दी" },
+  { code: "ar", flag: "AR", label: "العربية" },
 ];
 
 type ProductType = "PAY_SEE" | "LEAVE_MESSAGE" | "BUY_STAR";
@@ -326,12 +326,10 @@ export default function Home() {
           if (start >= end) clearInterval(timer);
         }, 16);
       } else if (displayCount === 0) {
-        // No DB data yet — simulate live counter growth
-        simulateCounterGrowth();
+        // No DB data yet — simulation will start via separate useEffect
       }
     } catch {
-      // fallback: simulate growth
-      if (displayCount === 0) simulateCounterGrowth();
+      // fallback: simulation will start via separate useEffect
     }
   }, [displayCount]);
 
@@ -379,33 +377,34 @@ export default function Home() {
   }, []);
 
   // Simulate counter growth when no real data (demo mode)
-  // Uses ref to prevent duplicate intervals and avoid dependency on displayCount
-  const growthTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const simulationStarted = useRef(false);
-  const simulateCounterGrowth = useCallback(() => {
+  useEffect(() => {
     if (simulationStarted.current) return;
-    simulationStarted.current = true;
-    growthTimerRef.current = setInterval(() => {
-      setDisplayCount((prev) => prev + 1);
-    }, 10_000 + Math.random() * 20_000);
+    // Start simulation after 3s if count is still 0
+    const timer = setTimeout(() => {
+      if (simulationStarted.current) return;
+      simulationStarted.current = true;
+      // Set initial demo value
+      setDisplayCount(147);
+      // Then grow by +1 every 10-30s
+      const interval = setInterval(() => {
+        setDisplayCount((prev) => prev + 1);
+      }, 10_000 + Math.random() * 20_000);
+      return () => clearInterval(interval);
+    }, 3000);
+    return () => clearTimeout(timer);
   }, []);
 
-  // Initial data load — NOTE: simulateCounterGrowth NOT in deps to avoid restarts
+  // Initial data load
   useEffect(() => {
     const userLang = navigator.language?.split("-")[0].toLowerCase() ?? "en";
     if (userLang in translations) {
       setLanguage(userLang);
     }
-
     Promise.all([fetchCounter(), fetchMessages()]).finally(() => {
       setIsLoading(false);
-      setTimeout(() => {
-        if (displayCount === 0 && !simulationStarted.current) {
-          simulateCounterGrowth();
-        }
-      }, 3000);
     });
-  }, [fetchCounter, fetchMessages, simulateCounterGrowth]);
+  }, [fetchCounter, fetchMessages]);
 
   // Poll counter every 30 seconds for live updates
   useEffect(() => {
@@ -515,7 +514,7 @@ export default function Home() {
               <>
                 {/* Backdrop to close on click outside */}
                 <div className="fixed inset-0 z-0" onClick={() => setLangOpen(false)} />
-                <div className="absolute right-0 mt-2 bg-slate-900/90 backdrop-blur-lg rounded-xl border border-white/20 shadow-2xl overflow-hidden z-10 min-w-[140px]">
+                <div className="absolute right-0 mt-2 bg-black/40 backdrop-blur-lg rounded-xl border border-white/15 shadow-2xl overflow-hidden z-10 min-w-[140px]">
                   {languageOptions.map((opt) => (
                     <button
                       key={opt.code}
@@ -578,24 +577,12 @@ export default function Home() {
         {/* Spacer pushes bottom panel down */}
         <div className="flex-grow" />
 
-        {/* Bottom Panel — Counter + Buttons centered */}
+        {/* Bottom Panel — Buttons centered + Counter to the right */}
         <section className="px-4 pb-4 pointer-events-auto">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-6xl mx-auto">
 
-            {/* Counter — transparent background, slightly left */}
-            <div className="bg-transparent backdrop-blur-none rounded-2xl p-4 text-center border-0 shadow-none sm:min-w-[200px] order-2 sm:order-1 mr-auto sm:mr-4">
-              <p className="text-xs text-white/70 uppercase tracking-wide">{t.peopleCount}</p>
-              {isLoading ? (
-                <div className="text-4xl font-bold text-gray-400 animate-pulse">···</div>
-              ) : (
-                <div className="text-4xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
-                  {displayCount.toLocaleString()}
-                </div>
-              )}
-            </div>
-
-            {/* Action Buttons — centered */}
-            <div className="flex gap-2 flex-wrap justify-center order-1 sm:order-2">
+            {/* Action Buttons — centered block (Leave Message = middle) */}
+            <div className="flex gap-2 flex-wrap justify-center order-1 sm:order-1">
               <button
                 onClick={() => openModal("PAY_SEE")}
                 className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold py-2.5 px-5 rounded-full text-sm shadow-lg transform hover:scale-105 transition-all duration-300"
@@ -614,6 +601,18 @@ export default function Home() {
               >
                 {t.buyStar}
               </button>
+            </div>
+
+            {/* Counter — transparent background, to the right of buttons */}
+            <div className="bg-transparent backdrop-blur-none rounded-2xl p-4 text-center border-0 shadow-none sm:min-w-[200px] order-2 sm:order-2 ml-4">
+              <p className="text-xs text-white/70 uppercase tracking-wide">{t.peopleCount}</p>
+              {isLoading ? (
+                <div className="text-4xl font-bold text-gray-400 animate-pulse">···</div>
+              ) : (
+                <div className="text-4xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+                  {displayCount.toLocaleString()}
+                </div>
+              )}
             </div>
           </div>
         </section>
