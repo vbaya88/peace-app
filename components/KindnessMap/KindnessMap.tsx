@@ -67,7 +67,7 @@ export default function KindnessMap({
     if (!token || token.startsWith("pk.YOUR_")) {
       fetch("/api/config?key=mapbox_token")
         .then(r => r.ok ? r.json() : Promise.reject())
-        .then(d => { token = d.value; initMap(token); })
+        .then(d => { if (d.value) initMap(d.value as string); })
         .catch(() => setStatusMsg("Mapbox token not configured"));
       return;
     }
