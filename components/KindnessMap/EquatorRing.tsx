@@ -69,10 +69,10 @@ export default function EquatorRing({ messages, mapZoom }: EquatorRingProps) {
 
     // At default zoom=2, globe fills ~76% of min dimension
     // Each zoom level ~doubles apparent globe size
-    const z = Math.max(1, Math.min(zoom, 10));
-    const zoomFactor = Math.pow(1.6, z - 2); // 1.0 at z=2
-    const rawRadius = Math.min(w, h) * 0.38 * zoomFactor;
-    return Math.min(rawRadius, Math.min(w, h) * 0.49);
+    const z = Math.max(0.5, Math.min(zoom, 12));
+    const zoomFactor = Math.pow(1.8, z - 2); // more aggressive scaling
+    const rawRadius = Math.min(w, h) * 0.40 * zoomFactor;
+    return Math.min(rawRadius, Math.min(w, h) * 0.52);
   };
 
   // ── Position messages on ellipse ──
@@ -85,8 +85,8 @@ export default function EquatorRing({ messages, mapZoom }: EquatorRingProps) {
     const cy = h / 2;
 
     const globeRadius = getGlobeRadius();
-    const rx = globeRadius * 1.15; // ellipse width
-    const ry = globeRadius * 0.18; // ellipse height (gentle curve)
+    const rx = globeRadius * 1.45; // ellipse width — wider to wrap around globe
+    const ry = globeRadius * 0.20; // ellipse height (gentle curve)
 
     const baseAngle = angleRef.current * (Math.PI / 180);
 
