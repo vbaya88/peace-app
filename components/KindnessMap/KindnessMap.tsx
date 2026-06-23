@@ -99,12 +99,14 @@ export default function KindnessMap({
     const container = mapContainer.current;
     if (!container) return;
 
+    // Set token globally BEFORE creating the map
+    (window as any).mapboxgl.accessToken = token;
+
     map.current = new (window as any).mapboxgl.Map({
       container: container,
       style: "mapbox://styles/mapbox/dark-v11",
       center: [37.6173, 55.7558],
       zoom: 2,
-      attributionControl: false,
     });
 
     map.current.addControl(new (window as any).mapboxgl.NavigationControl(), "top-right");
