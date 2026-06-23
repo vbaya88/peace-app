@@ -269,16 +269,16 @@ const translations = {
   },
 };
 
-// Language options: flag emoji + label
+// Language options: flag SVG + label
 const languageOptions: { code: string; flag: string; label: string }[] = [
-  { code: "en", flag: "\u{1F1EC}\u{1F1E7}", label: "English" },
-  { code: "es", flag: "\u{1F1EA}\u{1F1F8}", label: "Español" },
-  { code: "pt", flag: "\u{1F1E7}\u{1F1F7}", label: "Português" },
-  { code: "fr", flag: "\u{1F1EB}\u{1F1F7}", label: "Français" },
-  { code: "de", flag: "\u{1F1E9}\u{1F1EA}", label: "Deutsch" },
-  { code: "zh", flag: "\u{1F1E8}\u{1F1F3}", label: "中文" },
-  { code: "hi", flag: "\u{1F1EE}\u{1F1F3}", label: "हिन्दी" },
-  { code: "ar", flag: "\u{1F1F8}\u{1F1E6}", label: "العربية" },
+  { code: "en", flag: "🇬🇧", label: "English" },
+  { code: "es", flag: "🇪🇸", label: "Español" },
+  { code: "pt", flag: "🇧🇷", label: "Português" },
+  { code: "fr", flag: "🇫🇷", label: "Français" },
+  { code: "de", flag: "🇩🇪", label: "Deutsch" },
+  { code: "zh", flag: "🇨🇳", label: "中文" },
+  { code: "hi", flag: "🇮🇳", label: "हिन्दी" },
+  { code: "ar", flag: "🇸🇦", label: "العربية" },
 ];
 
 type ProductType = "PAY_SEE" | "LEAVE_MESSAGE" | "BUY_STAR";
@@ -378,21 +378,24 @@ export default function Home() {
 
   // Simulate counter growth when no real data (demo mode)
   const simulationStarted = useRef(false);
+  const simulationIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   useEffect(() => {
     if (simulationStarted.current) return;
-    // Start simulation after 3s if count is still 0
+    // Start simulation after 3s
     const timer = setTimeout(() => {
       if (simulationStarted.current) return;
       simulationStarted.current = true;
       // Set initial demo value
       setDisplayCount(147);
       // Then grow by +1 every 10-30s
-      const interval = setInterval(() => {
+      simulationIntervalRef.current = setInterval(() => {
         setDisplayCount((prev) => prev + 1);
       }, 10_000 + Math.random() * 20_000);
-      return () => clearInterval(interval);
     }, 3000);
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      if (simulationIntervalRef.current) clearInterval(simulationIntervalRef.current);
+    };
   }, []);
 
   // Initial data load
@@ -504,9 +507,11 @@ export default function Home() {
               onClick={() => setLangOpen((o) => !o)}
               className="flex items-center gap-2 bg-transparent backdrop-blur-none rounded-full px-3 py-1.5 shadow-none text-white text-sm hover:bg-white/10 transition-all border border-white/10"
             >
-              <span className="text-base">
-                {languageOptions.find((l) => l.code === language)?.flag ?? "🌐"}
-              </span>
+              <img
+                src={`https://flagcdn.com/w20/${language === "en" ? "gb" : language === "zh" ? "cn" : language === "ar" ? "sa" : language}.png`}
+                alt=""
+                className="w-5 h-3.5 rounded-sm object-cover"
+              />
               <span className="hidden sm:inline">
                 {languageOptions.find((l) => l.code === language)?.label ?? "English"}
               </span>
@@ -529,7 +534,11 @@ export default function Home() {
                         language === opt.code ? "bg-white/10 text-yellow-300" : "text-white"
                       }`}
                     >
-                      <span className="text-base">{opt.flag}</span>
+                      <img
+                        src={`https://flagcdn.com/w20/${opt.code === "en" ? "gb" : opt.code === "zh" ? "cn" : opt.code === "ar" ? "sa" : opt.code}.png`}
+                        alt=""
+                        className="w-5 h-3.5 rounded-sm object-cover"
+                      />
                       <span>{opt.label}</span>
                       {language === opt.code && <span className="ml-auto text-yellow-400">✓</span>}
                     </button>
@@ -581,8 +590,8 @@ export default function Home() {
         <section className="px-4 pb-4 pointer-events-auto">
           <div className="flex flex-row items-end justify-between gap-3 max-w-6xl mx-auto">
 
-            {/* Counter — bottom left, separate from buttons */}
-            <div className="bg-transparent backdrop-blur-none rounded-2xl p-4 text-center border-0 shadow-none min-w-[160px] self-end">
+            {/* Counter — bottom left, aligned middle with buttons */}
+            <div className="bg-transparent backdrop-blur-none rounded-2xl p-4 text-center border-0 shadow-none min-w-[160px] pb-6">
               <p className="text-xs text-white/70 uppercase tracking-wide">{t.peopleCount}</p>
               {isLoading ? (
                 <div className="text-4xl font-bold text-gray-400 animate-pulse">···</div>

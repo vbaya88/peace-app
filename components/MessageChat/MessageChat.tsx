@@ -109,7 +109,7 @@ export default function MessageChat({ messages, title }: MessageChatProps) {
     return (
       <button
         onClick={(e) => { e.stopPropagation(); setVisible(true); }}
-        className="fixed right-0 z-[9999] bg-black/40 backdrop-blur-md rounded-l-lg px-2 py-6 border border-white/20 text-white text-xs hover:bg-white/20 transition-all cursor-pointer select-none"
+        className="fixed left-0 z-[9999] bg-black/40 backdrop-blur-md rounded-r-lg px-2 py-6 border border-white/20 text-white text-xs hover:bg-white/20 transition-all cursor-pointer select-none"
         style={{ top: "50%", transform: "translateY(-50%)" }}
       >
         <span style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}>▶ {title}</span>
@@ -119,7 +119,7 @@ export default function MessageChat({ messages, title }: MessageChatProps) {
 
   return (
     <div
-      className="absolute right-4 z-[40] w-[300px] flex flex-col pointer-events-auto"
+      className="absolute left-4 z-[40] w-[300px] flex flex-col pointer-events-auto"
       style={{ top: "50%", transform: "translateY(-50%)" }}
     >
       {/* Header */}
