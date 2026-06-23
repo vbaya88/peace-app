@@ -65,13 +65,11 @@ export default function KindnessMap({
     // Try build-time env first, then fallback to runtime fetch
     let token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
     if (!token || token.startsWith("pk.YOUR_")) {
-      try {
-        const r = await fetch("/api/config?key=mapbox_token");
-        if (r.ok) {
-          const d = await r.json();
-          token = d.value;
-        }
-      } catch { /* ignore */ }
+      fetch("/api/config?key=mapbox_token")
+        .then(r => r.ok ? r.json() : Promise.reject())
+        .then(d => { token = d.value; initMap(token); })
+        .catch(() => setStatusMsg("Mapbox token not configured"));
+      return;
     }
 
     if (!token || !token.startsWith("pk.")) {
@@ -79,6 +77,10 @@ export default function KindnessMap({
       return;
     }
 
+    initMap(token);
+  }, [loadCheckins]);
+
+  const initMap = (token: string) => {
     map.current = new (window as any).mapboxgl.Map({
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/dark-v11",
@@ -112,7 +114,15 @@ export default function KindnessMap({
       map.current?.remove();
       map.current = null;
     };
-  }, [loadCheckins]);
+  };
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      map.current?.remove();
+      map.current = null;
+    };
+  }, []);
 
   // Place pixel on click (when in placing mode)
   useEffect(() => {
