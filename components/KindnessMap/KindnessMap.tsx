@@ -99,8 +99,7 @@ export default function KindnessMap({
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/dark-v11",
       center: [37.6173, 55.7558],
-      zoom: 3,
-      projection: "globe",
+      zoom: 2,
     });
 
     map.current.addControl(new (window as any).mapboxgl.NavigationControl(), "top-right");
