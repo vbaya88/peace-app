@@ -4,17 +4,18 @@ import PixelGrid, { snapToPixel } from "@/components/PixelGrid/PixelGrid";
 
 const WATER_CHECK_API = "/api/geo/water-check";
 
-interface Checkin {
+// Pixel record from /api/pixels
+interface PixelRecord {
   id: string;
-  latitude: number;
-  longitude: number;
+  gridLat: number;
+  gridLng: number;
+  countryCode: string;
+  cityName: string;
+  color: string;
+  status: string;
+  tier: string;
   name?: string;
   message?: string;
-  photoUrl?: string;
-  color?: string;
-  pixelLat?: number;
-  pixelLng?: number;
-  level?: string;
 }
 
 interface KindnessMapProps {
@@ -40,29 +41,35 @@ export default function KindnessMap({
   const onMapClickRef = useRef(onMapClick);
   onMapClickRef.current = onMapClick;
 
-  // Load checkins — apply snapToPixel grid snapping to ALL loaded checkins
+  // Load pixels from the city grid
   const loadCheckins = useCallback(async () => {
     try {
-      const r = await fetch("/api/checkins?limit=10000");
+      const r = await fetch("/api/pixels?limit=10000");
       if (r.ok) {
         const data = await r.json();
-        const raw: Checkin[] = data.checkins || [];
+        const raw: PixelRecord[] = data.pixels || [];
 
-        // FIX: Apply snapToPixel grid snapping to ALL checkins from DB
-        // so dots land on visible pixel grid cells (not scattered raw GPS positions)
-        const snapped = raw.map((c) => {
-          if (c.pixelLat != null && c.pixelLng != null) {
-            const [snappedLat, snappedLng] = snapToPixel(c.pixelLat, c.pixelLng);
-            return { ...c, pixelLat: snappedLat, pixelLng: snappedLng };
-          }
-          return c;
-        });
+        // Convert gridLat/gridLng → lat/lng for map rendering
+        // gridLat: 0 = -90°, 900 = 0°, 1800 = 90°N
+        // gridLng: 0 = -180°, 1800 = 0°, 3600 = 180°E
+        const withCoords = raw.map((p) => ({
+          id: p.id,
+          pixelLat: p.gridLat / 10 - 90,
+          pixelLng: p.gridLng / 10 - 180,
+          color: p.color,
+          name: p.name || (p.status === 'AVAILABLE' ? 'Available' : 'Claimed'),
+          message: p.message || '',
+          photoUrl: '',
+          status: p.status,
+          countryCode: p.countryCode,
+          cityName: p.cityName,
+        }));
 
-        setCheckins(snapped);
-        console.log("[KindnessMap] loaded + snapped", snapped.length, "checkins");
+        setCheckins(withCoords as any);
+        console.log('[KindnessMap] loaded', withCoords.length, 'pixels');
       }
     } catch (e) {
-      console.error("[KindnessMap] loadCheckins error:", e);
+      console.error('[KindnessMap] loadCheckins error:', e);
     }
   }, []);
 
