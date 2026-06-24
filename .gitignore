@@ -41,3 +41,9 @@ yarn-error.log*
 next-env.d.ts
 
 /app/generated/prisma
+
+# Pixel grid generation (large local files)
+scripts/pixel-grid.sql
+scripts/generate-pixel-grid.js
+scripts/generate-pixel-grid.ts
+scripts/worldcities.csv

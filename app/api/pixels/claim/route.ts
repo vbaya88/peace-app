@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { isBlockedTerrain } from "@/lib/terrain";
 
 const GEO_API = "http://ip-api.com/json";
 const RATE_LIMIT = 45; // ip-api.com free tier: 45 req/min
@@ -45,7 +46,15 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Pixel not found" }, { status: 404 });
     }
 
-    // 2. Geo-IP country validation (Phase 1 key rule!)
+    // 2. Terrain validation — water, ocean, rivers, lakes, deserts, mountains = BLOCKED
+    if (isBlockedTerrain(pixel.latitude, pixel.longitude, pixel.countryCode)) {
+      return NextResponse.json({
+        error: "This location is not available for purchase (terrain exclusion zone).",
+        code: "TERRAIN_BLOCKED",
+      }, { status: 451 });
+    }
+
+    // 3. Geo-IP country validation
     const clientIp = getClientIp(req);
     const userCountry = await getCountryCode(clientIp);
 
@@ -62,7 +71,7 @@ export async function POST(req: NextRequest) {
       }, { status: 403 });
     }
 
-    // 3. Check availability
+    // 4. Check availability
     if (pixel.status !== "AVAILABLE") {
       return NextResponse.json({
         error: "Pixel already claimed",
