@@ -16,118 +16,101 @@ interface PixelGridProps {
   checkins: PixelCheckin[];
 }
 
-// Snap coordinates to 10m pixel grid
-function snapToPixel(lat: number, lng: number): [number, number] {
+export function snapToPixel(lat: number, lng: number): [number, number] {
   const latStep = 10 / 111320;
-  const lngStep = 10 / (111320 * Math.cos((lat * Math.PI) / 180));
+  const cosLat = Math.cos((lat * Math.PI) / 180);
+  const lngStep = 10 / (111320 * cosLat);
   const snappedLat = Math.round(lat / latStep) * latStep;
   const snappedLng = Math.round(lng / lngStep) * lngStep;
   return [snappedLat, snappedLng];
 }
 
 export default function PixelGrid({ map, checkins }: PixelGridProps) {
-  const hoveredPixel = useRef<{ lat: number; lng: number; name: string; message: string; photoUrl: string; color: string } | null>(null);
+  const hoveredPixel = useRef<PixelCheckin | null>(null);
   const initDone = useRef(false);
 
   useEffect(() => {
-    if (!map || checkins.length === 0) return;
+    console.log("[PixelGrid] effect fired — map=", typeof map, "checkins=", checkins?.length);
+
+    if (!map || !checkins?.length) {
+      console.log("[PixelGrid] early return: map missing or no checkins");
+      return;
+    }
 
     const doInit = () => {
+      console.log("[PixelGrid] doInit — initDone=", initDone.current, "checkins=", checkins.length);
+
       if (initDone.current) {
-        // Already initialized — just update data
         const src = map.getSource("pixel-dots-src");
+        console.log("[PixelGrid] already inited — src=", !!src, "layer=", map.getLayer("pixel-dots") ? "exists" : "missing");
         if (src) {
           src.setData({
             type: "FeatureCollection",
             features: checkins.map(c => ({
               type: "Feature" as const,
               geometry: { type: "Point" as const, coordinates: [c.pixelLng, c.pixelLat] },
-              properties: {
-                id: c.id,
-                color: c.color,
-                name: c.name || "Anonymous",
-                message: c.message || "",
-                photoUrl: c.photoUrl || "",
-              },
+              properties: { id: c.id, color: c.color || "#fff", name: c.name || "Anonymous", message: c.message || "", photoUrl: c.photoUrl || "" },
             })),
           });
+          console.log("[PixelGrid] data updated, features=", checkins.length);
           return;
+        } else {
+          console.warn("[PixelGrid] source missing, will recreate");
         }
       }
 
-      // Remove old layers/sources (idempotent)
+      // Clean up old resources
       try {
-        map.removeLayer("pixel-dots");
-        map.removeSource("pixel-dots-src");
-      } catch {}
+        if (map.getLayer("pixel-dots")) { map.removeLayer("pixel-dots"); }
+        if (map.getSource("pixel-dots-src")) { map.removeSource("pixel-dots-src"); }
+      } catch (e) { console.warn("[PixelGrid] cleanup:", e); }
 
-      if (checkins.length === 0) return;
+      if (checkins.length === 0) { console.log("[PixelGrid] no checkins, skip layer"); return; }
 
-      // Add circle dots source
-      map.addSource("pixel-dots-src", {
-        type: "geojson",
-        data: {
-          type: "FeatureCollection",
-          features: checkins.map(c => ({
-            type: "Feature" as const,
-            geometry: { type: "Point" as const, coordinates: [c.pixelLng, c.pixelLat] },
-            properties: {
-              id: c.id,
-              color: c.color,
-              name: c.name || "Anonymous",
-              message: c.message || "",
-              photoUrl: c.photoUrl || "",
-            },
-          })),
-        },
-      });
+      // Build GeoJSON
+      const features = checkins.map(c => ({
+        type: "Feature" as const,
+        geometry: { type: "Point" as const, coordinates: [c.pixelLng, c.pixelLat] },
+        properties: { id: c.id, color: c.color || "#ffffff", name: c.name || "Anonymous", message: c.message || "", photoUrl: c.photoUrl || "" },
+      }));
+      console.log("[PixelGrid] creating source + layer with", features.length, "features");
 
-      // Add circle dots layer — visible at ALL zoom levels
-      map.addLayer({
-        id: "pixel-dots",
-        type: "circle",
-        source: "pixel-dots-src",
-        paint: {
-          "circle-color": ["get", "color"],
-          "circle-radius": [
-            "interpolate", ["linear"], ["zoom"],
-            0,   6,    // large enough to see on globe
-            3,   8,
-            8,   10,
-            14,  14,
-          ],
-          "circle-opacity": [
-            "interpolate", ["linear"], ["zoom"],
-            0,   1.0,
-            14,  0.9,
-          ],
-          "circle-stroke-color": "rgba(255,255,255,0.8)",
-          "circle-stroke-width": [
-            "interpolate", ["linear"], ["zoom"],
-            0,   1,
-            14,  1.5,
-          ],
-        },
-      });
+      try {
+        map.addSource("pixel-dots-src", { type: "geojson", data: { type: "FeatureCollection", features } });
+        console.log("[PixelGrid] source added OK");
+      } catch (e) { console.error("[PixelGrid] addSource error:", e); return; }
 
-      // Hover events
-      map.on("mouseenter", "pixel-dots", (e: any) => {
-        map.getCanvas().style.cursor = "pointer";
-        if (!e.features?.length) return;
-        hoveredPixel.current = e.features[0].properties;
-      });
+      try {
+        map.addLayer({
+          id: "pixel-dots", type: "circle", source: "pixel-dots-src",
+          paint: {
+            "circle-color": ["get", "color"],
+            "circle-radius": ["interpolate", ["linear"], ["zoom"], 0, 8, 3, 10, 8, 12, 14, 16],
+            "circle-opacity": 1.0,
+            "circle-stroke-color": "rgba(255,255,255,0.9)",
+            "circle-stroke-width": ["interpolate", ["linear"], ["zoom"], 0, 1.5, 14, 2],
+          },
+        });
+        console.log("[PixelGrid] layer added OK");
+      } catch (e) { console.error("[PixelGrid] addLayer error:", e); return; }
 
-      map.on("mouseleave", "pixel-dots", () => {
-        map.getCanvas().style.cursor = "";
-        hoveredPixel.current = null;
-      });
+      // Hover
+      try {
+        map.on("mouseenter", "pixel-dots", (e: any) => {
+          map.getCanvas().style.cursor = "pointer";
+          if (e.features?.length) hoveredPixel.current = e.features[0].properties;
+        });
+        map.on("mouseleave", "pixel-dots", () => { map.getCanvas().style.cursor = ""; hoveredPixel.current = null; });
+      } catch (e) { console.warn("[PixelGrid] hover events:", e); }
 
       initDone.current = true;
+      console.log("[PixelGrid] init complete");
     };
 
     if (map.loaded()) {
       doInit();
     } else {
+      console.log("[PixelGrid] waiting for map load");
       map.once("load", doInit);
     }
 
@@ -136,11 +119,10 @@ export default function PixelGrid({ map, checkins }: PixelGridProps) {
         map.removeLayer("pixel-dots");
         map.removeSource("pixel-dots-src");
         initDone.current = false;
+        console.log("[PixelGrid] cleanup done");
       } catch {}
     };
   }, [map, checkins]);
 
   return null;
 }
-
-export { snapToPixel };
