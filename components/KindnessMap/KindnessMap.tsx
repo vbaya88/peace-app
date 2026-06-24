@@ -154,13 +154,22 @@ export default function KindnessMap({
         const cityGeo = await cityRes.json();
         const cities: CityPoint[] = cityGeo.features.map((f: any) => {
           const coords = f.geometry.coordinates[0];
-          let sumLng = 0, sumLat = 0;
-          coords.forEach((pt: number[]) => { sumLng += pt[0]; sumLat += pt[1]; });
-          const centerLng = sumLng / coords.length;
-          const centerLat = sumLat / coords.length;
-          const dx = coords[0][0] - centerLng;
-          const dy = coords[0][1] - centerLat;
-          const radiusKm = Math.sqrt(dx * dx + dy * dy) * 111;
+          // Calculate bounding box from all polygon vertices
+          let minLng = Infinity, maxLng = -Infinity, minLat = Infinity, maxLat = -Infinity;
+          coords.forEach((pt: number[]) => {
+            if (pt[0] < minLng) minLng = pt[0];
+            if (pt[0] > maxLng) maxLng = pt[0];
+            if (pt[1] < minLat) minLat = pt[1];
+            if (pt[1] > maxLat) maxLat = pt[1];
+          });
+          // Center of bounding box
+          const centerLng = (minLng + maxLng) / 2;
+          const centerLat = (minLat + maxLat) / 2;
+          // Radius = half the diagonal of the bounding box (inscribed circle in the bbox)
+          const dxDeg = (maxLng - minLng) / 2;
+          const dyDeg = (maxLat - minLat) / 2;
+          // Use the LARGER dimension so circle fully covers the city extent
+          const radiusKm = Math.sqrt(dxDeg * dxDeg + dyDeg * dyDeg) * 111;
           return { name: f.properties.name, lng: centerLng, lat: centerLat, radiusKm };
         });
         citiesRef.current = cities;
@@ -180,8 +189,11 @@ export default function KindnessMap({
           data: cityPointsGeo,
         });
 
-        // NATIVE CIRCLE LAYER — Mapbox renders these as perfect circles in screen space
-        // circle-radius is in PIXELS, not geographic units — always round!
+        // NATIVE CIRCLE LAYER — Mapbox renders perfect circles in screen space
+        // circle-radius uses per-city data-driven sizing based on actual GeoJSON bounds
+        // Conversion: km → degrees → pixels (at equator, 1 deg ≈ 111 km ≈ zoom-dependent px)
+        // At zoom Z, 1 deg longitude ≈ 256 * 2^Z / 360 pixels (Web Mercator)
+        // We use a data expression to scale each city's circle by its radiusKm
         map.current.addLayer({
           id: "city-circles",
           type: "circle",
@@ -191,30 +203,41 @@ export default function KindnessMap({
             "circle-stroke-color": "rgba(255,255,255,0.92)",
             "circle-stroke-width": [
               "interpolate", ["linear"], ["zoom"],
-              6, 2,
-              8, 2.5,
-              10, 3,
-              12, 3.5,
+              6, 1.5,
+              8, 2,
+              10, 2.5,
+              12, 3,
             ],
+            // Data-driven radius: each city sized by its actual bounding box
+            // Formula: radiusKm / 111 (→deg) * zoomFactor
+            // zoomFactor at Z: ~78px/deg at Z=6, ~156 at Z=7, ~312 at Z=8, ~1248 at Z=10
             "circle-radius": [
-              "interpolate", ["linear"], ["zoom"],
-              5, 0,
-              6, 20,
-              8, 35,
-              10, 55,
-              12, 80,
+              "+",
+              ["*", ["get", "radiusKm"], [
+                "interpolate", ["linear"], ["zoom"],
+                5,   0.001,
+                6,   0.70,
+                7,   1.41,
+                8,   2.82,
+                9,   5.64,
+                10, 11.28,
+                11, 22.56,
+                12, 45.12,
+                14, 90.24,
+              ]],
+              0,
             ],
             "circle-opacity": [
               "interpolate", ["linear"], ["zoom"],
-              5, 0,
-              6, 0.85,
-              10, 0.95,
+              4, 0,
+              5, 0.75,
+              8, 0.92,
             ],
             "circle-stroke-opacity": [
               "interpolate", ["linear"], ["zoom"],
-              5, 0,
-              6, 0.85,
-              10, 0.95,
+              4, 0,
+              5, 0.75,
+              8, 0.92,
             ],
           },
         });
