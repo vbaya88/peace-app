@@ -154,7 +154,7 @@ export async function POST(req: NextRequest) {
       }
 
       await writer.write(encoder.encode('{"status":"fetching_cities"}\n'));
-      const cities = await fetchCities();
+      let cities = await fetchCities();
 
       if (dry) {
         let totalCells = 0, totalBlocked = 0;
@@ -178,6 +178,16 @@ export async function POST(req: NextRequest) {
         await writer.write(encoder.encode(JSON.stringify({ dry: true, cities: cities.length, estimatedPixels: totalCells, estimatedBlocked: totalBlocked }) + '\n'));
         await writer.close();
         return;
+      }
+
+      // Apply ?top=N limit before generating
+      const topParam = url.searchParams.get("top");
+      if (topParam) {
+        const topN = parseInt(topParam, 10);
+        if (topN > 0 && topN < cities.length) {
+          cities = cities.slice(0, topN);
+          await writer.write(encoder.encode(`{"status":"limited","cities":${topN}}\n`));
+        }
       }
 
       const result = await generateGrid(cities, writer, encoder);
