@@ -1,126 +1,181 @@
+/**
+ * POST /api/seed
+ * Generates the full pixel grid — proportional to city populations.
+ * Terrain exclusions: water, oceans, rivers, canals, lakes, deserts, taiga,
+ * mountains are BLOCKED. Mountain-countries (NP, BT, AD, CH, etc.) are ALLOWED.
+ *
+ * Grid: 0.05° cells (~5.5 km at equator)
+ * Min radius: 0.60° (even tiny cities get ~66 km coverage)
+ * Target: 3–6 M unique land pixels
+ *
+ * Query params:
+ *   ?clear=1   — wipe Pixel + Checkin tables first
+ *   ?dry=1     — count only, don't write
+ */
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getCountryCode, isBlockedTerrain } from "@/lib/terrain";
 
-const CITIES = [
-  { country: "US", city: "New York", lat: 40.7128, lng: -74.006, count: 80 },
-  { country: "US", city: "Los Angeles", lat: 34.0522, lng: -118.2437, count: 60 },
-  { country: "US", city: "Chicago", lat: 41.8781, lng: -87.6298, count: 50 },
-  { country: "US", city: "Houston", lat: 29.7604, lng: -95.3698, count: 40 },
-  { country: "US", city: "Phoenix", lat: 33.4484, lng: -112.074, count: 35 },
-  { country: "US", city: "Philadelphia", lat: 39.9526, lng: -75.1652, count: 30 },
-  { country: "US", city: "San Diego", lat: 32.7157, lng: -117.1611, count: 25 },
-  { country: "US", city: "Dallas", lat: 32.7767, lng: -96.797, count: 35 },
-  { country: "US", city: "Miami", lat: 25.7617, lng: -80.1918, count: 35 },
-  { country: "US", city: "Seattle", lat: 47.6062, lng: -122.3321, count: 30 },
-  { country: "US", city: "Denver", lat: 39.7392, lng: -104.9903, count: 25 },
-  { country: "US", city: "Boston", lat: 42.3601, lng: -71.0589, count: 25 },
-  { country: "US", city: "Atlanta", lat: 33.749, lng: -84.388, count: 25 },
-  { country: "CA", city: "Toronto", lat: 43.6532, lng: -79.3832, count: 40 },
-  { country: "CA", city: "Vancouver", lat: 49.2827, lng: -123.1207, count: 25 },
-  { country: "CA", city: "Montreal", lat: 45.5017, lng: -73.5673, count: 25 },
-  { country: "MX", city: "Mexico City", lat: 19.4326, lng: -99.1332, count: 50 },
-  { country: "GB", city: "London", lat: 51.5074, lng: -0.1278, count: 70 },
-  { country: "GB", city: "Manchester", lat: 53.4808, lng: -2.2426, count: 25 },
-  { country: "FR", city: "Paris", lat: 48.8566, lng: 2.3522, count: 60 },
-  { country: "DE", city: "Berlin", lat: 52.52, lng: 13.405, count: 50 },
-  { country: "DE", city: "Munich", lat: 48.1351, lng: 11.582, count: 30 },
-  { country: "DE", city: "Hamburg", lat: 53.5511, lng: 9.9937, count: 25 },
-  { country: "ES", city: "Madrid", lat: 40.4168, lng: -3.7038, count: 40 },
-  { country: "ES", city: "Barcelona", lat: 41.3851, lng: 2.1734, count: 35 },
-  { country: "IT", city: "Rome", lat: 41.9028, lng: 12.4964, count: 45 },
-  { country: "IT", city: "Milan", lat: 45.4642, lng: 9.19, count: 35 },
-  { country: "NL", city: "Amsterdam", lat: 52.3676, lng: 4.9041, count: 25 },
-  { country: "SE", city: "Stockholm", lat: 59.3293, lng: 18.0686, count: 20 },
-  { country: "PL", city: "Warsaw", lat: 52.2297, lng: 21.0122, count: 25 },
-  { country: "CH", city: "Zurich", lat: 47.3769, lng: 8.5417, count: 15 },
-  { country: "JP", city: "Tokyo", lat: 35.6762, lng: 139.6503, count: 80 },
-  { country: "JP", city: "Osaka", lat: 34.6937, lng: 135.5023, count: 40 },
-  { country: "CN", city: "Beijing", lat: 39.9042, lng: 116.4074, count: 70 },
-  { country: "CN", city: "Shanghai", lat: 31.2304, lng: 121.4737, count: 60 },
-  { country: "CN", city: "Shenzhen", lat: 22.5431, lng: 114.0579, count: 40 },
-  { country: "HK", city: "Hong Kong", lat: 22.3193, lng: 114.1694, count: 35 },
-  { country: "SG", city: "Singapore", lat: 1.3521, lng: 103.8198, count: 30 },
-  { country: "KR", city: "Seoul", lat: 37.5665, lng: 126.978, count: 55 },
-  { country: "IN", city: "Mumbai", lat: 19.076, lng: 72.8777, count: 45 },
-  { country: "IN", city: "Delhi", lat: 28.7041, lng: 77.1025, count: 40 },
-  { country: "IN", city: "Bangalore", lat: 12.9716, lng: 77.5946, count: 30 },
-  { country: "TH", city: "Bangkok", lat: 13.7563, lng: 100.5018, count: 35 },
-  { country: "ID", city: "Jakarta", lat: -6.2088, lng: 106.8456, count: 30 },
-  { country: "AE", city: "Dubai", lat: 25.2048, lng: 55.2708, count: 25 },
-  { country: "IL", city: "Tel Aviv", lat: 32.0853, lng: 34.7818, count: 15 },
-  { country: "BR", city: "Sao Paulo", lat: -23.5505, lng: -46.6333, count: 55 },
-  { country: "BR", city: "Rio de Janeiro", lat: -22.9068, lng: -43.1729, count: 40 },
-  { country: "AR", city: "Buenos Aires", lat: -34.6037, lng: -58.3816, count: 40 },
-  { country: "CO", city: "Bogota", lat: 4.711, lng: -74.0721, count: 25 },
-  { country: "ZA", city: "Johannesburg", lat: -26.2041, lng: 28.0473, count: 25 },
-  { country: "EG", city: "Cairo", lat: 30.0444, lng: 31.2357, count: 25 },
-  { country: "NG", city: "Lagos", lat: 6.5244, lng: 3.3792, count: 20 },
-  { country: "AU", city: "Sydney", lat: -33.8688, lng: 151.2093, count: 40 },
-  { country: "AU", city: "Melbourne", lat: -37.8136, lng: 144.9631, count: 35 },
-  { country: "AU", city: "Brisbane", lat: -27.4698, lng: 153.0251, count: 20 },
-  { country: "NZ", city: "Auckland", lat: -36.8485, lng: 174.7633, count: 15 },
-];
+const GRID_STEP = 0.05;
+const MIN_RADIUS = 0.60;
 
-async function seedPixels() {
-  await prisma.pixel.deleteMany();
-  let total = 0;
-  for (const { country, city, lat, lng, count } of CITIES) {
-    const placed = new Set<string>();
-    const pixels = [];
-    for (let i = 0; i < count * 3; i++) {
-      const spread = 0.8 + Math.random() * 0.8;
-      const gt = Math.round((lat + (Math.random() - 0.5) * 2 * spread) * 10);
-      const gl = Math.round((lng + (Math.random() - 0.5) * 2 * spread) * 10);
-      const key = gt + "_" + gl;
-      if (placed.has(key)) continue;
-      placed.add(key);
-      const cellLat = gt / 10;
-      const cellLng = gl / 10;
-      pixels.push({
-        gridLat: gt,
-        gridLng: gl,
-        latitude: cellLat,
-        longitude: cellLng,
-        countryCode: country,
-        city: city,
-        color: "#1e293b",
-        status: "AVAILABLE",
-        isPaid: false,
-        priceTier: "BASIC",
-      });
-      if (pixels.length >= count) break;
-    }
-    await prisma.pixel.createMany({ data: pixels as any, skipDuplicates: true });
-    total += pixels.length;
+function cityRadius(population: number): number {
+  return Math.min(12, Math.max(MIN_RADIUS, Math.sqrt(population) * 0.0012));
+}
+
+function snapGrid(lat: number, lng: number) {
+  return {
+    gridLat: Math.round((lat + 90) / GRID_STEP) * GRID_STEP,
+    gridLng: Math.round((lng + 180) / GRID_STEP) * GRID_STEP,
+  };
+}
+
+interface RawCity { name: string; pop: number; lat: number; lng: number }
+
+async function fetchCities(): Promise<RawCity[]> {
+  const res = await fetch(
+    "https://raw.githubusercontent.com/oumkale/WordPopulation_data/master/worldcities.csv",
+    { next: { revalidate: 3600 } }
+  );
+  if (!res.ok) throw new Error(`Failed to fetch cities: ${res.status}`);
+  const text = await res.text();
+  const cities: RawCity[] = [];
+  for (const line of text.split("\n").slice(1)) {
+    if (!line.trim()) continue;
+    const parts = line.split(",");
+    if (parts.length < 4) continue;
+    const name = parts[0].replace(/"/g, "").trim();
+    const pop = parseInt(parts[1].replace(/"/g, "").trim(), 10);
+    if (isNaN(pop) || pop < 1000) continue;
+    const lat = parseFloat(parts[2].replace(/"/g, "").trim());
+    const lng = parseFloat(parts[3].replace(/"/g, "").trim());
+    if (isNaN(lat) || isNaN(lng)) continue;
+    cities.push({ name, pop, lat, lng });
   }
-  return total;
+  return cities;
+}
+
+async function generateGrid(cities: RawCity[]) {
+  cities.sort((a, b) => b.pop - a.pop);
+  const seenKeys = new Set<string>();
+  const BATCH = 2000;
+  let totalPixels = 0;
+  let totalBlocked = 0;
+
+  for (let ci = 0; ci < cities.length; ci++) {
+    const city = cities[ci];
+    const countryCode = getCountryCode(city.lat, city.lng);
+    const radius = cityRadius(city.pop);
+    const minLat = Math.max(-90, city.lat - radius);
+    const maxLat = Math.min(90, city.lat + radius);
+    const minLng = city.lng - radius;
+    const maxLng = city.lng + radius;
+    const cosLat = Math.cos((city.lat * Math.PI) / 180);
+
+    const batch: any[] = [];
+
+    for (let lat = minLat; lat <= maxLat; lat += GRID_STEP) {
+      for (let lng = minLng; lng <= maxLng; lng += GRID_STEP) {
+        const dLat = lat - city.lat;
+        const dLng = (lng - city.lng) * cosLat;
+        if (Math.sqrt(dLat * dLat + dLng * dLng) > radius) continue;
+
+        const snapped = snapGrid(lat, lng);
+        const key = `${snapped.gridLat.toFixed(4)},${snapped.gridLng.toFixed(4)}`;
+        if (seenKeys.has(key)) continue;
+        seenKeys.add(key);
+
+        if (isBlockedTerrain(lat, lng, countryCode)) { totalBlocked++; continue; }
+
+        batch.push({
+          gridLat: parseFloat(snapped.gridLat.toFixed(4)),
+          gridLng: parseFloat(snapped.gridLng.toFixed(4)),
+          latitude: parseFloat(lat.toFixed(6)),
+          longitude: parseFloat(lng.toFixed(6)),
+          countryCode,
+          city: city.name,
+          status: "AVAILABLE",
+          color: "#1e293b",
+          priceTier: "BASIC",
+          isPaid: false,
+        });
+
+        if (batch.length >= BATCH) {
+          await prisma.pixel.createMany({ data: batch, skipDuplicates: true });
+          totalPixels += batch.length;
+          batch.length = 0;
+        }
+      }
+    }
+
+    if (batch.length > 0) {
+      await prisma.pixel.createMany({ data: batch, skipDuplicates: true });
+      totalPixels += batch.length;
+    }
+
+    if ((ci + 1) % 500 === 0) {
+      console.log(`[seed] ${ci + 1}/${cities.length} | pixels: ${totalPixels.toLocaleString()} | blocked: ${totalBlocked.toLocaleString()}`);
+    }
+  }
+
+  return { totalPixels, totalBlocked };
+}
+
+export async function POST(req: NextRequest) {
+  const url = new URL(req.url);
+  const dry = url.searchParams.get("dry") === "1";
+  const clear = url.searchParams.get("clear") === "1";
+
+  try {
+    if (clear) {
+      await prisma.checkin.deleteMany();
+      await prisma.pixel.deleteMany();
+    }
+
+    console.log("[seed] Fetching city data...");
+    const cities = await fetchCities();
+    console.log(`[seed] Loaded ${cities.length} cities`);
+
+    if (dry) {
+      let totalCells = 0, totalBlocked = 0;
+      const seenKeys = new Set<string>();
+      for (const city of cities) {
+        const radius = cityRadius(city.pop);
+        const cc = getCountryCode(city.lat, city.lng);
+        const cosLat = Math.cos((city.lat * Math.PI) / 180);
+        for (let lat = Math.max(-90, city.lat - radius); lat <= Math.min(90, city.lat + radius); lat += GRID_STEP) {
+          for (let lng = city.lng - radius; lng <= city.lng + radius; lng += GRID_STEP) {
+            const dLat = lat - city.lat, dLng = (lng - city.lng) * cosLat;
+            if (Math.sqrt(dLat * dLat + dLng * dLng) > radius) continue;
+            const key = `${Math.round((lat + 90) / GRID_STEP) * GRID_STEP},${Math.round((lng + 180) / GRID_STEP) * GRID_STEP}`;
+            if (seenKeys.has(key)) continue;
+            seenKeys.add(key);
+            if (isBlockedTerrain(lat, lng, cc)) { totalBlocked++; continue; }
+            totalCells++;
+          }
+        }
+      }
+      return NextResponse.json({ dry: true, cities: cities.length, estimatedPixels: totalCells, estimatedBlocked: totalBlocked });
+    }
+
+    const result = await generateGrid(cities);
+    return NextResponse.json({
+      ok: true,
+      citiesProcessed: cities.length,
+      pixelsGenerated: result.totalPixels,
+      pixelsBlocked: result.totalBlocked,
+      totalInDb: await prisma.pixel.count(),
+    });
+  } catch (err: any) {
+    console.error("[seed] Error:", err);
+    return NextResponse.json({ error: err.message }, { status: 500 });
+  }
 }
 
 export async function GET() {
   try {
-    return NextResponse.json({ checkins: await prisma.checkin.count(), pixels: await prisma.pixel.count() });
-  } catch (e) {
-    return NextResponse.json({ error: String(e) }, { status: 500 });
-  }
-}
-
-export async function POST(req: NextRequest) {
-  const clear = new URL(req.url).searchParams.get("clear") === "true";
-  const reseed = new URL(req.url).searchParams.get("reseed") !== "false";
-  const seedPixels_ = new URL(req.url).searchParams.get("seedPixels") !== "false";
-  try {
-    if (clear) {
-      await prisma.checkin.deleteMany();
-      if (seedPixels_) await prisma.pixel.deleteMany();
-      if (!reseed) return NextResponse.json({ ok: true, checkins: 0, pixels: seedPixels_ ? 0 : await prisma.pixel.count() });
-    }
-    if (seedPixels_) {
-      const total = await seedPixels();
-      return NextResponse.json({ ok: true, pixelsSeeded: total, checkins: await prisma.checkin.count() });
-    }
-    return NextResponse.json({ ok: true, pixels: await prisma.pixel.count(), checkins: await prisma.checkin.count() });
-  } catch(e) {
-    console.error(e);
-    return NextResponse.json({ error: String(e) }, { status: 500 });
+    return NextResponse.json({ pixels: await prisma.pixel.count(), checkins: await prisma.checkin.count() });
+  } catch (e: any) {
+    return NextResponse.json({ error: e.message }, { status: 500 });
   }
 }
