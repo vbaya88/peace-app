@@ -46,7 +46,11 @@ export default function KindnessMap({
       const r = await fetch("/api/checkins?limit=10000");
       if (r.ok) {
         const data = await r.json();
-        setCheckins(data.checkins || []);
+        const snapped = (data.checkins || []).map((c: Checkin) => {
+          const [pixelLat, pixelLng] = snapToPixel(c.latitude ?? c.pixelLat ?? 0, c.longitude ?? c.pixelLng ?? 0);
+          return { ...c, pixelLat, pixelLng };
+        });
+        setCheckins(snapped);
       }
     } catch {}
   }, []);
