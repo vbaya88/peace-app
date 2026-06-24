@@ -58,9 +58,10 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   const clear = new URL(req.url).searchParams.get("clear") === "true";
+  const reseed = new URL(req.url).searchParams.get("reseed") !== "false";
   try {
     await ensurePixelColumns();
-    if (clear) await prisma.checkin.deleteMany({});
+    if (clear) { await prisma.checkin.deleteMany({}); if (!reseed) return NextResponse.json({ ok: true, total: 0 }); }
 
     const TOTAL = 1000, BATCH = 100;
     let seeded = 0;
