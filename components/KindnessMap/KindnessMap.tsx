@@ -25,12 +25,16 @@ interface KindnessMapProps {
   isPlacingMode?: boolean;
   onLocationSelect?: (pixelLat: number, pixelLng: number, label: string) => void;
   onMapClick?: (lat: number) => void;
+  messages?: string[];
+  selectedColor?: string;
 }
 
 export default function KindnessMap({
   isPlacingMode = false,
   onLocationSelect,
   onMapClick,
+  messages,
+  selectedColor,
 }: KindnessMapProps) {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<any>(null);
