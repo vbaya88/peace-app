@@ -21,6 +21,13 @@ interface PixelRecord {
   isPaid: boolean;
 }
 
+interface CityCircleData {
+  name: string;
+  lng: number;
+  lat: number;
+  radiusKm: number; // radius in kilometers
+}
+
 interface KindnessMapProps {
   isPlacingMode?: boolean;
   onLocationSelect?: (pixelLat: number, pixelLng: number, label: string) => void;
@@ -38,10 +45,68 @@ export default function KindnessMap({
 }: KindnessMapProps) {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<any>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
   const [statusMsg, setStatusMsg] = useState("");
+  const citiesRef = useRef<CityCircleData[]>([]);
   const onMapClickRef = useRef(onMapClick);
   onMapClickRef.current = onMapClick;
+
+  // Draw city circles on canvas overlay (perfect circles, correct scaling)
+  const drawCityCircles = useCallback(() => {
+    if (!map.current || !canvasRef.current || !citiesRef.current.length) return;
+
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    // Match canvas size to map container
+    const rect = map.current.getContainer().getBoundingClientRect();
+    if (canvas.width !== rect.width || canvas.height !== rect.height) {
+      canvas.width = rect.width * window.devicePixelRatio;
+      canvas.height = rect.height * window.devicePixelRatio;
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+      canvas.style.width = `${rect.width}px`;
+      canvas.style.height = `${rect.height}px`;
+    }
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    const zoom = map.current.getZoom();
+    if (zoom < 6) return; // Don't show circles below zoom 6
+
+    // Scale factor: larger circles as you zoom in
+    const baseRadiusPx = Math.max(15, (zoom - 6) * 12 + 20);
+
+    citiesRef.current.forEach((city) => {
+      const pos = map.current.project([city.lng, city.lat]);
+      // Adjust radius by latitude to counteract Mercator stretching
+      const latFactor = Math.cos((city.lat * Math.PI) / 180);
+      const radiusX = baseRadiusPx;
+      const radiusY = baseRadiusPx * latFactor; // Slightly shorter vertically
+
+      ctx.beginPath();
+      ctx.ellipse(pos.x, pos.y, radiusX, radiusY, 0, 0, 2 * Math.PI);
+      ctx.strokeStyle = "rgba(255,255,255,0.9)";
+      ctx.lineWidth = Math.max(2, (zoom - 6) * 0.4 + 2.5);
+      ctx.stroke();
+
+      // Subtle glow
+      ctx.shadowColor = "rgba(255,255,255,0.4)";
+      ctx.shadowBlur = 8;
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+
+      // City name label
+      if (zoom >= 7) {
+        ctx.font = `${Math.max(10, (zoom - 7) * 1.5 + 11)}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+        ctx.fillStyle = "rgba(255,255,255,0.85)";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "top";
+        ctx.fillText(city.name, pos.x, pos.y + radiusY + 4);
+      }
+    });
+  }, []);
 
   // Init map
   useEffect(() => {
@@ -54,14 +119,11 @@ export default function KindnessMap({
     }
 
     (async () => {
-      // Strategy 1: Meta tag (server-injected in layout.tsx)
       const metaToken = document.querySelector('meta[name="mapbox-token"]')?.getAttribute("content");
       if (metaToken?.startsWith("pk.")) {
         initMap(metaToken);
         return;
       }
-
-      // Strategy 2: Runtime API fetch
       try {
         const res = await fetch("/api/config?key=mapbox_token");
         if (res.ok) {
@@ -73,7 +135,6 @@ export default function KindnessMap({
           }
         }
       } catch { /* ignore */ }
-
       setStatusMsg("⚠ Mapbox token not configured");
     })();
 
@@ -98,119 +159,66 @@ export default function KindnessMap({
     map.current.addControl(new (window as any).mapboxgl.FullscreenControl(), "top-right");
     map.current.addControl(new (window as any).mapboxgl.AttributionControl({ compact: true }), "bottom-right");
 
-    map.current.on("load", () => {
+    map.current.on("load", async () => {
       map.current.resize();
 
-      // ── Country borders: Use Mapbox's built-in admin-0 vector tile layer ──
-      // This gives REAL geographic boundaries (like the red lines in user's sketch)
-      // Source: Mapbox streets-v12 vector tiles, layer: admin (admin_level=0)
-      map.current.addSource("mapbox-admin", {
-        type: "vector",
-        url: "mapbox://mapbox.boundaries-v3",
+      // ── Country borders from Natural Earth GeoJSON (REAL geographic boundaries) ──
+      // Using our downloaded Natural Earth file — gives us FULL control over styling
+      map.current.addSource("countries-src", {
+        type: "geojson",
+        data: "/data/countries.geojson",
       });
-
-      // Real country borders from Mapbox Boundaries v3 — BOLD & BRIGHT
       map.current.addLayer({
-        id: "country-borders-real",
+        id: "country-borders",
         type: "line",
-        source: "mapbox-admin",
-        "source-layer": "boundaries_0",
+        source: "countries-src",
         paint: {
           "line-color": "#ffffff",
           "line-width": [
             "interpolate", ["linear"], ["zoom"],
             1, 1.5,
-            3, 2.5,
-            6, 3.5,
-            9, 5.0,
-            12, 7.0,
+            2, 2.5,
+            4, 3.5,
+            7, 5.0,
+            10, 7.0,
+            14, 9.0,
           ],
           "line-opacity": [
             "interpolate", ["linear"], ["zoom"],
-            1, 0.5,
-            3, 0.8,
-            6, 0.95,
+            1, 0.4,
+            2, 0.65,
+            5, 0.85,
+            10, 0.95,
           ],
-          "line-blur": 0,
         },
         layout: {
           "line-cap": "round",
           "line-join": "round",
         },
         minzoom: 1,
-        maxzoom: 15,
+        maxzoom: 18,
       });
 
-      // ── City boundary circles via HTML overlays (perfect circles, no projection distortion) ──
-      // Using HTML marker divs instead of GeoJSON polygons to avoid Mercator oval distortion
-      map.current.addSource("cities-src", {
-        type: "geojson",
-        data: "/data/top100-cities.geojson",
-      });
-
-      // Load city data and create perfect circle markers
-      fetch("/data/top100-cities.geojson")
-        .then(r => r.json())
-        .then(geoData => {
-          geoData.features.forEach((city: any) => {
-            const coords = city.geometry.coordinates[0];
-            // Calculate center as average of all polygon points
-            let sumLng = 0, sumLat = 0;
-            coords.forEach((pt: number[]) => { sumLng += pt[0]; sumLat += pt[1]; });
-            const centerLng = sumLng / coords.length;
-            const centerLat = sumLat / coords.length;
-            // Calculate radius in degrees (approximate from first point)
-            const dx = coords[0][0] - centerLng;
-            const dy = coords[0][1] - centerLat;
-            const radiusDeg = Math.sqrt(dx * dx + dy * dy);
-
-            // Create HTML marker for perfect circle
-            const el = document.createElement('div');
-            el.className = 'city-circle-marker';
-            el.style.cssText = `
-              width: ${radiusDeg * 85000}px; height: ${radiusDeg * 85000}px;
-              border-radius: 50%;
-              border: 3px solid rgba(255,255,255,0.9);
-              background: transparent;
-              pointer-events: none;
-              box-shadow: 0 0 8px rgba(255,255,255,0.3);
-            `;
-
-            new (window as any).mapboxgl.Marker({ element: el, anchor: 'center' })
-              .setLngLat([centerLng, centerLat])
-              .addTo(map.current);
-          });
+      // ── Load city centers for circle rendering ──
+      try {
+        const cityRes = await fetch("/data/top100-cities.geojson");
+        const cityGeo = await cityRes.json();
+        const cities: CityCircleData[] = cityGeo.features.map((f: any) => {
+          const coords = f.geometry.coordinates[0];
+          let sumLng = 0, sumLat = 0;
+          coords.forEach((pt: number[]) => { sumLng += pt[0]; sumLat += pt[1]; });
+          const centerLng = sumLng / coords.length;
+          const centerLat = sumLat / coords.length;
+          const dx = coords[0][0] - centerLng;
+          const dy = coords[0][1] - centerLat;
+          // Approximate radius in km (1 degree ≈ 111km at equator)
+          const radiusKm = Math.sqrt(dx * dx + dy * dy) * 111;
+          return { name: f.properties.name, lng: centerLng, lat: centerLat, radiusKm };
         });
-
-      // City labels
-      map.current.addLayer({
-        id: "city-labels",
-        type: "symbol",
-        source: "cities-src",
-        layout: {
-          "text-field": ["get", "name"],
-          "text-size": [
-            "interpolate", ["linear"], ["zoom"],
-            7, 10,
-            10, 13,
-            13, 16,
-          ],
-          "text-variable-anchor": ["center", "top", "bottom", "left", "right"],
-          "text-justify": "auto",
-        },
-        paint: {
-          "text-color": "rgba(255,255,255,0.85)",
-          "text-halo-color": "rgba(0,0,0,0.8)",
-          "text-halo-width": 1.5,
-          "text-opacity": [
-            "interpolate", ["linear"], ["zoom"],
-            7, 0,
-            8, 0.8,
-          ],
-        },
-        minzoom: 7,
-        maxzoom: 15,
-      });
+        citiesRef.current = cities;
+      } catch (e) {
+        console.warn("Failed to load city data:", e);
+      }
 
       // ── Fog + stars ──────────────────────────────────────────────────────
       map.current.setFog({
@@ -223,6 +231,10 @@ export default function KindnessMap({
 
       setMapLoaded(true);
     });
+
+    // Redraw circles on every move/zoom
+    map.current.on("move", drawCityCircles);
+    map.current.on("zoom", drawCityCircles);
 
     map.current.on("click", (e: any) => {
       const { lat } = e.lngLat;
@@ -285,14 +297,17 @@ export default function KindnessMap({
     <div style={{ position: "relative", width: "100%", height: "100%" }}>
       <div ref={mapContainer} style={{ width: "100%", height: "100%" }} />
 
-      {/* CSS for perfect city circle markers */}
-      <style>{`
-        .city-circle-marker {
-          transition: width 0.3s, height 0.3s, border-width 0.3s;
-        }
-      `}</style>
-
-      {/* PixelGrid removed for now — will be re-added with proper grid inside city circles */}
+      {/* Canvas overlay for perfect city circles */}
+      <canvas
+        ref={canvasRef}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          pointerEvents: "none",
+          zIndex: 5,
+        }}
+      />
 
       {statusMsg && (
         <div style={{
