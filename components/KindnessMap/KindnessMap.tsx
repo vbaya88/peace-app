@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, useState, useCallback } from "react";
-import PixelGrid, { snapToPixel } from "@/components/PixelGrid/PixelGrid";
+import { snapToPixel } from "@/components/PixelGrid/PixelGrid";
 
 const WATER_CHECK_API = "/api/geo/water-check";
 
@@ -38,26 +38,12 @@ export default function KindnessMap({
 }: KindnessMapProps) {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<any>(null);
-  const [pixels, setPixels] = useState<PixelRecord[]>([]);
   const [mapLoaded, setMapLoaded] = useState(false);
   const [statusMsg, setStatusMsg] = useState("");
   const onMapClickRef = useRef(onMapClick);
   onMapClickRef.current = onMapClick;
 
-  // Load pixels from the city grid
-  const loadPixels = useCallback(async () => {
-    try {
-      const r = await fetch("/api/pixels?limit=10000");
-      if (r.ok) {
-        const data = await r.json();
-        const raw: PixelRecord[] = data.pixels || [];
-        setPixels(raw);
-        console.log("[KindnessMap] loaded", raw.length, "pixels");
-      }
-    } catch (e) {
-      console.error("[KindnessMap] loadPixels error:", e);
-    }
-  }, []);
+  // loadPixels removed — PixelGrid disabled for now
 
   // Init map
   useEffect(() => {
@@ -94,7 +80,7 @@ export default function KindnessMap({
     })();
 
     return () => { /* noop */ };
-  }, [loadPixels]);
+  });
 
   const initMap = (token: string) => {
     const container = mapContainer.current;
@@ -117,7 +103,7 @@ export default function KindnessMap({
     map.current.on("load", () => {
       map.current.resize();
 
-      // ── Level 1-2: Country borders (visible zoom 3-13) ──────────────────
+      // ── Level 1-2: Country borders (visible zoom 2-13) ──────────────────
       map.current.addSource("countries-src", {
         type: "geojson",
         data: "/data/countries.geojson",
@@ -127,23 +113,23 @@ export default function KindnessMap({
         type: "line",
         source: "countries-src",
         paint: {
-          "line-color": "rgba(255,255,255,0.5)",
+          "line-color": "rgba(255,255,255,0.7)",
           "line-width": [
             "interpolate", ["linear"], ["zoom"],
-            3, 0.5,   // barely visible at zoom 3
-            5, 1.0,   // thin at zoom 5
-            8, 1.5,   // medium at zoom 8
-            12, 2.0,  // stronger at zoom 12
+            2, 1.0,   // visible at zoom 2
+            4, 1.8,   // clear at zoom 4
+            7, 2.5,   // strong at zoom 7
+            12, 3.5,  // very strong at zoom 12
           ],
           "line-opacity": [
             "interpolate", ["linear"], ["zoom"],
-            2.5, 0,
-            3.0, 0.5,
-            12, 0.8,
+            1.5, 0,
+            2.0, 0.6,
+            10, 0.9,
           ],
         },
-        minzoom: 2.5,
-        maxzoom: 14,
+        minzoom: 1.5,
+        maxzoom: 15,
       });
       // Country fill (very subtle tint)
       map.current.addLayer({
@@ -155,7 +141,7 @@ export default function KindnessMap({
         maxzoom: 14,
       });
 
-      // ── Level 2-3: City boundary circles (visible zoom 7-11) ─────────────
+      // ── Level 2-3: City boundary circles (visible zoom 6-12) ─────────────
       map.current.addSource("cities-src", {
         type: "geojson",
         data: "/data/top100-cities.geojson",
@@ -165,41 +151,23 @@ export default function KindnessMap({
         type: "line",
         source: "cities-src",
         paint: {
-          "line-color": "rgba(148,163,184,0.6)",
+          "line-color": "rgba(255,255,255,0.85)",
           "line-width": [
             "interpolate", ["linear"], ["zoom"],
-            7, 1.0,
-            9, 1.5,
-            11, 2.5,
+            6, 1.5,    // clearly visible at zoom 6
+            8, 2.5,    // thick at zoom 8
+            10, 3.5,   // very thick at zoom 10
+            12, 4.5,   // maximum thickness at zoom 12+
           ],
           "line-opacity": [
             "interpolate", ["linear"], ["zoom"],
-            6.5, 0,
-            7.0, 0.5,
-            11, 0.8,
+            5.5, 0,
+            6.0, 0.65,
+            9, 0.95,
           ],
         },
-        minzoom: 6.5,
-        maxzoom: 12,
-      });
-      // City label dots (center point)
-      map.current.addLayer({
-        id: "city-dots",
-        type: "circle",
-        source: "cities-src",
-        paint: {
-          "circle-color": "rgba(148,163,184,0.4)",
-          "circle-radius": [
-            "interpolate", ["linear"], ["zoom"],
-            7, 2, 9, 4, 11, 6,
-          ],
-          "circle-opacity": [
-            "interpolate", ["linear"], ["zoom"],
-            6.5, 0, 7, 0.4, 10, 0.7,
-          ],
-        },
-        minzoom: 7,
-        maxzoom: 12,
+        minzoom: 5.5,
+        maxzoom: 14,
       });
 
       // ── Fog + stars ──────────────────────────────────────────────────────
@@ -212,7 +180,6 @@ export default function KindnessMap({
       });
 
       setMapLoaded(true);
-      loadPixels();
     });
 
     map.current.on("click", (e: any) => {
@@ -265,7 +232,7 @@ export default function KindnessMap({
 
     map.current.on("click", handleClick);
     return () => { map.current?.off("click", handleClick); };
-  }, [mapLoaded, isPlacingMode, onLocationSelect, loadPixels]);
+  }, [mapLoaded, isPlacingMode, onLocationSelect]);
 
   useEffect(() => {
     if (!map.current) return;
@@ -276,12 +243,7 @@ export default function KindnessMap({
     <div style={{ position: "relative", width: "100%", height: "100%" }}>
       <div ref={mapContainer} style={{ width: "100%", height: "100%" }} />
 
-      {mapLoaded && map.current && (
-        <PixelGrid
-          map={map.current}
-          pixels={pixels}
-        />
-      )}
+      {/* PixelGrid removed — user wants only country/continent borders + city circles */}
 
       {statusMsg && (
         <div style={{
