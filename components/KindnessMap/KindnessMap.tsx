@@ -109,7 +109,7 @@ export default function KindnessMap({
         url: "mapbox://mapbox.boundaries-v3",
       });
 
-      // Real country borders from Mapbox Boundaries v3
+      // Real country borders from Mapbox Boundaries v3 — BOLD & BRIGHT
       map.current.addLayer({
         id: "country-borders-real",
         type: "line",
@@ -119,52 +119,68 @@ export default function KindnessMap({
           "line-color": "#ffffff",
           "line-width": [
             "interpolate", ["linear"], ["zoom"],
-            0, 0.5,
-            2, 1.0,
-            4, 1.5,
-            7, 2.5,
-            10, 3.5,
+            1, 1.5,
+            3, 2.5,
+            6, 3.5,
+            9, 5.0,
+            12, 7.0,
           ],
           "line-opacity": [
             "interpolate", ["linear"], ["zoom"],
-            0, 0.3,
-            2, 0.6,
-            6, 0.85,
+            1, 0.5,
+            3, 0.8,
+            6, 0.95,
           ],
+          "line-blur": 0,
         },
-        minzoom: 0,
+        layout: {
+          "line-cap": "round",
+          "line-join": "round",
+        },
+        minzoom: 1,
         maxzoom: 15,
       });
 
-      // ── City boundary circles (visible zoom 7-14) ───────────────────────
-      // These are proper circles generated with latitude-corrected radii
+      // ── City boundary circles via HTML overlays (perfect circles, no projection distortion) ──
+      // Using HTML marker divs instead of GeoJSON polygons to avoid Mercator oval distortion
       map.current.addSource("cities-src", {
         type: "geojson",
         data: "/data/top100-cities.geojson",
       });
-      map.current.addLayer({
-        id: "city-boundaries",
-        type: "line",
-        source: "cities-src",
-        paint: {
-          "line-color": "rgba(255,255,255,0.9)",
-          "line-width": [
-            "interpolate", ["linear"], ["zoom"],
-            7, 1.5,
-            9, 2.5,
-            11, 3.5,
-            13, 4.5,
-          ],
-          "line-opacity": [
-            "interpolate", ["linear"], ["zoom"],
-            6, 0,
-            7, 0.7,
-            9, 0.95,
-          ],
-        },
-        minzoom: 6,
-        maxzoom: 15,
-      });
+
+      // Load city data and create perfect circle markers
+      fetch("/data/top100-cities.geojson")
+        .then(r => r.json())
+        .then(geoData => {
+          geoData.features.forEach((city: any) => {
+            const coords = city.geometry.coordinates[0];
+            // Calculate center as average of all polygon points
+            let sumLng = 0, sumLat = 0;
+            coords.forEach((pt: number[]) => { sumLng += pt[0]; sumLat += pt[1]; });
+            const centerLng = sumLng / coords.length;
+            const centerLat = sumLat / coords.length;
+            // Calculate radius in degrees (approximate from first point)
+            const dx = coords[0][0] - centerLng;
+            const dy = coords[0][1] - centerLat;
+            const radiusDeg = Math.sqrt(dx * dx + dy * dy);
+
+            // Create HTML marker for perfect circle
+            const el = document.createElement('div');
+            el.className = 'city-circle-marker';
+            el.style.cssText = `
+              width: ${radiusDeg * 85000}px; height: ${radiusDeg * 85000}px;
+              border-radius: 50%;
+              border: 3px solid rgba(255,255,255,0.9);
+              background: transparent;
+              pointer-events: none;
+              box-shadow: 0 0 8px rgba(255,255,255,0.3);
+            `;
+
+            new (window as any).mapboxgl.Marker({ element: el, anchor: 'center' })
+              .setLngLat([centerLng, centerLat])
+              .addTo(map.current);
+          });
+        });
 
       // City labels
       map.current.addLayer({
@@ -268,6 +284,13 @@ export default function KindnessMap({
   return (
     <div style={{ position: "relative", width: "100%", height: "100%" }}>
       <div ref={mapContainer} style={{ width: "100%", height: "100%" }} />
+
+      {/* CSS for perfect city circle markers */}
+      <style>{`
+        .city-circle-marker {
+          transition: width 0.3s, height 0.3s, border-width 0.3s;
+        }
+      `}</style>
 
       {/* PixelGrid removed for now — will be re-added with proper grid inside city circles */}
 
