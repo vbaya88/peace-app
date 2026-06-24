@@ -76,20 +76,28 @@ async function seedPixels() {
       const key = gt + "_" + gl;
       if (placed.has(key)) continue;
       placed.add(key);
+      // gridLat/gridLng = integer index; latitude/longitude = cell center
+      const cellLat = gt / 10;
+      const cellLng = gl / 10;
       pixels.push({
         gridLat: gt,
         gridLng: gl,
+        latitude: cellLat,
+        longitude: cellLng,
         countryCode: country,
-        cityName: city,
-        color: "#1e293b",
-        isSpecial: false,
-        priceRub: 100,
+        city: city,
         status: "AVAILABLE",
-        tier: "BASIC",
+        color: "#1e293b",
+        isPaid: false,
+        priceTier: "BASIC",
       });
       if (pixels.length >= cnt) break;
     }
-    await prisma.pixel.createMany({ data: pixels, skipDuplicates: true });
+    // Batch in groups of 100 to avoid createMany limit
+    for (let i = 0; i < pixels.length; i += 100) {
+      const batch = pixels.slice(i, i + 100);
+      await prisma.pixel.createMany({ data: batch as any, skipDuplicates: true });
+    }
     total += pixels.length;
   }
   return total;
@@ -104,9 +112,9 @@ export async function GET(req: NextRequest) {
   const doSeed = searchParams.get("seed") === "true";
 
   try {
-    // Auto-seed on first call if table is empty
     if (doSeed || process.env.AUTO_SEED_PIXELS === "true") {
-      await seedPixels();
+      const seeded = await seedPixels();
+      return NextResponse.json({ seeded });
     }
 
     const countOnly = searchParams.get("count") === "true";
