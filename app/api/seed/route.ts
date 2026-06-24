@@ -74,20 +74,23 @@ async function seedPixels() {
       const key = gt + "_" + gl;
       if (placed.has(key)) continue;
       placed.add(key);
+      const cellLat = gt / 10;
+      const cellLng = gl / 10;
       pixels.push({
         gridLat: gt,
         gridLng: gl,
+        latitude: cellLat,
+        longitude: cellLng,
         countryCode: country,
-        cityName: city,
+        city: city,
         color: "#1e293b",
-        isSpecial: false,
-        priceRub: 100,
         status: "AVAILABLE",
-        tier: "BASIC",
+        isPaid: false,
+        priceTier: "BASIC",
       });
       if (pixels.length >= count) break;
     }
-    await prisma.pixel.createMany({ data: pixels, skipDuplicates: true });
+    await prisma.pixel.createMany({ data: pixels as any, skipDuplicates: true });
     total += pixels.length;
   }
   return total;
