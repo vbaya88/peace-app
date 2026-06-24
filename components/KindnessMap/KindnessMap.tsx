@@ -21,6 +21,14 @@ interface PixelRecord {
   isPaid: boolean;
 }
 
+// City point data for native circle layer
+interface CityPoint {
+  name: string;
+  lng: number;
+  lat: number;
+  radiusKm: number; // circle radius in km
+}
+
 interface KindnessMapProps {
   isPlacingMode?: boolean;
   onLocationSelect?: (pixelLat: number, pixelLng: number, label: string) => void;
@@ -40,6 +48,7 @@ export default function KindnessMap({
   const map = useRef<any>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
   const [statusMsg, setStatusMsg] = useState("");
+  const citiesRef = useRef<CityPoint[]>([]);
   const onMapClickRef = useRef(onMapClick);
   onMapClickRef.current = onMapClick;
 
@@ -98,10 +107,10 @@ export default function KindnessMap({
     map.current.addControl(new (window as any).mapboxgl.FullscreenControl(), "top-right");
     map.current.addControl(new (window as any).mapboxgl.AttributionControl({ compact: true }), "bottom-right");
 
-    map.current.on("load", () => {
+    map.current.on("load", async () => {
       map.current.resize();
 
-      // ── Country borders from Natural Earth GeoJSON (REAL geographic boundaries) ──
+      // ── Country borders from Natural Earth GeoJSON ──
       map.current.addSource("countries-src", {
         type: "geojson",
         data: "/data/countries.geojson",
@@ -114,19 +123,19 @@ export default function KindnessMap({
           "line-color": "#ffffff",
           "line-width": [
             "interpolate", ["linear"], ["zoom"],
-            1, 0.8,
-            2, 1.3,
-            4, 1.8,
-            7, 2.5,
-            10, 3.5,
-            14, 4.5,
+            1, 0.4,
+            2, 0.65,
+            4, 0.9,
+            7, 1.25,
+            10, 1.75,
+            14, 2.25,
           ],
           "line-opacity": [
             "interpolate", ["linear"], ["zoom"],
-            1, 0.35,
-            2, 0.55,
-            5, 0.75,
-            10, 0.9,
+            1, 0.3,
+            2, 0.45,
+            5, 0.65,
+            10, 0.85,
           ],
         },
         layout: {
@@ -137,66 +146,112 @@ export default function KindnessMap({
         maxzoom: 18,
       });
 
-      // ── City boundary circles (GeoJSON polygons with ~24 points each) ──
-      // These are proper circle polygons defined in top100-cities.geojson
-      // Rendered as a Mapbox line layer — follows map projection naturally
-      map.current.addSource("cities-src", {
-        type: "geojson",
-        data: "/data/top100-cities.geojson",
-      });
-      map.current.addLayer({
-        id: "city-boundaries",
-        type: "line",
-        source: "cities-src",
-        paint: {
-          "line-color": "rgba(255,255,255,0.9)",
-          "line-width": [
-            "interpolate", ["linear"], ["zoom"],
-            6, 1.5,
-            8, 2.5,
-            10, 3.5,
-            12, 4.5,
-          ],
-          "line-opacity": [
-            "interpolate", ["linear"], ["zoom"],
-            5, 0,
-            6, 0.7,
-            9, 0.95,
-          ],
-        },
-        minzoom: 5,
-        maxzoom: 15,
-      });
+      // ── Load city centers and create NATIVE CIRCLE layer ──
+      // Mapbox's 'circle' layer type renders TRUE geometric circles
+      // that stay perfectly round regardless of Mercator projection!
+      try {
+        const cityRes = await fetch("/data/top100-cities.geojson");
+        const cityGeo = await cityRes.json();
+        const cities: CityPoint[] = cityGeo.features.map((f: any) => {
+          const coords = f.geometry.coordinates[0];
+          let sumLng = 0, sumLat = 0;
+          coords.forEach((pt: number[]) => { sumLng += pt[0]; sumLat += pt[1]; });
+          const centerLng = sumLng / coords.length;
+          const centerLat = sumLat / coords.length;
+          const dx = coords[0][0] - centerLng;
+          const dy = coords[0][1] - centerLat;
+          const radiusKm = Math.sqrt(dx * dx + dy * dy) * 111;
+          return { name: f.properties.name, lng: centerLng, lat: centerLat, radiusKm };
+        });
+        citiesRef.current = cities;
 
-      // City labels
-      map.current.addLayer({
-        id: "city-labels",
-        type: "symbol",
-        source: "cities-src",
-        layout: {
-          "text-field": ["get", "name"],
-          "text-size": [
-            "interpolate", ["linear"], ["zoom"],
-            7, 11,
-            10, 14,
-            13, 18,
-          ],
-          "text-variable-anchor": ["center", "top", "bottom", "left", "right"],
-          "text-justify": "auto",
-        },
-        paint: {
-          "text-color": "rgba(255,255,255,0.9)",
-          "text-halo-color": "rgba(0,0,0,0.85)",
-          "text-halo-width": 2,
-          "text-opacity": [
-            "interpolate", ["linear"], ["zoom"],
-            7, 0,
-            8, 0.85,
-          ],
-        },
-        minzoom: 7,
-        maxzoom: 15,
-      });
+        // Create a GeoJSON FeatureCollection of POINTS for the circle layer
+        const cityPointsGeo = {
+          type: "FeatureCollection" as const,
+          features: cities.map(c => ({
+            type: "Feature" as const,
+            geometry: { type: "Point" as const, coordinates: [c.lng, c.lat] },
+            properties: { name: c.name, radiusKm: c.radiusKm },
+          })),
+        };
+
+        map.current.addSource("cities-point-src", {
+          type: "geojson",
+          data: cityPointsGeo,
+        });
+
+        // NATIVE CIRCLE LAYER — Mapbox renders these as perfect circles in screen space
+        // circle-radius is in PIXELS, not geographic units — always round!
+        map.current.addLayer({
+          id: "city-circles",
+          type: "circle",
+          source: "cities-point-src",
+          paint: {
+            "circle-color": "transparent",
+            "circle-stroke-color": "rgba(255,255,255,0.92)",
+            "circle-stroke-width": [
+              "interpolate", ["linear"], ["zoom"],
+              6, 2,
+              8, 2.5,
+              10, 3,
+              12, 3.5,
+            ],
+            "circle-radius": [
+              "interpolate", ["linear"], ["zoom"],
+              5, 0,
+              6, 20,
+              8, 35,
+              10, 55,
+              12, 80,
+            ],
+            "circle-opacity": [
+              "interpolate", ["linear"], ["zoom"],
+              5, 0,
+              6, 0.85,
+              10, 0.95,
+            ],
+            "circle-stroke-opacity": [
+              "interpolate", ["linear"], ["zoom"],
+              5, 0,
+              6, 0.85,
+              10, 0.95,
+            ],
+          },
+        });
+
+        // City labels from same point source
+        map.current.addLayer({
+          id: "city-labels",
+          type: "symbol",
+          source: "cities-point-src",
+          layout: {
+            "text-field": ["get", "name"],
+            "text-size": [
+              "interpolate", ["linear"], ["zoom"],
+              7, 11,
+              10, 14,
+              13, 18,
+            ],
+            "text-variable-anchor": ["center", "top", "bottom", "left", "right"],
+            "text-justify": "auto",
+            "text-offset": [0, 1.5],
+          },
+          paint: {
+            "text-color": "rgba(255,255,255,0.9)",
+            "text-halo-color": "rgba(0,0,0,0.85)",
+            "text-halo-width": 2,
+            "text-opacity": [
+              "interpolate", ["linear"], ["zoom"],
+              7, 0,
+              8, 0.85,
+            ],
+          },
+          minzoom: 7,
+          maxzoom: 15,
+        });
+      } catch (e) {
+        console.warn("Failed to load city data:", e);
+      }
 
       // ── Fog + stars ──────────────────────────────────────────────────────
       map.current.setFog({
