@@ -43,8 +43,6 @@ export default function KindnessMap({
   const onMapClickRef = useRef(onMapClick);
   onMapClickRef.current = onMapClick;
 
-  // loadPixels removed — PixelGrid disabled for now
-
   // Init map
   useEffect(() => {
     if (map.current || !mapContainer.current) return;
@@ -103,45 +101,43 @@ export default function KindnessMap({
     map.current.on("load", () => {
       map.current.resize();
 
-      // ── Level 1-2: Country borders (visible zoom 2-13) ──────────────────
-      map.current.addSource("countries-src", {
-        type: "geojson",
-        data: "/data/countries.geojson",
+      // ── Country borders: Use Mapbox's built-in admin-0 vector tile layer ──
+      // This gives REAL geographic boundaries (like the red lines in user's sketch)
+      // Source: Mapbox streets-v12 vector tiles, layer: admin (admin_level=0)
+      map.current.addSource("mapbox-admin", {
+        type: "vector",
+        url: "mapbox://mapbox.boundaries-v3",
       });
+
+      // Real country borders from Mapbox Boundaries v3
       map.current.addLayer({
-        id: "country-borders",
+        id: "country-borders-real",
         type: "line",
-        source: "countries-src",
+        source: "mapbox-admin",
+        "source-layer": "boundaries_0",
         paint: {
-          "line-color": "rgba(255,255,255,0.7)",
+          "line-color": "#ffffff",
           "line-width": [
             "interpolate", ["linear"], ["zoom"],
-            2, 1.0,   // visible at zoom 2
-            4, 1.8,   // clear at zoom 4
-            7, 2.5,   // strong at zoom 7
-            12, 3.5,  // very strong at zoom 12
+            0, 0.5,
+            2, 1.0,
+            4, 1.5,
+            7, 2.5,
+            10, 3.5,
           ],
           "line-opacity": [
             "interpolate", ["linear"], ["zoom"],
-            1.5, 0,
-            2.0, 0.6,
-            10, 0.9,
+            0, 0.3,
+            2, 0.6,
+            6, 0.85,
           ],
         },
-        minzoom: 1.5,
+        minzoom: 0,
         maxzoom: 15,
       });
-      // Country fill (very subtle tint)
-      map.current.addLayer({
-        id: "country-fills",
-        type: "fill",
-        source: "countries-src",
-        paint: { "fill-color": "rgba(255,255,255,0.02)" },
-        minzoom: 3,
-        maxzoom: 14,
-      });
 
-      // ── Level 2-3: City boundary circles (visible zoom 6-12) ─────────────
+      // ── City boundary circles (visible zoom 7-14) ───────────────────────
+      // These are proper circles generated with latitude-corrected radii
       map.current.addSource("cities-src", {
         type: "geojson",
         data: "/data/top100-cities.geojson",
@@ -151,23 +147,53 @@ export default function KindnessMap({
         type: "line",
         source: "cities-src",
         paint: {
-          "line-color": "rgba(255,255,255,0.85)",
+          "line-color": "rgba(255,255,255,0.9)",
           "line-width": [
             "interpolate", ["linear"], ["zoom"],
-            6, 1.5,    // clearly visible at zoom 6
-            8, 2.5,    // thick at zoom 8
-            10, 3.5,   // very thick at zoom 10
-            12, 4.5,   // maximum thickness at zoom 12+
+            7, 1.5,
+            9, 2.5,
+            11, 3.5,
+            13, 4.5,
           ],
           "line-opacity": [
             "interpolate", ["linear"], ["zoom"],
-            5.5, 0,
-            6.0, 0.65,
+            6, 0,
+            7, 0.7,
             9, 0.95,
           ],
         },
-        minzoom: 5.5,
-        maxzoom: 14,
+        minzoom: 6,
+        maxzoom: 15,
+      });
+
+      // City labels
+      map.current.addLayer({
+        id: "city-labels",
+        type: "symbol",
+        source: "cities-src",
+        layout: {
+          "text-field": ["get", "name"],
+          "text-size": [
+            "interpolate", ["linear"], ["zoom"],
+            7, 10,
+            10, 13,
+            13, 16,
+          ],
+          "text-variable-anchor": ["center", "top", "bottom", "left", "right"],
+          "text-justify": "auto",
+        },
+        paint: {
+          "text-color": "rgba(255,255,255,0.85)",
+          "text-halo-color": "rgba(0,0,0,0.8)",
+          "text-halo-width": 1.5,
+          "text-opacity": [
+            "interpolate", ["linear"], ["zoom"],
+            7, 0,
+            8, 0.8,
+          ],
+        },
+        minzoom: 7,
+        maxzoom: 15,
       });
 
       // ── Fog + stars ──────────────────────────────────────────────────────
@@ -243,7 +269,7 @@ export default function KindnessMap({
     <div style={{ position: "relative", width: "100%", height: "100%" }}>
       <div ref={mapContainer} style={{ width: "100%", height: "100%" }} />
 
-      {/* PixelGrid removed — user wants only country/continent borders + city circles */}
+      {/* PixelGrid removed for now — will be re-added with proper grid inside city circles */}
 
       {statusMsg && (
         <div style={{
