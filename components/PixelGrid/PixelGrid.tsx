@@ -1,67 +1,71 @@
 "use client";
 import { useEffect, useRef } from "react";
 
-interface PixelCheckin {
+// Raw pixel from /api/pixels (matches Prisma Pixel model)
+interface Pixel {
   id: string;
-  pixelLat: number;
-  pixelLng: number;
-  color?: string;
-  name?: string;
-  message?: string;
-  photoUrl?: string;
-  status?: string;
-  countryCode?: string;
-  cityName?: string;
+  gridLat: number;
+  gridLng: number;
+  latitude: number;
+  longitude: number;
+  countryCode: string;
+  city: string | null;
+  status: string;
+  color: string;
+  name: string | null;
+  message: string | null;
+  priceTier: string;
+  isPaid: boolean;
 }
 
 interface PixelGridProps {
   map: any;
-  checkins: PixelCheckin[];
+  pixels: Pixel[];
 }
 
 export function snapToPixel(lat: number, lng: number): [number, number] {
-  const latStep = 10 / 111320;
-  const cosLat = Math.cos((lat * Math.PI) / 180);
-  const lngStep = 10 / (111320 * cosLat);
-  const snappedLat = Math.round(lat / latStep) * latStep;
-  const snappedLng = Math.round(lng / lngStep) * lngStep;
-  return [snappedLat, snappedLng];
+  // Snap to 0.1° grid cell center
+  const gt = Math.round((lat + 90) * 10);
+  const gl = Math.round((lng + 180) * 10);
+  return [gt, gl];
 }
 
-function toGeoJSON(checkins: PixelCheckin[]) {
+function toGeoJSON(pixels: Pixel[]) {
   return {
     type: "FeatureCollection" as const,
-    features: checkins.map((c) => ({
+    features: pixels.map((p) => ({
       type: "Feature" as const,
       geometry: {
         type: "Point" as const,
-        coordinates: [c.pixelLng, c.pixelLat] as [number, number],
+        coordinates: [p.longitude, p.latitude] as [number, number],
       },
       properties: {
-        id: c.id,
-        color: c.color || "#ffffff",
-        name: c.name || "Anonymous",
-        message: c.message || "",
-        photoUrl: c.photoUrl || "",
-        status: c.status || "AVAILABLE",
-        countryCode: c.countryCode || "",
-        cityName: c.cityName || "",
+        id: p.id,
+        gridLat: p.gridLat,
+        gridLng: p.gridLng,
+        color: p.color || "#ffffff",
+        name: p.name || "Anonymous",
+        message: p.message || "",
+        status: p.status || "AVAILABLE",
+        countryCode: p.countryCode || "",
+        city: p.city || "",
+        priceTier: p.priceTier || "BASIC",
       },
     })),
   };
 }
 
-export default function PixelGrid({ map, checkins }: PixelGridProps) {
+export default function PixelGrid({ map, pixels }: PixelGridProps) {
   const initDone = useRef(false);
 
   useEffect(() => {
-    if (!map || !checkins?.length) return;
+    if (!map) return;
 
     const doInit = () => {
       if (initDone.current) {
         const src = map.getSource("pixel-dots-src");
         if (src) {
-          src.setData(toGeoJSON(checkins));
+          src.setData(toGeoJSON(pixels || []));
           return;
         }
       }
@@ -72,9 +76,7 @@ export default function PixelGrid({ map, checkins }: PixelGridProps) {
         if (map.getSource("pixel-dots-src")) map.removeSource("pixel-dots-src");
       } catch (e) { /* ignore */ }
 
-      if (checkins.length === 0) return;
-
-      const data = toGeoJSON(checkins);
+      const data = toGeoJSON(pixels || []);
 
       try {
         map.addSource("pixel-dots-src", { type: "geojson", data });
@@ -108,11 +110,13 @@ export default function PixelGrid({ map, checkins }: PixelGridProps) {
             "circle-stroke-width": [
               "interpolate", ["linear"], ["zoom"],
               0, 0.8,
+              3, 1.2,
+              8, 1.5,
               14, 2
             ],
           },
         });
-      } catch (e) { console.error("[PixelGrid] addLayer:", e); return; }
+      } catch (e) { console.error("[PixelGrid] addLayer:", e); }
 
       initDone.current = true;
     };
@@ -120,17 +124,15 @@ export default function PixelGrid({ map, checkins }: PixelGridProps) {
     if (map.loaded()) {
       doInit();
     } else {
-      map.once("load", doInit);
+      map.on("load", doInit);
     }
 
     return () => {
-      initDone.current = false;
       try {
         if (map.getLayer("pixel-dots")) map.removeLayer("pixel-dots");
         if (map.getSource("pixel-dots-src")) map.removeSource("pixel-dots-src");
-      } catch {}
+      } catch (e) { /* ignore */ }
+      initDone.current = false;
     };
-  }, [map, checkins]);
-
-  return null;
+  }, [map, pixels]);
 }

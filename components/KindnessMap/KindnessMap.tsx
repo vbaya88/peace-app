@@ -4,72 +4,54 @@ import PixelGrid, { snapToPixel } from "@/components/PixelGrid/PixelGrid";
 
 const WATER_CHECK_API = "/api/geo/water-check";
 
-// Pixel record from /api/pixels
+// Pixel record from /api/pixels (matches Prisma Pixel model)
 interface PixelRecord {
   id: string;
   gridLat: number;
   gridLng: number;
+  latitude: number;
+  longitude: number;
   countryCode: string;
-  cityName: string;
-  color: string;
+  city: string | null;
   status: string;
-  tier: string;
-  name?: string;
-  message?: string;
+  color: string;
+  name: string | null;
+  message: string | null;
+  priceTier: string;
+  isPaid: boolean;
 }
 
 interface KindnessMapProps {
-  onLocationSelect?: (lat: number, lng: number, address: string) => void;
-  selectedColor?: string;
   isPlacingMode?: boolean;
+  onLocationSelect?: (pixelLat: number, pixelLng: number, label: string) => void;
   onMapClick?: (lat: number) => void;
-  messages?: string[];
 }
 
 export default function KindnessMap({
-  onLocationSelect,
-  selectedColor = "#818cf8",
   isPlacingMode = false,
+  onLocationSelect,
   onMapClick,
-  messages = [],
 }: KindnessMapProps) {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<any>(null);
-  const [checkins, setCheckins] = useState<Checkin[]>([]);
+  const [pixels, setPixels] = useState<PixelRecord[]>([]);
   const [mapLoaded, setMapLoaded] = useState(false);
   const [statusMsg, setStatusMsg] = useState("");
   const onMapClickRef = useRef(onMapClick);
   onMapClickRef.current = onMapClick;
 
   // Load pixels from the city grid
-  const loadCheckins = useCallback(async () => {
+  const loadPixels = useCallback(async () => {
     try {
       const r = await fetch("/api/pixels?limit=10000");
       if (r.ok) {
         const data = await r.json();
         const raw: PixelRecord[] = data.pixels || [];
-
-        // Convert gridLat/gridLng → lat/lng for map rendering
-        // gridLat: 0 = -90°, 900 = 0°, 1800 = 90°N
-        // gridLng: 0 = -180°, 1800 = 0°, 3600 = 180°E
-        const withCoords = raw.map((p) => ({
-          id: p.id,
-          pixelLat: p.gridLat / 10 - 90,
-          pixelLng: p.gridLng / 10 - 180,
-          color: p.color,
-          name: p.name || (p.status === 'AVAILABLE' ? 'Available' : 'Claimed'),
-          message: p.message || '',
-          photoUrl: '',
-          status: p.status,
-          countryCode: p.countryCode,
-          cityName: p.cityName,
-        }));
-
-        setCheckins(withCoords as any);
-        console.log('[KindnessMap] loaded', withCoords.length, 'pixels');
+        setPixels(raw);
+        console.log("[KindnessMap] loaded", raw.length, "pixels");
       }
     } catch (e) {
-      console.error('[KindnessMap] loadCheckins error:', e);
+      console.error("[KindnessMap] loadPixels error:", e);
     }
   }, []);
 
@@ -108,7 +90,7 @@ export default function KindnessMap({
     })();
 
     return () => { /* noop */ };
-  }, [loadCheckins]);
+  }, [loadPixels]);
 
   const initMap = (token: string) => {
     const container = mapContainer.current;
@@ -140,7 +122,7 @@ export default function KindnessMap({
       });
 
       setMapLoaded(true);
-      loadCheckins();
+      loadPixels();
     });
 
     map.current.on("click", (e: any) => {
@@ -193,7 +175,7 @@ export default function KindnessMap({
 
     map.current.on("click", handleClick);
     return () => { map.current?.off("click", handleClick); };
-  }, [mapLoaded, isPlacingMode, onLocationSelect]);
+  }, [mapLoaded, isPlacingMode, onLocationSelect, loadPixels]);
 
   useEffect(() => {
     if (!map.current) return;
@@ -207,7 +189,7 @@ export default function KindnessMap({
       {mapLoaded && map.current && (
         <PixelGrid
           map={map.current}
-          checkins={checkins.filter((c) => c.pixelLat != null && c.pixelLng != null) as any}
+          pixels={pixels}
         />
       )}
 
