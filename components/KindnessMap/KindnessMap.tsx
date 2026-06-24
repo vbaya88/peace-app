@@ -40,33 +40,42 @@ export default function KindnessMap({
   const onMapClickRef = useRef(onMapClick);
   onMapClickRef.current = onMapClick;
 
-  // Load checkins
+  // Load checkins — apply snapToPixel grid snapping to ALL loaded checkins
   const loadCheckins = useCallback(async () => {
     try {
       const r = await fetch("/api/checkins?limit=10000");
       if (r.ok) {
         const data = await r.json();
-        const snapped = (data.checkins || []).map((c: Checkin) => {
-          const [pixelLat, pixelLng] = snapToPixel(c.latitude ?? c.pixelLat ?? 0, c.longitude ?? c.pixelLng ?? 0);
-          return { ...c, pixelLat, pixelLng };
+        const raw: Checkin[] = data.checkins || [];
+
+        // FIX: Apply snapToPixel grid snapping to ALL checkins from DB
+        // so dots land on visible pixel grid cells (not scattered raw GPS positions)
+        const snapped = raw.map((c) => {
+          if (c.pixelLat != null && c.pixelLng != null) {
+            const [snappedLat, snappedLng] = snapToPixel(c.pixelLat, c.pixelLng);
+            return { ...c, pixelLat: snappedLat, pixelLng: snappedLng };
+          }
+          return c;
         });
+
         setCheckins(snapped);
+        console.log("[KindnessMap] loaded + snapped", snapped.length, "checkins");
       }
-    } catch {}
+    } catch (e) {
+      console.error("[KindnessMap] loadCheckins error:", e);
+    }
   }, []);
 
-  // Init map — async/await pattern, guaranteed token before initMap
+  // Init map
   useEffect(() => {
     if (map.current || !mapContainer.current) return;
 
-    // Wait for mapboxgl to load from CDN script
     if (!(window as any).mapboxgl) {
       setStatusMsg("Loading map...");
       const timer = setTimeout(() => { /* re-trigger effect */ }, 200);
       return () => clearTimeout(timer);
     }
 
-    // Note: no cancelled flag — initMap already guards with "if (map.current)"
     (async () => {
       // Strategy 1: Meta tag (server-injected in layout.tsx)
       const metaToken = document.querySelector('meta[name="mapbox-token"]')?.getAttribute("content");
@@ -86,21 +95,18 @@ export default function KindnessMap({
             return;
           }
         }
-      } catch { /* ignore network errors */ }
+      } catch { /* ignore */ }
 
-      // Strategy 3: Give up
       setStatusMsg("⚠ Mapbox token not configured");
     })();
 
-    return () => { /* noop — initMap guards with map.current check */ };
+    return () => { /* noop */ };
   }, [loadCheckins]);
 
   const initMap = (token: string) => {
-    // Ensure container has dimensions before creating map
     const container = mapContainer.current;
     if (!container) return;
 
-    // Set token globally AND pass to constructor (both for safety)
     (window as any).mapboxgl.accessToken = token;
 
     map.current = new (window as any).mapboxgl.Map({
@@ -116,10 +122,8 @@ export default function KindnessMap({
     map.current.addControl(new (window as any).mapboxgl.AttributionControl({ compact: true }), "bottom-right");
 
     map.current.on("load", () => {
-      // CRITICAL: resize after load to fix transformMat4 bug when container has 0 dimensions at init
       map.current.resize();
 
-      // Set atmosphere/fog for dark space look
       map.current.setFog({
         color: "rgb(10, 10, 30)",
         "high-color": "rgb(30, 30, 80)",
@@ -132,14 +136,12 @@ export default function KindnessMap({
       loadCheckins();
     });
 
-    // General map click
     map.current.on("click", (e: any) => {
       const { lat } = e.lngLat;
       onMapClickRef.current?.(lat);
     });
   };
 
-  // Cleanup on unmount
   useEffect(() => {
     return () => {
       map.current?.remove();
@@ -147,7 +149,6 @@ export default function KindnessMap({
     };
   }, []);
 
-  // Place pixel on click (when in placing mode)
   useEffect(() => {
     if (!map.current || !mapLoaded) return;
 
@@ -187,7 +188,6 @@ export default function KindnessMap({
     return () => { map.current?.off("click", handleClick); };
   }, [mapLoaded, isPlacingMode, onLocationSelect]);
 
-  // Cursor style
   useEffect(() => {
     if (!map.current) return;
     map.current.getCanvas().style.cursor = isPlacingMode ? "crosshair" : "";
@@ -197,12 +197,13 @@ export default function KindnessMap({
     <div style={{ position: "relative", width: "100%", height: "100%" }}>
       <div ref={mapContainer} style={{ width: "100%", height: "100%" }} />
 
-      {/* Pixel layer */}
       {mapLoaded && map.current && (
-        <PixelGrid map={map.current} checkins={checkins.filter(c => c.pixelLat != null && c.pixelLng != null) as any} />
+        <PixelGrid
+          map={map.current}
+          checkins={checkins.filter((c) => c.pixelLat != null && c.pixelLng != null) as any}
+        />
       )}
 
-      {/* Status message */}
       {statusMsg && (
         <div style={{
           position: "absolute", bottom: 40, left: "50%", transform: "translateX(-50%)",
@@ -214,7 +215,6 @@ export default function KindnessMap({
         </div>
       )}
 
-      {/* Legend */}
       <div style={{
         position: "absolute", bottom: 20, left: 20,
         background: "rgba(10,10,20,0.85)", borderRadius: 12,
