@@ -221,7 +221,7 @@ enum CompanyTier {
   ENTERPRISE // $100/mo
 }
 
-// ─── Kindness Map — User Check-ins ─────────────────────────────────────────────
+// ─── Kindness Map — User Check-ins (legacy) ───────────────────────────────────
 
 model Checkin {
   id        String   @id @default(cuid())
@@ -242,7 +242,7 @@ model Checkin {
   // Zoom level at which user placed the marker
   zoomLevel Int      @default(10)
 
-  // Pixel War — exact pixel grid position (10m grid)
+  // Pixel War — exact pixel grid position (10km grid, snapped)
   pixelLat  Float?
   pixelLng  Float?
 
@@ -255,7 +255,7 @@ model Checkin {
   // OSM place ID (for water check)
   placeId   String?
 
-  // For clustering: country / city / neighborhood / street
+  // Country / city (from ip-api.com geo-IP)
   countryCode String?
   city        String?
   neighborhood String?
@@ -273,6 +273,63 @@ model Checkin {
   @@index([countryCode])
   @@index([isVisible])
   @@index([paymentId])
+}
+
+// ─── Pixel Grid — Phase 1 ──────────────────────────────────────────────────────
+// Pre-generated world grid of 10×10km cells covering major cities.
+// Users can only claim pixels in their own country (geo-IP validation).
+
+model Pixel {
+  id        String      @id @default(cuid())
+  userId    String?
+
+  // Grid position (snapped to 10km cells)
+  gridLat   Float       // e.g. 55.7558 (snapped to 0.09° ≈ 10km)
+  gridLng   Float       // e.g. 37.6173
+
+  // Cell center (for display)
+  latitude  Float
+  longitude Float
+
+  // Availability
+  status    PixelStatus @default(AVAILABLE)
+
+  // Owner
+  name      String?
+  color     String      @default("#818cf8")
+  message   String?     @db.Text
+
+  // Location hierarchy
+  countryCode String
+  city        String?
+  region      String?
+
+  // Price tier (set by admin)
+  priceTier  PriceTier  @default(BASIC)
+
+  // Payment
+  paymentId  String?     @unique
+  isPaid    Boolean     @default(false)
+
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  @@unique([gridLat, gridLng]) // One pixel per grid cell
+  @@index([status, countryCode])
+  @@index([countryCode])
+}
+
+enum PixelStatus {
+  AVAILABLE
+  RESERVED   // Temporarily held during checkout
+  CLAIMED    // Permanently owned after payment
+}
+
+enum PriceTier {
+  BASIC      // $1 — anywhere in own country
+  PREMIUM    // $2 — major cities, message included
+  STAR       // $5 — star marker (5 linked cells)
+  SPECIAL    // Custom price — Antarctica, landmarks, etc.
 }
 
 // ─── Counter (singleton) ──────────────────────────────────────────────────────
