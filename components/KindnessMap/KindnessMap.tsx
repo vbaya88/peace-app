@@ -62,12 +62,11 @@ export default function KindnessMap({
       return () => clearTimeout(timer);
     }
 
-    let cancelled = false;
-
+    // Note: no cancelled flag — initMap already guards with "if (map.current)"
     (async () => {
       // Strategy 1: Meta tag (server-injected in layout.tsx)
       const metaToken = document.querySelector('meta[name="mapbox-token"]')?.getAttribute("content");
-      if (metaToken?.startsWith("pk.") && !cancelled) {
+      if (metaToken?.startsWith("pk.")) {
         initMap(metaToken);
         return;
       }
@@ -78,7 +77,7 @@ export default function KindnessMap({
         if (res.ok) {
           const data = await res.json();
           const token = data.value as string | undefined;
-          if (token?.startsWith("pk.") && !cancelled) {
+          if (token?.startsWith("pk.")) {
             initMap(token);
             return;
           }
@@ -86,12 +85,10 @@ export default function KindnessMap({
       } catch { /* ignore network errors */ }
 
       // Strategy 3: Give up
-      if (!cancelled) {
-        setStatusMsg("⚠ Mapbox token not configured");
-      }
+      setStatusMsg("⚠ Mapbox token not configured");
     })();
 
-    return () => { cancelled = true; };
+    return () => { /* noop — initMap guards with map.current check */ };
   }, [loadCheckins]);
 
   const initMap = (token: string) => {
@@ -99,7 +96,7 @@ export default function KindnessMap({
     const container = mapContainer.current;
     if (!container) return;
 
-    // Set token globally BEFORE creating the map
+    // Set token globally AND pass to constructor (both for safety)
     (window as any).mapboxgl.accessToken = token;
 
     map.current = new (window as any).mapboxgl.Map({
@@ -107,6 +104,7 @@ export default function KindnessMap({
       style: "mapbox://styles/mapbox/dark-v11",
       center: [37.6173, 55.7558],
       zoom: 2,
+      accessToken: token,
     });
 
     map.current.addControl(new (window as any).mapboxgl.NavigationControl(), "top-right");
