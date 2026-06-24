@@ -5,7 +5,7 @@ interface PixelCheckin {
   id: string;
   pixelLat: number;
   pixelLng: number;
-  color: string;
+  color?: string;
   name?: string;
   message?: string;
   photoUrl?: string;
@@ -44,12 +44,19 @@ export default function PixelGrid({ map, checkins }: PixelGridProps) {
         const src = map.getSource("pixel-dots-src");
         console.log("[PixelGrid] already inited — src=", !!src, "layer=", map.getLayer("pixel-dots") ? "exists" : "missing");
         if (src) {
+          // FIX: correct coordinate order [lng, lat] for GeoJSON Point
           src.setData({
             type: "FeatureCollection",
-            features: checkins.map(c => ({
+            features: checkins.map((c) => ({
               type: "Feature" as const,
               geometry: { type: "Point" as const, coordinates: [c.pixelLng, c.pixelLat] },
-              properties: { id: c.id, color: c.color || "#fff", name: c.name || "Anonymous", message: c.message || "", photoUrl: c.photoUrl || "" },
+              properties: {
+                id: c.id,
+                color: c.color || "#fff",
+                name: c.name || "Anonymous",
+                message: c.message || "",
+                photoUrl: c.photoUrl || "",
+              },
             })),
           });
           console.log("[PixelGrid] data updated, features=", checkins.length);
@@ -67,11 +74,17 @@ export default function PixelGrid({ map, checkins }: PixelGridProps) {
 
       if (checkins.length === 0) { console.log("[PixelGrid] no checkins, skip layer"); return; }
 
-      // Build GeoJSON
-      const features = checkins.map(c => ({
+      // FIX: GeoJSON Point coordinates are [lng, lat] (not [lat, lng])
+      const features = checkins.map((c) => ({
         type: "Feature" as const,
         geometry: { type: "Point" as const, coordinates: [c.pixelLng, c.pixelLat] },
-        properties: { id: c.id, color: c.color || "#ffffff", name: c.name || "Anonymous", message: c.message || "", photoUrl: c.photoUrl || "" },
+        properties: {
+          id: c.id,
+          color: c.color || "#ffffff",
+          name: c.name || "Anonymous",
+          message: c.message || "",
+          photoUrl: c.photoUrl || "",
+        },
       }));
       console.log("[PixelGrid] creating source + layer with", features.length, "features");
 
@@ -82,7 +95,9 @@ export default function PixelGrid({ map, checkins }: PixelGridProps) {
 
       try {
         map.addLayer({
-          id: "pixel-dots", type: "circle", source: "pixel-dots-src",
+          id: "pixel-dots",
+          type: "circle",
+          source: "pixel-dots-src",
           paint: {
             "circle-color": ["get", "color"],
             "circle-radius": ["interpolate", ["linear"], ["zoom"], 0, 8, 3, 10, 8, 12, 14, 16],
@@ -100,7 +115,10 @@ export default function PixelGrid({ map, checkins }: PixelGridProps) {
           map.getCanvas().style.cursor = "pointer";
           if (e.features?.length) hoveredPixel.current = e.features[0].properties;
         });
-        map.on("mouseleave", "pixel-dots", () => { map.getCanvas().style.cursor = ""; hoveredPixel.current = null; });
+        map.on("mouseleave", "pixel-dots", () => {
+          map.getCanvas().style.cursor = "";
+          hoveredPixel.current = null;
+        });
       } catch (e) { console.warn("[PixelGrid] hover events:", e); }
 
       initDone.current = true;
@@ -116,9 +134,9 @@ export default function PixelGrid({ map, checkins }: PixelGridProps) {
 
     return () => {
       try {
-        map.removeLayer("pixel-dots");
-        map.removeSource("pixel-dots-src");
         initDone.current = false;
+        if (map.getLayer("pixel-dots")) map.removeLayer("pixel-dots");
+        if (map.getSource("pixel-dots-src")) map.removeSource("pixel-dots-src");
         console.log("[PixelGrid] cleanup done");
       } catch {}
     };
