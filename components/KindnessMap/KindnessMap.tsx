@@ -189,11 +189,9 @@ export default function KindnessMap({
           data: cityPointsGeo,
         });
 
-        // NATIVE CIRCLE LAYER — Mapbox renders perfect circles in screen space
-        // circle-radius uses per-city data-driven sizing based on actual GeoJSON bounds
-        // Conversion: km → degrees → pixels (at equator, 1 deg ≈ 111 km ≈ zoom-dependent px)
-        // At zoom Z, 1 deg longitude ≈ 256 * 2^Z / 360 pixels (Web Mercator)
-        // We use a data expression to scale each city's circle by its radiusKm
+        // NATIVE CIRCLE LAYER — perfect circles in screen space
+        // Simple fixed radius that covers city area (all GeoJSON cities are ~same size)
+        // Radius scales with zoom so circles always cover the visible city extent
         map.current.addLayer({
           id: "city-circles",
           type: "circle",
@@ -201,44 +199,22 @@ export default function KindnessMap({
           paint: {
             "circle-color": "transparent",
             "circle-stroke-color": "rgba(255,255,255,0.92)",
-            "circle-stroke-width": [
-              "interpolate", ["linear"], ["zoom"],
-              6, 1.5,
-              8, 2,
-              10, 2.5,
-              12, 3,
-            ],
-            // Data-driven radius: each city sized by its actual bounding box
-            // Formula: radiusKm / 111 (→deg) * zoomFactor
-            // zoomFactor at Z: ~78px/deg at Z=6, ~156 at Z=7, ~312 at Z=8, ~1248 at Z=10
+            "circle-stroke-width": 2.5,
+            // Big, simple radius — covers full city area at all zoom levels
+            // At zoom 6: 60px, zoom 8: 120px, zoom 10: 280px, zoom 12: 500px
             "circle-radius": [
-              "+",
-              ["*", ["get", "radiusKm"], [
-                "interpolate", ["linear"], ["zoom"],
-                5,   0.001,
-                6,   0.70,
-                7,   1.41,
-                8,   2.82,
-                9,   5.64,
-                10, 11.28,
-                11, 22.56,
-                12, 45.12,
-                14, 90.24,
-              ]],
-              0,
-            ],
-            "circle-opacity": [
               "interpolate", ["linear"], ["zoom"],
-              4, 0,
-              5, 0.75,
-              8, 0.92,
+              5,  0,
+              6,  60,
+              7,  90,
+              8,  130,
+              9,  200,
+              10, 280,
+              11, 400,
+              12, 500,
             ],
-            "circle-stroke-opacity": [
-              "interpolate", ["linear"], ["zoom"],
-              4, 0,
-              5, 0.75,
-              8, 0.92,
-            ],
+            "circle-opacity": 0.92,
+            "circle-stroke-opacity": 0.92,
           },
         });
 
