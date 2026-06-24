@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 // Raw pixel from /api/pixels (matches Prisma Pixel model)
 interface Pixel {
@@ -55,7 +55,7 @@ function toGeoJSON(pixels: Pixel[]) {
   };
 }
 
-export default function PixelGrid({ map, pixels }: PixelGridProps) {
+export default function PixelGrid({ map, pixels }: PixelGridProps): React.ReactElement | null {
   const initDone = useRef(false);
 
   useEffect(() => {
@@ -135,4 +135,6 @@ export default function PixelGrid({ map, pixels }: PixelGridProps) {
       initDone.current = false;
     };
   }, [map, pixels]);
+
+  return null;
 }
