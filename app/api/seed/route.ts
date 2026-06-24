@@ -55,12 +55,18 @@ async function fetchCities(): Promise<RawCity[]> {
   return cities;
 }
 
-async function generateGrid(cities: RawCity[]) {
+async function generateGrid(
+  cities: RawCity[],
+  writer?: WritableStreamDefaultWriter<Uint8Array>,
+  encoder?: TextEncoder
+) {
   cities.sort((a, b) => b.pop - a.pop);
   const seenKeys = new Set<string>();
-  const BATCH = 2000;
-  let totalPixels = 0;
+  // Accumulate ALL pixels in memory, then do ONE bulk write
+  const ALL_PIXELS: any[] = [];
   let totalBlocked = 0;
+  const SUPER_BATCH = 50000; // flush to DB every 50K
+  let totalPixels = 0;
 
   for (let ci = 0; ci < cities.length; ci++) {
     const city = cities[ci];
@@ -71,8 +77,6 @@ async function generateGrid(cities: RawCity[]) {
     const minLng = city.lng - radius;
     const maxLng = city.lng + radius;
     const cosLat = Math.cos((city.lat * Math.PI) / 180);
-
-    const batch: any[] = [];
 
     for (let lat = minLat; lat <= maxLat; lat += GRID_STEP) {
       for (let lng = minLng; lng <= maxLng; lng += GRID_STEP) {
@@ -87,7 +91,7 @@ async function generateGrid(cities: RawCity[]) {
 
         if (isBlockedTerrain(lat, lng, countryCode)) { totalBlocked++; continue; }
 
-        batch.push({
+        ALL_PIXELS.push({
           gridLat: parseFloat(snapped.gridLat.toFixed(4)),
           gridLng: parseFloat(snapped.gridLng.toFixed(4)),
           latitude: parseFloat(lat.toFixed(6)),
@@ -100,22 +104,28 @@ async function generateGrid(cities: RawCity[]) {
           isPaid: false,
         });
 
-        if (batch.length >= BATCH) {
-          await prisma.pixel.createMany({ data: batch, skipDuplicates: true });
-          totalPixels += batch.length;
-          batch.length = 0;
+        if (ALL_PIXELS.length >= SUPER_BATCH) {
+          await prisma.pixel.createMany({ data: ALL_PIXELS, skipDuplicates: true });
+          totalPixels += ALL_PIXELS.length;
+          ALL_PIXELS.length = 0;
         }
       }
     }
 
-    if (batch.length > 0) {
-      await prisma.pixel.createMany({ data: batch, skipDuplicates: true });
-      totalPixels += batch.length;
+    if ((ci + 1) % 1000 === 0) {
+      const msg = `[seed] ${ci + 1}/${cities.length} | accumulated: ${ALL_PIXELS.length.toLocaleString()} | written: ${totalPixels.toLocaleString()} | blocked: ${totalBlocked.toLocaleString()}`;
+      console.log(msg);
+      if (writer && encoder) {
+        await writer.write(encoder.encode(JSON.stringify({ status: "progress", city: ci + 1, totalCities: cities.length, written: totalPixels, accumulated: ALL_PIXELS.length, blocked: totalBlocked }) + '\n'));
+      }
     }
+  }
 
-    if ((ci + 1) % 500 === 0) {
-      console.log(`[seed] ${ci + 1}/${cities.length} | pixels: ${totalPixels.toLocaleString()} | blocked: ${totalBlocked.toLocaleString()}`);
-    }
+  // Final flush
+  if (ALL_PIXELS.length > 0) {
+    await prisma.pixel.createMany({ data: ALL_PIXELS, skipDuplicates: true });
+    totalPixels += ALL_PIXELS.length;
+    ALL_PIXELS.length = 0;
   }
 
   return { totalPixels, totalBlocked };
@@ -126,50 +136,70 @@ export async function POST(req: NextRequest) {
   const dry = url.searchParams.get("dry") === "1";
   const clear = url.searchParams.get("clear") === "1";
 
-  try {
-    if (clear) {
-      await prisma.checkin.deleteMany();
-      await prisma.pixel.deleteMany();
-    }
+  // Use TransformStream to stream progress — prevents Cloudflare timeout
+  const encoder = new TextEncoder();
+  const stream = new TransformStream();
+  const writer = stream.writable.getWriter();
+  const response = new Response(stream.readable, {
+    headers: { "Content-Type": "application/json", "Cache-Control": "no-cache" },
+  });
 
-    console.log("[seed] Fetching city data...");
-    const cities = await fetchCities();
-    console.log(`[seed] Loaded ${cities.length} cities`);
+  // Run seed in background, write progress to stream
+  (async () => {
+    try {
+      if (clear) {
+        await writer.write(encoder.encode('{"status":"clearing"}\n'));
+        await prisma.checkin.deleteMany();
+        await prisma.pixel.deleteMany();
+      }
 
-    if (dry) {
-      let totalCells = 0, totalBlocked = 0;
-      const seenKeys = new Set<string>();
-      for (const city of cities) {
-        const radius = cityRadius(city.pop);
-        const cc = getCountryCode(city.lat, city.lng);
-        const cosLat = Math.cos((city.lat * Math.PI) / 180);
-        for (let lat = Math.max(-90, city.lat - radius); lat <= Math.min(90, city.lat + radius); lat += GRID_STEP) {
-          for (let lng = city.lng - radius; lng <= city.lng + radius; lng += GRID_STEP) {
-            const dLat = lat - city.lat, dLng = (lng - city.lng) * cosLat;
-            if (Math.sqrt(dLat * dLat + dLng * dLng) > radius) continue;
-            const key = `${Math.round((lat + 90) / GRID_STEP) * GRID_STEP},${Math.round((lng + 180) / GRID_STEP) * GRID_STEP}`;
-            if (seenKeys.has(key)) continue;
-            seenKeys.add(key);
-            if (isBlockedTerrain(lat, lng, cc)) { totalBlocked++; continue; }
-            totalCells++;
+      await writer.write(encoder.encode('{"status":"fetching_cities"}\n'));
+      const cities = await fetchCities();
+
+      if (dry) {
+        let totalCells = 0, totalBlocked = 0;
+        const seenKeys = new Set<string>();
+        for (const city of cities) {
+          const radius = cityRadius(city.pop);
+          const cc = getCountryCode(city.lat, city.lng);
+          const cosLat = Math.cos((city.lat * Math.PI) / 180);
+          for (let lat = Math.max(-90, city.lat - radius); lat <= Math.min(90, city.lat + radius); lat += GRID_STEP) {
+            for (let lng = city.lng - radius; lng <= city.lng + radius; lng += GRID_STEP) {
+              const dLat = lat - city.lat, dLng = (lng - city.lng) * cosLat;
+              if (Math.sqrt(dLat * dLat + dLng * dLng) > radius) continue;
+              const key = `${Math.round((lat + 90) / GRID_STEP) * GRID_STEP},${Math.round((lng + 180) / GRID_STEP) * GRID_STEP}`;
+              if (seenKeys.has(key)) continue;
+              seenKeys.add(key);
+              if (isBlockedTerrain(lat, lng, cc)) { totalBlocked++; continue; }
+              totalCells++;
+            }
           }
         }
+        await writer.write(encoder.encode(JSON.stringify({ dry: true, cities: cities.length, estimatedPixels: totalCells, estimatedBlocked: totalBlocked }) + '\n'));
+        await writer.close();
+        return;
       }
-      return NextResponse.json({ dry: true, cities: cities.length, estimatedPixels: totalCells, estimatedBlocked: totalBlocked });
-    }
 
-    const result = await generateGrid(cities);
-    return NextResponse.json({
-      ok: true,
-      citiesProcessed: cities.length,
-      pixelsGenerated: result.totalPixels,
-      pixelsBlocked: result.totalBlocked,
-      totalInDb: await prisma.pixel.count(),
-    });
-  } catch (err: any) {
-    console.error("[seed] Error:", err);
-    return NextResponse.json({ error: err.message }, { status: 500 });
-  }
+      const result = await generateGrid(cities, writer, encoder);
+      const totalInDb = await prisma.pixel.count();
+      await writer.write(encoder.encode(
+        JSON.stringify({
+          ok: true,
+          status: "done",
+          citiesProcessed: cities.length,
+          pixelsGenerated: result.totalPixels,
+          pixelsBlocked: result.totalBlocked,
+          totalInDb,
+        }) + '\n'
+      ));
+      await writer.close();
+    } catch (err: any) {
+      await writer.write(encoder.encode(JSON.stringify({ error: err.message, status: "error" }) + '\n'));
+      await writer.close();
+    }
+  })();
+
+  return response;
 }
 
 export async function GET() {
