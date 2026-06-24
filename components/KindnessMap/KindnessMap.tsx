@@ -117,6 +117,92 @@ export default function KindnessMap({
     map.current.on("load", () => {
       map.current.resize();
 
+      // ── Level 1-2: Country borders (visible zoom 3-13) ──────────────────
+      map.current.addSource("countries-src", {
+        type: "geojson",
+        data: "/data/countries.geojson",
+      });
+      map.current.addLayer({
+        id: "country-borders",
+        type: "line",
+        source: "countries-src",
+        paint: {
+          "line-color": "rgba(255,255,255,0.5)",
+          "line-width": [
+            "interpolate", ["linear"], ["zoom"],
+            3, 0.5,   // barely visible at zoom 3
+            5, 1.0,   // thin at zoom 5
+            8, 1.5,   // medium at zoom 8
+            12, 2.0,  // stronger at zoom 12
+          ],
+          "line-opacity": [
+            "interpolate", ["linear"], ["zoom"],
+            2.5, 0,
+            3.0, 0.5,
+            12, 0.8,
+          ],
+        },
+        minzoom: 2.5,
+        maxzoom: 14,
+      });
+      // Country fill (very subtle tint)
+      map.current.addLayer({
+        id: "country-fills",
+        type: "fill",
+        source: "countries-src",
+        paint: { "fill-color": "rgba(255,255,255,0.02)" },
+        minzoom: 3,
+        maxzoom: 14,
+      });
+
+      // ── Level 2-3: City boundary circles (visible zoom 7-11) ─────────────
+      map.current.addSource("cities-src", {
+        type: "geojson",
+        data: "/data/top100-cities.geojson",
+      });
+      map.current.addLayer({
+        id: "city-boundaries",
+        type: "line",
+        source: "cities-src",
+        paint: {
+          "line-color": "rgba(148,163,184,0.6)",
+          "line-width": [
+            "interpolate", ["linear"], ["zoom"],
+            7, 1.0,
+            9, 1.5,
+            11, 2.5,
+          ],
+          "line-opacity": [
+            "interpolate", ["linear"], ["zoom"],
+            6.5, 0,
+            7.0, 0.5,
+            11, 0.8,
+          ],
+        },
+        minzoom: 6.5,
+        maxzoom: 12,
+      });
+      // City label dots (center point)
+      map.current.addLayer({
+        id: "city-dots",
+        type: "circle",
+        source: "cities-src",
+        paint: {
+          "circle-color": "rgba(148,163,184,0.4)",
+          "circle-radius": [
+            "interpolate", ["linear"], ["zoom"],
+            7, 2, 9, 4, 11, 6,
+          ],
+          "circle-opacity": [
+            "interpolate", ["linear"], ["zoom"],
+            6.5, 0, 7, 0.4, 10, 0.7,
+          ],
+        },
+        minzoom: 7,
+        maxzoom: 12,
+      });
+
+      // ── Fog + stars ──────────────────────────────────────────────────────
       map.current.setFog({
         color: "rgb(10, 10, 30)",
         "high-color": "rgb(30, 30, 80)",
