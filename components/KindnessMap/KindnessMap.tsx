@@ -21,14 +21,6 @@ interface PixelRecord {
   isPaid: boolean;
 }
 
-// City point data for native circle layer
-interface CityPoint {
-  name: string;
-  lng: number;
-  lat: number;
-  radiusKm: number; // circle radius in km
-}
-
 interface KindnessMapProps {
   isPlacingMode?: boolean;
   onLocationSelect?: (pixelLat: number, pixelLng: number, label: string) => void;
@@ -48,7 +40,6 @@ export default function KindnessMap({
   const map = useRef<any>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
   const [statusMsg, setStatusMsg] = useState("");
-  const citiesRef = useRef<CityPoint[]>([]);
   const onMapClickRef = useRef(onMapClick);
   onMapClickRef.current = onMapClick;
 
@@ -146,110 +137,50 @@ export default function KindnessMap({
         maxzoom: 18,
       });
 
-      // ── Load city centers and create NATIVE CIRCLE layer ──
-      // Mapbox's 'circle' layer type renders TRUE geometric circles
-      // that stay perfectly round regardless of Mercator projection!
+      // ── Administrative subdivision borders (states, provinces, oblasts, prefectures) ──
+      // Mapbox Boundaries v3 — same source as Mapbox itself uses
+      // boundaries_1 = first-level admin subdivisions (states, provinces, regions, oblasts, etc.)
+      // Line width: exactly HALF of country borders (0.2 → 1.125px vs 0.4 → 2.25px)
+      // Visibility: appears only when zoomed into a country (zoom 4+)
       try {
-        const cityRes = await fetch("/data/top100-cities.geojson");
-        const cityGeo = await cityRes.json();
-        const cities: CityPoint[] = cityGeo.features.map((f: any) => {
-          const coords = f.geometry.coordinates[0];
-          // Calculate bounding box from all polygon vertices
-          let minLng = Infinity, maxLng = -Infinity, minLat = Infinity, maxLat = -Infinity;
-          coords.forEach((pt: number[]) => {
-            if (pt[0] < minLng) minLng = pt[0];
-            if (pt[0] > maxLng) maxLng = pt[0];
-            if (pt[1] < minLat) minLat = pt[1];
-            if (pt[1] > maxLat) maxLat = pt[1];
-          });
-          // Center of bounding box
-          const centerLng = (minLng + maxLng) / 2;
-          const centerLat = (minLat + maxLat) / 2;
-          // Radius = half the diagonal of the bounding box (inscribed circle in the bbox)
-          const dxDeg = (maxLng - minLng) / 2;
-          const dyDeg = (maxLat - minLat) / 2;
-          // Use the LARGER dimension so circle fully covers the city extent
-          const radiusKm = Math.sqrt(dxDeg * dxDeg + dyDeg * dyDeg) * 111;
-          return { name: f.properties.name, lng: centerLng, lat: centerLat, radiusKm };
-        });
-        citiesRef.current = cities;
-
-        // Create a GeoJSON FeatureCollection of POINTS for the circle layer
-        const cityPointsGeo = {
-          type: "FeatureCollection" as const,
-          features: cities.map(c => ({
-            type: "Feature" as const,
-            geometry: { type: "Point" as const, coordinates: [c.lng, c.lat] },
-            properties: { name: c.name, radiusKm: c.radiusKm },
-          })),
-        };
-
-        map.current.addSource("cities-point-src", {
-          type: "geojson",
-          data: cityPointsGeo,
+        map.current.addSource("admin-subdivisions", {
+          type: "vector",
+          url: "mapbox://mapbox.boundaries-v3",
         });
 
-        // NATIVE CIRCLE LAYER — perfect circles in screen space
-        // Simple fixed radius that covers city area (all GeoJSON cities are ~same size)
-        // Radius scales with zoom so circles always cover the visible city extent
         map.current.addLayer({
-          id: "city-circles",
-          type: "circle",
-          source: "cities-point-src",
+          id: "subdivision-borders",
+          type: "line",
+          source: "admin-subdivisions",
+          "source-layer": "boundaries_1",
           paint: {
-            "circle-color": "transparent",
-            "circle-stroke-color": "rgba(255,255,255,0.92)",
-            "circle-stroke-width": 2.5,
-            // Big, simple radius — covers full city area at all zoom levels
-            // At zoom 6: 60px, zoom 8: 120px, zoom 10: 280px, zoom 12: 500px
-            "circle-radius": [
+            "line-color": "rgba(255,255,255,0.75)",
+            "line-width": [
               "interpolate", ["linear"], ["zoom"],
-              5,  0,
-              6,  60,
-              7,  90,
-              8,  130,
-              9,  200,
-              10, 280,
-              11, 400,
-              12, 500,
+              1,  0.2,
+              2,  0.325,
+              4,  0.45,
+              7,  0.625,
+              10, 0.875,
+              14, 1.125,
             ],
-            "circle-opacity": 0.92,
-            "circle-stroke-opacity": 0.92,
+            "line-opacity": [
+              "interpolate", ["linear"], ["zoom"],
+              3,  0,
+              4,  0.4,
+              7,  0.6,
+              10, 0.75,
+            ],
           },
-        });
-
-        // City labels from same point source
-        map.current.addLayer({
-          id: "city-labels",
-          type: "symbol",
-          source: "cities-point-src",
           layout: {
-            "text-field": ["get", "name"],
-            "text-size": [
-              "interpolate", ["linear"], ["zoom"],
-              7, 11,
-              10, 14,
-              13, 18,
-            ],
-            "text-variable-anchor": ["center", "top", "bottom", "left", "right"],
-            "text-justify": "auto",
-            "text-offset": [0, 1.5],
+            "line-cap": "round",
+            "line-join": "round",
           },
-          paint: {
-            "text-color": "rgba(255,255,255,0.9)",
-            "text-halo-color": "rgba(0,0,0,0.85)",
-            "text-halo-width": 2,
-            "text-opacity": [
-              "interpolate", ["linear"], ["zoom"],
-              7, 0,
-              8, 0.85,
-            ],
-          },
-          minzoom: 7,
-          maxzoom: 15,
+          minzoom: 3,
+          maxzoom: 18,
         });
       } catch (e) {
-        console.warn("Failed to load city data:", e);
+        console.warn("Admin subdivision boundaries unavailable (requires Mapbox Pro account):", e);
       }
 
       // ── Fog + stars ──────────────────────────────────────────────────────
