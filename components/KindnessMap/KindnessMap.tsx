@@ -138,50 +138,44 @@ export default function KindnessMap({
       });
 
       // ── Administrative subdivision borders (states, provinces, oblasts, prefectures) ──
-      // Mapbox Boundaries v3 — same source as Mapbox itself uses
-      // boundaries_1 = first-level admin subdivisions (states, provinces, regions, oblasts, etc.)
+      // Natural Earth Admin-1 boundaries (~4,600 regions worldwide, 1.25 MB local file)
+      // Source: converted from ne_10m_admin_1_states_provinces.shp (Douglas-Peucker simplified)
       // Line width: exactly HALF of country borders (0.2 → 1.125px vs 0.4 → 2.25px)
-      // Visibility: appears only when zoomed into a country (zoom 4+)
-      try {
-        map.current.addSource("admin-subdivisions", {
-          type: "vector",
-          url: "mapbox://mapbox.boundaries-v3",
-        });
-
-        map.current.addLayer({
-          id: "subdivision-borders",
-          type: "line",
-          source: "admin-subdivisions",
-          "source-layer": "boundaries_1",
-          paint: {
-            "line-color": "rgba(255,255,255,0.75)",
-            "line-width": [
-              "interpolate", ["linear"], ["zoom"],
-              1,  0.2,
-              2,  0.325,
-              4,  0.45,
-              7,  0.625,
-              10, 0.875,
-              14, 1.125,
-            ],
-            "line-opacity": [
-              "interpolate", ["linear"], ["zoom"],
-              3,  0,
-              4,  0.4,
-              7,  0.6,
-              10, 0.75,
-            ],
-          },
-          layout: {
-            "line-cap": "round",
-            "line-join": "round",
-          },
-          minzoom: 3,
-          maxzoom: 18,
-        });
-      } catch (e) {
-        console.warn("Admin subdivision boundaries unavailable (requires Mapbox Pro account):", e);
-      }
+      // Visibility: appears when zoomed into a country (zoom 4+)
+      map.current.addSource("admin-subdivisions", {
+        type: "geojson",
+        data: "/data/admin1_web.geojson",
+      });
+      map.current.addLayer({
+        id: "subdivision-borders",
+        type: "line",
+        source: "admin-subdivisions",
+        paint: {
+          "line-color": "rgba(255,255,255,0.75)",
+          "line-width": [
+            "interpolate", ["linear"], ["zoom"],
+            1,  0.2,
+            2,  0.325,
+            4,  0.45,
+            7,  0.625,
+            10, 0.875,
+            14, 1.125,
+          ],
+          "line-opacity": [
+            "interpolate", ["linear"], ["zoom"],
+            3,  0,
+            4,  0.4,
+            7,  0.6,
+            10, 0.75,
+          ],
+        },
+        layout: {
+          "line-cap": "round",
+          "line-join": "round",
+        },
+        minzoom: 3,
+        maxzoom: 18,
+      });
 
       // ── Fog + stars ──────────────────────────────────────────────────────
       map.current.setFog({
