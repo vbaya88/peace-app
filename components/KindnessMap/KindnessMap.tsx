@@ -114,19 +114,19 @@ export default function KindnessMap({
           "line-color": "#ffffff",
           "line-width": [
             "interpolate", ["linear"], ["zoom"],
-            1, 0.4,
-            2, 0.65,
-            4, 0.9,
-            7, 1.25,
-            10, 1.75,
-            14, 2.25,
+            1, 0.6,
+            2, 1.0,
+            4, 1.5,
+            7, 2.2,
+            10, 3.0,
+            14, 4.0,
           ],
           "line-opacity": [
             "interpolate", ["linear"], ["zoom"],
-            1, 0.3,
-            2, 0.45,
-            5, 0.65,
-            10, 0.85,
+            1, 0.45,
+            2, 0.6,
+            5, 0.8,
+            10, 0.92,
           ],
         },
         layout: {
@@ -140,7 +140,8 @@ export default function KindnessMap({
       // ── Administrative subdivision borders (states, provinces, oblasts, prefectures) ──
       // Natural Earth Admin-1 boundaries (~4,600 regions worldwide, 1.25 MB local file)
       // Source: converted from ne_10m_admin_1_states_provinces.shp (Douglas-Peucker simplified)
-      // Line width: exactly HALF of country borders (0.2 → 1.125px vs 0.4 → 2.25px)
+      // Line width: slightly thinner than country borders but still clearly visible
+      // Bright white — same color as country borders, just a bit thinner
       // Visibility: appears when zoomed into a country (zoom 4+)
       map.current.addSource("admin-subdivisions", {
         type: "geojson",
@@ -151,22 +152,22 @@ export default function KindnessMap({
         type: "line",
         source: "admin-subdivisions",
         paint: {
-          "line-color": "rgba(255,255,255,0.75)",
+          "line-color": "#ffffff",
           "line-width": [
             "interpolate", ["linear"], ["zoom"],
-            1,  0.2,
-            2,  0.325,
-            4,  0.45,
-            7,  0.625,
-            10, 0.875,
-            14, 1.125,
+            3,  0.5,
+            4,  0.8,
+            6,  1.2,
+            8,  1.6,
+            10, 2.0,
+            14, 2.8,
           ],
           "line-opacity": [
             "interpolate", ["linear"], ["zoom"],
-            3,  0,
-            4,  0.4,
-            7,  0.6,
-            10, 0.75,
+            3,  0.15,
+            4,  0.55,
+            6,  0.75,
+            9,  0.88,
           ],
         },
         layout: {
