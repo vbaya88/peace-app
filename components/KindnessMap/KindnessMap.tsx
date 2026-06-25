@@ -162,13 +162,7 @@ export default function KindnessMap({
             10, 2.0,
             14, 2.8,
           ],
-          "line-opacity": [
-            "interpolate", ["linear"], ["zoom"],
-            3,  0.3,
-            4,  0.75,
-            6,  0.9,
-            9,  0.98,
-          ],
+          "line-opacity": 1,
         },
         layout: {
           "line-cap": "round",
