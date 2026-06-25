@@ -140,8 +140,8 @@ export default function KindnessMap({
       // ── Administrative subdivision borders (states, provinces, oblasts, prefectures) ──
       // Natural Earth Admin-1 boundaries (~4,600 regions worldwide, 1.25 MB local file)
       // Source: converted from ne_10m_admin_1_states_provinces.shp (Douglas-Peucker simplified)
-      // Line width: slightly thinner than country borders but still clearly visible
-      // Bright white — same color as country borders, just a bit thinner
+      // Line width: same as original — thin but visible
+      // Color: pure bright white (user explicitly requested brighter color only)
       // Visibility: appears when zoomed into a country (zoom 4+)
       map.current.addSource("admin-subdivisions", {
         type: "geojson",
@@ -164,10 +164,10 @@ export default function KindnessMap({
           ],
           "line-opacity": [
             "interpolate", ["linear"], ["zoom"],
-            3,  0.15,
-            4,  0.55,
-            6,  0.75,
-            9,  0.88,
+            3,  0.3,
+            4,  0.75,
+            6,  0.9,
+            9,  0.98,
           ],
         },
         layout: {
