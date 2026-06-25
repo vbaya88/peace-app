@@ -181,6 +181,35 @@ export default function KindnessMap({
         "star-intensity": 0.6,
       });
 
+      // ── Population grid: ~210K cells covering inhabited land areas ──
+      try {
+        map.current.addSource("population-grid", {
+          type: "geojson",
+          data: "/data/population_grid.geojson",
+          promoteId: "region_id",
+        });
+        map.current.addLayer({
+          id: "population-grid-fill",
+          type: "fill",
+          source: "population-grid",
+          paint: {
+            "fill-color": "#1a5276",
+            "fill-opacity": [
+              "interpolate", ["linear"], ["zoom"],
+              2, 0.0,
+              4, 0.06,
+              7, 0.12,
+              10, 0.20,
+              14, 0.35,
+            ],
+          },
+          minzoom: 2,
+          maxzoom: 18,
+        });
+      } catch (e) {
+        console.warn("[KindnessMap] Population grid unavailable:", e);
+      }
+
       setMapLoaded(true);
     });
 
