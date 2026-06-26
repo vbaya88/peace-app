@@ -171,14 +171,8 @@ export default function KindnessMap({
         maxzoom: 18,
       });
 
-      // ── Fog + stars ──────────────────────────────────────────────────────
-      map.current.setFog({
-        color: "rgb(10, 10, 30)",
-        "high-color": "rgb(30, 30, 80)",
-        "horizon-blend": 0.03,
-        "space-color": "rgb(5, 5, 15)",
-        "star-intensity": 0.6,
-      });
+      // ── Fog DISABLED — was causing visible gray circle over Antarctica (globe horizon effect) ──
+      // map.current.setFog({ ... }) — removed to eliminate Antarctica disc artifact
 
       // ── Population grid: ~182K cells covering inhabited land areas ──
       // Load with fetch to handle LFS pointer issues on Railway
@@ -198,15 +192,17 @@ export default function KindnessMap({
           type: "fill",
           source: "population-grid",
           paint: {
-            "fill-color": "#1a5276",
+            "fill-color": "#1a8a5a",
             "fill-opacity": [
               "interpolate", ["linear"], ["zoom"],
-              2, 0.02,
-              4, 0.08,
-              7, 0.15,
-              10, 0.25,
-              14, 0.40,
+              2, 0.05,
+              3, 0.12,
+              5, 0.20,
+              7, 0.30,
+              10, 0.45,
+              14, 0.55,
             ],
+            "fill-outline-color": "#2ecc71",
           },
           minzoom: 2,
           maxzoom: 18,
