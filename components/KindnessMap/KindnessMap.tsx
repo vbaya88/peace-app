@@ -170,8 +170,10 @@ export default function KindnessMap({
         maxzoom: 18,
       });
 
-      // ── Fog DISABLED — was causing visible gray circle over Antarctica (globe horizon effect) ──
-      // map.current.setFog({ ... }) — removed to eliminate Antarctica disc artifact
+      // ── DISABLE fog/atmosphere to remove Antarctica circle artifact ──
+      // Mapbox dark-v11 has a built-in globe horizon that shows as a gray disc over Antarctica
+      try { map.current.setFog({ color: 'transparent', 'high-color': 'transparent', 'horizon-blend': 0, 'space-color': 'transparent', 'star-intensity': 0 }); } catch(e) { /* ignore */ }
+      try { if ((map.current as any).setAtmosphere) { (map.current as any).setAtmosphere(); } } catch(e) { /* ignore */ }
 
       // ════════════════════════════════════════════════════════
       //  GRID LAYERS (3-tier system)
@@ -221,16 +223,33 @@ export default function KindnessMap({
       // Shows province/state/oblast boundaries ON TOP of base green grid
       // These are the administrative subdivisions user wants to see
       try {
+        // Try fetch-based loading first (works around Railway/LFS issues)
         const l1Res = await fetch("/data/grid_l1.geojson");
         if (!l1Res.ok) throw new Error(`HTTP ${l1Res.status}`);
         const l1Data = await l1Res.json();
-        console.log(`[KindnessMap] L1 grid loaded: ${l1Data.features.length} region cells`);
+        console.log(`[KindnessMap] L1 grid loaded: ${l1Data.features?.length ?? 0} region cells`);
 
         map.current.addSource("grid-l1-src", {
           type: "geojson",
           data: l1Data,
         });
-        // L1 as BOTH fill (subtle tint) AND line (bright boundary)
+      } catch (e) {
+        // Fallback: load via URL (Mapbox handles large files natively)
+        console.warn("[KindnessMap] L1 fetch failed, trying URL source:", e);
+        try {
+          map.current.addSource("grid-l1-src", {
+            type: "geojson",
+            data: "/data/grid_l1.geojson",
+          });
+          console.log("[KindnessMap] L1 loaded via URL fallback");
+        } catch (e2) {
+          console.warn("[KindnessMap] L1 grid unavailable:", e2);
+        }
+      }
+
+      // Add L1 layers (will only render if source exists)
+      try {
+        // L1 fill: subtle cyan tint over green base
         map.current.addLayer({
           id: "grid-l1-fill",
           type: "fill",
@@ -239,16 +258,17 @@ export default function KindnessMap({
             "fill-color": "#00d4ff",
             "fill-opacity": [
               "interpolate", ["linear"], ["zoom"],
-              5,  0.03,
-              7,  0.06,
-              9,  0.10,
-              11, 0.15,
-              14, 0.22,
+              5,  0.04,
+              7,  0.08,
+              9,  0.14,
+              11, 0.20,
+              14, 0.28,
             ],
           },
           minzoom: 5,
           maxzoom: 16,
         });
+        // L1 line: bright cyan boundaries
         map.current.addLayer({
           id: "grid-l1-line",
           type: "line",
@@ -257,18 +277,18 @@ export default function KindnessMap({
             "line-color": "#00d4ff",
             "line-width": [
               "interpolate", ["linear"], ["zoom"],
-              5,  0.4,
-              7,  0.8,
-              9,  1.2,
-              11, 1.8,
-              14, 2.5,
+              5,  0.6,
+              7,  1.0,
+              9,  1.6,
+              11, 2.2,
+              14, 3.0,
             ],
             "line-opacity": [
               "interpolate", ["linear"], ["zoom"],
-              5,  0.4,
-              7,  0.6,
-              9,  0.75,
-              11, 0.90,
+              5,  0.5,
+              7,  0.7,
+              9,  0.85,
+              11, 0.95,
               14, 1.0,
             ],
           },
@@ -276,7 +296,7 @@ export default function KindnessMap({
           maxzoom: 16,
         });
       } catch (e) {
-        console.warn("[KindnessMap] L1 grid unavailable:", e);
+        console.warn("[KindnessMap] L1 layers failed:", e);
       }
 
       // ── Level 2: Dense pixel grid (4.7M cells, loaded per-country on demand) ──
