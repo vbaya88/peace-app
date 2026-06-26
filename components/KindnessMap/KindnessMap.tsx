@@ -114,19 +114,19 @@ export default function KindnessMap({
           "line-color": "#ffffff",
           "line-width": [
             "interpolate", ["linear"], ["zoom"],
-            1, 0.6,
-            2, 1.0,
-            4, 1.5,
-            7, 2.2,
-            10, 3.0,
-            14, 4.0,
+            1, 0.3,
+            2, 0.5,
+            4, 0.75,
+            7, 1.1,
+            10, 1.5,
+            14, 2.0,
           ],
           "line-opacity": [
             "interpolate", ["linear"], ["zoom"],
-            1, 0.45,
-            2, 0.6,
-            5, 0.8,
-            10, 0.92,
+            1, 0.35,
+            2, 0.45,
+            5, 0.65,
+            10, 0.80,
           ],
         },
         layout: {
@@ -140,8 +140,7 @@ export default function KindnessMap({
       // ── Administrative subdivision borders (states, provinces, oblasts, prefectures) ──
       // Natural Earth Admin-1 boundaries (~4,600 regions worldwide, 1.25 MB local file)
       // Source: converted from ne_10m_admin_1_states_provinces.shp (Douglas-Peucker simplified)
-      // Line width: same as original — thin but visible
-      // Color: pure bright white (user explicitly requested brighter color only)
+      // Line width: halved from original (user requested thinner)
       // Visibility: appears when zoomed into a country (zoom 4+)
       map.current.addSource("admin-subdivisions", {
         type: "geojson",
@@ -155,14 +154,14 @@ export default function KindnessMap({
           "line-color": "#ffffff",
           "line-width": [
             "interpolate", ["linear"], ["zoom"],
-            3,  0.5,
-            4,  0.8,
-            6,  1.2,
-            8,  1.6,
-            10, 2.0,
-            14, 2.8,
+            3,  0.25,
+            4,  0.4,
+            6,  0.6,
+            8,  0.8,
+            10, 1.0,
+            14, 1.4,
           ],
-          "line-opacity": 1,
+          "line-opacity": 0.7,
         },
         layout: {
           "line-cap": "round",
@@ -181,11 +180,17 @@ export default function KindnessMap({
         "star-intensity": 0.6,
       });
 
-      // ── Population grid: ~210K cells covering inhabited land areas ──
+      // ── Population grid: ~182K cells covering inhabited land areas ──
+      // Load with fetch to handle LFS pointer issues on Railway
       try {
+        const gridRes = await fetch("/data/population_grid.geojson");
+        if (!gridRes.ok) throw new Error(`HTTP ${gridRes.status}`);
+        const gridData = await gridRes.json();
+        console.log("[KindnessMap] Population grid loaded:", gridData.features.length, "cells");
+
         map.current.addSource("population-grid", {
           type: "geojson",
-          data: "/data/population_grid.geojson",
+          data: gridData,
           promoteId: "region_id",
         });
         map.current.addLayer({
@@ -196,11 +201,11 @@ export default function KindnessMap({
             "fill-color": "#1a5276",
             "fill-opacity": [
               "interpolate", ["linear"], ["zoom"],
-              2, 0.0,
-              4, 0.06,
-              7, 0.12,
-              10, 0.20,
-              14, 0.35,
+              2, 0.02,
+              4, 0.08,
+              7, 0.15,
+              10, 0.25,
+              14, 0.40,
             ],
           },
           minzoom: 2,
