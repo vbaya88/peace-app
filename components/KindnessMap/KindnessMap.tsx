@@ -217,8 +217,9 @@ export default function KindnessMap({
         console.warn("[KindnessMap] Base grid unavailable:", e);
       }
 
-      // ── Level 1: Admin1 region cells (109K cells, blue overlay, zoom 10+) ──
-      // Shows finer subdivision within countries on top of base grid
+      // ── Level 1: Admin1 region cells (109K cells, bright cyan overlay, zoom 5+) ──
+      // Shows province/state/oblast boundaries ON TOP of base green grid
+      // These are the administrative subdivisions user wants to see
       try {
         const l1Res = await fetch("/data/grid_l1.geojson");
         if (!l1Res.ok) throw new Error(`HTTP ${l1Res.status}`);
@@ -229,26 +230,49 @@ export default function KindnessMap({
           type: "geojson",
           data: l1Data,
         });
+        // L1 as BOTH fill (subtle tint) AND line (bright boundary)
         map.current.addLayer({
           id: "grid-l1-fill",
+          type: "fill",
+          source: "grid-l1-src",
+          paint: {
+            "fill-color": "#00d4ff",
+            "fill-opacity": [
+              "interpolate", ["linear"], ["zoom"],
+              5,  0.03,
+              7,  0.06,
+              9,  0.10,
+              11, 0.15,
+              14, 0.22,
+            ],
+          },
+          minzoom: 5,
+          maxzoom: 16,
+        });
+        map.current.addLayer({
+          id: "grid-l1-line",
           type: "line",
           source: "grid-l1-src",
           paint: {
-            "line-color": "#3498db",
+            "line-color": "#00d4ff",
             "line-width": [
               "interpolate", ["linear"], ["zoom"],
-              10, 0.3,
-              12, 0.6,
-              14, 1.0,
+              5,  0.4,
+              7,  0.8,
+              9,  1.2,
+              11, 1.8,
+              14, 2.5,
             ],
             "line-opacity": [
               "interpolate", ["linear"], ["zoom"],
-              10, 0.3,
-              12, 0.5,
-              14, 0.8,
+              5,  0.4,
+              7,  0.6,
+              9,  0.75,
+              11, 0.90,
+              14, 1.0,
             ],
           },
-          minzoom: 10,
+          minzoom: 5,
           maxzoom: 16,
         });
       } catch (e) {
@@ -264,7 +288,7 @@ export default function KindnessMap({
       map.current.on("zoomend", async () => {
         if (!map.current) return;
         const zoom = map.current.getZoom();
-        if (zoom < 12) return; // Only show L2 at high zoom (above L1)
+        if (zoom < 10) return; // Show L2 at zoom 10+ (when L1 is clearly visible)
 
         const center = map.current.getCenter();
         const features = map.current.queryRenderedFeatures(
