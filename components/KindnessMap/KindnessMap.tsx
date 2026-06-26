@@ -174,12 +174,51 @@ export default function KindnessMap({
       // map.current.setFog({ ... }) — removed to eliminate Antarctica disc artifact
 
       // ════════════════════════════════════════════════════════
-      //  TWO-LEVEL GRID SYSTEM (L1 + L2)
-      //  L1: 109K admin1-region cells (coarse, zoom 11+)
-      //  L2: 4.7M dense pixel cells (~0.9km spacing, loaded per-country)
+      //  GRID LAYERS (3-tier system)
+      //  BASE:  Old population grid (182K cells, green, all zooms) — ALWAYS visible
+      //  L1:    Admin1 region cells (109K cells, blue, zoom 10+) — refinement layer
+      //  L2:    Dense pixel dots (4.7M cells, red circles, zoom 12+) — loaded per-country
       // ════════════════════════════════════════════════════════
 
-      // ── Level 1: Admin1 region cells (109K cells, 42 MB) ──
+      // ── BASE GRID: Original population grid (182K cells, green) ──
+      // This is the grid that WAS working before — keep it as the foundation
+      try {
+        const gridRes = await fetch("/data/population_grid.geojson");
+        if (!gridRes.ok) throw new Error(`HTTP ${gridRes.status}`);
+        const gridData = await gridRes.json();
+        console.log(`[KindnessMap] Base grid loaded: ${gridData.features.length} cells`);
+
+        map.current.addSource("population-grid", {
+          type: "geojson",
+          data: gridData,
+          promoteId: "region_id",
+        });
+        map.current.addLayer({
+          id: "population-grid-fill",
+          type: "fill",
+          source: "population-grid",
+          paint: {
+            "fill-color": "#1a8a5a",
+            "fill-opacity": [
+              "interpolate", ["linear"], ["zoom"],
+              2, 0.05,
+              3, 0.12,
+              5, 0.20,
+              7, 0.30,
+              10, 0.45,
+              14, 0.55,
+            ],
+            "fill-outline-color": "#2ecc71",
+          },
+          minzoom: 2,
+          maxzoom: 14,
+        });
+      } catch (e) {
+        console.warn("[KindnessMap] Base grid unavailable:", e);
+      }
+
+      // ── Level 1: Admin1 region cells (109K cells, blue overlay, zoom 10+) ──
+      // Shows finer subdivision within countries on top of base grid
       try {
         const l1Res = await fetch("/data/grid_l1.geojson");
         if (!l1Res.ok) throw new Error(`HTTP ${l1Res.status}`);
@@ -192,22 +231,25 @@ export default function KindnessMap({
         });
         map.current.addLayer({
           id: "grid-l1-fill",
-          type: "fill",
+          type: "line",
           source: "grid-l1-src",
           paint: {
-            "fill-color": "#1a5276",
-            "fill-opacity": [
+            "line-color": "#3498db",
+            "line-width": [
               "interpolate", ["linear"], ["zoom"],
-              8,  0.02,
-              10, 0.08,
-              12, 0.18,
-              14, 0.30,
+              10, 0.3,
+              12, 0.6,
+              14, 1.0,
             ],
-            "fill-outline-color": "#2980b9",
-            "fill-outline-width": 0.5,
+            "line-opacity": [
+              "interpolate", ["linear"], ["zoom"],
+              10, 0.3,
+              12, 0.5,
+              14, 0.8,
+            ],
           },
-          minzoom: 8,
-          maxzoom: 14,
+          minzoom: 10,
+          maxzoom: 16,
         });
       } catch (e) {
         console.warn("[KindnessMap] L1 grid unavailable:", e);
@@ -219,14 +261,12 @@ export default function KindnessMap({
       let l2LoadedCountry: string | null = null;
       let l2SourceAdded = false;
 
-      map.current.on("moveend", async () => {
+      map.current.on("zoomend", async () => {
         if (!map.current) return;
         const zoom = map.current.getZoom();
-        if (zoom < 11) return; // Only show L2 at high zoom
+        if (zoom < 12) return; // Only show L2 at high zoom (above L1)
 
         const center = map.current.getCenter();
-        // Simple country detection from center point (approximate)
-        // For production: use reverse geocoding or point-in-polygon with countries.geojson
         const features = map.current.queryRenderedFeatures(
           map.current.project(center),
           { layers: ["country-borders"] }
