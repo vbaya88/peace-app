@@ -47,3 +47,22 @@ scripts/pixel-grid.sql
 scripts/generate-pixel-grid.js
 scripts/generate-pixel-grid.ts
 scripts/worldcities.csv
+
+# L2 grid chunks — regenerate with generate_l2_final.py
+public/data/l2_chunks/*.geojson
+!public/data/l2_chunks/_index.json
+
+# Natural Earth shapefiles (use GeoJSON versions instead)
+public/data/ne_50m_admin_1_states_provinces.*
+public/data/ne_10m_admin_1_states_provinces.*
+
+# Scratch debug scripts
+scripts/grid-generation/check_*.py
+scripts/grid-generation/debug*.py
+scripts/grid-generation/diagnose_sjoin.py
+scripts/grid-generation/download_admin1.py
+scripts/grid-generation/download_ne10m.py
+scripts/grid-generation/download_ne10m2.py
+scripts/grid-generation/process_ne10m.py
+scripts/grid-generation/test_admin1.py
+scripts/grid-generation/verify*.py
