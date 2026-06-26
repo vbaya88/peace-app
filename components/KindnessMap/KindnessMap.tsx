@@ -138,13 +138,12 @@ export default function KindnessMap({
       });
 
       // ── Administrative subdivision borders (states, provinces, oblasts, prefectures) ──
-      // Natural Earth Admin-1 boundaries (~4,600 regions worldwide, 1.25 MB local file)
-      // Source: converted from ne_10m_admin_1_states_provinces.shp (Douglas-Peucker simplified)
-      // Line width: halved from original (user requested thinner)
-      // Visibility: appears when zoomed into a country (zoom 4+)
+      // Natural Earth 10m Admin-1 boundaries (4,596 regions, 241 countries, 70 MB)
+      // Source: ne_10m_admin_1_states_provinces.shp → admin1_ne10m.geojson
+      // Replaces corrupted GADM-based admin1_web.geojson (all null geometries)
       map.current.addSource("admin-subdivisions", {
         type: "geojson",
-        data: "/data/admin1_web.geojson",
+        data: "/data/admin1_ne10m.geojson",
       });
       map.current.addLayer({
         id: "subdivision-borders",
@@ -174,42 +173,116 @@ export default function KindnessMap({
       // ── Fog DISABLED — was causing visible gray circle over Antarctica (globe horizon effect) ──
       // map.current.setFog({ ... }) — removed to eliminate Antarctica disc artifact
 
-      // ── Population grid: ~182K cells covering inhabited land areas ──
-      // Load with fetch to handle LFS pointer issues on Railway
-      try {
-        const gridRes = await fetch("/data/population_grid.geojson");
-        if (!gridRes.ok) throw new Error(`HTTP ${gridRes.status}`);
-        const gridData = await gridRes.json();
-        console.log("[KindnessMap] Population grid loaded:", gridData.features.length, "cells");
+      // ════════════════════════════════════════════════════════
+      //  TWO-LEVEL GRID SYSTEM (L1 + L2)
+      //  L1: 109K admin1-region cells (coarse, zoom 11+)
+      //  L2: 4.7M dense pixel cells (~0.9km spacing, loaded per-country)
+      // ════════════════════════════════════════════════════════
 
-        map.current.addSource("population-grid", {
+      // ── Level 1: Admin1 region cells (109K cells, 42 MB) ──
+      try {
+        const l1Res = await fetch("/data/grid_l1.geojson");
+        if (!l1Res.ok) throw new Error(`HTTP ${l1Res.status}`);
+        const l1Data = await l1Res.json();
+        console.log(`[KindnessMap] L1 grid loaded: ${l1Data.features.length} region cells`);
+
+        map.current.addSource("grid-l1-src", {
           type: "geojson",
-          data: gridData,
-          promoteId: "region_id",
+          data: l1Data,
         });
         map.current.addLayer({
-          id: "population-grid-fill",
+          id: "grid-l1-fill",
           type: "fill",
-          source: "population-grid",
+          source: "grid-l1-src",
           paint: {
-            "fill-color": "#1a8a5a",
+            "fill-color": "#1a5276",
             "fill-opacity": [
               "interpolate", ["linear"], ["zoom"],
-              2, 0.05,
-              3, 0.12,
-              5, 0.20,
-              7, 0.30,
-              10, 0.45,
-              14, 0.55,
+              8,  0.02,
+              10, 0.08,
+              12, 0.18,
+              14, 0.30,
             ],
-            "fill-outline-color": "#2ecc71",
+            "fill-outline-color": "#2980b9",
+            "fill-outline-width": 0.5,
           },
-          minzoom: 2,
-          maxzoom: 18,
+          minzoom: 8,
+          maxzoom: 14,
         });
       } catch (e) {
-        console.warn("[KindnessMap] Population grid unavailable:", e);
+        console.warn("[KindnessMap] L1 grid unavailable:", e);
       }
+
+      // ── Level 2: Dense pixel grid (4.7M cells, loaded per-country on demand) ──
+      // L2 is too large (1.75GB) to load all at once.
+      // Strategy: detect visible country → load that country's L2 chunk only.
+      let l2LoadedCountry: string | null = null;
+      let l2SourceAdded = false;
+
+      map.current.on("moveend", async () => {
+        if (!map.current) return;
+        const zoom = map.current.getZoom();
+        if (zoom < 11) return; // Only show L2 at high zoom
+
+        const center = map.current.getCenter();
+        // Simple country detection from center point (approximate)
+        // For production: use reverse geocoding or point-in-polygon with countries.geojson
+        const features = map.current.queryRenderedFeatures(
+          map.current.project(center),
+          { layers: ["country-borders"] }
+        );
+        let countryCode = "";
+        if (features.length > 0 && features[0].properties?.iso_a2) {
+          countryCode = features[0].properties.iso_a2.toUpperCase();
+        }
+
+        if (!countryCode || countryCode === l2LoadedCountry) return;
+        l2LoadedCountry = countryCode;
+
+        console.log(`[KindnessMap] Loading L2 for ${countryCode}...`);
+        try {
+          const l2Res = await fetch(`/data/l2_chunks/L2_${countryCode}.geojson`);
+          if (!l2Res.ok) {
+            console.log(`[KindnessMap] No L2 chunk for ${countryCode} (HTTP ${l2Res.status})`);
+            return;
+          }
+          const l2Data = await l2Res.json();
+          console.log(`[KindnessMap] L2 ${countryCode}: ${l2Data.features.length} cells`);
+
+          if (!l2SourceAdded) {
+            map.current.addSource("grid-l2-src", { type: "geojson", data: l2Data });
+            map.current.addLayer({
+              id: "grid-l2-fill",
+              type: "circle",
+              source: "grid-l2-src",
+              paint: {
+                "circle-radius": [
+                  "interpolate", ["linear"], ["zoom"],
+                  11, 1.5,
+                  13, 2.5,
+                  15, 3.5,
+                ],
+                "circle-color": "#e74c3c",
+                "circle-opacity": [
+                  "interpolate", ["linear"], ["zoom"],
+                  11, 0.5,
+                  12, 0.7,
+                  15, 0.9,
+                ],
+                "circle-stroke-color": "#c0392b",
+                "circle-stroke-width": 0.5,
+              },
+              minzoom: 11,
+              maxzoom: 22,
+            });
+            l2SourceAdded = true;
+          } else {
+            map.current.getSource("grid-l2-src").setData(l2Data);
+          }
+        } catch (e) {
+          console.warn(`[KindnessMap] L2 load failed for ${countryCode}:`, e);
+        }
+      });
 
       setMapLoaded(true);
     });
