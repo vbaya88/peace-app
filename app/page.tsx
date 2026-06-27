@@ -494,10 +494,6 @@ export default function Home() {
     <main className="h-[100dvh] w-full relative overflow-hidden">
       {/* ── Full-Screen Map Background ── */}
       <div className="absolute inset-0 z-0">
-        {/* Star field background (behind map) */}
-        <div className="absolute inset-0" style={{ pointerEvents: 'none' }}>
-          <StarField className="w-full h-full" />
-        </div>
         <KindnessMap
           messages={messages}
           onMapClick={(lat) => {
