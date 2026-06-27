@@ -52,6 +52,10 @@ scripts/worldcities.csv
 public/data/l2_chunks/*.geojson
 !public/data/l2_chunks/_index.json
 
+# Dense population grid — raw is too big for GitHub, keep .gz version only
+public/data/population_grid.geojson
+!public/data/population_grid.geojson.gz
+
 # Natural Earth shapefiles (use GeoJSON versions instead)
 public/data/ne_50m_admin_1_states_provinces.*
 public/data/ne_10m_admin_1_states_provinces.*
