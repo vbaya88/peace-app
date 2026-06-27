@@ -171,9 +171,24 @@ export default function KindnessMap({
         maxzoom: 18,
       });
 
-      // ── HIDE Antarctica circle (globe horizon artifact) ──
-      // Mapbox dark-v11 globe shows a gray disc at the south pole
-      // Fix: add a dark fill layer matching map background color over Antarctica
+      // ── HIDE Antarctica circle (globe horizon/atmosphere artifact) ──
+      // Mapbox dark-v11 globe shows a gray disc at the south pole — this IS the atmosphere effect
+      // Fix 1: Disable atmosphere entirely (removes the circle)
+      // Fix 2: Dark fill layer as backup (covers any remaining artifacts)
+      try {
+        // Fix 1: Disable atmosphere entirely (removes the circle)
+        // Fix 2: Enable Mapbox's built-in star field in the sky
+        (map.current as any).setAtmosphere?.({ 'show': false });
+        map.current.setFog({ 
+          color: 'transparent', 
+          'high-color': 'transparent', 
+          'horizon-blend': 0, 
+          'space-color': '#050510',   // dark space color
+          'star-intensity': 1.0       // ENABLE built-in stars!
+        });
+      } catch(e) { console.warn('Atmosphere/fog change failed:', e); }
+
+      // Backup: dark fill over polar region
       try {
         map.current.addSource('antarctica-cover-src', {
           type: 'geojson',
@@ -181,7 +196,7 @@ export default function KindnessMap({
             type: 'Feature',
             geometry: {
               type: 'Polygon',
-              coordinates: [[[-180, -60], [-180, -90], [0, -90], [0, -60], [180, -60], [180, -90], [0, -90], [0, -60], [-180, -60]]]
+              coordinates: [[[-180, -55], [-180, -90], [180, -90], [180, -55], [-180, -55]]]
             }
           }
         });
@@ -189,7 +204,7 @@ export default function KindnessMap({
           id: 'antarctica-cover',
           type: 'fill',
           source: 'antarctica-cover-src',
-          paint: { 'fill-color': '#1a1a2e', 'fill-opacity': 1 },
+          paint: { 'fill-color': '#0d1117', 'fill-opacity': 1 },
           layout: { visibility: 'visible' }
         });
       } catch(e) { console.warn('Antarctica cover failed:', e); }
