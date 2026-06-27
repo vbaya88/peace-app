@@ -88,11 +88,11 @@ export default function KindnessMap({
 
     map.current = new (window as any).mapboxgl.Map({
       container: container,
-      style: "mapbox://styles/mapbox/dark-v10", // v10 = no globe projection (fixes Antarctica circle)
+      style: "mapbox://styles/mapbox/dark-v11", // v11 = globe (user wants globe, not flat map)
       center: [37.6173, 55.7558],
       zoom: 2,
       accessToken: token,
-      projection: "mercator", // Force flat map — removes Antarctica globe circle
+      // NO projection override — let it be the default globe
     });
 
     map.current.addControl(new (window as any).mapboxgl.NavigationControl(), "top-right");
@@ -171,10 +171,9 @@ export default function KindnessMap({
         maxzoom: 18,
       });
 
-      // ── DISABLE globe projection to remove Antarctica circle artifact ──
+      // ── DISABLE globe fog to reduce Antarctica circle visibility ──
       // Mapbox dark-v11 uses 3D globe by default → shows gray horizon disc over Antarctica
-      // Fix: force Mercator (flat map) projection
-      try { (map.current as any).setProjection?.('mercator'); } catch(e) { console.warn('Projection change failed:', e); }
+      // Fix: make fog fully transparent so the circle is less visible
       try { map.current.setFog({ color: 'transparent', 'high-color': 'transparent', 'horizon-blend': 0, 'space-color': 'transparent', 'star-intensity': 0 }); } catch(e) { /* ignore */ }
 
       // ════════════════════════════════════════════════════════
@@ -184,27 +183,12 @@ export default function KindnessMap({
       //  L2:    Dense pixel dots (4.7M cells, red circles, zoom 12+) — loaded per-country
       // ════════════════════════════════════════════════════════
 
-      // ── BASE GRID: Dense population grid (2.4M cells, green, gzipped) ──
-      // Uses gzip compression: 473MB raw -> 28MB gzipped (6% of original)
-      // Browser decompresses via DecompressionStream API (all modern browsers)
+      // ── BASE GRID: Original population grid (182K cells, green) ──
+      // This is the working grid — stable, tested, no OOM issues
       try {
-        const gridRes = await fetch("/data/population_grid.geojson.gz");
+        const gridRes = await fetch("/data/population_grid_original.geojson");
         if (!gridRes.ok) throw new Error(`HTTP ${gridRes.status}`);
-        
-        // Decompress gzip in browser
-        let gridData;
-        if (typeof DecompressionStream !== "undefined" && gridRes.body) {
-          const ds = new DecompressionStream("gzip");
-          const decompressed = gridRes.body.pipeThrough(ds);
-          const text = await new Response(decompressed).text();
-          gridData = JSON.parse(text);
-        } else {
-          // Fallback for older browsers: fetch uncompressed
-          console.warn("[KindnessMap] No DecompressionStream, trying raw GeoJSON");
-          const fallbackRes = await fetch("/data/population_grid.geojson");
-          gridData = await fallbackRes.json();
-        }
-        
+        const gridData = await gridRes.json();
         console.log(`[KindnessMap] Base grid loaded: ${gridData.features.length} cells`);
 
         map.current.addSource("population-grid", {
