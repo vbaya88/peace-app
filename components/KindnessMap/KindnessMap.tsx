@@ -172,42 +172,63 @@ export default function KindnessMap({
       });
 
       // ── HIDE Antarctica circle (globe horizon/atmosphere artifact) ──
-      // Mapbox dark-v11 globe shows a gray disc at the south pole — this IS the atmosphere effect
-      // Fix 1: Disable atmosphere entirely (removes the circle)
-      // Fix 2: Dark fill layer as backup (covers any remaining artifacts)
+      // Mapbox dark-v11 globe renders a GRAY DISC at south pole via WebGL shaders
+      // setAtmosphere() does NOT exist in Mapbox GL JS web (only native SDK!)
+      // GeoJSON fill layers render UNDERNEATH the 3D atmosphere effect — useless here
+      // SOLUTION: Canvas 2D overlay painted ON TOP of map canvas — covers the artifact directly
       try {
-        // Fix 1: Disable atmosphere entirely (removes the circle)
-        // Fix 2: Enable Mapbox's built-in star field in the sky
-        (map.current as any).setAtmosphere?.({ 'show': false });
+        const mapCanvas = map.current.getCanvas();
+        const overlay = document.createElement('canvas');
+        overlay.id = 'antarctica-overlay';
+        overlay.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:5;';
+        mapCanvas.parentElement!.insertBefore(overlay, mapCanvas.nextSibling);
+        
+        const ctx = overlay.getContext('2d')!;
+        let animId = 0;
+        
+        const paintOverlay = () => {
+          const dpr = window.devicePixelRatio || 1;
+          const w = overlay.clientWidth;
+          const h = overlay.clientHeight;
+          if (!w || !h) return;
+          overlay.width = w * dpr;
+          overlay.height = h * dpr;
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+          ctx.clearRect(0, 0, w, h);
+          
+          // Project south-pole area to screen coordinates
+          try {
+            const sp = map.current.project(new (window as any).mapboxgl.LngLat(0, -82));
+            // Draw large dark circle covering the gray artifact
+            const radius = Math.min(w, h) * 0.25;
+            const grad = ctx.createRadialGradient(sp.x, sp.y, 0, sp.x, sp.y, radius);
+            grad.addColorStop(0, '#0d1117');       // solid dark center
+            grad.addColorStop(0.75, '#0d1117ee');  // mostly opaque
+            grad.addColorStop(1, 'transparent');    // soft edge fade
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.arc(sp.x, sp.y, radius, 0, Math.PI * 2);
+            ctx.fill();
+          } catch(_) { /* ignore projection errors during init */ }
+        };
+        
+        paintOverlay();
+        map.current.on('move', () => { cancelAnimationFrame(animId); animId = requestAnimationFrame(paintOverlay); });
+        map.current.on('zoom', () => { cancelAnimationFrame(animId); animId = requestAnimationFrame(paintOverlay); });
+        map.current.on('resize', () => { cancelAnimationFrame(animId); animId = requestAnimationFrame(paintOverlay); });
+        map.current.on('moveend', paintOverlay);
+      } catch(e) { console.warn('Antarctica canvas overlay failed:', e); }
+
+      // Enable Mapbox built-in star field in sky (this IS supported in GL JS v3)
+      try {
         map.current.setFog({ 
           color: 'transparent', 
           'high-color': 'transparent', 
           'horizon-blend': 0, 
-          'space-color': '#050510',   // dark space color
-          'star-intensity': 1.0       // ENABLE built-in stars!
+          'space-color': '#050510',
+          'star-intensity': 1.0 
         });
-      } catch(e) { console.warn('Atmosphere/fog change failed:', e); }
-
-      // Backup: dark fill over polar region
-      try {
-        map.current.addSource('antarctica-cover-src', {
-          type: 'geojson',
-          data: {
-            type: 'Feature',
-            geometry: {
-              type: 'Polygon',
-              coordinates: [[[-180, -55], [-180, -90], [180, -90], [180, -55], [-180, -55]]]
-            }
-          }
-        });
-        map.current.addLayer({
-          id: 'antarctica-cover',
-          type: 'fill',
-          source: 'antarctica-cover-src',
-          paint: { 'fill-color': '#0d1117', 'fill-opacity': 1 },
-          layout: { visibility: 'visible' }
-        });
-      } catch(e) { console.warn('Antarctica cover failed:', e); }
+      } catch(e) { console.warn('Fog/stars failed:', e); }
 
       // ════════════════════════════════════════════════════════
       //  GRID LAYERS (3-tier system)
