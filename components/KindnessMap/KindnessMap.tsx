@@ -171,10 +171,28 @@ export default function KindnessMap({
         maxzoom: 18,
       });
 
-      // ── DISABLE globe fog to reduce Antarctica circle visibility ──
-      // Mapbox dark-v11 uses 3D globe by default → shows gray horizon disc over Antarctica
-      // Fix: make fog fully transparent so the circle is less visible
-      try { map.current.setFog({ color: 'transparent', 'high-color': 'transparent', 'horizon-blend': 0, 'space-color': 'transparent', 'star-intensity': 0 }); } catch(e) { /* ignore */ }
+      // ── HIDE Antarctica circle (globe horizon artifact) ──
+      // Mapbox dark-v11 globe shows a gray disc at the south pole
+      // Fix: add a dark fill layer matching map background color over Antarctica
+      try {
+        map.current.addSource('antarctica-cover-src', {
+          type: 'geojson',
+          data: {
+            type: 'Feature',
+            geometry: {
+              type: 'Polygon',
+              coordinates: [[[-180, -60], [-180, -90], [0, -90], [0, -60], [180, -60], [180, -90], [0, -90], [0, -60], [-180, -60]]]
+            }
+          }
+        });
+        map.current.addLayer({
+          id: 'antarctica-cover',
+          type: 'fill',
+          source: 'antarctica-cover-src',
+          paint: { 'fill-color': '#1a1a2e', 'fill-opacity': 1 },
+          layout: { visibility: 'visible' }
+        });
+      } catch(e) { console.warn('Antarctica cover failed:', e); }
 
       // ════════════════════════════════════════════════════════
       //  GRID LAYERS (3-tier system)
