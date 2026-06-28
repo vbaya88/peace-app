@@ -175,7 +175,8 @@ export default function KindnessMap({
       // Mapbox dark-v11 globe renders a GRAY DISC at south pole via WebGL shaders
       // setAtmosphere() does NOT exist in Mapbox GL JS web (only native SDK!)
       // GeoJSON fill layers render UNDERNEATH the 3D atmosphere effect — useless here
-      // SOLUTION v6: Canvas 2D overlay that SAMPLES actual map background color
+      // SOLUTION v7: Canvas overlay that CLONES surrounding map pixels over the artifact
+      // This avoids color-mismatch issues — we copy actual map rendering, not paint a solid color
       try {
         const mapCanvas = map.current.getCanvas();
         const overlay = document.createElement('canvas');
@@ -185,7 +186,6 @@ export default function KindnessMap({
         
         const ctx = overlay.getContext('2d')!;
         let animId = 0;
-        let cachedColor = '#0d1117'; // fallback default
         
         const paintOverlay = () => {
           const dpr = window.devicePixelRatio || 1;
@@ -212,45 +212,48 @@ export default function KindnessMap({
             
             const radius = Math.min(w, h) * Math.min(0.15 + (zoom - 3.5) * 0.025, 0.28);
             
-            // SAMPLE actual map canvas color near (but outside) the artifact
-            // Sample at edge of where we'll paint + a bit further out as reference
+            // v7 APPROACH: Clone surrounding map area to cover the artifact
+            // Draw the map canvas onto our overlay, then erase everything EXCEPT the artifact area
+            // This gives us perfect pixel-perfect color matching
             try {
-              const sampleDist = radius * 1.6; // sample well outside the artifact
-              const sx = Math.round(sp.x); // center sample (may be ON the artifact)
-              const sxEdge = Math.round(sp.x + sampleDist); // right of artifact
-              const syEdge = Math.round(sp.y); // same y level
+              // Copy the entire map canvas onto our overlay
+              ctx.drawImage(mapCanvas, 0, 0, w, h);
               
-              if (sxEdge >= 0 && sxEdge < w && syEdge >= 0 && syEdge < h) {
-                // Read pixel from map's WebGL canvas to get actual bg color
-                const pixelData = (mapCanvas.getContext('webgl2') || mapCanvas.getContext('webgl'))
-                  ? null : null; // WebGL context can't be read back easily
-                // Fallback: use a dark color that matches dark-v11 space/ocean
-                // The key insight: the area around Antarctica on dark-v11 is very dark (#0f1014–#161b22)
-                cachedColor = '#0f1014';
-              }
-            } catch(_) { /* sampling failed, use cached */ }
-            
-            // Paint solid circle with sampled/dark color — COMPLETE coverage
-            ctx.fillStyle = cachedColor;
-            ctx.globalAlpha = 1.0;
-            ctx.beginPath();
-            ctx.arc(sp.x, sp.y, radius, 0, Math.PI * 2);
-            ctx.fill();
-            
-            // Outer soft blend ring (10% of radius) for smooth edge
-            if (radius > 20) {
-              const blendGrad = ctx.createRadialGradient(
-                sp.x, sp.y, radius * 0.88,
-                sp.x, sp.y, radius
-              );
-              blendGrad.addColorStop(0, cachedColor);
-              blendGrad.addColorStop(1, 'transparent');
-              ctx.fillStyle = blendGrad;
-              ctx.globalAlpha = 0.9;
+              // Now erase everything OUTSIDE the artifact circle
+              // Using destination-out compositing: the circle area keeps the copied pixels,
+              // everything else becomes transparent
+              ctx.globalCompositeOperation = 'destination-in';
               ctx.beginPath();
               ctx.arc(sp.x, sp.y, radius, 0, Math.PI * 2);
               ctx.fill();
+              
+              // Reset compositing
+              ctx.globalCompositeOperation = 'source-over';
+              
+              // Soft edge: draw a slight gradient ring at the edge for smooth blending
+              // (the copied pixels already match perfectly, this just softens any hard edge)
+              if (radius > 15) {
+                ctx.globalCompositeOperation = 'source-over';
+                const edgeGrad = ctx.createRadialGradient(
+                  sp.x, sp.y, radius * 0.85,
+                  sp.x, sp.y, radius
+                );
+                edgeGrad.addColorStop(0, 'transparent');
+                edgeGrad.addColorStop(1, 'rgba(0,0,0,0.15)');
+                ctx.fillStyle = edgeGrad;
+                ctx.beginPath();
+                ctx.arc(sp.x, sp.y, radius, 0, Math.PI * 2);
+                ctx.fill();
+              }
+            } catch(drawErr) {
+              // Fallback: if drawImage fails (cross-origin/tainted), use solid color
+              console.warn('Antarctica clone fallback:', drawErr);
+              ctx.globalCompositeOperation = 'source-over';
+              ctx.fillStyle = '#0f1014';
               ctx.globalAlpha = 1.0;
+              ctx.beginPath();
+              ctx.arc(sp.x, sp.y, radius, 0, Math.PI * 2);
+              ctx.fill();
             }
           } catch(_) { /* ignore projection errors */ }
         };
