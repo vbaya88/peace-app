@@ -1,0 +1,3256 @@
+index_right,pop_sum,cell_count,iso_a2,name_en,type_en,admin,l1_alloc,l2_alloc
+0.0,1648.8,36,AR,Entre Ríos,Province,Argentina,4,75
+1.0,1.0,2,UY,Paysandú,Department,Uruguay,4,0
+2.0,109406.5,398,ID,East Kalimantan,Province,Indonesia,102,5017
+3.0,4235.5,121,MY,Sabah,State,Malaysia,4,194
+5.0,660.8000000000001,56,BO,La Paz,Department,Bolivia,4,30
+6.0,236.0,20,BO,Oruro,Department,Bolivia,4,10
+8.0,601.8000000000001,51,BO,Potosí,Department,Bolivia,4,27
+9.0,0.5,1,CL,Antofagasta,Region,Chile,4,0
+10.0,534.4,16,PE,Tacna,Department,Peru,4,24
+11.0,3068.6,67,AR,Salta,Province,Argentina,4,140
+12.0,1019.4,23,AR,Jujuy,Province,Argentina,4,46
+13.0,7.5,15,-1,Dhekelia,,Dhekelia Sovereign Base Area,4,0
+14.0,3.0,6,CY,Larnaca,District,Cyprus,4,0
+15.0,1008591.6,706,IN,Ladakh,Union Territory,India,944,46258
+16.0,9513349.9,6751,CN,Xinjiang,Autonomous Region,China,8904,436321
+17.0,5870534.8,4167,CN,Tibet,Autonomous Region,China,5494,269247
+18.0,4.5,9,IL,Southern,District,Israel,4,0
+19.0,1.5,3,PS,Gaza,,Gaza Strip,4,0
+20.0,1.5,3,IL,Northern,District,Israel,4,0
+21.0,8.0,16,PS,West Bank,,West Bank,4,0
+22.0,0.5,1,IL,Haifa,District,Israel,4,0
+23.0,0.5,1,IL,Central,District,Israel,4,0
+24.0,1.0,2,LB,Nabatieh,Province,Lebanon,4,0
+25.0,1.5,3,LB,South,Province,Lebanon,4,0
+26.0,52321.600000000006,424,ET,Southern Nations,Administrative State,Ethiopia,48,2399
+27.0,613.6,44,SS,Eastern Equatoria,State,S. Sudan,4,28
+28.0,145858.80000000002,1182,ET,Somali,Administrative State,Ethiopia,136,6689
+29.0,452.50000000000006,25,SO,Nugal,Region,Somalia,4,20
+30.0,796.4000000000001,44,SO,Mudug,Region,Somalia,4,36
+31.0,651.6,36,SO,Galguduud,Region,Somalia,4,29
+32.0,398.20000000000005,22,SO,Hiran,Region,Somalia,4,18
+33.0,325.8,18,SO,Bakool,Region,Somalia,4,14
+34.0,633.5,35,SO,Gedo,Region,Somalia,4,29
+35.0,35363.3,655,KE,Rift Valley,Province,Kenya,33,1621
+36.0,0.5,1,MW,Chitipa,District,Malawi,4,0
+37.0,10254.6,162,TZ,Mbeya,Region,United Republic of Tanzania,9,470
+38.0,4051.2,64,TZ,Njombe,Region,United Republic of Tanzania,4,185
+39.0,11520.6,182,TZ,Ruvuma,Region,United Republic of Tanzania,10,528
+40.0,0.5,1,MW,Rumphi,District,Malawi,4,0
+41.0,1.0,2,MW,Nkhata Bay,District,Malawi,4,0
+42.0,1214364.0999999999,851,IN,Arunachal Pradesh,State,India,1136,55695
+43.0,42.6,2,SY,Western al-Samadania,,Syria,4,1
+44.0,11.5,23,-1,Somaliland,,Somaliland,4,0
+45.0,977.4000000000001,54,SO,Bari,Region,Somalia,4,44
+46.0,0.5,1,FR,French Guiana,Overseas department,France,4,0
+47.0,225.4,19,SR,Sipaliwini,District,Suriname,4,10
+48.0,224.3,11,GY,Mahaica-Berbice,Region,Guyana,4,10
+49.0,9021.800000000001,175,KR,Gangwon,Province,South Korea,8,413
+50.0,1742.0,67,KP,Kangwon,Province,North Korea,4,79
+51.0,5170.0,100,KR,Gyeonggi,Province,South Korea,4,237
+52.0,1222.0,47,KP,North Hwanghae,Province,North Korea,4,56
+53.0,4200.0,112,MA,Guelmim-Es Semara,Region,Morocco,4,192
+54.0,6.5,13,EH,Western Sahara,,Western Sahara,4,0
+55.0,2925.0,78,MA,Laâyoune-Boujdour-Sakia El Hamra,Region,Morocco,4,134
+56.0,3000.0,80,MA,Oued Ed-Dahab,Region,Morocco,4,137
+57.0,0.5,1,CR,Alajuela,Province,Costa Rica,4,0
+58.0,0.5,1,NI,Río San Juan,Department,Nicaragua,4,0
+59.0,2.0,4,CG,Likouala,Region,Republic of the Congo,4,0
+60.0,2.0,4,CD,Équateur,Province,Democratic Republic of the Congo,4,0
+61.0,0.5,1,CG,Cuvette,Region,Republic of the Congo,4,0
+62.0,1.0,2,CG,Plateaux,Region,Republic of the Congo,4,0
+63.0,1.0,2,CD,Bandundu,Province,Democratic Republic of the Congo,4,0
+64.0,1.0,2,CG,Pool,Region,Republic of the Congo,4,0
+67.0,0.5,1,CD,Kongo Central,Province,Democratic Republic of the Congo,4,0
+69.0,0.5,1,CG,Niari,Region,Republic of the Congo,4,0
+70.0,1411.36,3,BT,Trashiyangtse,District,Bhutan,4,64
+71.0,1.56,2,BT,Lhuntse,District,Bhutan,4,0
+72.0,2.34,3,BT,Bumthang,District,Bhutan,4,0
+73.0,3972.4,89,UA,Chernihiv,Region,Ukraine,4,182
+74.0,905.5,81,BY,Gomel,Region,Belarus,4,41
+75.0,2532.5,59,UA,Volyn,Region,Ukraine,4,116
+76.0,598.5,63,BY,Brest,Region,Belarus,4,27
+77.0,2349.0,54,UA,Rivne,Region,Ukraine,4,107
+78.0,3393.0,78,UA,Zhytomyr,Region,Ukraine,4,155
+79.0,3132.0,72,UA,Kyiv,Region,Ukraine,4,143
+80.0,3973.2000000000003,154,NA,Karas,Region,Namibia,4,182
+81.0,15299.4,258,ZA,Northern Cape,Province,South Africa,14,701
+82.0,24.8,8,LB,Beqaa,Province,Lebanon,4,1
+83.0,22.8,4,LB,North,Province,Lebanon,4,1
+84.0,4260.0,200,SY,Homs,Province,Syria,4,195
+85.0,213.0,10,SY,Tartus,Province,Syria,4,9
+86.0,1640.6000000000001,78,SY,Rif Dimashq,Province,Syria,4,75
+87.0,9.0,18,MF,Saint Martin,,Saint Martin,4,0
+88.0,9.5,19,SX,Sint Maarten,,Sint Maarten,4,0
+89.0,1.0,2,AE,Emirate of Fujairah,Emirate,United Arab Emirates,4,0
+91.0,0.5,1,AE,Emirate of Sharjah,Emirate,United Arab Emirates,4,0
+94.0,13.5,3,UZ,Fergana,Region,Uzbekistan,4,0
+95.0,1.0,2,KZ,East Kazakhstan,Region,Kazakhstan,4,0
+96.0,1.5,3,KZ,Almaty,Region,Kazakhstan,4,0
+97.0,671.5,71,TJ,Khujand,Region,Tajikistan,4,30
+98.0,923.4,83,BY,Vitebsk,Region,Belarus,4,42
+99.0,1.0,2,LT,Utena,County,Lithuania,4,0
+100.0,12.5,7,LT,Vilnius,County,Lithuania,4,0
+101.0,503.5,53,BY,Grodno,Region,Belarus,4,23
+102.0,0.5,1,LT,Alytus,County,Lithuania,4,0
+103.0,48736.3,227,BR,Rio Grande do Sul,State,Brazil,45,2235
+104.0,217.4,3,UY,Artigas,Department,Uruguay,4,9
+105.0,39.599999999999994,12,MN,Dornod,Province,Mongolia,4,1
+106.0,7012345.2,4974,CN,Inner Mongolia,Autonomous Region,China,6563,321615
+107.0,1426.3,6,MN,Bayan-Ölgii,Province,Mongolia,4,65
+108.0,1432.8999999999999,8,MN,Khovd,Province,Mongolia,4,65
+109.0,29.7,9,MN,Sükhbaatar,Province,Mongolia,4,1
+110.0,26.4,8,MN,Dornogovi,Province,Mongolia,4,1
+111.0,39.599999999999994,12,MN,Govi-Altai,Province,Mongolia,4,1
+112.0,2209156.6,1567,CN,Gansu,Province,China,2067,101321
+113.0,26.4,8,MN,Bayankhongor,Province,Mongolia,4,1
+114.0,42.9,13,MN,Ömnögovi,Province,Mongolia,4,1
+115.0,2998.2,12,RU,Altai Republic,Republic,Russia,4,137
+116.0,336.0,32,CZ,Ústí nad Labem,Region,Czech Republic,4,15
+117.0,15308.800000000001,184,DE,Saxony,State,Germany,14,702
+118.0,168.0,16,CZ,Liberec,Region,Czech Republic,4,7
+119.0,355.4,20,CZ,Karlovy Vary,Region,Czech Republic,4,16
+120.0,53747.700000000004,647,DE,Bavaria,State,Germany,50,2465
+121.0,441.0,42,CZ,Plzeň-,Region,Czech Republic,4,20
+122.0,567.0,54,CZ,South Bohemian,Region,Czech Republic,4,26
+126.0,2.0,4,EE,Pärnu,County,Estonia,4,0
+127.0,1.0,2,LV,Aloja,Municipality,Latvia,4,0
+128.0,0.5,1,EE,Valga,County,Estonia,4,0
+131.0,0.5,1,EE,Võru,County,Estonia,4,0
+133.0,0.5,1,LV,Valka,Municipality,Latvia,4,0
+134.0,0.5,1,LV,Alūksne,Municipality,Latvia,4,0
+135.0,1010.8000000000001,7,RU,Pskov,Region,Russia,4,46
+142.0,1.0,2,LT,Panevėžys,County,Lithuania,4,0
+145.0,0.5,1,LV,Vecumnieki,Municipality,Latvia,4,0
+148.0,1.5,3,LT,Klaipėda,County,Lithuania,4,0
+149.0,0.5,1,LV,Rucava,Municipality,Latvia,4,0
+150.0,0.5,1,LV,Priekule,Municipality,Latvia,4,0
+152.0,2.0,4,LT,Šiauliai,County,Lithuania,4,0
+160.0,0.5,1,LV,Daugavpils,Municipality,Latvia,4,0
+162.0,915.2,88,SE,Norrbotten,County,Sweden,4,41
+163.0,10.4,1,NO,Nordland,County,Norway,4,0
+164.0,447.2,43,SE,Västerbotten,County,Sweden,4,20
+165.0,416.0,40,SE,Jämtland,County,Sweden,4,19
+167.0,10.4,1,NO,Sør-Trøndelag,County,Norway,4,0
+169.0,176.8,17,SE,Dalarna,County,Sweden,4,8
+170.0,145.6,14,SE,Värmland,County,Sweden,4,6
+173.0,176.8,17,SE,Västra Götaland,County,Sweden,4,8
+174.0,24.3,9,FI,Lapland,Province,Finland,4,1
+176.0,5597.400000000001,57,VN,Kon Tum,Province,Vietnam,5,256
+177.0,1.0,2,KH,Ratanakiri,Province,Cambodia,4,0
+178.0,3044.2000000000003,31,VN,Đắk Nông,Region,Vietnam,4,139
+179.0,0.5,1,KH,Mondulkiri,Province,Cambodia,4,0
+180.0,6284.8,64,VN,Đắk Lắk,Region,Vietnam,5,288
+181.0,7266.8,74,VN,Gia Lai,Region,Vietnam,6,333
+182.0,4124.400000000001,42,VN,Bình Phước,Province,Vietnam,4,189
+183.0,1.0,2,KH,Kratié,Province,Cambodia,4,0
+184.0,2455.0,25,VN,Tây Ninh,Province,Vietnam,4,112
+185.0,0.5,1,KH,Kampong Cham,Province,Cambodia,4,0
+186.0,98.7,2,KH,Svay Rieng,Province,Cambodia,4,4
+188.0,2258.6,23,VN,Long An,Province,Vietnam,4,103
+189.0,1473.0,15,VN,Đồng Tháp,Province,Vietnam,4,67
+190.0,1767.6000000000001,18,VN,An Giang,Province,Vietnam,4,81
+191.0,0.5,1,KH,Kandal,Province,Cambodia,4,0
+192.0,0.5,1,KH,Takéo,Province,Cambodia,4,0
+193.0,4124.400000000001,42,VN,Kiên Giang,Province,Vietnam,4,189
+194.0,0.5,1,KH,Kampot,Province,Cambodia,4,0
+195.0,15392.0,185,DE,Rhineland-Palatinate,State,Germany,14,705
+196.0,16.1,10,LU,Diekirch,District,Luxembourg,4,0
+197.0,85.7,6,LU,Grevenmacher,District,Luxembourg,4,3
+198.0,2579.2000000000003,31,DE,Saarland,State,Germany,4,118
+200.0,545.1999999999999,47,BE,West Flanders,Province,Belgium,4,25
+201.0,684.4,59,BE,Hainaut,Province,Belgium,4,31
+202.0,11.6,1,FR,Ardennes,Metropolitan department,France,4,0
+203.0,510.4,44,BE,Namur,Province,Belgium,4,23
+205.0,684.4,59,BE,Luxembourg,Province,Belgium,4,31
+208.0,545.1999999999999,47,BE,Liège,Province,Belgium,4,25
+209.0,4.0,8,LU,Luxembourg,District,Luxembourg,4,0
+210.0,866.4000000000001,6,RU,Krasnodar Krai,Territory,Russia,4,39
+211.0,66.60000000000001,18,GE,Abkhazia,Autonomous Republic,Georgia,4,3
+212.0,288.8,2,RU,Karachay-Cherkess Republic,Republic,Russia,4,13
+213.0,144.4,1,RU,Kabardino-Balkaria,Republic,Russia,4,6
+214.0,48.1,13,GE,Samegrelo-Zemo Svaneti,Region,Georgia,4,2
+215.0,144.4,1,RU,Republic of North Ossetia-Alania,Republic,Russia,4,6
+216.0,33.300000000000004,9,GE,Shida Kartli,Region,Georgia,4,1
+217.0,40.7,11,GE,Racha-Lechkhumi and Kvemo Svaneti,Region,Georgia,4,1
+218.0,148.1,2,RU,Republic of Ingushetia,Republic,Russia,4,6
+219.0,37.0,10,GE,Mtskheta-Mtianeti,Region,Georgia,4,1
+221.0,88.80000000000001,24,GE,Kakheti,Region,Georgia,4,4
+222.0,1464.2,12,RU,Republic of Dagestan,Republic,Russia,4,67
+223.0,0.5,1,MK,Struga,Statistical Region,Macedonia,4,0
+224.0,1.0,2,AL,Dibër,County,Albania,4,0
+227.0,0.5,1,MK,Mavrovo and Rostuša,Statistical Region,Macedonia,4,0
+229.0,1.0,2,AL,Kukës,County,Albania,4,0
+230.0,1.5,3,AL,Korçë,County,Albania,4,0
+231.0,1.0,2,AL,Elbasan,County,Albania,4,0
+233.0,0.5,1,MK,Ohrid,Statistical Region,Macedonia,4,0
+236.0,50.5,5,AZ,Qazax,District,Azerbaijan,4,2
+237.0,0.5,1,XK,Dečani,District,Kosovo,4,0
+238.0,0.5,1,XK,Gjakova,District,Kosovo,4,0
+239.0,0.5,1,XK,Dragaš,District,Kosovo,4,0
+240.0,0.5,1,XK,Plužine,District,Kosovo,4,0
+241.0,2559.0,30,TR,Ardahan,Province,Turkey,4,117
+242.0,44.400000000000006,12,GE,Samtskhe–Javakheti,Region,Georgia,4,2
+243.0,3241.4,38,TR,Artvin,Province,Turkey,4,148
+244.0,118.6,10,GE,Adjara,Autonomous Republic,Georgia,4,5
+246.0,47.3,1,ES,Ceuta,Autonomous City,Spain,4,2
+247.0,637.5,17,MA,Tangier-Tetouan,Region,Morocco,4,29
+248.0,0.5,1,LA,Phongsaly,Province,Laos,4,0
+249.0,1926145.5,1371,CN,Yunnan,Province,China,1802,88341
+251.0,0.5,1,LA,Luang Namtha,Province,Laos,4,0
+252.0,305.5,47,KG,Issyk-Kul,Region,Kyrgyzstan,4,14
+253.0,325.0,50,KG,Naryn,Region,Kyrgyzstan,4,14
+254.0,234.0,36,KG,Osh,Region,Kyrgyzstan,4,10
+255.0,24.0,8,AM,Tavush,Province,Armenia,4,1
+256.0,37.0,10,GE,Kvemo Kartli,Region,Georgia,4,1
+257.0,40.4,13,AM,Lori,Province,Armenia,4,1
+258.0,36.0,12,AM,Shirak,Province,Armenia,4,1
+259.0,0.5,1,KZ,Jambyl,Region,Kazakhstan,4,0
+260.0,162.5,25,KG,Chuy,Region,Kyrgyzstan,4,7
+261.0,91.0,14,KG,Talas,Region,Kyrgyzstan,4,4
+262.0,0.5,1,KZ,Turkistan,Region,Kazakhstan,4,0
+263.0,6.32,8,GY,Pomeroon-Supenaam,Region,Guyana,4,0
+264.0,34624.79,161,BR,Roraima,State,Brazil,32,1588
+265.0,1.58,2,GY,Potaro-Siparuni,Region,Guyana,4,0
+266.0,5.53,7,GY,Upper Demerara-Berbice,Region,Guyana,4,0
+267.0,165978.80000000002,767,BR,Pará,State,Brazil,155,7612
+268.0,15808.0,190,DE,Schleswig-Holstein,State,Germany,14,725
+269.0,1.5,3,DK,Southern Denmark,Region,Denmark,4,0
+270.0,2249.6,68,PE,Madre de Dios,Department,Peru,4,103
+271.0,24520.0,115,BR,Acre,State,Brazil,22,1124
+272.0,1.0,2,LY,Ghadames,Municipality|Governarate,Libya,4,0
+273.0,2.5,5,TN,Tataouine,Governorate,Tunisia,4,0
+274.0,0.5,1,TN,Medenine,Governorate,Tunisia,4,0
+276.0,60.599999999999994,6,AZ,Agstafa,District,Azerbaijan,4,2
+277.0,70.7,7,AZ,Tovuz,District,Azerbaijan,4,3
+278.0,63.599999999999994,7,AZ,Gadabay,District,Azerbaijan,4,2
+279.0,58.1,17,AM,Gegharkunik,Province,Armenia,4,2
+280.0,40.4,4,AZ,Dashkasan,District,Azerbaijan,4,1
+281.0,101.0,10,AZ,Kalbajar,District,Azerbaijan,4,4
+282.0,21.0,7,AM,Vayots Dzor,Province,Armenia,4,0
+283.0,42.0,14,AM,Syunik,Province,Armenia,4,1
+284.0,73.7,8,AZ,Lankaran,District,Azerbaijan,4,3
+285.0,30.299999999999997,3,AZ,Qubadli,District,Azerbaijan,4,1
+286.0,63.599999999999994,7,AZ,Zangilan,District,Azerbaijan,4,2
+287.0,43.4,5,AZ,Sharur,District,Azerbaijan,4,1
+288.0,18.0,6,AM,Ararat,Province,Armenia,4,0
+289.0,10.1,1,AZ,Sadarak,District,Azerbaijan,4,0
+290.0,20.2,2,AZ,Kangarli,District,Azerbaijan,4,0
+291.0,138.4,6,AZ,Babek,District,Azerbaijan,4,6
+292.0,43.4,5,AZ,Shahbuz,District,Azerbaijan,4,1
+293.0,40.4,4,AZ,Julfa,District,Azerbaijan,4,1
+294.0,50.5,5,AZ,Ordubad,District,Azerbaijan,4,2
+295.0,44.0,2,RO,Satu Mare,County,Romania,4,2
+296.0,1.0,2,HU,Szabolcs-Szatmár-Bereg,County,Hungary,4,0
+298.0,0.5,1,HU,Békés,County,Hungary,4,0
+299.0,1.0,2,RO,Bihor,County,Romania,4,0
+300.0,0.5,1,HU,Hajdú-Bihar,County,Hungary,4,0
+301.0,0.5,1,HU,Csongrád-Csanád,County,Hungary,4,0
+302.0,0.5,1,RO,Timiș,County,Romania,4,0
+303.0,240.5,37,KG,Jalal-Abad,Region,Kyrgyzstan,4,11
+305.0,23.0,4,UZ,Namangan,Region,Uzbekistan,4,1
+306.0,13.0,2,UZ,Andijan,Region,Uzbekistan,4,0
+307.0,123.5,19,KG,Batken,Region,Kyrgyzstan,4,5
+308.0,39.8,4,SK,Žilina,Region,Slovakia,4,1
+309.0,2527.7999999999997,66,PL,Silesian Voivodeship,Voivodeship|Province,Poland,4,115
+310.0,3217.2,84,PL,Lesser Poland Voivodeship,Voivodeship|Province,Poland,4,147
+311.0,2.0,4,SK,Prešov,Region,Slovakia,4,0
+312.0,3950.1,103,PL,Podkarpackie Voivodeship,Voivodeship|Province,Poland,4,181
+313.0,202.89999999999998,5,IE,Donegal,County,Ireland,4,9
+314.0,134.6,2,GB,Derry,London Borough (city),United Kingdom,4,6
+315.0,269.2,4,GB,Strabane,District,United Kingdom,4,12
+316.0,605.6999999999999,9,GB,Fermanagh,District,United Kingdom,4,27
+318.0,0.5,1,IE,Cavan,County,Ireland,4,0
+319.0,67.8,2,IE,Monaghan,Administrative County,Ireland,4,3
+320.0,201.89999999999998,3,GB,Dungannon and South Tyrone,District,United Kingdom,4,9
+321.0,201.89999999999998,3,GB,Armagh,District,United Kingdom,4,9
+322.0,269.2,4,GB,Newry and Mourne,District,United Kingdom,4,12
+324.0,4261.799999999999,112,PL,Lower Silesian Voivodeship,Voivodeship|Province,Poland,4,195
+325.0,353.3,31,CZ,Hradec Králové,Region,Czech Republic,4,16
+326.0,1859.3999999999999,50,PL,Opole Voivodeship,Voivodeship|Province,Poland,4,85
+327.0,342.8,30,CZ,Olomouc,Region,Czech Republic,4,15
+328.0,199.5,19,CZ,Pardubice,Region,Czech Republic,4,9
+329.0,304.5,29,CZ,Moravian-Silesian,Region,Czech Republic,4,13
+330.0,532.0,56,TJ,districts of Republican Subordination,Region,Tajikistan,4,24
+331.0,1323.6,136,TJ,Gorno-Badakhshan,Region,Tajikistan,4,60
+332.0,135.20000000000002,13,GR,West Macedonia,Region,Greece,4,6
+333.0,124.80000000000001,12,GR,Epirus,Region,Greece,4,5
+334.0,0.5,1,AL,Gjirokastër,County,Albania,4,0
+335.0,2.0,4,AL,Vlorë,County,Albania,4,0
+336.0,0.5,1,MW,Chitipa,District,Malawi,4,0
+337.0,1.5,3,ZM,Muchinga,Province,Zambia,4,0
+338.0,0.5,1,MW,Mzimba,District,Malawi,4,0
+339.0,1.5,3,ZM,Eastern,Province,Zambia,4,0
+341.0,0.5,1,MW,Mchinji,District,Malawi,4,0
+342.0,1653.0,38,UA,Zakarpattia,Region,Ukraine,4,75
+343.0,1.5,3,SK,Košice,Region,Slovakia,4,0
+344.0,1600.8,184,SL,Northern,Province,Sierra Leone,4,73
+345.0,0.5,1,GN,Faranah,Prefecture,Guinea,4,0
+346.0,0.5,1,GN,Kindia,Prefecture,Guinea,4,0
+348.0,0.5,1,GN,Dabola Prefecture,Prefecture,Guinea,4,0
+349.0,0.5,1,GN,Forécariah Prefecture,Prefecture,Guinea,4,0
+350.0,0.5,1,GN,Guéckédou Prefecture,Prefecture,Guinea,4,0
+351.0,696.5,81,SL,Eastern,Province,Sierra Leone,4,31
+352.0,68.89999999999999,13,LR,Grand Cape Mount,County,Liberia,4,3
+353.0,974.3999999999999,112,SL,Southern,Province,Sierra Leone,4,44
+354.0,90.1,17,LR,Gbarpolu,County,Liberia,4,4
+355.0,90.1,17,LR,Lofa,County,Liberia,4,4
+356.0,1.0,2,CF,Vakaga Prefecture,Prefecture,Central African Republic,4,0
+357.0,1918.8,41,SD,Central Darfur,State,Sudan,4,88
+358.0,4258.8,91,SD,South Darfur,State,Sudan,4,195
+359.0,1.0,2,CF,Haute-Kotto Prefecture,Prefecture,Central African Republic,4,0
+360.0,651.0,54,SS,Western Bahr el Ghazal,State,S. Sudan,4,29
+361.0,1.5,3,CF,Haut-Mbomou Prefecture,Prefecture,Central African Republic,4,0
+362.0,592.8000000000001,52,SS,Western Equatoria,State,S. Sudan,4,27
+363.0,60.199999999999996,5,CD,Orientale,Province,Democratic Republic of the Congo,4,2
+364.0,319.2,28,SS,Central Equatoria,State,S. Sudan,4,14
+365.0,1.0,2,DJ,Ali Sabieh,Region,Djibouti,4,0
+366.0,1.0,2,DJ,Arta,Region,Djibouti,4,0
+367.0,3.0,6,DJ,Dikhil,Region,Djibouti,4,0
+368.0,44547.4,361,ET,Afar,Administrative State,Ethiopia,41,2043
+369.0,3.5,7,DJ,Tadjourah,Region,Djibouti,4,0
+370.0,0.5,1,CD,South Kivu,Province,Democratic Republic of the Congo,4,0
+371.0,8862.0,140,TZ,Kigoma,Region,United Republic of Tanzania,8,406
+372.0,37.0,6,CD,Katanga,Province,Democratic Republic of the Congo,4,1
+373.0,7849.2,124,TZ,Katavi,Region,United Republic of Tanzania,7,359
+374.0,5380.5,85,TZ,Rukwa,Region,United Republic of Tanzania,5,246
+375.0,2.5,5,DJ,Obock,Region,Djibouti,4,0
+376.0,2.5,5,ER,Southern Red Sea,Region,Eritrea,4,0
+377.0,2.0,4,AT,Lower Austria,State,Austria,4,0
+378.0,430.5,41,CZ,South Moravian,Region,Czech Republic,4,19
+379.0,1.0,2,AT,Upper Austria,State,Austria,4,0
+380.0,1131.0,26,IQ,Duhok,Province,Iraq,4,51
+381.0,2985.5,35,TR,Şırnak,Province,Turkey,4,136
+382.0,3841.1,45,TR,Hakkâri,Province,Turkey,4,176
+383.0,2218.5,51,IQ,Erbil,Province,Iraq,4,101
+384.0,0.5,1,HU,Győr-Moson-Sopron,County,Hungary,4,0
+387.0,0.5,1,HU,Vas,County,Hungary,4,0
+388.0,894.0,15,IT,Aosta,Province,Italy,4,41
+389.0,1.5,3,CH,Valais,Canton,Switzerland,4,0
+390.0,596.0,10,IT,Verbano-Cusio-Ossola,Province,Italy,4,27
+391.0,60.6,3,CH,Ticino,Canton,Switzerland,4,2
+392.0,238.4,4,IT,Varese,Province,Italy,4,10
+393.0,298.0,5,IT,Como,Province,Italy,4,13
+394.0,1.5,3,CH,Grisons,Canton,Switzerland,4,0
+395.0,834.4,14,IT,Sondrio,Province,Italy,4,38
+396.0,1668.8,28,IT,Trentino-South Tyrol,Province,Italy,4,76
+397.0,0.5,1,AT,Vorarlberg,State,Austria,4,0
+398.0,168.9,7,AT,Tyrol,State,Austria,4,7
+399.0,7642.1,87,IR,West Azerbaijan,Province,Iran,7,350
+400.0,1961.8999999999999,23,TR,Iğdır,Province,Turkey,4,89
+401.0,4179.7,49,TR,Ağrı,Province,Turkey,4,191
+402.0,8188.799999999999,96,TR,Van,Province,Turkey,7,375
+403.0,1.0,2,LT,Marijampolė,County,Lithuania,4,0
+404.0,4710.9,123,PL,Podlaskie Voivodeship,Voivodeship|Province,Poland,4,216
+405.0,5323.7,139,PL,Warmian-Masurian Voivodeship,Voivodeship|Province,Poland,4,244
+406.0,1.0,2,ZM,Northern,Province,Zambia,4,0
+408.0,39520.0,475,DE,Lower Saxony,State,Germany,36,1812
+410.0,83.2,1,NL,Overijssel,Province,Netherlands,4,3
+411.0,27206.4,327,DE,North Rhine-Westphalia,State,Germany,25,1247
+412.0,0.5,1,NL,Gelderland,Province,Netherlands,4,0
+413.0,11.6,1,NL,Limburg,Province,Netherlands,4,0
+414.0,1.5,3,LI,Triesen,,Liechtenstein,4,0
+415.0,1.5,3,LI,Schaan,,Liechtenstein,4,0
+416.0,1.0,2,LI,Triesenberg,,Liechtenstein,4,0
+417.0,2.0,4,LI,Balzers,,Liechtenstein,4,0
+418.0,0.5,1,LI,Planken,,Liechtenstein,4,0
+419.0,0.5,1,LI,Eschen,,Liechtenstein,4,0
+421.0,0.5,1,LI,Schellenberg,,Liechtenstein,4,0
+422.0,0.5,1,LI,Ruggell,,Liechtenstein,4,0
+423.0,2337.5,85,CI,Denguélé,Region,Ivory Coast,4,107
+424.0,0.5,1,GN,Kankan,Prefecture,Guinea,4,0
+425.0,0.5,1,GN,Mandiana Prefecture,Prefecture,Guinea,4,0
+426.0,55.5,3,GN,Beyla Prefecture,Prefecture,Guinea,4,2
+427.0,1045.0,38,CI,Bafing,Region,Ivory Coast,4,47
+428.0,1732.5,63,CI,Dix-Huit Montagnes,Department,Ivory Coast,4,79
+430.0,476.8,8,IT,Imperia,Province,Italy,4,21
+432.0,1311.2,22,IT,Cuneo,Province,Italy,4,60
+435.0,1490.0,25,IT,Turin,Province,Italy,4,68
+437.0,0.5,1,FR,Haute-Savoie,Metropolitan department,France,4,0
+438.0,3754.9,27,RU,Murmansk,Region,Russia,4,172
+439.0,4187.6,29,RU,Karelia,Republic,Russia,4,192
+440.0,1.0,2,FI,Northern Ostrobothnia,Province,Finland,4,0
+441.0,1.0,2,FI,Kainuu,Province,Finland,4,0
+442.0,0.5,1,FI,North Karelia,Province,Finland,4,0
+443.0,1.0,2,FI,South Karelia,Province,Finland,4,0
+444.0,1010.8000000000001,7,RU,Leningrad,Region,Russia,4,46
+447.0,0.5,1,AE,Emirate of Dubai,Emirate,United Arab Emirates,4,0
+451.0,6.5,13,AE,Emirate of Abu Dhabi,Emirate,United Arab Emirates,4,0
+452.0,0.5,1,OM,Ad Dhahirah,Region,Oman,4,0
+453.0,40.4,4,AZ,Balakan,District,Azerbaijan,4,1
+454.0,90.89999999999999,9,AZ,Zaqatala,District,Azerbaijan,4,4
+455.0,80.8,8,AZ,Khachmaz,District,Azerbaijan,4,3
+456.0,60.599999999999994,6,AZ,Qusar,District,Azerbaijan,4,2
+457.0,40.4,4,AZ,Oghuz,District,Azerbaijan,4,1
+458.0,90.89999999999999,9,AZ,Sheki,District,Azerbaijan,4,4
+459.0,40.4,4,AZ,Qakh,District,Azerbaijan,4,1
+460.0,50.5,5,AZ,Qabala,District,Azerbaijan,4,2
+461.0,21856.4,101,BR,Amapá,State,Brazil,20,1002
+462.0,70.7,7,AZ,Samukh,District,Azerbaijan,4,3
+463.0,42.599999999999994,6,RS,North Bačka,District,Republic of Serbia,4,1
+464.0,1.0,2,HU,Bács-Kiskun,County,Hungary,4,0
+465.0,56.8,8,RS,West Bačka,District,Republic of Serbia,4,2
+466.0,49.699999999999996,7,RS,North Banat,District,Republic of Serbia,4,2
+468.0,1423.5,65,ML,Kayes,Region,Mali,4,65
+469.0,1.0,2,SN,Kédougou,Region,Senegal,4,0
+470.0,3.5,7,SN,Tambacounda,Region,Senegal,4,0
+472.0,0.5,1,SN,Kolda,Region,Senegal,4,0
+473.0,21.9,1,GN,Mali Prefecture,Prefecture,Guinea,4,1
+474.0,84596.40000000001,378,NG,Kebbi State,State,Nigeria,79,3879
+475.0,2.5,5,BJ,Alibori,Department,Benin,4,0
+476.0,157331.4,703,NG,Niger State,State,Nigeria,147,7215
+477.0,225.8,5,BJ,Borgou,Department,Benin,4,10
+478.0,80568.0,360,NG,Kwara State,State,Nigeria,75,3695
+479.0,38941.200000000004,174,NG,Ogun State,State,Nigeria,36,1786
+480.0,0.5,1,BJ,Plateau,Department,Benin,4,0
+481.0,1.5,3,BJ,Collines,Department,Benin,4,0
+482.0,60649.8,271,NG,Oyo State,State,Nigeria,56,2781
+483.0,8952.0,40,NG,Lagos,State,Nigeria,8,410
+485.0,552.0,16,AO,Cabinda,Province,Angola,4,25
+486.0,0.5,1,CG,Kouilou,Region,Republic of the Congo,4,0
+487.0,0.5,1,HU,Zala,County,Hungary,4,0
+489.0,0.5,1,HU,Somogy,County,Hungary,4,0
+490.0,0.5,1,HR,Virovitica-Podravina,County,Croatia,4,0
+491.0,0.5,1,HR,Koprivnica-Križevci,County,Croatia,4,0
+492.0,0.5,1,HU,Baranya,County,Hungary,4,0
+493.0,7.6,2,HR,Osijek-Baranja,County,Croatia,4,0
+495.0,0.5,1,HR,Istria,County,Croatia,4,0
+504.0,6.0,12,QA,Al Rayyan,Municipality,Qatar,4,0
+505.0,12037.3,341,SA,Eastern,Region,Saudi Arabia,11,552
+506.0,2.5,5,BW,North-West,District,Botswana,4,0
+507.0,1955.8,127,ZW,Matabeleland North,Province,Zimbabwe,4,89
+508.0,17.9,6,BW,Central,District,Botswana,4,0
+509.0,1463.0,95,ZW,Matabeleland South,Province,Zimbabwe,4,67
+510.0,0.5,1,BW,North-East,District,Botswana,4,0
+511.0,114038.1,475,PK,Gilgit-Baltistan,Centrally Administered Area,Pakistan,106,5230
+512.0,1.5,3,BG,Burgas,Province,Bulgaria,4,0
+513.0,3412.0,40,TR,Kırklareli,Province,Turkey,4,156
+514.0,0.5,1,BG,Yambol,Province,Bulgaria,4,0
+515.0,2900.2,34,TR,Edirne,Province,Turkey,4,133
+516.0,0.5,1,BG,Haskovo,Province,Bulgaria,4,0
+517.0,71.7,1,KH,Oddar Meanchey,Province,Cambodia,4,3
+518.0,2366.1,33,TH,Surin,Province,Thailand,4,108
+519.0,1.0,2,KH,Preah Vihear,Province,Cambodia,4,0
+520.0,2294.4,32,TH,Si Sa Ket,Province,Thailand,4,105
+521.0,3728.4,52,TH,Ubon Ratchathani,Province,Thailand,4,170
+522.0,72.7,3,KH,Siem Reap,Province,Cambodia,4,3
+523.0,0.5,1,KH,Banteay Meanchey,Province,Cambodia,4,0
+524.0,1792.5,25,TH,Sa Kaeo,Province,Thailand,4,82
+525.0,2222.7000000000003,31,TH,Buri Ram,Province,Thailand,4,101
+526.0,1.0,2,KH,Koh Kong,Province,Cambodia,4,0
+527.0,1362.3,19,TH,Trat,Province,Thailand,4,62
+528.0,0.5,1,KH,Pursat,Province,Cambodia,4,0
+529.0,1.0,2,KH,Battambang,Province,Cambodia,4,0
+531.0,1505.7,21,TH,Chanthaburi,Province,Thailand,4,69
+532.0,47.3,1,ES,Melilla,Autonomous City,Spain,4,2
+533.0,2587.5,69,MA,Oriental,Region,Morocco,4,118
+534.0,114288.0,80,IN,Sikkim,State,India,106,5241
+535.0,0.78,1,BT,Haa,District,Bhutan,4,0
+536.0,1.56,2,BT,Samtse,District,Bhutan,4,0
+537.0,1255514.7999999998,885,IN,West Bengal,State,India,1175,57583
+538.0,1.56,2,BT,Chukha,District,Bhutan,4,0
+539.0,0.78,1,BT,Geylegphug,District,Bhutan,4,0
+540.0,1101450.5999999999,771,IN,Assam,State,India,1030,50517
+541.0,0.78,1,BT,Zhemgang,District,Bhutan,4,0
+542.0,1.56,2,BT,Samdrup Jongkhar,District,Bhutan,4,0
+543.0,1.56,2,BT,Trashigang,District,Bhutan,4,0
+544.0,66.0,2,MY,Perlis,State,Malaysia,4,3
+545.0,1147.2,16,TH,Satun,Province,Thailand,4,52
+546.0,2222.7000000000003,31,TH,Songkhla,Province,Thailand,4,101
+547.0,698.7,20,MY,Kedah,State,Malaysia,4,32
+548.0,1213.2,18,TH,Yala,Province,Thailand,4,55
+549.0,693.0,21,MY,Kelantan,State,Malaysia,4,31
+550.0,1362.3,19,TH,Narathiwat,Province,Thailand,4,62
+551.0,957.0,29,MY,Perak,State,Malaysia,4,43
+553.0,238.4,4,IT,Rimini,Province,Italy,4,10
+556.0,476.8,8,IT,Pesaro and Urbino,Province,Italy,4,21
+562.0,0.03,1,SM,Borgo Maggiore,,San Marino,4,0
+563.0,239.4,21,HT,Nord-Est,Department,Haiti,4,10
+564.0,0.5,1,DO,Monte Cristi,Province,Dominican Republic,4,0
+566.0,444.6,39,HT,Centre,Department,Haiti,4,20
+567.0,0.5,1,DO,La Estrelleta,Province,Dominican Republic,4,0
+568.0,0.5,1,DO,Independencia,Province,Dominican Republic,4,0
+569.0,775.2,68,HT,Ouest,Department,Haiti,4,35
+570.0,330.6,29,HT,Sud-Est,Department,Haiti,4,15
+571.0,0.5,1,DO,Pedernales,Province,Dominican Republic,4,0
+572.0,226.2,13,TD,Lac,Prefecture,Chad,4,10
+573.0,163597.80000000002,731,NG,Borno State,State,Nigeria,153,7503
+574.0,7.5,15,KW,Al Jahra,Province,Kuwait,4,0
+575.0,2784.0,64,IQ,Basra,Province,Iraq,4,127
+576.0,7264.5,167,IQ,Al Muthanna,Province,Iraq,6,333
+577.0,1.0,2,SV,Ahuachapán,Department,El Salvador,4,0
+578.0,0.5,1,GT,Jutiapa,Department,Guatemala,4,0
+579.0,0.5,1,SV,Santa Ana,Department,El Salvador,4,0
+581.0,42702.5,155,ID,East Nusa Tenggara,Province,Indonesia,39,1958
+582.0,1.0,2,TL,Oe-Cusse Ambeno,District|Regencies,East Timor,4,0
+583.0,1.0,2,TL,Bobonaro,District|Regencies,East Timor,4,0
+584.0,1.0,2,TL,Cova Lima,District|Regencies,East Timor,4,0
+585.0,6765.45,206,MY,Sarawak,State,Malaysia,6,310
+586.0,101.25,8,BN,Temburong,District,Brunei,4,4
+587.0,83818.0,306,ID,West Kalimantan,Province,Indonesia,78,3844
+588.0,84.2,3,AT,Salzburg,State,Austria,4,3
+589.0,655.6,11,IT,Belluno,Province,Italy,4,30
+590.0,1.0,2,AT,Carinthia,State,Austria,4,0
+591.0,1192.0,20,IT,Udine,Province,Italy,4,54
+592.0,0.04,1,MC,Monaco,,Monaco,4,0
+593.0,5496.9,251,ML,Tombouctou,Region,Mali,5,252
+594.0,14497.6,328,DZ,Adrar,Province,Algeria,13,664
+596.0,0.5,1,SI,Bovec,Commune|Municipality,Slovenia,4,0
+598.0,0.5,1,SI,Tolmin,Commune|Municipality,Slovenia,4,0
+601.0,178.8,3,IT,Gorizia,Province,Italy,4,8
+605.0,59.6,1,SI,Komen,Commune|Municipality,Slovenia,4,2
+606.0,119.2,2,IT,Trieste,Province,Italy,4,5
+609.0,0.5,1,SI,Koper,Commune|Municipality,Slovenia,4,0
+610.0,983.9999999999999,30,MZ,Maputo,Province,Mozambique,4,45
+611.0,4.0,8,SZ,Lubombo,District,Swaziland,4,0
+612.0,344.40000000000003,28,BI,Muyinga,Province,Burundi,4,15
+613.0,2566.9,193,RW,Eastern,Province,Rwanda,4,117
+614.0,430.5,35,BI,Kirundo,Province,Burundi,4,19
+615.0,1463.0,110,RW,Southern,Province,Rwanda,4,67
+616.0,308.5,25,BI,Ngozi,Province,Burundi,4,14
+617.0,393.6,32,BI,Cibitoke,Province,Burundi,4,18
+618.0,1649.2,124,RW,Western,Province,Rwanda,4,75
+619.0,233.70000000000002,19,BI,Kayanza,Province,Burundi,4,10
+620.0,3732.9,69,MM,Rakhine State,State,Myanmar,4,171
+621.0,199281.2,1144,BD,Chattogram,Division,Bangladesh,186,9139
+622.0,8289.2,77,MM,Chin State,State,Myanmar,7,380
+624.0,473.0,10,ES,Navarre,Autonomous Community,Spain,4,21
+625.0,94.6,2,ES,Gipuzkoa,Autonomous Community,Spain,4,4
+626.0,756.8,16,ES,Huesca,Autonomous Community,Spain,4,34
+628.0,567.5999999999999,12,ES,Lleida,Autonomous Community,Spain,4,26
+631.0,0.08,1,AD,Ordino,,Andorra,4,0
+632.0,0.08,1,AD,Canillo,,Andorra,4,0
+633.0,47.3,1,FR,Pyrénées-Orientales,Metropolitan department,France,4,2
+636.0,378.4,8,ES,Girona,Autonomous Community,Spain,4,17
+638.0,0.16,2,AD,Escaldes-Engordany,,Andorra,4,0
+639.0,4530.5,111,AF,Badakhshan,Province,Afghanistan,4,207
+640.0,322.90000000000003,32,GR,Centre Macedonia,Region,Greece,4,14
+644.0,0.5,1,MK,Strumica,Statistical Region,Macedonia,4,0
+645.0,0.5,1,MK,Bogdanci,Statistical Region,Macedonia,4,0
+648.0,0.5,1,MK,Novaci,Statistical Region,Macedonia,4,0
+649.0,0.5,1,MK,Prilep,Statistical Region,Macedonia,4,0
+650.0,0.5,1,MK,Bitola,Statistical Region,Macedonia,4,0
+651.0,0.5,1,XK,Gnjilane,District,Kosovo,4,0
+655.0,1.5,3,XK,Kačanik,District,Kosovo,4,0
+657.0,0.5,1,MK,Saraj,Municipality,Macedonia,4,0
+661.0,1.0,2,MK,Tetovo,Statistical Region,Macedonia,4,0
+663.0,0.5,1,MK,Vrapčište,Statistical Region,Macedonia,4,0
+664.0,106.5,15,RS,Pčinja,District,Republic of Serbia,4,4
+665.0,0.5,1,MK,Kriva Palanka,Statistical Region,Macedonia,4,0
+668.0,0.5,1,MK,Kumanovo,Statistical Region,Macedonia,4,0
+669.0,0.5,1,BG,Vidin,Province,Bulgaria,4,0
+670.0,99.39999999999999,14,RS,Bor,District,Republic of Serbia,4,4
+671.0,92.3,13,RS,Zaječar,District,Republic of Serbia,4,4
+672.0,71.0,10,RS,Pirot,District,Republic of Serbia,4,3
+674.0,1.0,2,BG,Sofia,Province,Bulgaria,4,0
+675.0,0.5,1,BG,Montana,Province,Bulgaria,4,0
+676.0,56.8,8,RS,Jablanica,District,Republic of Serbia,4,2
+677.0,0.5,1,BG,Kyustendil,Province,Bulgaria,4,0
+679.0,0.5,1,MK,Makedonska Kamenica,Statistical Region,Macedonia,4,0
+680.0,0.5,1,BG,Blagoevgrad,Province,Bulgaria,4,0
+681.0,0.5,1,MK,Berovo,Statistical Region,Macedonia,4,0
+683.0,0.5,1,HR,Dubrovnik-Neretva,County,Croatia,4,0
+685.0,0.5,1,BA,Herzegovina-Neretva Canton,Canton,Bosnia and Herzegovina,4,0
+686.0,0.5,1,BA,Trebinje,,Bosnia and Herzegovina,4,0
+687.0,709.5,15,UG,Ntungamo,District,Uganda,4,32
+688.0,1135.1999999999998,24,UG,Isingiro,County,Uganda,4,52
+689.0,811.3000000000001,61,RW,Northern,Province,Rwanda,4,37
+690.0,756.8,16,UG,Kabale,District,Uganda,4,34
+691.0,439.0,10,UG,Kisoro,District,Uganda,4,20
+692.0,22.3,23,-1,"USNB, Guantanamo Bay",,US Naval Base Guantanamo Bay,4,1
+693.0,135.60000000000002,12,CU,Guantánamo,Province,Cuba,4,6
+694.0,778568.2,545,IN,Uttarakhand,State,India,728,35708
+695.0,1.0,2,XK,Leposavić,District,Kosovo,4,0
+696.0,99.39999999999999,14,RS,Raška,District,Republic of Serbia,4,4
+697.0,56.8,8,RS,Rasina,District,Republic of Serbia,4,2
+698.0,56.8,8,RS,Toplica,District,Republic of Serbia,4,2
+699.0,1.0,2,XK,Podujevo/Podujeva,District,Kosovo,4,0
+702.0,0.5,1,XK,Istok,District,Kosovo,4,0
+704.0,1.0,2,XK,Kosovo-Pomoravlje,District,Kosovo,4,0
+705.0,0.5,1,ME,Rožaje,Municipality,Montenegro,4,0
+706.0,1.0,2,XK,Peja,District,Kosovo,4,0
+708.0,0.5,1,ME,Plav,Municipality,Montenegro,4,0
+709.0,1.0,2,ME,Pljevlja,Municipality,Montenegro,4,0
+710.0,142.0,20,RS,Zlatibor,District,Republic of Serbia,4,6
+711.0,0.5,1,ME,Bijelo Polje,Municipality,Montenegro,4,0
+713.0,1.5,3,SV,Chalatenango,Department,El Salvador,4,0
+714.0,0.5,1,HN,Lempira,Department,Honduras,4,0
+715.0,0.5,1,SV,Cabañas,Department,El Salvador,4,0
+716.0,0.5,1,HN,Intibucá,Department,Honduras,4,0
+717.0,1.0,2,SV,Morazán,Department,El Salvador,4,0
+719.0,0.5,1,SV,San Miguel,Department,El Salvador,4,0
+720.0,1.0,2,SV,La Unión,Department,El Salvador,4,0
+722.0,3.0,6,NI,North Caribbean Coast,Autonomous Region,Nicaragua,4,0
+723.0,1.0,2,HN,Olancho,Department,Honduras,4,0
+724.0,1.5,3,HN,Gracias a Dios,Department,Honduras,4,0
+726.0,0.5,1,HN,El Paraíso,Department,Honduras,4,0
+727.0,0.5,1,NI,Nueva Segovia,Department,Nicaragua,4,0
+728.0,0.5,1,NI,Chinandega,Department,Nicaragua,4,0
+729.0,0.5,1,HN,Choluteca,Department,Honduras,4,0
+730.0,1.0,2,NI,Madriz,Department,Nicaragua,4,0
+731.0,0.5,1,EC,Esmeraldas,Province,Ecuador,4,0
+732.0,1868.3999999999999,36,CO,Nariño,Department,Colombia,4,85
+733.0,0.5,1,EC,Carchi,Province,Ecuador,4,0
+735.0,1557.0,30,CO,Putumayo,Intendancy,Colombia,4,71
+736.0,1.0,2,SR,Nickerie,District,Suriname,4,0
+737.0,0.5,1,SR,Marowijne,District,Suriname,4,0
+738.0,224.20000000000002,19,BO,Tarija,Department,Bolivia,4,10
+739.0,2.5,5,PY,Boquerón,Department,Paraguay,4,0
+740.0,1786.1999999999998,39,AR,Formosa,Province,Argentina,4,81
+741.0,1.5,3,PY,Presidente Hayes,Department,Paraguay,4,0
+745.0,995.0,18,AR,Misiones,Province,Argentina,4,45
+746.0,46.3,2,PY,Itapúa,Department,Paraguay,4,2
+747.0,46.3,2,PY,Ñeembucú,Department,Paraguay,4,2
+748.0,1694.6,37,AR,Chaco,Province,Argentina,4,77
+749.0,1923.6,42,AR,Corrientes,Province,Argentina,4,88
+750.0,0.5,1,PY,Misiones,Department,Paraguay,4,0
+751.0,1699.2,144,BO,Santa Cruz,Department,Bolivia,4,77
+752.0,53451.3,248,BR,Mato Grosso do Sul,State,Brazil,50,2451
+753.0,1.5,3,PY,Alto Paraguay,Department,Paraguay,4,0
+754.0,0.5,1,PY,Concepción,Department,Paraguay,4,0
+755.0,0.5,1,PY,Amambay,Department,Paraguay,4,0
+757.0,30296.0,140,BR,Paraná,State,Brazil,28,1389
+758.0,15797.2,73,BR,Santa Catarina,State,Brazil,14,724
+760.0,452.4,39,BE,East Flanders,Province,Belgium,4,20
+761.0,11.6,1,NL,North Brabant,Province,Netherlands,4,0
+762.0,417.59999999999997,36,BE,Antwerp,Province,Belgium,4,19
+763.0,382.8,33,BE,Limburg,Province,Belgium,4,17
+764.0,27206.4,327,DE,Baden-Württemberg,State,Germany,25,1247
+766.0,0.5,1,CH,Thurgau,Canton,Switzerland,4,0
+767.0,83.2,1,CH,Zürich,Canton,Switzerland,4,3
+768.0,0.5,1,CH,Aargau,Canton,Switzerland,4,0
+769.0,83.2,1,CH,Basel-Stadt,Canton,Switzerland,4,3
+770.0,0.5,1,CH,Basel-Landschaft,Canton,Switzerland,4,0
+772.0,83.2,1,FR,Haut-Rhin,Metropolitan department,France,4,3
+773.0,1.0,2,CH,St. Gallen,Canton,Switzerland,4,0
+774.0,1.0,2,LI,Vaduz,,Liechtenstein,4,0
+775.0,1.5,3,LI,Gamprin,,Liechtenstein,4,0
+782.0,1.0,2,CH,Vaud,Canton,Switzerland,4,0
+784.0,0.5,1,CH,Neuchâtel,Canton,Switzerland,4,0
+785.0,898.6999999999999,19,ES,Badajoz,Autonomous Community,Spain,4,41
+786.0,10.3,1,PT,Évora,District,Portugal,4,0
+787.0,30.900000000000002,3,PT,Portalegre,District,Portugal,4,1
+789.0,2.0,4,AT,Styria,State,Austria,4,0
+794.0,0.5,1,SI,Kungota,Commune|Municipality,Slovenia,4,0
+799.0,0.5,1,SI,Dravograd,Commune|Municipality,Slovenia,4,0
+805.0,0.5,1,SI,Tržič,Commune|Municipality,Slovenia,4,0
+810.0,1.0,2,BA,Foča,,Bosnia and Herzegovina,4,0
+811.0,0.5,1,ME,Žabljak,Municipality,Montenegro,4,0
+812.0,0.5,1,ME,Plužine,Municipality,Montenegro,4,0
+813.0,1.5,3,ME,Nikšić,Municipality,Montenegro,4,0
+815.0,0.5,1,HR,Sisak-Moslavina,County,Croatia,4,0
+816.0,2.0,4,BA,Banja Luka,,Bosnia and Herzegovina,4,0
+818.0,1.0,2,BA,Una-Sana Canton,Canton,Bosnia and Herzegovina,4,0
+819.0,1.0,2,HR,Karlovac,County,Croatia,4,0
+820.0,1.0,2,HR,Zadar,County,Croatia,4,0
+823.0,0.5,1,HR,Vukovar-Syrmia,County,Croatia,4,0
+825.0,0.5,1,BA,Bijeljina,,Bosnia and Herzegovina,4,0
+826.0,1.5,3,BA,Livno,Canton,Bosnia and Herzegovina,4,0
+827.0,1.0,2,HR,Split-Dalmatia,County,Croatia,4,0
+828.0,0.5,1,BA,West Herzegovina Canton,Canton,Bosnia and Herzegovina,4,0
+829.0,85.19999999999999,12,RS,Srem,District,Republic of Serbia,4,3
+830.0,99.39999999999999,14,RS,Mačva,District,Republic of Serbia,4,4
+831.0,0.5,1,BA,Vlasenica,,Bosnia and Herzegovina,4,0
+832.0,92.3,13,RS,South Bačka,District,Republic of Serbia,4,4
+833.0,0.5,1,SK,Bratislava,Region,Slovakia,4,0
+834.0,1.0,2,SK,Trnava,Region,Slovakia,4,0
+835.0,1.5,3,SK,Trenčín,Region,Slovakia,4,0
+836.0,241.5,23,CZ,Zlín,Region,Czech Republic,4,11
+837.0,1.0,2,HU,Borsod-Abaúj-Zemplén,County,Hungary,4,0
+838.0,2.0,4,SK,Banská Bystrica,Region,Slovakia,4,0
+839.0,1.0,2,HU,Nógrád,County,Hungary,4,0
+841.0,1.0,2,SK,Nitra,Region,Slovakia,4,0
+842.0,0.5,1,HU,Komárom-Esztergom,County,Hungary,4,0
+843.0,0.5,1,HU,Pest,County,Hungary,4,0
+844.0,2949.1,77,PL,Lubusz Voivodeship,Voivodeship|Province,Poland,4,135
+845.0,24454.2,295,DE,Brandenburg,State,Germany,22,1121
+846.0,5323.7,139,PL,West Pomeranian Voivodeship,Voivodeship|Province,Poland,4,244
+847.0,20467.2,246,DE,Mecklenburg-Western Pomerania,State,Germany,19,938
+849.0,0.5,1,RO,Dolj,County,Romania,4,0
+850.0,0.5,1,BG,Silistra,Province,Bulgaria,4,0
+851.0,0.5,1,RO,Călărași,County,Romania,4,0
+853.0,1.0,2,RO,Teleorman,County,Romania,4,0
+855.0,0.5,1,RO,Constanța,County,Romania,4,0
+856.0,1.0,2,BG,Dobrich,Province,Bulgaria,4,0
+857.0,0.5,1,BG,Vratsa,Province,Bulgaria,4,0
+859.0,0.5,1,BG,Pleven,Province,Bulgaria,4,0
+860.0,0.5,1,BG,Veliko Tarnovo,Province,Bulgaria,4,0
+861.0,85.19999999999999,12,RS,Central Banat,District,Republic of Serbia,4,3
+862.0,99.39999999999999,14,RS,South Banat,District,Republic of Serbia,4,4
+863.0,0.5,1,RO,Caraș-Severin,County,Romania,4,0
+864.0,99.39999999999999,14,RS,Braničevo,District,Republic of Serbia,4,4
+865.0,333.3,33,GR,East Macedonia and Thrace,Region,Greece,4,15
+866.0,0.5,1,BG,Kardzhali,Province,Bulgaria,4,0
+867.0,0.5,1,BG,Smolyan,Province,Bulgaria,4,0
+868.0,1.0,2,AL,Shkodër,County,Albania,4,0
+869.0,0.5,1,ME,Andrijevica,Municipality,Montenegro,4,0
+870.0,0.5,1,ME,Podgorica,Municipality,Montenegro,4,0
+871.0,0.5,1,ME,Bar,Municipality,Montenegro,4,0
+872.0,0.5,1,ME,Ulcinj,Municipality,Montenegro,4,0
+873.0,0.5,1,RO,Botoșani,County,Romania,4,0
+874.0,0.5,1,MD,Briceni,District,Moldova,4,0
+876.0,0.5,1,MD,Rîșcani,District,Moldova,4,0
+878.0,0.5,1,MD,Fălești,District,Moldova,4,0
+880.0,0.5,1,MD,Ungheni,District,Moldova,4,0
+881.0,0.5,1,MD,Nisporeni,District,Moldova,4,0
+883.0,0.5,1,RO,Vaslui,County,Romania,4,0
+885.0,0.5,1,MD,Cantemir,District,Moldova,4,0
+887.0,0.5,1,RO,Galați,County,Romania,4,0
+888.0,1087.5,25,UA,Chernivtsi,Region,Ukraine,4,49
+890.0,0.5,1,RO,Maramureș,County,Romania,4,0
+891.0,1609.5,37,UA,Ivano-Frankivsk,Region,Ukraine,4,73
+892.0,4394.0,102,UA,Odessa,Region,Ukraine,4,201
+893.0,0.5,1,RO,Tulcea,County,Romania,4,0
+895.0,2914.5,67,UA,Vinnytsia,Region,Ukraine,4,133
+896.0,0.5,1,MD,Dondușeni,District,Moldova,4,0
+897.0,0.5,1,MD,Soroca,District,Moldova,4,0
+898.0,44.0,2,MD,Camenca,District,Moldova,4,2
+901.0,0.5,1,MD,Grigoriopol,Territorial Unit,Moldova,4,0
+902.0,0.5,1,MD,Bender,City,Moldova,4,0
+903.0,0.5,1,MD,Ștefan Vodă,District,Moldova,4,0
+908.0,1.0,2,MD,Comrat,Autonomous Territory,Moldova,4,0
+909.0,5208.799999999999,136,PL,Lublin Voivodeship,Voivodeship|Province,Poland,4,238
+910.0,2653.5,61,UA,Lviv,Region,Ukraine,4,121
+912.0,0.5,1,LV,Krāslava,Municipality,Latvia,4,0
+913.0,433.20000000000005,3,RU,Kaliningrad,Region,Russia,4,19
+914.0,0.5,1,LT,Tauragė,County,Lithuania,4,0
+915.0,587.1,5,RU,Smolensk,Region,Russia,4,26
+916.0,522.5,55,BY,Mahilioŭ,Region,Belarus,4,23
+917.0,433.20000000000005,3,RU,Bryansk,Region,Russia,4,19
+918.0,3145.9,70,UA,Sumy,Region,Ukraine,4,144
+919.0,577.6,4,RU,Kursk,Region,Russia,4,26
+920.0,433.20000000000005,3,RU,Belgorod,Region,Russia,4,19
+921.0,3741.0,86,UA,Kharkiv,Region,Ukraine,4,171
+922.0,3306.0,76,UA,Luhansk,Region,Ukraine,4,151
+923.0,722.0,5,RU,Voronezh,Region,Russia,4,33
+924.0,1386.6000000000001,11,RU,Rostov,Region,Russia,4,63
+925.0,3001.5,69,UA,Donetsk,Region,Ukraine,4,137
+926.0,8174.700000000001,93,IR,East Azerbaijan,Province,Iran,7,374
+927.0,4606.2,54,TR,Kars,Province,Turkey,4,211
+928.0,18.0,6,AM,Aragatsotn,Province,Armenia,4,0
+929.0,15.0,5,AM,Armavir,Province,Armenia,4,0
+930.0,4043.4,46,IR,Ardabil,Province,Iran,4,185
+931.0,60.599999999999994,6,AZ,Imishli,District,Azerbaijan,4,2
+932.0,40.4,4,AZ,Bilasuvar,District,Azerbaijan,4,1
+933.0,80.8,8,AZ,Jalilabad,District,Azerbaijan,4,3
+934.0,118.2,4,AZ,Yardimli,District,Azerbaijan,4,5
+935.0,50.5,5,AZ,Lerik,District,Azerbaijan,4,2
+936.0,30.299999999999997,3,AZ,Jabrayil,District,Azerbaijan,4,1
+937.0,70.7,7,AZ,Fuzuli,District,Azerbaijan,4,3
+938.0,30.299999999999997,3,AZ,Beylagan,District,Azerbaijan,4,1
+939.0,108.10000000000001,3,AZ,Astara,District,Azerbaijan,4,4
+940.0,2900.7000000000003,33,IR,Gilan,Province,Iran,4,133
+941.0,4620.8,32,RU,Republic of Buryatia,Republic,Russia,4,211
+942.0,33.0,10,MN,Khövsgöl,Province,Mongolia,4,1
+943.0,2461.4,19,RU,Tuva Republic,Republic,Russia,4,112
+944.0,9.899999999999999,3,MN,Bulgan,Province,Mongolia,4,0
+945.0,19.799999999999997,6,MN,Uvs,Province,Mongolia,4,0
+946.0,164.2,7,MN,Selenge,Province,Mongolia,4,7
+947.0,9173.2,46,RU,Zabaykalsky Krai,Region,Russia,8,420
+948.0,23.099999999999998,7,MN,Zavkhan,Province,Mongolia,4,1
+949.0,26.4,8,MN,Khentii,Province,Mongolia,4,1
+950.0,3014152.4,2138,CN,Heilongjiang,Province,China,2821,138241
+951.0,10115.6,35,RU,Amur,Region,Russia,9,463
+952.0,1987.4,5,RU,Jewish,Autonomous Region,Russia,4,91
+953.0,11263.2,78,RU,Khabarovsk Krai,Territory,Russia,10,516
+954.0,3465.6000000000004,24,RU,Primorsky Krai,Territory,Russia,4,158
+955.0,1175799.2,835,CN,Jilin,Province,China,1100,53927
+956.0,4035.8,102,KP,North Hamgyong,Province,North Korea,4,185
+957.0,182.0,7,KP,Rason,Province,North Korea,4,8
+958.0,6335.4,84,KP,Ryanggang,Province,North Korea,5,290
+959.0,3619.8,86,KP,Chagang,Province,North Korea,4,166
+960.0,896658.7999999999,637,CN,Liaoning,Province,China,839,41124
+961.0,1768.0,68,KP,North Pyongan,Province,North Korea,4,81
+963.0,0.5,1,UZ,Jizzakh,Region,Uzbekistan,4,0
+964.0,0.5,1,UZ,Samarqand,Region,Uzbekistan,4,0
+965.0,0.5,1,UZ,Qashqadaryo,Region,Uzbekistan,4,0
+966.0,0.5,1,UZ,Surxondaryo,Region,Uzbekistan,4,0
+967.0,525.6,52,TJ,Khatlon,Region,Tajikistan,4,24
+968.0,1150.8,28,AF,Takhar,Province,Afghanistan,4,52
+969.0,739.8000000000001,18,AF,Kunduz,Province,Afghanistan,4,33
+970.0,1397.4,34,AF,Balkh,Province,Afghanistan,4,64
+971.0,256.2,42,TM,Lebap,Province,Turkmenistan,4,11
+972.0,1068.6000000000001,26,AF,Jowzjan,Province,Afghanistan,4,49
+973.0,1767.3,43,AF,Faryab,Province,Afghanistan,4,81
+974.0,254.6,36,TM,Mary,Province,Turkmenistan,4,11
+975.0,1726.2,42,AF,Badghis,Province,Afghanistan,4,79
+976.0,4644.3,113,AF,Herat,Province,Afghanistan,4,213
+977.0,225.7,37,TM,Ahal,Province,Turkmenistan,4,10
+978.0,2215.2000000000003,104,SY,Al-Hasakah,Province,Syria,4,101
+979.0,4179.7,49,TR,Mardin,Province,Turkey,4,191
+980.0,1512.3,71,SY,Al-Raqqah,Province,Syria,4,69
+981.0,8188.799999999999,96,TR,Şanlıurfa,Province,Turkey,7,375
+982.0,1853.1000000000001,87,SY,Aleppo,Province,Syria,4,84
+983.0,682.4,8,TR,Kilis,Province,Turkey,4,31
+984.0,2814.9,33,TR,Gaziantep,Province,Turkey,4,129
+985.0,3348.0,40,TR,Hatay,Province,Turkey,4,153
+986.0,489.90000000000003,23,SY,Idlib,Province,Syria,4,22
+987.0,276.90000000000003,13,SY,Latakia,Province,Syria,4,12
+988.0,2915.4,66,IQ,Sulaymaniyah,Province,Iraq,4,133
+989.0,5098.200000000001,58,IR,Kurdistan,Province,Iran,4,233
+990.0,4307.1,49,IR,Kermanshah,Province,Iran,4,197
+991.0,3001.5,69,IQ,Diyala,Province,Iraq,4,137
+992.0,3647.4,42,IR,Ilam,Province,Iran,4,167
+993.0,2611.8,58,IQ,Wasit,Province,Iraq,4,119
+994.0,2392.5,55,IQ,Maysan,Province,Iraq,4,109
+995.0,10723.800000000001,122,IR,Khuzestan,Province,Iran,10,491
+996.0,119.9,11,JO,Irbid,Province,Jordan,4,5
+997.0,54.5,5,JO,Madaba,Province,Jordan,4,2
+998.0,130.8,12,JO,Karak,Province,Jordan,4,5
+999.0,98.10000000000001,9,JO,Tafilah,Province,Jordan,4,4
+1000.0,283.40000000000003,26,JO,Aqaba,Province,Jordan,4,12
+1001.0,54.5,5,JO,Balqa,Province,Jordan,4,2
+1002.0,5039.8,122,NP,Karnali Zone,Administrative Zone,Nepal,4,231
+1003.0,1500.0,50,NP,Mahakali Zone,Administrative Zone,Nepal,4,68
+1004.0,1980.0,66,NP,Seti Zone,District,Nepal,4,90
+1005.0,1350.0,45,NP,Dhaulagiri Zone,Administrative Zone,Nepal,4,61
+1006.0,1950.0,65,NP,Gandaki Zone,District,Nepal,4,89
+1007.0,1530.0,51,NP,Bagmati Zone,District,Nepal,4,70
+1008.0,4499.6,58,NP,Janakpur Zone,Administrative Zone,Nepal,4,206
+1009.0,1890.0,63,NP,Sagarmatha Zone,Administrative Zone,Nepal,4,86
+1010.0,2879.8,50,NP,Bhojpur,District,Nepal,4,132
+1011.0,1560.0,52,NP,Mechi Zone,Administrative Zone,Nepal,4,71
+1012.0,10660.9,172,MM,Kachin State,State,Myanmar,9,488
+1013.0,11166.6,181,MM,Sagaing,Division,Myanmar,10,512
+1014.0,234344.49999999997,165,IN,Nagaland,State,India,219,10748
+1015.0,305774.5,215,IN,Manipur,State,India,286,14024
+1016.0,312917.5,220,IN,Mizoram,State,India,292,14351
+1017.0,2939.7000000000003,41,TH,Chiang Rai,Province,Thailand,4,134
+1018.0,21220.0,292,MM,Shan State,State,Myanmar,19,973
+1019.0,5377.5,75,TH,Chiang Mai,Province,Thailand,5,246
+1020.0,3782.5,53,TH,Mae Hong Son,Province,Thailand,4,173
+1021.0,1244.3,23,MM,Kayah State,State,Myanmar,4,57
+1022.0,3227.1,59,MM,Kayin State,State,Myanmar,4,148
+1023.0,4141.0,58,TH,Tak,Province,Thailand,4,189
+1024.0,5234.1,73,TH,Kanchanaburi,Province,Thailand,4,240
+1025.0,1406.6000000000001,26,MM,Mon State,State,Myanmar,4,64
+1026.0,5914.5,109,MM,Tanintharyi,Division,Myanmar,5,271
+1027.0,2205.1,31,TH,Prachuap Khiri Khan,Province,Thailand,4,101
+1028.0,1720.8000000000002,24,TH,Phetchaburi,Province,Thailand,4,78
+1029.0,1003.8000000000001,14,TH,Ratchaburi,Province,Thailand,4,46
+1030.0,1649.1000000000001,23,TH,Chumphon,Province,Thailand,4,75
+1031.0,860.4000000000001,12,TH,Ranong,Province,Thailand,4,39
+1032.0,0.5,1,LA,Bokeo,Province,Laos,4,0
+1033.0,72.2,2,LA,Sainyabuli,Province,Laos,4,3
+1034.0,1290.6000000000001,18,TH,Phayao,Province,Thailand,4,59
+1035.0,3226.5,45,TH,Nan,Province,Thailand,4,147
+1036.0,1792.5,25,TH,Uttaradit,Province,Thailand,4,82
+1037.0,2151.0,30,TH,Phitsanulok,Province,Thailand,4,98
+1038.0,2509.5,35,TH,Loei,Province,Thailand,4,115
+1039.0,1290.6000000000001,18,TH,Bueng Kan,Province,Thailand,4,59
+1040.0,0.5,1,LA,Bolikhamsai,Province,Laos,4,0
+1041.0,1147.2,16,TH,Nong Khai,Province,Thailand,4,52
+1042.0,1649.1000000000001,23,TH,Nakhon Phanom,Province,Thailand,4,75
+1043.0,0.5,1,LA,Khammouane,Province,Laos,4,0
+1044.0,1.0,2,LA,Savannakhet,Province,Laos,4,0
+1045.0,1003.8000000000001,14,TH,Mukdahan,Province,Thailand,4,46
+1046.0,932.1,13,TH,Amnat Charoen,Province,Thailand,4,42
+1049.0,0.5,1,LA,Vientiane,Province,Laos,4,0
+1050.0,0.5,1,LA,Champasak,Province,Laos,4,0
+1051.0,6775.8,69,VN,Điện Biên,Province,Vietnam,6,310
+1052.0,0.5,1,LA,Luang Prabang,Province,Laos,4,0
+1053.0,99.2,3,LA,Houaphanh,Province,Laos,4,4
+1054.0,7463.2,76,VN,Sơn La,Region,Vietnam,6,342
+1055.0,6088.400000000001,62,VN,Thanh Hóa,Province,Vietnam,5,279
+1056.0,9721.800000000001,99,VN,Nghệ An,Province,Vietnam,9,445
+1057.0,0.5,1,LA,Xiangkhouang,Province,Laos,4,0
+1058.0,3633.4,37,VN,Hà Tĩnh,Region,Vietnam,4,166
+1059.0,4910.0,50,VN,Quảng Bình,Province,Vietnam,4,225
+1060.0,3142.4,32,VN,Quảng Trị,Province,Vietnam,4,144
+1061.0,2946.0,30,VN,Thừa Thiên Huế,Province,Vietnam,4,135
+1063.0,5695.6,58,VN,Quảng Nam,Province,Vietnam,5,261
+1064.0,0.5,1,LA,Attapeu,Province,Laos,4,0
+1065.0,4210.3,71,ZA,KwaZulu-Natal,Province,South Africa,4,193
+1066.0,1.0,2,LS,Mokhotlong,District,Lesotho,4,0
+1067.0,4862.599999999999,82,ZA,Free State,Province,South Africa,4,223
+1068.0,0.5,1,LS,Butha-Buthe,District,Lesotho,4,0
+1069.0,1.0,2,LS,Leribe,District,Lesotho,4,0
+1070.0,7234.599999999999,122,ZA,Eastern Cape,Province,South Africa,6,331
+1071.0,1.0,2,LS,Qacha's Nek,District,Lesotho,4,0
+1072.0,2.0,4,LS,Thaba-Tseka,District,Lesotho,4,0
+1073.0,1.0,2,LS,Berea,District,Lesotho,4,0
+1074.0,1.0,2,LS,Maseru,District,Lesotho,4,0
+1075.0,0.5,1,LS,Mafeteng,District,Lesotho,4,0
+1076.0,2.0,4,LS,Mohale's Hoek,District,Lesotho,4,0
+1077.0,1.0,2,LS,Quthing,District,Lesotho,4,0
+1078.0,5218.4,88,ZA,Limpopo,Province,South Africa,4,239
+1079.0,0.5,1,BW,Kgatleng,District,Botswana,4,0
+1080.0,4269.599999999999,72,ZA,North West,Province,South Africa,4,195
+1081.0,0.5,1,BW,South-East,District,Botswana,4,0
+1082.0,0.5,1,BW,Southern,District,Botswana,4,0
+1083.0,2.0,4,BW,Kgalagadi,District,Botswana,4,0
+1084.0,1339.8,87,ZW,Masvingo,Province,Zimbabwe,4,61
+1085.0,0.5,1,ZM,Lusaka,Province,Zambia,4,0
+1086.0,1355.2,88,ZW,Mashonaland West,Province,Zimbabwe,4,62
+1087.0,723.8000000000001,47,ZW,Mashonaland Central,Province,Zimbabwe,4,33
+1088.0,1.0,2,ZM,Southern,Province,Zambia,4,0
+1090.0,0.5,1,CF,Ouaka Prefecture,Prefecture,Central African Republic,4,0
+1091.0,0.5,1,CF,Basse-Kotto Prefecture,Prefecture,Central African Republic,4,0
+1092.0,0.5,1,CF,Mbomou Prefecture,Prefecture,Central African Republic,4,0
+1093.0,0.5,1,CF,Ombella-M'Poko Prefecture,Prefecture,Central African Republic,4,0
+1095.0,0.5,1,CF,Lobaye Prefecture,Prefecture,Central African Republic,4,0
+1096.0,5533.7,89,TZ,Kagera,Region,United Republic of Tanzania,5,253
+1097.0,393.6,32,BI,Cankuzo,Province,Burundi,4,18
+1098.0,479.70000000000005,39,BI,Ruyigi,Province,Burundi,4,22
+1099.0,332.1,27,BI,Rutana,Province,Burundi,4,15
+1100.0,528.9,43,BI,Makamba,Province,Burundi,4,24
+1101.0,209.10000000000002,17,BI,Bubanza,Province,Burundi,4,9
+1102.0,282.90000000000003,23,BI,Bujumbura Rural,Province,Burundi,4,12
+1103.0,86.10000000000001,7,BI,Bujumbura Mairie,Province,Burundi,4,3
+1104.0,651.9000000000001,53,BI,Bururi,Province,Burundi,4,29
+1105.0,0.5,1,CD,North Kivu,Province,Democratic Republic of the Congo,4,0
+1106.0,72065.6,584,ET,Amhara,Administrative State,Ethiopia,67,3305
+1107.0,3182.3999999999996,68,SD,Al Qadarif,State,Sudan,4,145
+1108.0,24556.600000000002,199,ET,Tigray,Administrative State,Ethiopia,22,1126
+1109.0,23939.600000000002,194,ET,Benishangul-Gumuz,Administrative State,Ethiopia,22,1097
+1110.0,2667.6,57,SD,Blue Nile,State,Sudan,4,122
+1111.0,1825.1999999999998,39,SD,Sennar,Region,Sudan,4,83
+1112.0,12586.800000000001,102,ET,Gambela,Administrative State,Ethiopia,11,577
+1113.0,697.8,55,SS,Upper Nile,State,S. Sudan,4,32
+1114.0,146969.4,1191,ET,Oromia,Administrative State,Ethiopia,137,6740
+1115.0,775.2,68,SS,Jonglei,State,S. Sudan,4,35
+1116.0,434.99999999999994,25,TD,Sila,Prefecture,Chad,4,19
+1117.0,696.0,40,TD,Salamat,Prefecture,Chad,4,31
+1118.0,0.5,1,CF,Bamingui-Bangoran Prefecture,Prefecture,Central African Republic,4,0
+1119.0,434.99999999999994,25,TD,Moyen-Chari,Prefecture,Chad,4,19
+1120.0,1.0,2,CF,Ouham Prefecture,Prefecture,Central African Republic,4,0
+1121.0,174.0,10,TD,Mandoul,Prefecture,Chad,4,7
+1122.0,243.59999999999997,14,TD,Logone Oriental,Prefecture,Chad,4,11
+1123.0,1.0,2,CF,Ouham-Pendé Prefecture,Prefecture,Central African Republic,4,0
+1124.0,2315.7,83,CM,South,Province,Cameroon,4,106
+1125.0,1.0,2,GA,Woleu-Ntem,Province,Gabon,4,0
+1126.0,2.5,5,CG,Sangha,Region,Republic of the Congo,4,0
+1127.0,2.0,4,GA,Ogooué-Ivindo,Province,Gabon,4,0
+1128.0,1.0,2,CG,Cuvette-Ouest,Region,Republic of the Congo,4,0
+1129.0,1.5,3,GA,Haut-Ogooué,Province,Gabon,4,0
+1130.0,1.0,2,GA,Ogooué-Lolo,Province,Gabon,4,0
+1131.0,0.5,1,GA,Ngounié,Province,Gabon,4,0
+1132.0,1.0,2,CG,Lékoumou,Region,Republic of the Congo,4,0
+1133.0,1.0,2,GA,Nyanga,Province,Gabon,4,0
+1134.0,261.0,15,TD,Hadjer-Lamis,Prefecture,Chad,4,11
+1135.0,2277.2999999999997,82,CM,Far North,Province,Cameroon,4,104
+1136.0,434.99999999999994,25,TD,Chari-Baguirmi,Prefecture,Chad,4,19
+1138.0,174.0,10,TD,Mayo-Kebbi Est,Prefecture,Chad,4,7
+1139.0,208.79999999999998,12,TD,Mayo-Kebbi Ouest,Prefecture,Chad,4,9
+1140.0,3236.3999999999996,116,CM,North,Province,Cameroon,4,148
+1141.0,80148.3,359,NG,Adamawa State,State,Nigeria,75,3675
+1142.0,2929.5,105,CM,Adamawa,Province,Cameroon,4,134
+1143.0,138084.6,617,NG,Taraba State,State,Nigeria,129,6333
+1144.0,1144.5,34,CM,Northwest,Province,Cameroon,4,52
+1145.0,1590.8999999999999,50,CM,Southwest,Province,Cameroon,4,72
+1146.0,68035.2,304,NG,Benue State,State,Nigeria,63,3120
+1147.0,47669.4,213,NG,Cross River State,State,Nigeria,44,2186
+1148.0,73406.90000000001,329,NG,Sokoto State,State,Nigeria,68,3366
+1149.0,0.5,1,NE,Tahoua,Department,Niger,4,0
+1151.0,225.8,5,NE,Diffa,Department,Niger,4,10
+1152.0,0.5,1,NE,Maradi,Department,Niger,4,0
+1153.0,75644.40000000001,338,NG,Zamfara State,State,Nigeria,70,3469
+1154.0,104962.20000000001,469,NG,Yobe State,State,Nigeria,98,4814
+1155.0,1.0,2,NE,Zinder,Department,Niger,4,0
+1156.0,55726.200000000004,249,NG,Katsina State,State,Nigeria,52,2555
+1157.0,54383.4,243,NG,Jigawa State,State,Nigeria,50,2494
+1158.0,22.5,3,NE,Tillabéri,Department,Niger,4,1
+1159.0,903.0,42,BF,Tapoa,Province,Burkina Faso,4,41
+1160.0,23.5,5,BJ,Atakora,Department,Benin,4,1
+1161.0,408.5,19,BF,Kompienga,Province,Burkina Faso,4,18
+1162.0,1.5,3,TG,Savanes,Region,Togo,4,0
+1163.0,1711.8,54,GH,Upper East,Region,Ghana,4,78
+1164.0,12806.8,404,GH,Northern,Region,Ghana,11,587
+1165.0,65.4,6,TG,Kara,Region,Togo,4,2
+1166.0,34.2,6,TG,Centre,Region,Togo,4,1
+1167.0,3.0,6,TG,Plateaux,Region,Togo,4,0
+1168.0,4184.4,132,GH,Volta,Region,Ghana,4,191
+1169.0,1.0,2,TG,Maritime,Region,Togo,4,0
+1170.0,4042.5,147,CI,Zanzan,Region,Ivory Coast,4,185
+1171.0,7069.099999999999,223,GH,Brong-Ahafo,Region,Ghana,6,324
+1172.0,715.0,26,CI,Comoé,Department,Ivory Coast,4,32
+1173.0,4909.3,155,GH,Western,Region,Ghana,4,225
+1174.0,774.2,28,CI,Sud-Comoé,Region,Ivory Coast,4,35
+1175.0,193.5,9,BF,Léraba,Province,Burkina Faso,4,8
+1176.0,4366.5,159,CI,Savanes,Department,Ivory Coast,4,200
+1177.0,893.5,41,BF,Comoé,Province,Burkina Faso,4,40
+1178.0,494.5,23,BF,Poni,Province,Burkina Faso,4,22
+1179.0,246.7,11,BF,Noumbiel,Province,Burkina Faso,4,11
+1180.0,623.9,29,BF,Oudalan,Province,Burkina Faso,4,28
+1181.0,1839.6,84,ML,Gao,Region,Mali,4,84
+1182.0,752.5,35,BF,Soum,Province,Burkina Faso,4,34
+1183.0,984.6999999999999,45,ML,Mopti,Region,Mali,4,45
+1184.0,258.4,12,BF,Loroum,Province,Burkina Faso,4,11
+1185.0,387.0,18,BF,Yatenga,Province,Burkina Faso,4,17
+1186.0,387.0,18,BF,Sourou,Province,Burkina Faso,4,17
+1187.0,451.5,21,BF,Kossi,Province,Burkina Faso,4,20
+1188.0,634.6999999999999,29,ML,Ségou,Region,Mali,4,29
+1189.0,387.0,18,BF,Banwa,Province,Burkina Faso,4,17
+1190.0,897.9,41,ML,Wassoulou,Region,Mali,4,41
+1191.0,602.0,28,BF,Houet,Province,Burkina Faso,4,27
+1192.0,516.0,24,BF,Kénédougou,Province,Burkina Faso,4,23
+1193.0,121.89999999999999,23,LR,Nimba,County,Liberia,4,5
+1194.0,1622.5,59,CI,Moyen-Cavally,Department,Ivory Coast,4,74
+1195.0,106.0,20,LR,Grand Gedeh,County,Liberia,4,4
+1196.0,2915.0,106,CI,Bas-Sassandra,Department,Ivory Coast,4,133
+1197.0,58.3,11,LR,River Gee,County,Liberia,4,2
+1198.0,26.5,5,LR,Maryland,County,Liberia,4,1
+1199.0,0.5,1,GN,Macenta Prefecture,Prefecture,Guinea,4,0
+1200.0,5.3,1,GN,Yomou Prefecture,Prefecture,Guinea,4,0
+1201.0,74.2,14,LR,Bong,County,Liberia,4,3
+1202.0,0.5,1,GN,Nzérékoré Prefecture,Prefecture,Guinea,4,0
+1203.0,2.6,2,GN,Gaoual Prefecture,Prefecture,Guinea,4,0
+1204.0,42.5,21,GW,Gabú,Region,Guinea Bissau,4,1
+1205.0,0.5,1,GN,Boké,Prefecture,Guinea,4,0
+1206.0,21.0,10,GW,Tombali,Region,Guinea Bissau,4,0
+1207.0,22.9,3,GN,Siguiri Prefecture,Prefecture,Guinea,4,1
+1208.0,919.8,42,ML,Koulikoro,Region,Mali,4,42
+1209.0,0.5,1,GN,Koubia Prefecture,Prefecture,Guinea,4,0
+1211.0,21.9,1,GN,Dinguiraye Prefecture,Prefecture,Guinea,4,1
+1212.0,1.0,2,KH,Stung Treng,Province,Cambodia,4,0
+1213.0,4419.0,45,VN,Hà Giang,Province,Vietnam,4,202
+1214.0,1136397.0,807,CN,Guangxi,Autonomous Region,China,1063,52119
+1215.0,5141.4,39,VN,Cao Bằng,Province,Vietnam,4,235
+1216.0,5927.0,47,VN,Lào Cai,Province,Vietnam,5,271
+1217.0,3240.6,33,VN,Lai Châu,Province,Vietnam,4,148
+1218.0,3928.0,40,VN,Lạng Sơn,Province,Vietnam,4,180
+1219.0,4320.8,44,VN,Quảng Ninh,Province,Vietnam,4,198
+1220.0,0.9,2,BN,Brunei-Muara,District,Brunei,4,0
+1221.0,1.35,3,BN,Tutong,District,Brunei,4,0
+1222.0,3.15,7,BN,Belait,District,Brunei,4,0
+1223.0,173032.59999999998,122,IN,Tripura,State,India,161,7935
+1224.0,80720.6,462,BD,Sylhet,Division,Bangladesh,75,3702
+1225.0,341435.39999999997,239,IN,Meghalaya,State,India,319,15659
+1226.0,186620.0,1085,BD,Dhaka,Division,Bangladesh,174,8559
+1227.0,108345.8,608,BD,Rangpur,Division,Bangladesh,101,4969
+1228.0,119129.2,678,BD,Rajshahi,Division,Bangladesh,111,5463
+1229.0,141264.6,814,BD,Khulna,Division,Bangladesh,132,6478
+1230.0,2787.9999999999995,85,MZ,Cabo Delgado,Province,Mozambique,4,127
+1231.0,3608.1,57,TZ,Mtwara,Region,United Republic of Tanzania,4,165
+1232.0,4526.4,138,MZ,Niassa,Province,Mozambique,4,207
+1233.0,10.5,21,GI,Gibraltar,,Gibraltar,4,0
+1234.0,425.7,9,ES,Cádiz,Autonomous Community,Spain,4,19
+1235.0,9744.0,29,US,Washington,State,United States of America,9,446
+1236.0,4411.0,110,CA,British Columbia,Province,Canada,4,202
+1237.0,7728.0,23,US,Idaho,State,United States of America,7,354
+1238.0,16800.0,50,US,Montana,State,United States of America,15,770
+1239.0,2365.9,59,CA,Alberta,Province,Canada,4,108
+1240.0,2807.0,70,CA,Saskatchewan,Province,Canada,4,128
+1241.0,9072.0,27,US,North Dakota,State,United States of America,8,416
+1242.0,2486.2000000000003,62,CA,Manitoba,Province,Canada,4,114
+1243.0,11464.1,35,US,Minnesota,State,United States of America,10,525
+1244.0,4546.5,106,CA,Ontario,Province,Canada,4,208
+1245.0,12096.0,36,US,Michigan,State,United States of America,11,554
+1246.0,5040.0,15,US,Ohio,State,United States of America,4,231
+1247.0,4368.0,13,US,Pennsylvania,State,United States of America,4,200
+1248.0,5040.0,15,US,New York,State,United States of America,4,231
+1249.0,6255.6,156,CA,Quebec,Province,Canada,5,286
+1250.0,2352.0,7,US,Vermont,State,United States of America,4,107
+1251.0,1008.0,3,US,New Hampshire,State,United States of America,4,46
+1252.0,6720.0,20,US,Maine,State,United States of America,6,308
+1253.0,240.60000000000002,6,CA,New Brunswick,Province,Canada,4,11
+1254.0,10752.0,32,US,Arizona,State,United States of America,10,493
+1255.0,33641.3,257,MX,Sonora,State,Mexico,31,1542
+1256.0,16960.3,128,MX,Baja California,State,Mexico,15,777
+1257.0,20160.0,60,US,California,State,United States of America,18,924
+1258.0,14784.0,44,US,New Mexico,State,United States of America,13,678
+1259.0,43589.700000000004,333,MX,Chihuahua,State,Mexico,40,1999
+1260.0,26805.8,81,US,Texas,State,United States of America,25,1229
+1261.0,26049.100000000002,199,MX,Coahuila,State,Mexico,24,1194
+1262.0,14660.800000000001,112,MX,Tamaulipas,State,Mexico,13,672
+1263.0,10995.6,84,MX,Nuevo León,State,Mexico,10,504
+1264.0,1.5,3,BZ,Cayo,District,Belize,4,0
+1265.0,3.0,6,GT,Petén,Department,Guatemala,4,0
+1266.0,132.9,5,BZ,Orange Walk,District,Belize,4,6
+1267.0,1.0,2,BZ,Corozal,District,Belize,4,0
+1268.0,8770.300000000001,67,MX,Quintana Roo,State,Mexico,8,402
+1269.0,9293.9,71,MX,Campeche,State,Mexico,8,426
+1270.0,4319.7,33,MX,Tabasco,State,Mexico,4,198
+1271.0,13090.0,100,MX,Chiapas,State,Mexico,12,600
+1272.0,0.5,1,GT,San Marcos,Department,Guatemala,4,0
+1273.0,0.5,1,GT,Huehuetenango,Department,Guatemala,4,0
+1274.0,1.0,2,GT,Quiché,Department,Guatemala,4,0
+1275.0,0.5,1,GT,Alta Verapaz,Department,Guatemala,4,0
+1276.0,1.0,2,CR,Guanacaste,Province,Costa Rica,4,0
+1277.0,0.5,1,NI,Rivas,Department,Nicaragua,4,0
+1278.0,1.5,3,GT,Izabal,Department,Guatemala,4,0
+1280.0,0.5,1,HN,Santa Bárbara,Department,Honduras,4,0
+1282.0,0.5,1,GT,Zacapa,Department,Guatemala,4,0
+1283.0,1.0,2,PA,comarca Ngäbe-Buglé,Province,Panama,4,0
+1284.0,1.0,2,CR,Limón,Province,Costa Rica,4,0
+1285.0,1.0,2,CR,Puntarenas,Province,Costa Rica,4,0
+1286.0,0.5,1,PA,Chiriquí,Province,Panama,4,0
+1287.0,1.0,2,PA,Guna Yala,Indigenous Territory,Panama,4,0
+1288.0,3062.1,59,CO,Chocó,Department,Colombia,4,140
+1290.0,54.4,6,PA,Darién,Province,Panama,4,2
+1291.0,2.37,3,GY,Barima-Waini,Region,Guyana,4,0
+1292.0,880.4,31,VE,Delta Amacuro,State,Venezuela,4,40
+1293.0,5282.4,186,VE,Bolívar,State,Venezuela,4,242
+1294.0,213615.2,988,BR,Amazonas,State,Brazil,199,9797
+1295.0,4255.8,82,CO,Guainía,Commissiary,Colombia,4,195
+1296.0,3010.2,58,CO,Vaupés,Commissiary,Colombia,4,138
+1297.0,6279.9,121,CO,Amazonas,Commissiary,Colombia,5,288
+1298.0,10175.699999999999,303,PE,Loreto,Department,Peru,9,466
+1299.0,0.5,1,EC,Orellana,Province,Ecuador,4,0
+1300.0,0.5,1,EC,Pastaza,Province,Ecuador,4,0
+1301.0,0.5,1,EC,Morona-Santiago,Province,Ecuador,4,0
+1302.0,1035.3999999999999,31,PE,Amazonas,Department,Peru,4,47
+1304.0,901.8,27,PE,Cajamarca,Department,Peru,4,41
+1305.0,67.3,3,EC,Loja,Province,Ecuador,4,3
+1306.0,200.39999999999998,6,PE,Tumbes,Department,Peru,4,9
+1308.0,1068.8,32,PE,Piura,Department,Peru,4,49
+1309.0,4136.599999999999,144,VE,Amazonas,State,Venezuela,4,189
+1310.0,247.8,21,BO,Chuquisaca,Department,Bolivia,4,11
+1311.0,2839.0,85,PE,Ucayali,Department,Peru,4,130
+1312.0,582.2,32,BO,Pando,Department,Bolivia,4,26
+1313.0,35706.0,165,BR,Rondônia,State,Brazil,33,1637
+1314.0,908.6,77,BO,Beni,Department,Bolivia,4,41
+1315.0,123997.2,573,BR,Mato Grosso,State,Brazil,116,5687
+1316.0,2004.0,60,PE,Puno,Department,Peru,4,91
+1317.0,1832.0,40,AR,Catamarca,Province,Argentina,4,84
+1318.0,0.5,1,CL,Atacama,Region,Chile,4,0
+1319.0,1786.1999999999998,39,AR,La Rioja,Province,Argentina,4,81
+1320.0,1832.0,40,AR,San Juan,Province,Argentina,4,84
+1321.0,45.8,1,CL,Coquimbo,Region,Chile,4,2
+1322.0,2931.2,64,AR,Mendoza,Province,Argentina,4,134
+1323.0,91.6,2,CL,Santiago,Region,Chile,4,4
+1327.0,2198.3999999999996,48,AR,Neuquén,Province,Argentina,4,100
+1328.0,0.5,1,CL,Ñuble,Region,Chile,4,0
+1331.0,91.6,2,CL,Los Ríos,Region,Chile,4,4
+1332.0,5999.799999999999,131,AR,Chubut,Province,Argentina,5,275
+1334.0,4167.8,91,AR,Río Negro,Province,Argentina,4,191
+1335.0,137.89999999999998,4,CL,Aysén,Region,Chile,4,6
+1336.0,6595.2,144,AR,Santa Cruz,Province,Argentina,6,302
+1337.0,0.5,1,CL,Magellan and the Chilean Antarctic,Region,Chile,4,0
+1338.0,1053.3999999999999,23,AR,Tierra del Fuego,National Territory,Argentina,4,48
+1339.0,1221.2,43,VE,Zulia,State,Venezuela,4,56
+1340.0,1557.0,30,CO,La Guajira,Department,Colombia,4,71
+1341.0,1141.8,22,CO,Cesar,Department,Colombia,4,52
+1342.0,1349.3999999999999,26,CO,Norte de Santander,Department,Colombia,4,61
+1343.0,284.0,10,VE,Tachira,State,Venezuela,4,13
+1344.0,1642.3,57,VE,Apure,State,Venezuela,4,75
+1345.0,1453.2,28,CO,Arauca,Intendancy,Colombia,4,66
+1346.0,1193.7,23,CO,Boyacá,Department,Colombia,4,54
+1347.0,5501.4,106,CO,Vichada,Commissiary,Colombia,5,252
+1348.0,4136.4,108,PL,Pomeranian Voivodeship,Voivodeship|Province,Poland,4,189
+1349.0,171636.5,623,ID,Papua,Province,Indonesia,160,7871
+1350.0,0.5,1,PG,Sandaun,Province,Papua New Guinea,4,0
+1351.0,1.0,2,PG,Western,Province,Papua New Guinea,4,0
+1352.0,384.29999999999995,63,TM,Balkan,Province,Turkmenistan,4,17
+1353.0,1.5,3,KZ,Mangystau,Region,Kazakhstan,4,0
+1354.0,0.5,1,KZ,Kyzylorda,Region,Kazakhstan,4,0
+1355.0,9.6,8,UZ,Karakalpakstan,Automonous Region,Uzbekistan,4,0
+1356.0,145.4,3,KZ,Aktobe,Region,Kazakhstan,4,6
+1357.0,1.0,2,UZ,Navoiy,Region,Uzbekistan,4,0
+1358.0,195.2,32,TM,Daşoguz,Province,Turkmenistan,4,8
+1360.0,1.0,2,UZ,Bukhara,Region,Uzbekistan,4,0
+1361.0,4570.8,52,IR,North Khorasan,Province,Iran,4,209
+1362.0,3955.5000000000005,45,IR,Golestan,Province,Iran,4,181
+1363.0,24131.800000000003,276,IR,Razavi Khorasan,Province,Iran,22,1106
+1364.0,13888.2,158,IR,South Khorasan,Province,Iran,12,636
+1365.0,3534.6,86,AF,Nimruz,Province,Afghanistan,4,162
+1366.0,29007.000000000004,330,IR,Sistan and Baluchestan,Province,Iran,27,1330
+1367.0,3945.6000000000004,96,AF,Farah,Province,Afghanistan,4,180
+1368.0,123376.5,513,PK,Khyber Pakhtunkhwa,Province,Pakistan,115,5658
+1369.0,49584.1,207,PK,Federally Administered Tribal Areas,Territory,Pakistan,46,2274
+1370.0,493.20000000000005,12,AF,Kunar,Province,Afghanistan,4,22
+1371.0,904.2,22,AF,Nuristan,Province,Afghanistan,4,41
+1372.0,698.7,17,AF,Nangarhar,Province,Afghanistan,4,32
+1373.0,411.0,10,AF,Khost,Province,Afghanistan,4,18
+1374.0,493.20000000000005,12,AF,Paktia,Province,Afghanistan,4,22
+1375.0,547941.2,2280,PK,Balochistan,Province,Pakistan,512,25130
+1376.0,1925.6000000000001,42,AF,Paktika,Province,Afghanistan,4,88
+1377.0,1274.1000000000001,31,AF,Zabul,Province,Afghanistan,4,58
+1378.0,4919.8,110,AF,Kandahar,Province,Afghanistan,4,225
+1379.0,4315.5,105,AF,Helmand,Province,Afghanistan,4,197
+1380.0,144.9,2,KZ,North Kazakhstan,Region,Kazakhstan,4,6
+1381.0,2021.6000000000001,14,RU,Tyumen,Region,Russia,4,92
+1382.0,1155.2,8,RU,Kurgan,Region,Russia,4,52
+1383.0,2743.6,19,RU,Omsk,Region,Russia,4,125
+1384.0,144.9,2,KZ,Kostanay,Region,Kazakhstan,4,6
+1385.0,1.0,2,KZ,Pavlodar,Region,Kazakhstan,4,0
+1386.0,2021.6000000000001,14,RU,Novosibirsk,Region,Russia,4,92
+1387.0,1732.8000000000002,12,RU,Chelyabinsk,Region,Russia,4,79
+1388.0,2743.6,19,RU,Altai Republic,Territory,Russia,4,125
+1389.0,2021.6000000000001,14,RU,Orenburg,Region,Russia,4,92
+1390.0,144.9,2,KZ,West Kazakhstan,Region,Kazakhstan,4,6
+1391.0,1299.6000000000001,9,RU,Saratov,Region,Russia,4,59
+1392.0,1155.2,8,RU,Astrakhan,Region,Russia,4,52
+1393.0,1588.4,11,RU,Volgograd,Region,Russia,4,72
+1394.0,0.5,1,KZ,Atyrau,Region,Kazakhstan,4,0
+1395.0,1144.5,105,JO,Mafraq,Province,Jordan,4,52
+1396.0,617.7,29,SY,As-Suwayda,Province,Syria,4,28
+1397.0,362.1,17,SY,Daraa,Province,Syria,4,16
+1398.0,16906.0,158,EG,North Sinai,Governorate,Egypt,15,775
+1399.0,3282.8999999999996,93,SA,Northern Borders,Region,Saudi Arabia,4,150
+1400.0,19662.0,452,IQ,Al Anbar,Province,Iraq,18,901
+1401.0,3915.0,90,IQ,Najaf,Province,Iraq,4,179
+1402.0,2623.1,75,SA,Al-Jowf,Region,Saudi Arabia,4,120
+1403.0,1297.1000000000001,119,JO,Ma'an,Province,Jordan,4,59
+1404.0,327.0,30,JO,Amman,Province,Jordan,4,14
+1405.0,163.5,15,JO,Zarqa,Province,Jordan,4,7
+1406.0,2.5,5,KW,Al Ahmadi,Province,Kuwait,4,0
+1407.0,5742.0,132,IQ,Nineveh,Province,Iraq,5,263
+1408.0,2321.7000000000003,109,SY,Deir ez-Zor,Province,Syria,4,106
+1409.0,12738.6,378,YE,Hadhramaut,Governorate,Yemen,11,584
+1410.0,3.0,6,OM,Dhofar,Province,Oman,4,0
+1411.0,5122.400000000001,152,YE,Al Mahrah,Governorate,Yemen,4,234
+1412.0,1.0,2,OM,Al Wusta,Region,Oman,4,0
+1413.0,1835.6,52,SA,Najran,Region,Saudi Arabia,4,84
+1414.0,1078.4,32,YE,Sa'dah,Governorate,Yemen,4,49
+1415.0,1517.8999999999999,43,SA,'Asir,Region,Saudi Arabia,4,69
+1416.0,741.4000000000001,22,YE,Hajjah,Governorate,Yemen,4,34
+1417.0,458.9,13,SA,Jazan,Region,Saudi Arabia,4,21
+1418.0,2864.5000000000005,85,YE,Al Jawf,Governorate,Yemen,4,131
+1419.0,3.0,6,LY,Kufra,Municipality|Governarate,Libya,4,0
+1420.0,1844.3999999999999,106,TD,Ennedi,Préfecture,Chad,4,84
+1421.0,2262.0,130,TD,Borkou,Préfecture,Chad,4,103
+1422.0,1.5,3,LY,Murzuq,Municipality|Governarate,Libya,4,0
+1423.0,1339.8,77,TD,Tibesti,Préfecture,Chad,4,61
+1424.0,5.0,10,NE,Agadez,Department,Niger,4,0
+1425.0,17945.2,406,DZ,Tamanghasset,Province,Algeria,16,823
+1426.0,3.0,6,MR,Tiris Zemmour,Region,Mauritania,4,0
+1427.0,4906.200000000001,111,DZ,Tindouf,Province,Algeria,4,225
+1428.0,643.8,37,TD,Kanem,Prefecture,Chad,4,29
+1429.0,19094.399999999998,408,SD,Northern,State,Sudan,17,875
+1430.0,8239.0,77,EG,Aswan,Governorate,Egypt,7,377
+1431.0,106572.0,996,EG,Red Sea,Governorate,Egypt,99,4887
+1432.0,6411.599999999999,137,SD,River Nile,State,Sudan,6,294
+1433.0,29538.0,547,KE,Eastern,National Capital Area,Kenya,27,1354
+1434.0,24786.0,459,KE,North Eastern,Province,Kenya,23,1136
+1435.0,5379.0,122,DZ,Béchar,Province,Algeria,5,246
+1436.0,2212.5,59,MA,Meknès-Tafilalet,Region,Morocco,4,101
+1437.0,2812.5,75,MA,Suss-Massa-Draa,Region,Morocco,4,128
+1439.0,2.0,4,MR,Adrar,Region,Mauritania,4,0
+1440.0,0.5,1,TN,Jendouba,Governorate,Tunisia,4,0
+1441.0,265.20000000000005,6,DZ,El Tarf,Province,Algeria,4,12
+1442.0,1.5,3,TN,Kebili,Governorate,Tunisia,4,0
+1443.0,1679.6000000000001,38,DZ,El Oued,Province,Algeria,4,77
+1444.0,0.5,1,TN,Tozeur,Governorate,Tunisia,4,0
+1445.0,619.3000000000001,15,DZ,Tébessa,Province,Algeria,4,28
+1447.0,0.5,1,TN,Kasserine,Governorate,Tunisia,4,0
+1449.0,88.9,3,DZ,Souk Ahras,Province,Algeria,4,4
+1450.0,6409.0,145,DZ,Ouargla,Province,Algeria,5,293
+1451.0,1576.8,72,ML,Kidal,Region,Mali,4,72
+1452.0,14976.0,320,SD,North Darfur,State,Sudan,14,686
+1453.0,2901.6,62,SD,West Soudan,State,Sudan,4,133
+1454.0,278.4,16,TD,Ouaddaï,Prefecture,Chad,4,12
+1455.0,586.1999999999999,32,TD,Wadi Fira,Prefecture,Chad,4,26
+1456.0,1.0,2,LY,Butnan,Municipality|Governarate,Libya,4,0
+1457.0,92020.0,860,EG,Matrouh,Governorate,Egypt,86,4220
+1458.0,0.5,1,LY,Ajdabiya,Municipality|Governarate,Libya,4,0
+1459.0,247323.8,2312,EG,New Valley,Governorate,Egypt,231,11343
+1460.0,25.200000000000003,12,GW,Bafatá,Region,Guinea Bissau,4,1
+1461.0,21.0,10,GW,Oio,Region,Guinea Bissau,4,0
+1462.0,0.5,1,SN,Sédhiou,Region,Senegal,4,0
+1463.0,29.400000000000002,14,GW,Cacheu,Region,Guinea Bissau,4,1
+1464.0,0.5,1,SN,Ziguinchor,Region,Senegal,4,0
+1465.0,615.4000000000001,34,SO,Lower Juba,Region,Somalia,4,28
+1466.0,16416.0,304,KE,Coast,Province,Kenya,15,752
+1467.0,5190.599999999999,82,TZ,Mara,Region,United Republic of Tanzania,4,238
+1468.0,3179.3,59,KE,Nyanza,Province,Kenya,4,145
+1469.0,6773.099999999999,107,TZ,Arusha,Region,United Republic of Tanzania,6,310
+1470.0,2532.0,40,TZ,Kilimanjaro,Region,United Republic of Tanzania,4,116
+1471.0,5253.9,83,TZ,Tanga,Region,United Republic of Tanzania,4,240
+1472.0,1560.8999999999999,33,UG,Rakai,District,Uganda,4,71
+1473.0,3358.2999999999997,71,UG,Kalangala,District,Uganda,4,154
+1474.0,2554.2,54,UG,Buvuma,District,Uganda,4,117
+1475.0,1513.6,32,UG,Mayuge,District,Uganda,4,69
+1476.0,2223.1,47,UG,Namayingo,District,Uganda,4,101
+1477.0,1.0,2,GQ,Litoral,Province,Equatorial Guinea,4,0
+1479.0,0.5,1,GQ,Centro Sur,Province,Equatorial Guinea,4,0
+1480.0,0.5,1,GQ,Wele-Nzas,Province,Equatorial Guinea,4,0
+1481.0,1.0,2,GA,Estuaire,Province,Gabon,4,0
+1483.0,1.5,3,SN,Saint-Louis,Region,Senegal,4,0
+1484.0,1.5,3,MR,Trarza,Region,Mauritania,4,0
+1485.0,0.5,1,MR,Gorgol,Region,Mauritania,4,0
+1486.0,1.5,3,SN,Matam,Region,Senegal,4,0
+1488.0,2.5,5,MR,Hodh Ech Chargui,Region,Mauritania,4,0
+1490.0,0.5,1,MR,Assaba,Region,Mauritania,4,0
+1491.0,1.0,2,ZM,Western,Province,Zambia,4,0
+1492.0,7659.0,222,AO,Cuando Cubango,Province,Angola,7,351
+1493.0,7969.5,231,AO,Moxico,Province,Angola,7,365
+1494.0,2.0,4,ZM,Northwestern,Province,Zambia,4,0
+1495.0,2346.0,68,AO,Namibe,Province,Angola,4,107
+1496.0,2717.7000000000003,105,NA,Kunene,Region,Namibia,4,124
+1497.0,3001.5,87,AO,Cunene,Province,Angola,4,137
+1498.0,567.6,22,NA,Omusati,Region,Namibia,4,26
+1499.0,361.2,14,NA,Ohangwena,Region,Namibia,4,16
+1500.0,1057.8,41,NA,Kavango,Region,Namibia,4,48
+1501.0,748.2,29,NA,Zambezi,Region,Namibia,4,34
+1502.0,4100.5,126,MZ,Tete,Province,Mozambique,4,188
+1503.0,708.4,46,ZW,Mashonaland East,Province,Zimbabwe,4,32
+1504.0,2296.0,70,MZ,Manica,Province,Mozambique,4,105
+1505.0,939.4,61,ZW,Manicaland,Province,Zimbabwe,4,43
+1506.0,2853.6,87,MZ,Gaza,Province,Mozambique,4,130
+1507.0,1587.0,46,AO,Zaire,Province,Angola,4,72
+1508.0,2380.5,69,AO,Uíge,Province,Angola,4,109
+1509.0,1.0,2,CD,Kasaï-Occidental,Province,Democratic Republic of the Congo,4,0
+1510.0,4243.5,123,AO,Lunda Norte,Province,Angola,4,194
+1511.0,3036.0,88,AO,Malanje,Province,Angola,4,139
+1512.0,2932.5,85,AO,Lunda Sul,Province,Angola,4,134
+1513.0,2399.4,93,NA,Hardap,Region,Namibia,4,110
+1514.0,2270.4,88,NA,Otjozondjupa,Region,Namibia,4,104
+1515.0,1909.2,74,NA,Omaheke,Region,Namibia,4,87
+1516.0,1.5,3,BW,Ghanzi,District,Botswana,4,0
+1517.0,2.5,5,GM,Central River,Division,Gambia,4,0
+1519.0,1.5,3,GM,North Bank,Division,Gambia,4,0
+1520.0,0.5,1,SN,Kaolack,Region,Senegal,4,0
+1521.0,2.0,4,GM,Upper River,Division,Gambia,4,0
+1522.0,1.0,2,GM,Lower River,Division,Gambia,4,0
+1523.0,0.5,1,SN,Fatick,Region,Senegal,4,0
+1524.0,1.5,3,GM,West Coast,Division,Gambia,4,0
+1525.0,6188.0,140,DZ,Illizi,Province,Algeria,5,283
+1526.0,0.5,1,LY,Ash Shati,Municipality|Governarate,Libya,4,0
+1527.0,0.5,1,LY,Ghat,Municipality|Governarate,Libya,4,0
+1528.0,344.0,16,BF,Séno,Province,Burkina Faso,4,15
+1529.0,451.5,21,BF,Yagha,Province,Burkina Faso,4,20
+1530.0,258.0,12,BF,Komondjari,Province,Burkina Faso,4,11
+1531.0,0.5,1,CF,Sangha-Mbaéré,Economic Prefecture,Central African Republic,4,0
+1532.0,5301.0,190,CM,East,Province,Cameroon,4,243
+1534.0,0.5,1,CF,Mambéré-Kadéï,Prefecture,Central African Republic,4,0
+1535.0,3270.3999999999996,69,UG,Kaabong,District,Uganda,4,149
+1536.0,1560.8999999999999,33,UG,Kitgum,District,Uganda,4,71
+1537.0,2376.3999999999996,51,UG,Lamwo,District,Uganda,4,108
+1538.0,1277.1,27,UG,Amuru,District,Uganda,4,58
+1539.0,1135.1999999999998,24,UG,Adjumani,District,Uganda,4,52
+1540.0,851.4,18,UG,Moyo,District,Uganda,4,39
+1541.0,993.3,21,UG,Yumbe,District,Uganda,4,45
+1542.0,378.4,8,UG,Koboko,County,Uganda,4,17
+1543.0,3024.2999999999997,51,ZA,Mpumalanga,Province,South Africa,4,138
+1544.0,2.5,5,SZ,Hhohho,District,Swaziland,4,0
+1545.0,1.5,3,SZ,Manzini,District,Swaziland,4,0
+1546.0,4.0,8,SZ,Shiselweni,District,Swaziland,4,0
+1547.0,1.0,2,ZM,Luapula,Province,Zambia,4,0
+1548.0,0.5,1,ZM,Copperbelt,Province,Zambia,4,0
+1549.0,1.5,3,ZM,Central,Province,Zambia,4,0
+1550.0,322.5,15,BF,Koulpélogo,Province,Burkina Faso,4,14
+1551.0,365.5,17,BF,Boulgou,Province,Burkina Faso,4,16
+1552.0,1.0,2,BJ,Donga,Department,Benin,4,0
+1554.0,0.5,1,BJ,Kouffo,Department,Benin,4,0
+1556.0,193.5,9,BF,Nahouri,Province,Burkina Faso,4,8
+1557.0,387.0,18,BF,Sissili,Province,Burkina Faso,4,17
+1558.0,3550.4,112,GH,Upper West,Region,Ghana,4,162
+1559.0,129.0,6,BF,Ioba,Province,Burkina Faso,4,5
+1560.0,0.5,1,MW,Nkhotakota,District,Malawi,4,0
+1562.0,0.5,1,MW,Mangochi,District,Malawi,4,0
+1563.0,0.5,1,MW,Machinga,District,Malawi,4,0
+1565.0,0.5,1,MW,Lilongwe,District,Malawi,4,0
+1567.0,1.0,2,MW,Chikwawa,District,Malawi,4,0
+1570.0,0.5,1,MW,Ntcheu,District,Malawi,4,0
+1572.0,3804.7999999999997,116,MZ,Zambezia,Province,Mozambique,4,174
+1574.0,0.5,1,MW,Mulanje,District,Malawi,4,0
+1576.0,1087.8999999999999,23,UG,Moroto,District,Uganda,4,49
+1577.0,1782.0,33,KE,Western,Province,Kenya,4,81
+1578.0,236.5,5,UG,Kapchorwa,District,Uganda,4,10
+1579.0,141.89999999999998,3,UG,Bukwo,County,Uganda,4,6
+1580.0,756.8,16,UG,Amudat,District,Uganda,4,34
+1581.0,331.09999999999997,7,UG,Busia,District,Uganda,4,15
+1582.0,473.0,10,UG,Tororo,District,Uganda,4,21
+1583.0,331.09999999999997,7,UG,Manafwa,District,Uganda,4,15
+1585.0,283.79999999999995,6,UG,Maracha,District,Uganda,4,13
+1586.0,1702.8,36,UG,Arua,County,Uganda,4,78
+1587.0,520.3,11,UG,Zombo,District,Uganda,4,23
+1588.0,1040.6,22,UG,Nebbi,District,Uganda,4,47
+1589.0,851.4,18,UG,Buliisa,County,Uganda,4,39
+1590.0,2175.7999999999997,46,UG,Hoima,District,Uganda,4,99
+1591.0,662.1999999999999,14,UG,Ntoroko,District,Uganda,4,30
+1592.0,614.9,13,UG,Bundibugyo,District,Uganda,4,28
+1593.0,946.0,20,UG,Kabarole,District,Uganda,4,43
+1594.0,1182.5,25,UG,Kasese,District,Uganda,4,54
+1595.0,567.5999999999999,12,UG,Rubirizi,District,Uganda,4,26
+1596.0,709.5,15,UG,Rukungiri,District,Uganda,4,32
+1597.0,709.5,15,UG,Kanungu,District,Uganda,4,32
+1598.0,1.5,3,ER,Debub,Region,Eritrea,4,0
+1599.0,10915.9,256,SD,Red Sea,State,Sudan,10,500
+1600.0,1.5,3,ER,Northern Red Sea,Region,Eritrea,4,0
+1601.0,124.9,4,ER,Gash-Barka,Region,Eritrea,4,5
+1602.0,2620.7999999999997,56,SD,Kassala,State,Sudan,4,120
+1603.0,0.5,1,ER,Maekel,Region,Eritrea,4,0
+1604.0,1.0,2,EE,Ida-Viru,County,Estonia,4,0
+1605.0,0.5,1,EE,Põlva,County,Estonia,4,0
+1606.0,1.0,2,EE,Tartu,County,Estonia,4,0
+1607.0,0.5,1,EE,Jõgeva,County,Estonia,4,0
+1608.0,326329.7,1347,PK,Punjab,Province,Pakistan,305,14966
+1609.0,735021.8999999999,517,IN,Punjab,State,India,687,33711
+1610.0,4720094.399999999,3304,IN,Rajasthan,State,India,4418,216483
+1611.0,218133.5,907,PK,Sindh,Province,Pakistan,204,10004
+1612.0,2558622.5999999996,1791,IN,Gujarat,,India,2394,117349
+1613.0,135072.0,402,US,Alaska,State,United States of America,126,6194
+1614.0,2365.9,59,CA,Yukon,Territory,Canada,4,108
+1615.0,1872.0,40,SD,White Nile,State,Sudan,4,85
+1616.0,7300.799999999999,156,SD,South Kordofan,State,Sudan,6,334
+1617.0,285.0,25,SS,Unity,State,S. Sudan,4,13
+1618.0,1.5,3,HK,North District,,Hong Kong S.A.R.,4,0
+1619.0,879715.2,624,CN,Guangdong,Province,China,823,40347
+1620.0,12.5,25,VA,Vatican City,,Vatican,4,0
+1621.0,307.8,27,SS,Northern Bahr el Ghazal,State,S. Sudan,4,14
+1622.0,2901.6,62,SD,East Darfur,State,Sudan,4,133
+1623.0,1149.2,26,DZ,Naama,Province,Algeria,4,52
+1624.0,486.20000000000005,11,DZ,Tlemcen,Province,Algeria,4,22
+1625.0,794282.7999999999,556,IN,Himachal Pradesh,Union Territory,India,743,36429
+1626.0,7.5,15,-1,Northern Cyprus,,Northern Cyprus,4,0
+1627.0,1.0,2,CY,Famagusta,District,Cyprus,4,0
+1628.0,7.5,15,CY,Nicosia,District,Cyprus,4,0
+1629.0,9.0,18,-1,Kashmir,,Siachen Glacier,4,0
+1630.0,12.5,25,-1,Baikonur,,Baykonur Cosmodrome,4,0
+1631.0,21.3,1,SY,Quneitra,Province,Syria,4,0
+1632.0,7.5,15,-1,Akrotiri,,Akrotiri Sovereign Base Area,4,0
+1633.0,2.5,5,CY,Limassol,District,Cyprus,4,0
+1634.0,2.0,4,BZ,Toledo,District,Belize,4,0
+1635.0,1.56,2,BT,Thimphu,District,Bhutan,4,0
+1636.0,0.78,1,BT,Paro,District,Bhutan,4,0
+1637.0,1413.7,6,BT,Gasa,District,Bhutan,4,64
+1638.0,667396.7,468,IN,Jammu and Kashmir,Union Territory,India,624,30609
+1639.0,866.4000000000001,6,RU,Autonomous Republic of Crimea,Autonomous Republic,Russia,4,39
+1640.0,3175.5,73,UA,Kherson,,Ukraine,4,145
+1641.0,1314372.0,922,IN,Bihar,State,India,1230,60282
+1642.0,1500.0,50,NP,Narayani Zone,Administrative Zone,Nepal,4,68
+1643.0,3018.6,54,NP,Lumbini Zone,Administrative Zone,Nepal,4,138
+1644.0,3277208.4,2294,IN,Uttar Pradesh,State,India,3067,150306
+1645.0,1710.0,57,NP,Rapti Zone,Administrative Zone,Nepal,4,78
+1646.0,3348.6,65,NP,Bheri Zone,District,Nepal,4,153
+1647.0,0.5,1,UY,Salto,Department,Uruguay,4,0
+1648.0,0.5,1,UY,Rivera,Department,Uruguay,4,0
+1649.0,1.0,2,UY,Rocha,Department,Uruguay,4,0
+1651.0,1.5,3,UY,Cerro Largo,Department,Uruguay,4,0
+1652.0,0.5,1,CR,Heredia,Province,Costa Rica,4,0
+1656.0,0.5,1,SI,Ormož,Commune|Municipality,Slovenia,4,0
+1669.0,0.5,1,HR,Zagreb,County,Croatia,4,0
+1670.0,0.5,1,SI,Krško,Statistical Region,Slovenia,4,0
+1676.0,0.5,1,SI,Kočevje,Commune|Municipality,Slovenia,4,0
+1680.0,0.5,1,SI,Ilirska Bistrica,Commune|Municipality,Slovenia,4,0
+1682.0,24290.5,101,PK,Azad Kashmir,Centrally Administered Area,Pakistan,22,1114
+1683.0,378.4,8,ES,Ourense,Autonomous Community,Spain,4,17
+1684.0,10.3,1,PT,Viana do Castelo,District,Portugal,4,0
+1685.0,1040.6,22,ES,Cáceres,Autonomous Community,Spain,4,47
+1686.0,30.900000000000002,3,PT,Castelo Branco,District,Portugal,4,1
+1687.0,30.900000000000002,3,PT,Guarda,District,Portugal,4,1
+1688.0,614.9,13,ES,Salamanca,Autonomous Community,Spain,4,28
+1689.0,115.19999999999999,4,PT,Bragança,District,Portugal,4,5
+1690.0,520.3,11,ES,Zamora,Autonomous Community,Spain,4,23
+1691.0,20.6,2,PT,Vila Real,District,Portugal,4,0
+1692.0,10.3,1,PT,Braga,District,Portugal,4,0
+1693.0,331.09999999999997,7,ES,Pontevedra,Autonomous Community,Spain,4,15
+1694.0,520.3,11,ES,Huelva,Autonomous Community,Spain,4,23
+1695.0,20.6,2,PT,Faro,District,Portugal,4,0
+1696.0,41.2,4,PT,Beja,District,Portugal,4,1
+1697.0,134.6,2,GB,Flintshire,Unitary Authority (wales),United Kingdom,4,6
+1698.0,269.2,4,GB,Cheshire West and Chester,Unitary Authority,United Kingdom,4,12
+1699.0,134.6,2,GB,Wrexham,Unitary Authority (wales),United Kingdom,4,6
+1700.0,740.3,11,GB,Shropshire,Unitary Single-Tier County,United Kingdom,4,33
+1701.0,1144.1,17,GB,Powys,Unitary Authority (wales),United Kingdom,4,52
+1702.0,471.09999999999997,7,GB,Herefordshire,Unitary Authority,United Kingdom,4,21
+1703.0,201.89999999999998,3,GB,Monmouthshire,Unitary Authority (wales),United Kingdom,4,9
+1704.0,605.6999999999999,9,GB,Gloucestershire,Administrative County,United Kingdom,4,27
+1705.0,1278.7,19,GB,Scottish Borders,Unitary District,United Kingdom,4,58
+1706.0,1413.3,21,GB,Northumberland,Unitary Single-Tier County,United Kingdom,4,64
+1707.0,1749.8,26,GB,Cumbria,Administrative County,United Kingdom,4,80
+1708.0,1817.1,27,GB,Dumfries and Galloway,Unitary District,United Kingdom,4,83
+1709.0,23.2,2,BE,Brussels Capital,Capital Region,Belgium,4,1
+1710.0,266.8,23,BE,Flemish Brabant,Province,Belgium,4,12
+1711.0,150.79999999999998,13,BE,Walloon Brabant,Province,Belgium,4,6
+1712.0,0.5,1,BA,Central Bosnia Canton,Canton,Bosnia and Herzegovina,4,0
+1714.0,1.0,2,BA,Tuzla Canton,Canton,Bosnia and Herzegovina,4,0
+1715.0,0.5,1,BA,Sarajevo-Romanija,,Bosnia and Herzegovina,4,0
+1716.0,0.5,1,BA,Sarajevo Canton,Canton,Bosnia and Herzegovina,4,0
+1718.0,42.599999999999994,6,RS,Belgrade,City,Republic of Serbia,4,1
+1719.0,35.5,5,RS,Podunavlje,District,Republic of Serbia,4,1
+1720.0,14.8,4,GE,Guria,Region,Georgia,4,0
+1721.0,3567.0,82,IQ,Saladin,Province,Iraq,4,163
+1722.0,1435.5,33,IQ,Kirkuk,Province,Iraq,4,65
+1723.0,9.0,18,AQ,Antarctica,,Antarctica,4,0
+1725.0,6778.4,148,AR,Buenos Aires,Federal District,Argentina,6,310
+1726.0,44578.4,206,BR,Maranhão,State,Brazil,41,2044
+1727.0,33542.0,155,BR,Piauí,State,Brazil,31,1538
+1728.0,21207.2,98,BR,Ceará,State,Brazil,19,972
+1729.0,8439.6,39,BR,Rio Grande do Norte,State,Brazil,7,387
+1730.0,7790.400000000001,36,BR,Paraíba,State,Brazil,7,357
+1731.0,13849.6,64,BR,Pernambuco,State,Brazil,12,635
+1732.0,4111.6,19,BR,Alagoas,State,Brazil,4,188
+1733.0,3895.2000000000003,18,BR,Sergipe,State,Brazil,4,178
+1734.0,78120.40000000001,361,BR,Bahia,State,Brazil,73,3582
+1735.0,8223.2,38,BR,Espírito Santo,State,Brazil,7,377
+1736.0,8223.2,38,BR,Rio de Janeiro,State,Brazil,7,377
+1737.0,36571.6,169,BR,São Paulo,State,Brazil,34,1677
+1738.0,0.5,1,UY,Maldonado,Department,Uruguay,4,0
+1739.0,0.5,1,UY,Canelones,Department,Uruguay,4,0
+1741.0,0.5,1,UY,San José,Department,Uruguay,4,0
+1742.0,0.5,1,UY,Colonia,Department,Uruguay,4,0
+1743.0,0.5,1,UY,Soriano,Department,Uruguay,4,0
+1744.0,0.5,1,UY,Río Negro,Department,Uruguay,4,0
+1746.0,2.0,4,NC,North,Province,New Caledonia,4,0
+1747.0,2.5,5,AU,Western Australia,State,Australia,4,0
+1748.0,1.0,2,AU,Northern Territory,Territory,Australia,4,0
+1749.0,1.0,2,MG,Boeny,Autonomous Province,Madagascar,4,0
+1750.0,0.5,1,MG,Sofia,Autonomous Province,Madagascar,4,0
+1751.0,0.5,1,MG,Diana,Autonomous Province,Madagascar,4,0
+1752.0,0.5,1,MG,Sava,Autonomous Province,Madagascar,4,0
+1753.0,0.5,1,MG,Toamasina,Autonomous Province,Madagascar,4,0
+1754.0,0.5,1,MG,Toamasina,Autonomous Province,Madagascar,4,0
+1755.0,0.5,1,MG,Vatovavy-Fitovinany,Autonomous Province,Madagascar,4,0
+1756.0,1.0,2,MG,Atsimo-Atsinanana,Autonomous Province,Madagascar,4,0
+1758.0,0.5,1,MG,Androy,Autonomous Province,Madagascar,4,0
+1759.0,1.0,2,MG,Atsimo-Andrefana,Autonomous Province,Madagascar,4,0
+1760.0,1.0,2,MG,Menabe,Autonomous Province,Madagascar,4,0
+1761.0,1.0,2,MG,Melaky,Autonomous Province,Madagascar,4,0
+1762.0,1.0,2,AU,South Australia,State,Australia,4,0
+1763.0,1.5,3,AU,Queensland,State,Australia,4,0
+1764.0,1.0,2,AU,New South Wales,State,Australia,4,0
+1767.0,2139.0,62,AO,Cuanza Sul,Province,Angola,4,98
+1768.0,1621.5,47,AO,Benguela,Province,Angola,4,74
+1769.0,1470.6000000000001,57,NA,Erongo,Region,Namibia,4,67
+1770.0,5930.0,100,ZA,Western Cape,Province,South Africa,5,271
+1771.0,32.8,1,MZ,Maputo,Province,Mozambique,4,1
+1772.0,2624.0,80,MZ,Inhambane,Province,Mozambique,4,120
+1773.0,2427.2,74,MZ,Sofala,Province,Mozambique,4,111
+1774.0,2787.9999999999995,85,MZ,Nampula,Province,Mozambique,4,127
+1775.0,11457.3,181,TZ,Lindi,Region,United Republic of Tanzania,10,525
+1776.0,5950.2,94,TZ,Pwani,Region,United Republic of Tanzania,5,272
+1777.0,506.4,8,TZ,Dar es Salaam,Region,United Republic of Tanzania,4,23
+1778.0,32233.5,117,ID,East Java,Province,Indonesia,30,1478
+1779.0,52620.5,191,ID,Maluku,Province,Indonesia,49,2413
+1780.0,16254.5,59,ID,West Nusa Tenggara,Province,Indonesia,15,745
+1781.0,31958.0,116,ID,South Sulawesi,Province,Indonesia,29,1465
+1782.0,19560.5,71,ID,Central Java,Province,Indonesia,18,897
+1783.0,21489.0,78,ID,West Java,Province,Indonesia,20,985
+1784.0,551.0,2,ID,Jakarta,Special district,Indonesia,4,25
+1785.0,6061.0,22,ID,Banten,Province,Indonesia,5,277
+1786.0,2755.0,10,ID,Yogyakarta,Special region,Indonesia,4,126
+1787.0,26448.0,96,ID,Southeast Sulawesi,Province,Indonesia,24,1213
+1788.0,65844.5,239,ID,West Papua,Province,Indonesia,61,3019
+1790.0,45733.0,166,ID,Central Sulawesi,Province,Indonesia,42,2097
+1791.0,37192.5,135,ID,North Maluku,Province,Indonesia,34,1705
+1793.0,0.5,1,PG,East Sepik,Province,Papua New Guinea,4,0
+1794.0,0.5,1,PG,Madang,Province,Papua New Guinea,4,0
+1796.0,1.0,2,PG,Oro,Province,Papua New Guinea,4,0
+1797.0,0.5,1,PG,Milne Bay,Province,Papua New Guinea,4,0
+1800.0,0.5,1,PG,Gulf,Province,Papua New Guinea,4,0
+1801.0,11295.5,41,ID,Riau Islands,Province,Indonesia,10,518
+1802.0,47661.5,173,ID,Riau,Province,Indonesia,44,2185
+1803.0,7714.0,28,ID,Gorontalo,Province,Indonesia,7,353
+1804.0,16805.5,61,ID,North Sulawesi,Province,Indonesia,15,770
+1805.0,11295.5,41,ID,West Sulawesi,Province,Indonesia,10,518
+1806.0,1608.8999999999999,31,CO,Cauca,Department,Colombia,4,73
+1807.0,467.59999999999997,14,PE,Moquegua,Department,Peru,4,21
+1808.0,1837.0,55,PE,Arequipa,Department,Peru,4,84
+1809.0,701.4,21,PE,Ica,Department,Peru,4,32
+1810.0,935.1999999999999,28,PE,Lima,Department,Peru,4,42
+1811.0,66.8,2,PE,Lima,Captial District,Peru,4,3
+1813.0,968.5999999999999,29,PE,Áncash,Department,Peru,4,44
+1814.0,668.0,20,PE,La Libertad,Department,Peru,4,30
+1815.0,400.79999999999995,12,PE,Lambayeque,Department,Peru,4,18
+1817.0,0.5,1,EC,Manabí,Province,Ecuador,4,0
+1818.0,986.1,19,CO,Valle del Cauca,Department,Colombia,4,45
+1819.0,1.0,2,PA,Panamá,Province,Panama,4,0
+1820.0,0.5,1,PA,Coclé,Province,Panama,4,0
+1821.0,2164.1,19,PH,Sulu,Province,Philippines,4,99
+1822.0,25897.0,94,ID,Jambi,Province,Indonesia,24,1187
+1823.0,44080.0,160,ID,South Sumatra,Province,Indonesia,41,2021
+1824.0,20111.5,73,ID,Lampung,Province,Indonesia,18,922
+1825.0,13224.0,48,ID,Bengkulu,Province,Indonesia,12,606
+1826.0,28927.5,105,ID,West Sumatra,Province,Indonesia,27,1326
+1827.0,46008.5,167,ID,North Sumatra,Province,Indonesia,43,2110
+1828.0,39121.0,142,ID,Aceh,Autonomous Province,Indonesia,36,1794
+1829.0,0.79,1,GY,Demerara-Mahaica,Region,Guyana,4,0
+1830.0,77140.0,280,ID,Central Kalimantan,Province,Indonesia,72,3537
+1831.0,22591.0,82,ID,South Kalimantan,Province,Indonesia,21,1036
+1832.0,1708.5,15,PH,Davao del Norte,Province,Philippines,4,78
+1833.0,1.0,2,PA,Veraguas,Province,Panama,4,0
+1834.0,1708.5,15,PH,Zamboanga Sibugay,Province,Philippines,4,78
+1835.0,10592.7,93,PH,Palawan,Province,Philippines,9,485
+1836.0,1964.0,20,VN,Sóc Trăng,Province,Vietnam,4,90
+1837.0,2619.7000000000003,23,PH,Dinagat Islands,Province,Philippines,4,120
+1838.0,2961.4,26,PH,Surigao del Sur,Province,Philippines,4,135
+1839.0,1139.0,10,PH,Agusan del Norte,Province,Philippines,4,52
+1840.0,227.8,2,PH,Butuan,Highly Urbanized City,Philippines,4,10
+1841.0,1480.7,13,PH,Misamis Oriental,Province,Philippines,4,67
+1842.0,455.6,4,PH,Cagayan de Oro,Highly Urbanized City,Philippines,4,20
+1843.0,341.70000000000005,3,PH,Iligan,Highly Urbanized City,Philippines,4,15
+1844.0,1252.9,11,PH,Lanao del Norte,Province,Philippines,4,57
+1845.0,2164.1,19,PH,Zamboanga del Sur,Province,Philippines,4,99
+1846.0,1025.1000000000001,9,PH,Misamis Occidental,Province,Philippines,4,47
+1847.0,3758.7000000000003,33,PH,Zamboanga del Norte,Province,Philippines,4,172
+1848.0,1025.1000000000001,9,PH,Zamboanga Peninsula,Highly Urbanized City,Philippines,4,47
+1849.0,1708.5,15,PH,Lanao del Sur,Province,Philippines,4,78
+1850.0,2050.2000000000003,18,PH,Maguindanao,Province,Philippines,4,94
+1852.0,1936.3000000000002,17,PH,Sultan Kudarat,Province,Philippines,4,88
+1853.0,1708.5,15,PH,Sarangani,Province,Philippines,4,78
+1854.0,227.8,2,PH,General Santos,Highly Urbanized City,Philippines,4,10
+1855.0,2619.7000000000003,23,PH,Davao del Sur,Province,Philippines,4,120
+1856.0,797.3000000000001,7,PH,Davao,Highly Urbanized City,Philippines,4,36
+1857.0,1708.5,15,PH,Davao de Oro,Province,Philippines,4,78
+1858.0,3189.2000000000003,28,PH,Davao Oriental,Province,Philippines,4,146
+1859.0,832.1999999999999,38,LK,Trincomalee,District,Sri Lanka,4,38
+1860.0,810.3,37,LK,Mullaitivu,District,Sri Lanka,4,37
+1861.0,459.9,21,LK,Jaffna,District,Sri Lanka,4,21
+1862.0,525.5999999999999,24,LK,Kilinochchi,District,Sri Lanka,4,24
+1863.0,700.8,32,LK,Mannar,District,Sri Lanka,4,32
+1864.0,1095.0,50,LK,Puttalam,District,Sri Lanka,4,50
+1865.0,416.09999999999997,19,LK,Gampaha,District,Sri Lanka,4,19
+1866.0,219.0,10,LK,Colombo,District,Sri Lanka,4,10
+1867.0,503.7,23,LK,Kalutara,District,Sri Lanka,4,23
+1868.0,525.5999999999999,24,LK,Galle,District,Sri Lanka,4,24
+1869.0,350.4,16,LK,Matara,District,Sri Lanka,4,16
+1870.0,941.6999999999999,43,LK,Hambantota,District,Sri Lanka,4,43
+1871.0,1357.8,62,LK,Ampara,District,Sri Lanka,4,62
+1872.0,832.1999999999999,38,LK,Batticaloa,District,Sri Lanka,4,38
+1873.0,1480.7,13,PH,Southern Leyte,Province,Philippines,4,67
+1874.0,1178.4,12,VN,Tiền Giang,Province,Vietnam,4,54
+1875.0,982.0,10,VN,Bà Rịa-Vũng Tàu,Province,Vietnam,4,45
+1877.0,1080.2,11,VN,Ho Chi Minh,City|Municipality|Thanh Pho,Vietnam,4,49
+1878.0,3417.0,30,PH,Leyte,Province,Philippines,4,156
+1879.0,2961.4,26,PH,Eastern Samar,Province,Philippines,4,135
+1880.0,569.5,5,PH,Biliran,Province,Philippines,4,26
+1881.0,3075.3,27,PH,Samar,Province,Philippines,4,141
+1882.0,2356.8,24,VN,Khánh Hòa,Province,Vietnam,4,108
+1883.0,1.1400000000000001,6,CW,Curaçao,,Curaçao,4,0
+1884.0,0.5,1,PA,Colón,Province,Panama,4,0
+1885.0,3373.5,65,CO,Antioquia,Department,Colombia,4,154
+1886.0,1297.5,25,CO,Córdoba,Department,Colombia,4,59
+1887.0,674.6999999999999,13,CO,Sucre,Department,Colombia,4,30
+1888.0,1297.5,25,CO,Bolívar,Department,Colombia,4,59
+1889.0,207.6,4,CO,Atlántico,Department,Colombia,4,9
+1890.0,1297.5,25,CO,Magdalena,Department,Colombia,4,59
+1891.0,227.2,8,VE,Merida,State,Venezuela,4,10
+1892.0,170.39999999999998,6,VE,Trujillo,State,Venezuela,4,7
+1893.0,795.1999999999999,28,VE,Falcón,State,Venezuela,4,36
+1894.0,113.6,4,VE,Yaracuy,State,Venezuela,4,5
+1895.0,85.19999999999999,3,VE,Carabobo,State,Venezuela,4,3
+1896.0,170.39999999999998,6,VE,Aragua,State,Venezuela,4,7
+1897.0,56.8,2,VE,Vargas state,State,Venezuela,4,2
+1898.0,284.0,10,VE,Miranda,State,Venezuela,4,13
+1899.0,965.5999999999999,34,VE,Anzoátegui,State,Venezuela,4,44
+1900.0,397.59999999999997,14,VE,Sucre,State,Venezuela,4,18
+1901.0,511.2,18,VE,Monagas,State,Venezuela,4,23
+1902.0,0.79,1,GY,Cuyuni-Mazaruni,Region,Guyana,4,0
+1903.0,1.58,2,GY,Upper Takutu-Upper Essequibo,Region,Guyana,4,0
+1905.0,0.79,1,GY,Mahaica-Berbice,Region,Guyana,4,0
+1906.0,0.5,1,SR,Coronie,District,Suriname,4,0
+1911.0,7.0,14,AW,Aruba,,Aruba,4,0
+1912.0,2104327.8,1473,IN,Andhra Pradesh,State,India,1969,96513
+1913.0,387.6,34,HT,Sud,Department,Haiti,4,17
+1914.0,32898.6,147,NG,Ondo State,State,Nigeria,30,1508
+1915.0,36479.4,163,NG,Delta State,State,Nigeria,34,1673
+1916.0,24618.0,110,NG,Bayelsa State,State,Nigeria,23,1129
+1917.0,20589.600000000002,92,NG,Rivers State,State,Nigeria,19,944
+1918.0,17008.8,76,NG,Akwa Ibom State,State,Nigeria,15,780
+1919.0,920.6999999999999,33,CM,Littoral,Province,Cameroon,4,42
+1920.0,1.5,3,GA,Ogooué-Maritime,Province,Gabon,4,0
+1922.0,1311.0,38,AO,Bengo,Province,Angola,4,60
+1923.0,172.5,5,AO,Luanda,Province,Angola,4,7
+1924.0,0.5,1,LY,Sirte,Municipality|Governarate,Libya,4,0
+1925.0,0.5,1,LY,Misrata,Municipality|Governarate,Libya,4,0
+1929.0,1.0,2,TN,Gabès,Governorate,Tunisia,4,0
+1931.0,1.0,2,TN,Mahdia,Governorate,Tunisia,4,0
+1934.0,0.5,1,TN,Nabeul,Governorate,Tunisia,4,0
+1935.0,0.5,1,TN,Ben Arous,Governorate,Tunisia,4,0
+1939.0,0.5,1,TN,Beja,Governorate,Tunisia,4,0
+1940.0,44.2,1,DZ,Annaba,Province,Algeria,4,2
+1941.0,132.60000000000002,3,DZ,Skikda,Province,Algeria,4,6
+1942.0,132.60000000000002,3,DZ,Jijel,Province,Algeria,4,6
+1943.0,176.8,4,DZ,Béjaïa,Province,Algeria,4,8
+1944.0,176.8,4,DZ,Tizi Ouzou,Province,Algeria,4,8
+1945.0,88.4,2,DZ,Boumerdès,Province,Algeria,4,4
+1946.0,44.2,1,DZ,Algiers,Province,Algeria,4,2
+1947.0,88.4,2,DZ,Tipasa,Province,Algeria,4,4
+1948.0,176.8,4,DZ,Chlef,Province,Algeria,4,8
+1949.0,132.60000000000002,3,DZ,Mostaganem,Province,Algeria,4,6
+1950.0,221.0,5,DZ,Oran,Province,Algeria,4,10
+1951.0,88.4,2,DZ,Aïn Témouchent,Province,Algeria,4,4
+1952.0,862.5,23,MA,Taza-Al Hoceïma-Taounate,Region,Morocco,4,39
+1953.0,375.0,10,MA,Gharb-Chrarda-Béni Hssen,Region,Morocco,4,17
+1954.0,450.0,12,MA,Rabat-Salé-Zemmour-Zaër,Region,Morocco,4,20
+1955.0,675.0,18,MA,Chaouia-Ouardigha,Region,Morocco,4,30
+1956.0,75.0,2,MA,Grand Casablanca,Region,Morocco,4,3
+1957.0,637.5,17,MA,Doukkala Abda,Region,Morocco,4,29
+1958.0,1237.5,33,MA,Marrakesh-Tensift-El Haouz,Region,Morocco,4,56
+1959.0,0.5,1,MR,Inchiri,Region,Mauritania,4,0
+1961.0,1.0,2,SN,Louga,Region,Senegal,4,0
+1962.0,0.5,1,SN,Thiès,Region,Senegal,4,0
+1965.0,6.300000000000001,3,GW,Biombo,Region,Guinea Bissau,4,0
+1967.0,10.5,5,GW,Quinara,Region,Guinea Bissau,4,0
+1968.0,18.900000000000002,9,GW,Bolama,Region,Guinea Bissau,4,0
+1969.0,0.5,1,GN,Boffa Prefecture,Prefecture,Guinea,4,0
+1973.0,43.5,5,SL,Western Area,Province,Sierra Leone,4,1
+1974.0,21.2,4,LR,Bomi,County,Liberia,4,0
+1975.0,15.899999999999999,3,LR,Montserrado,County,Liberia,4,0
+1976.0,21.2,4,LR,Margibi,County,Liberia,4,0
+1977.0,79.5,15,LR,Grand Bassa,County,Liberia,4,3
+1978.0,47.699999999999996,9,LR,River Cess,County,Liberia,4,2
+1979.0,84.8,16,LR,Sinoe,County,Liberia,4,3
+1980.0,42.4,8,LR,Grand Kru,County,Liberia,4,1
+1981.0,1045.0,38,CI,Sud-Bandama,Department,Ivory Coast,4,47
+1982.0,1485.0,54,CI,Lagunes,Department,Ivory Coast,4,68
+1983.0,1870.3,59,GH,Central,Region,Ghana,4,85
+1984.0,665.6999999999999,21,GH,Greater Accra,Region,Ghana,4,30
+1985.0,0.5,1,BJ,Atlantique,Department,Benin,4,0
+1987.0,1701.7,13,MX,Colima,State,Mexico,4,78
+1988.0,273.6,24,HT,Grand'Anse,Department,Haiti,4,12
+1989.0,2619.7000000000003,23,PH,Aurora,Province,Philippines,4,120
+1990.0,6378.400000000001,56,PH,Quezon,Province,Philippines,5,292
+1991.0,1252.9,11,PH,Camarines Norte,Province,Philippines,4,57
+1992.0,3644.8,32,PH,Camarines Sur,Province,Philippines,4,167
+1993.0,1594.6000000000001,14,PH,Albay,Province,Philippines,4,73
+1994.0,1252.9,11,PH,Sorsogon,Province,Philippines,4,57
+1995.0,113.9,1,PH,Lucena,Highly Urbanized City,Philippines,4,5
+1996.0,2164.1,19,PH,Batangas,Province,Philippines,4,99
+1997.0,569.5,5,PH,Cavite,Province,Philippines,4,26
+1998.0,113.9,1,PH,Las Pinas,Highly Urbanized City,Philippines,4,5
+2003.0,1139.0,10,PH,Bulacan,Province,Philippines,4,52
+2004.0,797.3000000000001,7,PH,Pampanga,Province,Philippines,4,36
+2005.0,797.3000000000001,7,PH,Bataan,Province,Philippines,4,36
+2006.0,227.8,2,PH,Olongapo,Highly Urbanized City,Philippines,4,10
+2007.0,1936.3000000000002,17,PH,Zambales,Province,Philippines,4,88
+2008.0,2733.6000000000004,24,PH,Pangasinan,Province,Philippines,4,125
+2009.0,113.9,1,PH,Dagupan,Independent Component City,Philippines,4,5
+2010.0,1139.0,10,PH,La Union,Province,Philippines,4,52
+2011.0,1594.6000000000001,14,PH,Ilocos Sur,Province,Philippines,4,73
+2012.0,1594.6000000000001,14,PH,Ilocos Norte,Province,Philippines,4,73
+2013.0,6378.400000000001,56,PH,Cagayan,Province,Philippines,5,292
+2014.0,4669.900000000001,41,PH,Isabela,Province,Philippines,4,214
+2015.0,364.8,32,HT,Nord-Ouest,Department,Haiti,4,16
+2016.0,186093.6,132,CN,Hainan,Province,China,174,8535
+2017.0,6152.3,47,MX,Nayarit,State,Mexico,5,282
+2018.0,0.41,1,BS,Inagua,District,The Bahamas,4,0
+2019.0,1.5,3,TC,Providenciales and West Caicos,,Turks and Caicos Islands,4,0
+2020.0,1.5,3,TC,South Caicos and East Caicos,,Turks and Caicos Islands,4,0
+2021.0,0.5,1,TC,Middle Caicos,,Turks and Caicos Islands,4,0
+2022.0,0.5,1,TC,North Caicos,,Turks and Caicos Islands,4,0
+2025.0,610443.4,433,CN,Fujian,Province,China,571,27997
+2026.0,16624.3,127,MX,Baja California Sur,State,Mexico,15,762
+2027.0,235.3,13,SO,Middle Juba,Region,Somalia,4,10
+2028.0,362.0,20,SO,Lower Shebelle,Region,Somalia,4,16
+2030.0,271.5,15,SO,Middle Shebelle,Region,Somalia,4,12
+2032.0,5564.0,52,EG,Suez,Governorate,Egypt,5,255
+2033.0,18190.0,170,EG,South Sinai,Governorate,Egypt,17,834
+2034.0,2400.3999999999996,68,SA,Tabuk,Region,Saudi Arabia,4,110
+2035.0,2894.6,82,SA,Al Madinah,Region,Saudi Arabia,4,132
+2036.0,3035.7999999999997,86,SA,Makkah,Region,Saudi Arabia,4,139
+2037.0,1415.4,42,YE,Al Hudaydah,Governorate,Yemen,4,64
+2038.0,876.2,26,YE,Ta'izz,Governorate,Yemen,4,40
+2039.0,977.3000000000001,29,YE,Lahij,Governorate,Yemen,4,44
+2040.0,33.7,1,YE,'Adan,Governorate,Yemen,4,1
+2041.0,1314.3000000000002,39,YE,Abyan,Governorate,Yemen,4,60
+2042.0,2729.7000000000003,81,YE,Shabwah,Governorate,Yemen,4,125
+2043.0,0.5,1,OM,Ash Sharqiyah,Region,Oman,4,0
+2045.0,0.5,1,OM,Muscat,Province,Oman,4,0
+2049.0,2.0,4,QA,Al Wakrah,Municipality,Qatar,4,0
+2050.0,0.5,1,QA,Doha,Municipality,Qatar,4,0
+2052.0,1.5,3,QA,Al Khor,Municipality,Qatar,4,0
+2053.0,1.5,3,QA,Madinat ash Shamal,Municipality,Qatar,4,0
+2058.0,0.5,1,TW,Hsinchu,County,Taiwan,4,0
+2061.0,0.5,1,TW,Taichung City,Special Municipality,Taiwan,4,0
+2062.0,0.5,1,TW,Changhua,County,Taiwan,4,0
+2064.0,0.5,1,TW,Chiayi,County,Taiwan,4,0
+2065.0,0.5,1,TW,Tainan,Special Municipality,Taiwan,4,0
+2067.0,1.0,2,TW,Pingtung,County,Taiwan,4,0
+2068.0,1.0,2,TW,Taitung,County,Taiwan,4,0
+2069.0,1.0,2,TW,Hualien,County,Taiwan,4,0
+2071.0,0.5,1,TW,New Taipei,Special Municipality,Taiwan,4,0
+2073.0,10602.9,81,MX,Sinaloa,State,Mexico,9,486
+2074.0,5040.0,15,US,Louisiana,State,United States of America,4,231
+2075.0,3696.0,11,US,Mississippi,State,United States of America,4,169
+2076.0,7392.0,22,US,Alabama,State,United States of America,6,339
+2077.0,9744.0,29,US,Florida,State,United States of America,9,446
+2078.0,5376.0,16,US,Georgia,State,United States of America,5,246
+2079.0,3696.0,11,US,South Carolina,State,United States of America,4,169
+2080.0,6048.0,18,US,North Carolina,State,United States of America,5,277
+2081.0,5040.0,15,US,Virginia,State,United States of America,4,231
+2083.0,1008.0,3,US,Maryland,State,United States of America,4,46
+2084.0,336.0,1,US,Delaware,State,United States of America,4,15
+2085.0,1008.0,3,US,New Jersey,State,United States of America,4,46
+2086.0,672.0,2,US,Connecticut,State,United States of America,4,30
+2088.0,1680.0,5,US,Massachusetts,State,United States of America,4,77
+2090.0,2.0,4,NI,South Caribbean Coast,Autonomous Region,Nicaragua,4,0
+2091.0,1.5,3,HN,Colón,Department,Honduras,4,0
+2092.0,0.5,1,HN,Atlántida,Department,Honduras,4,0
+2093.0,1.0,2,BZ,Stann Creek,District,Belize,4,0
+2094.0,2.5,5,BZ,Belize,District,Belize,4,0
+2095.0,7068.6,54,MX,Yucatán,State,Mexico,6,324
+2096.0,13220.900000000001,101,MX,Veracruz,State,Mexico,12,606
+2097.0,13220.900000000001,101,MX,Jalisco,State,Mexico,12,606
+2098.0,9817.5,75,MX,Michoacán,State,Mexico,9,450
+2099.0,10602.9,81,MX,Guerrero,State,Mexico,9,486
+2100.0,15315.300000000001,117,MX,Oaxaca,State,Mexico,14,702
+2101.0,0.5,1,GT,Retalhuleu,Department,Guatemala,4,0
+2103.0,0.5,1,GT,Escuintla,Department,Guatemala,4,0
+2104.0,0.5,1,GT,Santa Rosa,Department,Guatemala,4,0
+2105.0,0.5,1,SV,Sonsonate,Department,El Salvador,4,0
+2106.0,1.0,2,SV,La Libertad,Department,El Salvador,4,0
+2107.0,1.0,2,SV,La Paz,Department,El Salvador,4,0
+2109.0,1.0,2,SV,Usulután,Department,El Salvador,4,0
+2110.0,0.5,1,NI,León,Department,Nicaragua,4,0
+2113.0,1.0,2,PA,Los Santos,Province,Panama,4,0
+2115.0,551231.7999999999,391,CN,Zhejiang,Province,China,515,25281
+2116.0,46523.4,33,CN,Shanghai,Municipality,China,43,2133
+2117.0,2490.0,20,JP,Kagoshima Prefecture,Prefecture,Japan,4,114
+2118.0,547002.4,388,CN,Jiangsu,Province,China,511,25087
+2119.0,4922.400000000001,56,IR,Bushehr,Province,Iran,4,225
+2120.0,12306.0,140,IR,Hormozgan,Province,Iran,11,564
+2121.0,0.5,1,IL,Tel Aviv,District,Israel,4,0
+2122.0,428.0,4,EG,Port Said,Governorate,Egypt,4,19
+2123.0,2247.0,21,EG,Dakahlia,Governorate,Egypt,4,103
+2124.0,2675.0,25,EG,Al Sharqia,Governorate,Egypt,4,122
+2125.0,3638.0,34,EG,Ismailia,Governorate,Egypt,4,166
+2126.0,856.0,8,EG,Damietta,Governorate,Egypt,4,39
+2127.0,2568.0,24,EG,Kafr el-Sheikh,Governorate,Egypt,4,117
+2128.0,6527.0,61,EG,Beheira,Governorate,Egypt,6,299
+2129.0,1498.0,14,EG,Alexandria,Governorate,Egypt,4,68
+2133.0,0.5,1,LY,Benghazi,Municipality|Governarate,Libya,4,0
+2134.0,1369.5,11,JP,Ōita Prefecture,Prefecture,Japan,4,62
+2135.0,747.0,6,JP,Fukuoka Prefecture,Prefecture,Japan,4,34
+2136.0,373.5,3,JP,Saga Prefecture,Prefecture,Japan,4,17
+2137.0,1867.5,15,JP,Nagasaki Prefecture,Prefecture,Japan,4,85
+2138.0,1245.0,10,JP,Kumamoto Prefecture,Prefecture,Japan,4,57
+2139.0,1245.0,10,JP,Miyazaki Prefecture,Prefecture,Japan,4,57
+2140.0,871.5,7,JP,Tokushima Prefecture,Prefecture,Japan,4,39
+2141.0,124.5,1,JP,Kagawa Prefecture,Prefecture,Japan,4,5
+2142.0,1245.0,10,JP,Ehime Prefecture,Prefecture,Japan,4,57
+2143.0,1743.0,14,JP,Kōchi Prefecture,Prefecture,Japan,4,79
+2144.0,1992.0,16,JP,Shimane Prefecture,Prefecture,Japan,4,91
+2145.0,3412.2000000000003,66,KR,South Chungcheong,Province,South Korea,4,156
+2146.0,1494.0,12,JP,Yamaguchi Prefecture,Prefecture,Japan,4,68
+2147.0,747.0,6,JP,Tottori Prefecture,Prefecture,Japan,4,34
+2148.0,1494.0,12,JP,Hyōgo Prefecture,Prefecture,Japan,4,68
+2149.0,622.5,5,JP,Kyōto Prefecture,Urban Prefecture,Japan,4,28
+2150.0,871.5,7,JP,Fukui Prefecture,Prefecture,Japan,4,39
+2151.0,1618.5,13,JP,Ishikawa Prefecture,Prefecture,Japan,4,74
+2152.0,747.0,6,JP,Toyama Prefecture,Prefecture,Japan,4,34
+2153.0,3112.5,25,JP,Niigata Prefecture,Prefecture,Japan,4,142
+2154.0,1618.5,13,JP,Yamagata Prefecture,Prefecture,Japan,4,74
+2155.0,1992.0,16,JP,Akita Prefecture,Prefecture,Japan,4,91
+2156.0,2614.5,21,JP,Aomori Prefecture,Prefecture,Japan,4,119
+2157.0,2739.0,22,JP,Iwate Prefecture,Prefecture,Japan,4,125
+2158.0,1494.0,12,JP,Miyagi Prefecture,Prefecture,Japan,4,68
+2159.0,1992.0,16,JP,Fukushima Prefecture,Prefecture,Japan,4,91
+2160.0,1120.5,9,JP,Ibaraki Prefecture,Prefecture,Japan,4,51
+2161.0,1369.5,11,JP,Chiba Prefecture,Prefecture,Japan,4,62
+2162.0,1369.5,11,JP,Tokyo,Metropolis,Japan,4,62
+2163.0,622.5,5,JP,Kanagawa Prefecture,Prefecture,Japan,4,28
+2164.0,1618.5,13,JP,Shizuoka Prefecture,Prefecture,Japan,4,74
+2165.0,871.5,7,JP,Aichi Prefecture,Prefecture,Japan,4,39
+2166.0,1245.0,10,JP,Mie Prefecture,Prefecture,Japan,4,57
+2167.0,871.5,7,JP,Wakayama Prefecture,Prefecture,Japan,4,39
+2168.0,498.0,4,JP,Ōsaka Prefecture,Urban Prefecture,Japan,4,22
+2169.0,1120.5,9,JP,Okayama Prefecture,Prefecture,Japan,4,51
+2170.0,1120.5,9,JP,Hiroshima Prefecture,Prefecture,Japan,4,51
+2171.0,12432.0,37,US,Oregon,State,United States of America,11,570
+2172.0,19448.5,485,CA,Nunavut,Territory,Canada,18,891
+2173.0,1924.8000000000002,48,CA,Newfoundland and Labrador,Province,Canada,4,88
+2174.0,401.0,10,CA,Nova Scotia,Province,Canada,4,18
+2175.0,17928.0,144,JP,Hokkaidō,Circuit,Japan,16,822
+2176.0,1.0,2,PM,Saint Pierre and Miquelon,Commune,Saint Pierre and Miquelon,4,0
+2177.0,7.5,15,PM,Miquelon-Langlade,Commune,Saint Pierre and Miquelon,4,0
+2178.0,2031469.2,1422,IN,Odisha,State,India,1901,93171
+2179.0,66736.0,388,BD,Barisal,Division,Bangladesh,62,3060
+2180.0,3354.2000000000003,62,MM,Ayeyarwady,Division,Myanmar,4,153
+2181.0,1082.0,20,MM,Yangon,Division,Myanmar,4,49
+2182.0,3300.1,61,MM,Bago,Division,Myanmar,4,151
+2183.0,1290.6000000000001,18,TH,Phang Nga,Province,Thailand,4,59
+2184.0,1218.9,17,TH,Krabi,Province,Thailand,4,55
+2185.0,1075.5,15,TH,Trang,Province,Thailand,4,49
+2186.0,33.0,1,MY,Penang,State,Malaysia,4,1
+2187.0,528.0,16,MY,Selangor,State,Malaysia,4,24
+2188.0,330.0,10,MY,Negeri Sembilan,State,Malaysia,4,15
+2189.0,132.0,4,MY,Melaka,State,Malaysia,4,6
+2190.0,1221.0,37,MY,Johor,State,Malaysia,4,56
+2191.0,1650.0,50,MY,Pahang,State,Malaysia,4,75
+2192.0,759.0,23,MY,Terengganu,State,Malaysia,4,34
+2193.0,717.0,10,TH,Pattani,Province,Thailand,4,32
+2194.0,717.0,10,TH,Phatthalung,Province,Thailand,4,32
+2195.0,2509.5,35,TH,Nakhon Si Thammarat,Province,Thailand,4,115
+2196.0,3513.3,49,TH,Surat Thani,Province,Thailand,4,161
+2197.0,143.4,2,TH,Samut Songkhram,Province,Thailand,4,6
+2198.0,286.8,4,TH,Samut Sakhon,Province,Thailand,4,13
+2199.0,286.8,4,TH,Bangkok,Province,Thailand,4,13
+2200.0,215.10000000000002,3,TH,Samut Prakan,Province,Thailand,4,9
+2201.0,1218.9,17,TH,Chachoengsao,Province,Thailand,4,55
+2202.0,1075.5,15,TH,Chon Buri,Province,Thailand,4,49
+2203.0,788.7,11,TH,Rayong,Province,Thailand,4,36
+2205.0,2847.8,29,VN,Cà Mau,Province,Vietnam,4,130
+2206.0,1080.2,11,VN,Bạc Liêu,Province,Vietnam,4,49
+2207.0,1080.2,11,VN,Hậu Giang,Region,Vietnam,4,49
+2208.0,491.0,5,VN,Vĩnh Long,Province,Vietnam,4,22
+2209.0,1080.2,11,VN,Trà Vinh,Province,Vietnam,4,49
+2210.0,1178.4,12,VN,Bến Tre,Province,Vietnam,4,54
+2211.0,2553.2000000000003,26,VN,Đông Nam Bộ,Region,Vietnam,4,117
+2212.0,4124.400000000001,42,VN,Bình Thuận,Province,Vietnam,4,189
+2213.0,1669.4,17,VN,Ninh Thuận,Province,Vietnam,4,76
+2214.0,2847.8,29,VN,Phú Yên,Province,Vietnam,4,130
+2215.0,3142.4,32,VN,Bình Định,Province,Vietnam,4,144
+2216.0,2356.8,24,VN,Quảng Ngãi,Province,Vietnam,4,108
+2217.0,392.8,4,VN,Da Nang,City|Municipality|Thanh Pho,Vietnam,4,18
+2218.0,589.2,6,VN,Ninh Bình,Province,Vietnam,4,27
+2219.0,1080.2,11,VN,Nam Định,Province,Vietnam,4,49
+2220.0,785.6,8,VN,Thái Bình,Province,Vietnam,4,36
+2221.0,491.0,5,VN,Haiphong,Province,Vietnam,4,22
+2222.0,879715.2,624,CN,Shandong,Province,China,823,40347
+2223.0,1071448.0,760,CN,Hebei,Province,China,1002,49141
+2224.0,69080.2,49,CN,Tianjin,Municipality,China,64,3168
+2225.0,1716.0,66,KP,South Pyongan,Province,North Korea,4,78
+2226.0,1300.0,50,KP,South Hwanghae,Province,North Korea,4,59
+2227.0,413.6,8,KR,Incheon,Metropolitan City,South Korea,4,18
+2228.0,3670.7000000000003,71,KR,North Jeolla,Province,South Korea,4,168
+2229.0,7082.900000000001,137,KR,South Jeolla,Metropolitan City,South Korea,6,324
+2230.0,4963.200000000001,96,KR,South Gyeongsang,Province,South Korea,4,227
+2231.0,103.4,2,KR,Busan,Metropolitan City,South Korea,4,4
+2232.0,620.4000000000001,12,KR,Ulsan,Metropolitan City,South Korea,4,28
+2233.0,8065.200000000001,156,KR,North Gyeongsang,Metropolitan City,South Korea,7,369
+2234.0,2574.0,99,KP,South Hamgyong,Province,North Korea,4,118
+2235.0,8375.2,58,RU,Magadan,Region,Russia,7,384
+2236.0,8571.599999999999,6,IN,Dadra and Nagar Haveli and Daman and Diu,Union Territory,India,8,393
+2237.0,3984365.4,2789,IN,Maharashtra,State,India,3729,182739
+2238.0,51429.6,36,IN,Goa,State,India,48,2358
+2239.0,2408619.5999999996,1686,IN,Karnataka,State,India,2254,110469
+2240.0,505724.39999999997,354,IN,Kerala,State,India,473,23194
+2241.0,10000.199999999999,7,IN,Puducherry,Union Territory,India,9,458
+2242.0,1675747.7999999998,1173,IN,Tamil Nadu,State,India,1568,76856
+2243.0,3754.4,26,RU,Sakhalin,Region,Russia,4,172
+2247.0,1.0,2,IE,Wexford,County,Ireland,4,0
+2248.0,0.5,1,IE,Kilkenny,County,Ireland,4,0
+2249.0,0.5,1,IE,Waterford,County,Ireland,4,0
+2250.0,1.0,2,IE,Cork,County,Ireland,4,0
+2252.0,1.0,2,IE,Kerry,County,Ireland,4,0
+2253.0,1.0,2,IE,Limerick,County,Ireland,4,0
+2255.0,1.0,2,IE,Galway,County,Ireland,4,0
+2257.0,1.0,2,IE,Mayo,County,Ireland,4,0
+2258.0,0.5,1,IE,Sligo,County,Ireland,4,0
+2259.0,201.89999999999998,3,GB,Limavady,District,United Kingdom,4,9
+2260.0,134.6,2,GB,Coleraine,District,United Kingdom,4,6
+2261.0,269.2,4,GB,Moyle,District,United Kingdom,4,12
+2262.0,201.89999999999998,3,GB,Larne,District,United Kingdom,4,9
+2265.0,67.3,1,GB,Belfast,District,United Kingdom,4,3
+2267.0,134.6,2,GB,Ards,District,United Kingdom,4,6
+2268.0,201.89999999999998,3,GB,Down,District,United Kingdom,4,9
+2269.0,0.5,1,IE,Meath,County,Ireland,4,0
+2271.0,3088.5,71,UA,Zaporizhzhia,Region,Ukraine,4,141
+2273.0,2392.5,55,UA,Mykolaiv,Region,Ukraine,4,109
+2275.0,2559.0,30,TR,Istanbul,Province,Turkey,4,117
+2276.0,3070.7999999999997,36,TR,Tekirdağ,Province,Turkey,4,140
+2277.0,5118.0,60,TR,Çanakkale,Province,Turkey,4,234
+2278.0,67.3,1,GB,Clackmannanshire,Unitary District,United Kingdom,4,3
+2279.0,605.6999999999999,9,GB,Stirling,Unitary District,United Kingdom,4,27
+2280.0,134.6,2,GB,Falkirk,Unitary District,United Kingdom,4,6
+2281.0,67.3,1,GB,West Lothian,Unitary District,United Kingdom,4,3
+2282.0,134.6,2,GB,Edinburgh,Unitary District (city),United Kingdom,4,6
+2283.0,67.3,1,GB,Midlothian,Unitary District,United Kingdom,4,3
+2284.0,201.89999999999998,3,GB,East Lothian,Unitary District,United Kingdom,4,9
+2286.0,67.3,1,GB,South Tyneside,Metropolitan Borough,United Kingdom,4,3
+2287.0,67.3,1,GB,Sunderland,Metropolitan Borough,United Kingdom,4,3
+2288.0,538.4,8,GB,Durham,Unitary Single-Tier County,United Kingdom,4,24
+2290.0,134.6,2,GB,Redcar and Cleveland,Unitary Authority,United Kingdom,4,6
+2291.0,2153.6,32,GB,North Yorkshire,Administrative County,United Kingdom,4,98
+2292.0,740.3,11,GB,East Riding of Yorkshire,Unitary Authority,United Kingdom,4,33
+2294.0,134.6,2,GB,North Lincolnshire,Unitary Authority,United Kingdom,4,6
+2296.0,1682.5,25,GB,Lincolnshire,Administrative County,United Kingdom,4,77
+2297.0,1278.7,19,GB,Norfolk,Administrative County,United Kingdom,4,58
+2298.0,942.1999999999999,14,GB,Suffolk,Administrative County,United Kingdom,4,43
+2299.0,942.1999999999999,14,GB,Essex,Administrative County,United Kingdom,4,43
+2300.0,67.3,1,GB,Southend-on-Sea,Unitary Authority,United Kingdom,4,3
+2301.0,67.3,1,GB,Thurrock,Unitary Authority,United Kingdom,4,3
+2302.0,1076.8,16,GB,Kent,Administrative County,United Kingdom,4,49
+2304.0,471.09999999999997,7,GB,East Sussex,Administrative County,United Kingdom,4,21
+2306.0,538.4,8,GB,West Sussex,Administrative County,United Kingdom,4,24
+2307.0,740.3,11,GB,Hampshire,Administrative County,United Kingdom,4,33
+2310.0,673.0,10,GB,Dorset,Administrative County,United Kingdom,4,30
+2313.0,1884.3999999999999,28,GB,Devon,Administrative County,United Kingdom,4,86
+2314.0,67.3,1,GB,Torbay,Unitary Authority,United Kingdom,4,3
+2315.0,67.3,1,GB,Plymouth,Unitary Authority,United Kingdom,4,3
+2316.0,1346.0,20,GB,Cornwall,Unitary Single-Tier County,United Kingdom,4,61
+2317.0,740.3,11,GB,Somerset,Administrative County,United Kingdom,4,33
+2318.0,134.6,2,GB,North Somerset,Unitary Authority,United Kingdom,4,6
+2319.0,67.3,1,GB,Bristol,Unitary Authority,United Kingdom,4,3
+2320.0,67.3,1,GB,South Gloucestershire,Unitary Authority,United Kingdom,4,3
+2321.0,67.3,1,GB,Newport,Unitary Authority (wales),United Kingdom,4,3
+2322.0,67.3,1,GB,Cardiff,Unitary Authority (wales),United Kingdom,4,3
+2323.0,134.6,2,GB,Vale of Glamorgan,Unitary Authority (wales),United Kingdom,4,6
+2324.0,67.3,1,GB,Bridgend,Unitary Authority (wales),United Kingdom,4,3
+2325.0,134.6,2,GB,Neath Port Talbot,Unitary Authority (wales),United Kingdom,4,6
+2326.0,201.89999999999998,3,GB,Swansea,Unitary Authority (wales),United Kingdom,4,9
+2327.0,605.6999999999999,9,GB,Carmarthenshire,Unitary Authority (wales),United Kingdom,4,27
+2328.0,673.0,10,GB,Pembrokeshire,Unitary Authority (wales),United Kingdom,4,30
+2329.0,471.09999999999997,7,GB,Ceredigion,Principality,United Kingdom,4,21
+2330.0,740.3,11,GB,Gwynedd,Unitary Authority (wales),United Kingdom,4,33
+2331.0,269.2,4,GB,Conwy,Unitary Authority (wales),United Kingdom,4,12
+2332.0,269.2,4,GB,Denbighshire,Unitary Authority (wales),United Kingdom,4,12
+2333.0,67.3,1,GB,Halton,Metropolitan Borough,United Kingdom,4,3
+2336.0,67.3,1,GB,Liverpool,Metropolitan Borough,United Kingdom,4,3
+2337.0,67.3,1,GB,Sefton,Metropolitan Borough,United Kingdom,4,3
+2338.0,673.0,10,GB,Lancashire,Administrative County,United Kingdom,4,30
+2340.0,336.5,5,GB,South Ayrshire,Unitary District,United Kingdom,4,15
+2341.0,201.89999999999998,3,GB,North Ayrshire,Unitary District,United Kingdom,4,9
+2343.0,67.3,1,GB,Renfrewshire,Unitary District,United Kingdom,4,3
+2345.0,2893.9,43,GB,Argyll and Bute,Unitary District,United Kingdom,4,132
+2346.0,7537.599999999999,112,GB,Highland,Unitary District,United Kingdom,7,345
+2347.0,740.3,11,GB,Moray,Unitary District,United Kingdom,4,33
+2348.0,1884.3999999999999,28,GB,Aberdeenshire,Unitary District,United Kingdom,4,86
+2349.0,134.6,2,GB,Aberdeen,Unitary District (city),United Kingdom,4,6
+2350.0,538.4,8,GB,Angus,Unitary District,United Kingdom,4,24
+2351.0,67.3,1,GB,Dundee,Unitary District (city),United Kingdom,4,3
+2352.0,1346.0,20,GB,Perth and Kinross,Unitary District,United Kingdom,4,61
+2353.0,403.79999999999995,6,GB,Fife,Unitary District,United Kingdom,4,18
+2354.0,15739.6,109,RU,Chukotka Autonomous Okrug,Autonomous Province,Russia,14,721
+2355.0,1.1400000000000001,3,IS,Austurland,Region,Iceland,4,0
+2356.0,1.52,4,IS,Southern,Region,Iceland,4,0
+2357.0,0.38,1,IS,Southern Peninsula,Independent Town,Iceland,4,0
+2361.0,0.38,1,IS,Westfjords,Region,Iceland,4,0
+2362.0,0.76,2,IS,Northwestern,Region,Iceland,4,0
+2363.0,1.1400000000000001,3,IS,Northeastern,Region,Iceland,4,0
+2364.0,15017.6,104,RU,Yamalo-Nenets Autonomous Okrug,Autonomous Province,Russia,14,688
+2365.0,5342.8,37,RU,Nenets Autonomous Okrug,Autonomous Province,Russia,5,245
+2366.0,8020.0,200,CA,Northwest Territories,Territory,Canada,7,367
+2367.0,57615.600000000006,399,RU,Sakha Republic,Autonomous Province,Russia,53,2642
+2372.0,0.5,1,LV,Ventspils,Municipality,Latvia,4,0
+2374.0,1.0,2,LV,Dundaga,Municipality,Latvia,4,0
+2376.0,0.5,1,LV,Talsi,Municipality,Latvia,4,0
+2384.0,0.5,1,EE,Lääne,County,Estonia,4,0
+2385.0,1.0,2,EE,Harju,County,Estonia,4,0
+2386.0,1.0,2,EE,Lääne-Viru,County,Estonia,4,0
+2390.0,0.5,1,FI,Satakunta,Region,Finland,4,0
+2393.0,156.0,15,SE,Västernorrland,County,Sweden,4,7
+2394.0,145.6,14,SE,Gävleborg,County,Sweden,4,6
+2395.0,52.0,5,SE,Uppsala,County,Sweden,4,2
+2396.0,72.8,7,SE,Stockholm,County,Sweden,4,3
+2397.0,41.6,4,SE,Södermanland,County,Sweden,4,1
+2398.0,62.400000000000006,6,SE,Östergötland,County,Sweden,4,2
+2399.0,104.0,10,SE,Kalmar,County,Sweden,4,4
+2400.0,31.200000000000003,3,SE,Blekinge,County,Sweden,4,1
+2401.0,93.60000000000001,9,SE,Skåne,County,Sweden,4,4
+2402.0,41.6,4,SE,Halland,County,Sweden,4,1
+2410.0,0.5,1,NO,Hordaland,County,Norway,4,0
+2413.0,1791.3,21,TR,Rize,Province,Turkey,4,82
+2414.0,2132.5,25,TR,Trabzon,Province,Turkey,4,97
+2415.0,2900.2,34,TR,Giresun,Province,Turkey,4,133
+2416.0,2729.6,32,TR,Ordu,Province,Turkey,4,125
+2417.0,4265.0,50,TR,Samsun,Province,Turkey,4,195
+2418.0,2985.5,35,TR,Sinop,Province,Turkey,4,136
+2419.0,5288.599999999999,62,TR,Kastamonu,Province,Turkey,4,242
+2420.0,1108.8999999999999,13,TR,Bartın,Province,Turkey,4,50
+2421.0,1620.7,19,TR,Zonguldak,Province,Turkey,4,74
+2422.0,1023.5999999999999,12,TR,Düzce,Province,Turkey,4,46
+2423.0,1961.8999999999999,23,TR,Sakarya,Province,Turkey,4,89
+2424.0,1620.7,19,TR,Kocaeli,Province,Turkey,4,74
+2425.0,511.79999999999995,6,TR,Yalova,Province,Turkey,4,23
+2426.0,4435.599999999999,52,TR,Bursa,Province,Turkey,4,203
+2427.0,6141.599999999999,72,TR,Balıkesir,Province,Turkey,5,281
+2428.0,5971.0,70,TR,İzmir,Province,Turkey,5,273
+2429.0,3667.9,43,TR,Aydın,Province,Turkey,4,168
+2430.0,6141.599999999999,72,TR,Muğla,Province,Turkey,5,281
+2431.0,9212.4,108,TR,Antalya,Province,Turkey,8,422
+2432.0,6568.099999999999,77,TR,Mersin,Province,Turkey,6,301
+2433.0,6312.2,74,TR,Adana,Province,Turkey,5,289
+2434.0,1.0,2,LB,Mount Lebanon,Province,Lebanon,4,0
+2436.0,10830.0,75,RU,Arkhangelsk,Region,Russia,10,496
+2437.0,48229.6,334,RU,Krasnoyarsk Krai,Territory,Russia,45,2212
+2438.0,10.4,1,GR,Mount Athos,Autonomous Monastic State,Greece,4,0
+2439.0,187.20000000000002,18,GR,Thessalia,Region,Greece,4,8
+2440.0,218.4,21,GR,Central Greece,Region,Greece,4,10
+2441.0,104.0,10,GR,Attica,Region,Greece,4,4
+2442.0,239.20000000000002,23,GR,Peloponnese,Region,Greece,4,10
+2443.0,176.8,17,GR,West Greece,Region,Greece,4,8
+2444.0,0.5,1,AL,Fier,County,Albania,4,0
+2445.0,1.0,2,AL,Tirana,County,Albania,4,0
+2447.0,0.5,1,AL,Lezhë,County,Albania,4,0
+2451.0,0.5,1,HR,Lika-Senj,County,Croatia,4,0
+2453.0,596.0,10,IT,Venice,Province,Italy,4,27
+2454.0,476.8,8,IT,Padua,Province,Italy,4,21
+2455.0,357.6,6,IT,Rovigo,Province,Italy,4,16
+2456.0,536.4,9,IT,Ferrara,Province,Italy,4,24
+2457.0,357.6,6,IT,Ravenna,Province,Italy,4,16
+2458.0,417.2,7,IT,Forlì-Cesena,Province,Italy,4,19
+2459.0,476.8,8,IT,Ancona,Province,Italy,4,21
+2460.0,417.2,7,IT,Macerata,Province,Italy,4,19
+2461.0,298.0,5,IT,Fermo,Province,Italy,4,13
+2462.0,238.4,4,IT,Ascoli Piceno,Province,Italy,4,10
+2463.0,357.6,6,IT,Teramo,Province,Italy,4,16
+2464.0,357.6,6,IT,Pescara,Province,Italy,4,16
+2465.0,476.8,8,IT,Chieti,Province,Italy,4,21
+2466.0,476.8,8,IT,Campobasso,Province,Italy,4,21
+2467.0,1549.6000000000001,26,IT,Foggia,Province,Italy,4,71
+2468.0,417.2,7,IT,Barletta-Andria-Trani,Province,Italy,4,19
+2469.0,894.0,15,IT,Bari,Province,Italy,4,41
+2470.0,417.2,7,IT,Brindisi,Province,Italy,4,19
+2471.0,774.8000000000001,13,IT,Lecce,Province,Italy,4,35
+2472.0,596.0,10,IT,Taranto,Province,Italy,4,27
+2473.0,655.6,11,IT,Matera,Province,Italy,4,30
+2474.0,1490.0,25,IT,Cosenza,Province,Italy,4,68
+2475.0,596.0,10,IT,Crotone,Province,Italy,4,27
+2476.0,536.4,9,IT,Catanzaro,Province,Italy,4,24
+2477.0,894.0,15,IT,Reggio Calabria,Province,Italy,4,41
+2478.0,178.8,3,IT,Vibo Valentia,Province,Italy,4,8
+2479.0,1132.4,19,IT,Potenza,Province,Italy,4,51
+2480.0,953.6,16,IT,Salerno,Province,Italy,4,43
+2481.0,417.2,7,IT,Naples,Province,Italy,4,19
+2482.0,655.6,11,IT,Caserta,Province,Italy,4,30
+2483.0,596.0,10,IT,Latina,Province,Italy,4,27
+2484.0,1132.4,19,IT,Rome,Province,Italy,4,51
+2485.0,655.6,11,IT,Viterbo,Province,Italy,4,30
+2486.0,1013.2,17,IT,Grosseto,Province,Italy,4,46
+2487.0,834.4,14,IT,Livorno,Province,Italy,4,38
+2488.0,417.2,7,IT,Pisa,Province,Italy,4,19
+2489.0,357.6,6,IT,Lucca,Province,Italy,4,16
+2490.0,238.4,4,IT,Massa-Carrara,Province,Italy,4,10
+2491.0,178.8,3,IT,La Spezia,Province,Italy,4,8
+2492.0,417.2,7,IT,Liguria,Province,Italy,4,19
+2493.0,417.2,7,IT,Savona,Province,Italy,4,19
+2499.0,378.4,8,ES,Barcelona,Autonomous Community,Spain,4,17
+2500.0,425.7,9,ES,Tarragona,Autonomous Community,Spain,4,19
+2501.0,378.4,8,ES,Castellón,Autonomous Community,Spain,4,17
+2502.0,473.0,10,ES,Valencia,Autonomous Community,Spain,4,21
+2503.0,425.7,9,ES,Alicante,Autonomous Community,Spain,4,19
+2504.0,473.0,10,ES,Murcia,Autonomous Community,Spain,4,21
+2505.0,520.3,11,ES,Almería,Autonomous Community,Spain,4,23
+2506.0,473.0,10,ES,Granada,Autonomous Community,Spain,4,21
+2507.0,283.79999999999995,6,ES,Málaga,Autonomous Community,Spain,4,13
+2508.0,662.1999999999999,14,ES,Seville,Autonomous Community,Spain,4,30
+2509.0,20.6,2,PT,Setúbal,District,Portugal,4,0
+2510.0,20.6,2,PT,Lisbon,District,Portugal,4,0
+2511.0,20.6,2,PT,Santarém,District,Portugal,4,0
+2512.0,20.6,2,PT,Leiria,District,Portugal,4,0
+2514.0,20.6,2,PT,Aveiro,District,Portugal,4,0
+2516.0,614.9,13,ES,A Coruña,Autonomous Community,Spain,4,28
+2517.0,378.4,8,ES,Lugo,Autonomous Community,Spain,4,17
+2518.0,662.1999999999999,14,ES,Asturias,Autonomous Community,Spain,4,30
+2519.0,236.5,5,ES,Cantabria,Autonomous Community,Spain,4,10
+2520.0,94.6,2,ES,Biscay,Autonomous Community,Spain,4,4
+2539.0,83.2,1,DE,Free Hanseatic Bremen,State,Germany,4,3
+2540.0,582.4,7,DE,Hamburg,State,Germany,4,26
+2541.0,1.0,2,DK,Central Denmark,Region,Denmark,4,0
+2542.0,2.0,4,DK,North Denmark,Region,Denmark,4,0
+2543.0,2.0,4,GL,Sermersooq,,Greenland,4,0
+2544.0,5.0,10,GL,Northeast Greenland National Park,,Greenland,4,0
+2545.0,2.0,4,GL,Qaasuitsup,,Greenland,4,0
+2547.0,0.5,1,GL,Qeqqata,,Greenland,4,0
+2560.0,12857.4,9,IN,Lakshadweep,Union Territory,India,12,589
+2561.0,56.8,2,VE,Nueva Esparta,State,Venezuela,4,2
+2562.0,0.5,1,TT,Tunapuna-Piarco Regional Corporation,Region,Trinidad and Tobago,4,0
+2563.0,0.5,1,TT,San Juan–Laventille,Region,Trinidad and Tobago,4,0
+2567.0,1.0,2,TT,Couva-Tabaquite-Talparo,Region,Trinidad and Tobago,4,0
+2570.0,1.0,2,TT,Siparia Regional Corporation,Region,Trinidad and Tobago,4,0
+2572.0,0.5,1,TT,Princes Town,Region,Trinidad and Tobago,4,0
+2573.0,1.0,2,TT,Mayaro-Rio Claro,Region,Trinidad and Tobago,4,0
+2574.0,1.0,2,TT,Sangre Grande Regional Corporation,Region,Trinidad and Tobago,4,0
+2575.0,113.6,4,VE,Federal Dependencies,Federal Dependency,Venezuela,4,5
+2576.0,0.5,1,TT,Tobago,Region,Trinidad and Tobago,4,0
+2577.0,0.5,1,TT,Tobago,Region,Trinidad and Tobago,4,0
+2580.0,0.13,1,GD,Saint Andrew,Parish,Grenada,4,0
+2584.0,200004.0,140,IN,Andaman and Nicobar Islands,Union Territory,India,187,9173
+2586.0,0.13,1,GD,Carriacou and Petite Martinique,Dependency,Grenada,4,0
+2587.0,103.8,2,CO,Archipelago of Saint Andréws,Department,Colombia,4,4
+2589.0,0.29,1,BB,Saint Joseph,Parish,Barbados,4,0
+2591.0,0.29,1,BB,Saint Peter,Parish,Barbados,4,0
+2592.0,0.29,1,BB,Saint Lucy,Parish,Barbados,4,0
+2593.0,0.58,2,BB,Saint James,Parish,Barbados,4,0
+2594.0,0.29,1,BB,Saint Michael,Parish,Barbados,4,0
+2595.0,0.58,2,BB,Christ Church,Parish,Barbados,4,0
+2596.0,0.58,2,BB,Saint Philip,Parish,Barbados,4,0
+2597.0,0.58,2,BB,Saint John,Parish,Barbados,4,0
+2600.0,0.1,1,VC,Charlotte,Parish,Saint Vincent and the Grenadines,4,0
+2604.0,0.36,2,LC,Castries Quarter,Quarter,Saint Lucia,4,0
+2605.0,0.18,1,LC,Anse la Raye Quarter,Quarter,Saint Lucia,4,0
+2606.0,0.18,1,LC,Soufrière Quarter,Quarter,Saint Lucia,4,0
+2607.0,0.18,1,LC,Choiseul Quarter,Quarter,Saint Lucia,4,0
+2608.0,0.18,1,LC,Laborie Quarter,Quarter,Saint Lucia,4,0
+2610.0,0.18,1,LC,Micoud Quarter,Quarter,Saint Lucia,4,0
+2612.0,0.18,1,LC,Dennery Quarter,Quarter,Saint Lucia,4,0
+2613.0,0.18,1,LC,Dauphin Quarter,Quarter,Saint Lucia,4,0
+2617.0,0.07,1,DM,Saint Andrew,Parish,Dominica,4,0
+2618.0,0.07,1,DM,Saint John,Parish,Dominica,4,0
+2621.0,0.07,1,DM,Saint Paul,Parish,Dominica,4,0
+2622.0,0.07,1,DM,Saint George,Parish,Dominica,4,0
+2628.0,3.5,7,MS,Saint Peter,Parish,Montserrat,4,0
+2629.0,5.5,11,MS,Saint Anthony,Parish,Montserrat,4,0
+2630.0,2.0,4,MS,Saint George,Parish,Montserrat,4,0
+2635.0,0.1,1,AG,Saint John,Parish,Antigua and Barbuda,4,0
+2637.0,0.5,1,KN,Saint Paul Charlestown,Parish,Saint Kitts and Nevis,4,0
+2639.0,0.5,1,KN,Saint George Gingerland,Parish,Saint Kitts and Nevis,4,0
+2640.0,0.5,1,KN,Saint James Windward,Parish,Saint Kitts and Nevis,4,0
+2642.0,0.5,1,KN,Saint Paul Capisterre,Parish,Saint Kitts and Nevis,4,0
+2644.0,1.0,2,KN,Saint Thomas Middle Island,Parish,Saint Kitts and Nevis,4,0
+2646.0,1.0,2,KN,Saint George Basseterre,Parish,Saint Kitts and Nevis,4,0
+2647.0,0.5,1,KN,Saint Peter Basseterre,Parish,Saint Kitts and Nevis,4,0
+2648.0,0.5,1,KN,Saint Mary Cayon,Parish,Saint Kitts and Nevis,4,0
+2649.0,0.5,1,KN,Christ Church Nichola Town,Parish,Saint Kitts and Nevis,4,0
+2652.0,0.1,1,AG,Barbuda,Dependency,Antigua and Barbuda,4,0
+2653.0,2.0,4,VI,Saint Croix,,United States Virgin Islands,4,0
+2654.0,10.5,21,BL,Saint Barthélemy,,Saint Barthelemy,4,0
+2655.0,9.0,18,PR,Puerto Rico,,Puerto Rico,4,0
+2656.0,1.0,2,DO,La Altagracia,Province,Dominican Republic,4,0
+2657.0,0.5,1,AI,East End,District,Anguilla,4,0
+2659.0,0.5,1,AI,North Side,District,Anguilla,4,0
+2663.0,0.5,1,AI,South Hill,District,Anguilla,4,0
+2664.0,0.5,1,AI,West End,District,Anguilla,4,0
+2667.0,0.5,1,AI,Sandy Hill Bay,District,Anguilla,4,0
+2669.0,1.0,2,VI,Saint John,,United States Virgin Islands,4,0
+2670.0,1.0,2,VI,Saint Thomas,,United States Virgin Islands,4,0
+2671.0,5.5,11,VG,British Virgin Islands,,British Virgin Islands,4,0
+2672.0,1.0,2,JM,Saint Ann,Parish,Jamaica,4,0
+2673.0,1.0,2,JM,Trelawny,Parish,Jamaica,4,0
+2675.0,0.5,1,JM,Hanover,Parish,Jamaica,4,0
+2676.0,1.0,2,JM,Westmoreland,Parish,Jamaica,4,0
+2677.0,1.5,3,JM,Saint Elizabeth,Parish,Jamaica,4,0
+2679.0,1.5,3,JM,Clarendon,Parish,Jamaica,4,0
+2680.0,1.0,2,JM,Saint Catherine,Parish,Jamaica,4,0
+2681.0,0.5,1,JM,Saint Andrew,Parish,Jamaica,4,0
+2683.0,0.5,1,JM,Saint Thomas,Parish,Jamaica,4,0
+2684.0,1.0,2,JM,Portland,Parish,Jamaica,4,0
+2685.0,1.0,2,JM,Saint Mary,Parish,Jamaica,4,0
+2686.0,0.07,1,KY,Cayman Islands,,Cayman Islands,4,0
+2687.0,0.5,1,DO,El Seibo,Province,Dominican Republic,4,0
+2688.0,0.5,1,DO,Hato Mayor,Province,Dominican Republic,4,0
+2691.0,0.5,1,DO,Espaillat,Province,Dominican Republic,4,0
+2692.0,0.5,1,DO,Puerto Plata,Province,Dominican Republic,4,0
+2693.0,239.4,21,HT,Nord,Department,Haiti,4,10
+2694.0,638.4,56,HT,Artibonite,Department,Haiti,4,29
+2695.0,148.20000000000002,13,HT,Nippes,Department,Haiti,4,6
+2696.0,1.0,2,DO,Barahona,Province,Dominican Republic,4,0
+2697.0,0.5,1,DO,Azua,Province,Dominican Republic,4,0
+2698.0,0.5,1,DO,Peravia,Province,Dominican Republic,4,0
+2702.0,0.5,1,DO,San Pedro de Macorís,Province,Dominican Republic,4,0
+2704.0,384.20000000000005,34,CU,Camagüey,Province,Cuba,4,17
+2705.0,192.10000000000002,17,CU,Ciego de Ávila,Province,Cuba,4,8
+2706.0,203.4,18,CU,Holguín,Province,Cuba,4,9
+2707.0,0.5,1,TC,Grand Turk,,Turks and Caicos Islands,4,0
+2708.0,113.0,10,CU,Isla de la Juventud,Special Municipality,Cuba,4,5
+2710.0,169.5,15,CU,Sancti Spíritus,Province,Cuba,4,7
+2711.0,180.8,16,CU,Villa Clara,Province,Cuba,4,8
+2712.0,293.8,26,CU,Matanzas,Province,Cuba,4,13
+2719.0,0.41,1,BS,Mangrove Cay,District,The Bahamas,4,0
+2723.0,0.82,2,BS,North Andros,District,The Bahamas,4,0
+2730.0,0.41,1,BS,West Grand Bahama,District,The Bahamas,4,0
+2735.0,0.5,1,BM,Hamilton,,Bermuda,4,0
+2736.0,0.5,1,BM,Smith's Parish,,Bermuda,4,0
+2737.0,1.0,2,BM,Devonshire,,Bermuda,4,0
+2738.0,0.5,1,BM,Pembroke Parish,,Bermuda,4,0
+2740.0,1.0,2,BM,Paget Parish,,Bermuda,4,0
+2741.0,0.5,1,BM,Warwick,,Bermuda,4,0
+2742.0,0.5,1,BM,Southampton,,Bermuda,4,0
+2743.0,1.0,2,BM,Sandys Parish,,Bermuda,4,0
+2744.0,1.5,3,BM,Saint George,,Bermuda,4,0
+2745.0,577.6,4,RU,Republic of Kalmykia,Republic,Russia,4,26
+2746.0,40.4,4,AZ,Shabran,District,Azerbaijan,4,1
+2747.0,30.299999999999997,3,AZ,Siyazan,District,Azerbaijan,4,1
+2748.0,70.7,7,AZ,Khizi,District,Azerbaijan,4,3
+2749.0,20.2,2,AZ,Sumqayit,Municipality,Azerbaijan,4,0
+2750.0,111.1,11,AZ,Baku,Municipality,Azerbaijan,4,5
+2751.0,50.5,5,AZ,Salyan,District,Azerbaijan,4,2
+2752.0,70.7,7,AZ,Neftchala,District,Azerbaijan,4,3
+2753.0,40.4,4,AZ,Lankaran,District,Azerbaijan,4,1
+2754.0,20.2,2,AZ,Masally,District,Azerbaijan,4,0
+2756.0,4482.900000000001,51,IR,Mazandaran,Province,Iran,4,205
+2757.0,8.0,16,HM,Heard Island and McDonald Islands,,Heard Island and McDonald Islands,4,0
+2758.0,0.5,1,TF,Kerguelen Islands,,French Southern and Antarctic Lands,4,0
+2771.0,1.0,2,KM,Mohéli,,Comoros,4,0
+2772.0,2.0,4,KM,Anjouan,,Comoros,4,0
+2773.0,2.0,4,KM,Andjazîdja,,Comoros,4,0
+2776.0,316.5,5,TZ,Unguja South,Region,United Republic of Tanzania,4,14
+2777.0,253.2,4,TZ,Unguja North,Region,United Republic of Tanzania,4,11
+2778.0,126.6,2,TZ,Mjini Magharibi,Region,United Republic of Tanzania,4,5
+2779.0,189.89999999999998,3,TZ,South Pemba,Region,United Republic of Tanzania,4,8
+2780.0,189.89999999999998,3,TZ,North Pemba,Region,United Republic of Tanzania,4,8
+2803.0,2.0,4,ST,São Tomé,,Sao Tome and Principe,4,0
+2804.0,0.5,1,ST,Príncipe,,Sao Tome and Principe,4,0
+2806.0,0.5,1,GQ,Bioko Sur,Province,Equatorial Guinea,4,0
+2810.0,0.5,1,CV,São Filipe,,Cape Verde,4,0
+2812.0,0.5,1,CV,Santa Catarina,,Cape Verde,4,0
+2818.0,1.0,2,CV,Maio,,Cape Verde,4,0
+2819.0,0.5,1,CV,Boa Vista,,Cape Verde,4,0
+2820.0,0.5,1,CV,Ribeira Brava,,Cape Verde,4,0
+2821.0,0.5,1,CV,Tarrafal de São Nicolau,,Cape Verde,4,0
+2822.0,1.0,2,CV,Sal,,Cape Verde,4,0
+2823.0,0.5,1,CV,São Vicente,,Cape Verde,4,0
+2825.0,0.5,1,CV,Porto Novo,,Cape Verde,4,0
+2827.0,473.0,10,ES,Santa Cruz de Tenerife,Autonomous Community,Spain,4,21
+2828.0,614.9,13,ES,Las Palmas,Autonomous Community,Spain,4,28
+2829.0,10.3,1,PT,Madeira,Autonomous region,Portugal,4,0
+2830.0,228.8,22,GR,Crete,Region,Greece,4,10
+2831.0,322.40000000000003,31,GR,South Aegean,Region,Greece,4,14
+2832.0,2.5,5,CY,Paphos,District,Cyprus,4,0
+2836.0,0.52,1,MT,St. Julian's,,Malta,4,0
+2838.0,0.52,1,MT,Naxxar,,Malta,4,0
+2839.0,0.52,1,MT,St. Paul's Bay,,Malta,4,0
+2840.0,0.52,1,MT,Mellieħa,,Malta,4,0
+2842.0,0.52,1,MT,Rabat,,Malta,4,0
+2844.0,0.52,1,MT,Siġġiewi,,Malta,4,0
+2845.0,0.52,1,MT,Qrendi,,Malta,4,0
+2847.0,0.52,1,MT,Birżebbuġa,,Malta,4,0
+2853.0,0.52,1,MT,Kerċem,,Malta,4,0
+2855.0,0.52,1,MT,Sannat,,Malta,4,0
+2858.0,0.52,1,MT,Nadur,,Malta,4,0
+2863.0,894.0,15,IT,Trapani,Province,Italy,4,41
+2864.0,103.0,10,PT,Azores,Autonomous region,Portugal,4,4
+2865.0,187.20000000000002,18,GR,North Aegean,Region,Greece,4,8
+2866.0,72.8,7,GR,Ionian Islands,Region,Greece,4,3
+2867.0,953.6,16,IT,Messina,Province,Italy,4,43
+2868.0,1251.6000000000001,21,IT,Palermo,Province,Italy,4,57
+2869.0,715.2,12,IT,Agrigento,Province,Italy,4,32
+2870.0,536.4,9,IT,Caltanissetta,Province,Italy,4,24
+2871.0,357.6,6,IT,Ragusa,Province,Italy,4,16
+2872.0,536.4,9,IT,Syracuse,Province,Italy,4,24
+2873.0,655.6,11,IT,Catania,Province,Italy,4,30
+2874.0,804.0999999999999,17,ES,Balearic Islands,Autonomous Community,Spain,4,36
+2875.0,357.6,6,IT,Carbonia-Iglesias,Province,Italy,4,16
+2876.0,1013.2,17,IT,Sassari,Province,Italy,4,46
+2877.0,894.0,15,IT,Nuoro,Province,Italy,4,41
+2878.0,655.6,11,IT,Olbia-Tempio,Province,Italy,4,30
+2879.0,536.4,9,IT,Oristano,Province,Italy,4,24
+2880.0,238.4,4,IT,Medio Campidano,Province,Italy,4,10
+2881.0,953.6,16,IT,Cagliari,Province,Italy,4,43
+2882.0,417.2,7,IT,Ogliastra,Province,Italy,4,19
+2885.0,12.0,24,JE,Jersey,,Jersey,4,0
+2886.0,3.0,6,GG,Sark,,Guernsey,4,0
+2887.0,269.2,4,GB,Isle of Wight,Unitary Authority,United Kingdom,4,12
+2888.0,269.2,4,GB,Anglesey,Unitary Authority (wales),United Kingdom,4,12
+2889.0,9.5,19,IM,Isle of Man,,Isle of Man,4,0
+2890.0,1.5,3,DK,Zealand,Region,Denmark,4,0
+2891.0,2.5,5,DK,Denmark,Region,Denmark,4,0
+2892.0,1615.1999999999998,24,GB,Outer Hebrides,Island Area,United Kingdom,4,74
+2893.0,72.8,7,SE,Gotland,County,Sweden,4,3
+2894.0,605.6999999999999,9,GB,Orkney Islands,Unitary District,United Kingdom,4,27
+2895.0,874.9,13,GB,Shetland Islands,Unitary District (city),United Kingdom,4,40
+2896.0,0.5,1,AX,Lumparland,,Aland,4,0
+2899.0,1.5,3,AX,Kumlinge,,Aland,4,0
+2902.0,5.0,10,FO,Eysturoy,Region,Faroe Islands,4,0
+2905.0,5234.5,19,ID,Bali,Province,Indonesia,4,240
+2907.0,4.5,9,SG,South West Community Development Council,,Singapore,4,0
+2908.0,2.5,5,SG,Central Singapore Community Development Council,,Singapore,4,0
+2909.0,2.0,4,SG,South East Community Development Council,,Singapore,4,0
+2910.0,0.5,1,SG,North East Community Development Council,,Singapore,4,0
+2911.0,1.5,3,SG,North West,,Singapore,4,0
+2912.0,66.0,2,MY,Labuan,Federal Territory,Malaysia,4,3
+2913.0,286.8,4,TH,Phuket,Province,Thailand,4,13
+2914.0,3360.0,10,US,Hawaii,State,United States of America,4,154
+2915.0,3486.0,28,JP,Okinawa Prefecture,Prefecture,Japan,4,159
+2916.0,0.5,1,TW,Kinmen,County,Taiwan,4,0
+2917.0,1085.7,21,KR,Jeju,Province,South Korea,4,49
+2918.0,10685.6,74,RU,Kamchatka Krai,Region,Russia,10,490
+2919.0,1.0,2,EE,Saare,Municipality,Estonia,4,0
+2920.0,0.5,1,EE,Hiiu,County,Estonia,4,0
+2922.0,1.0,2,AX,Föglö,,Aland,4,0
+2931.0,11.5,23,NF,Norfolk Island,,Norfolk Island,4,0
+2938.0,0.5,1,WF,Alo,,Wallis and Futuna,4,0
+2940.0,0.2,1,WS,Gaga'ifomauga,,Samoa,4,0
+2943.0,0.2,1,WS,Palauli,,Samoa,4,0
+2944.0,0.2,1,WS,Fa'asaleleaga,,Samoa,4,0
+2947.0,1.42,2,SB,Makira-Ulawa,Province,Solomon Islands,4,0
+2949.0,1.42,2,SB,Malaita,Province,Solomon Islands,4,0
+2951.0,1.42,2,SB,Guadalcanal,Province,Solomon Islands,4,0
+2954.0,0.71,1,SB,Western,Province,Solomon Islands,4,0
+2956.0,0.71,1,SB,Isabel,Province,Solomon Islands,4,0
+2957.0,0.5,1,TL,Ainaro,District|Regencies,East Timor,4,0
+2958.0,0.5,1,TL,Manufahi,District|Regencies,East Timor,4,0
+2959.0,0.5,1,TL,Manatuto,District|Regencies,East Timor,4,0
+2960.0,0.5,1,TL,Viqueque,District|Regencies,East Timor,4,0
+2961.0,1.5,3,TL,Lautém,District|Regencies,East Timor,4,0
+2962.0,0.5,1,TL,Baucau,District|Regencies,East Timor,4,0
+2963.0,0.5,1,TL,Dili,District|Regencies,East Timor,4,0
+2964.0,0.5,1,TL,Liquiçá,District|Regencies,East Timor,4,0
+2966.0,0.5,1,PG,of Bougainville,Province,Papua New Guinea,4,0
+2968.0,1.0,2,PG,East New Britain,Province,Papua New Guinea,4,0
+2969.0,0.5,1,PG,New Ireland,Province,Papua New Guinea,4,0
+2970.0,14601.5,53,ID,Bangka Belitung Islands,Province,Indonesia,13,669
+2971.0,0.5,1,PG,Manus,Province,Papua New Guinea,4,0
+2977.0,0.01,1,NR,Nibok,,Nauru,4,0
+2994.0,1139.0,10,PH,Tawi-Tawi,Province,Philippines,4,52
+2998.0,1822.4,16,PH,Basilan,Province,Philippines,4,83
+3001.0,341.70000000000005,3,PH,Camiguin,Province,Philippines,4,15
+3002.0,455.6,4,PH,Siquijor,Province,Philippines,4,20
+3003.0,2619.7000000000003,23,PH,Bohol,Province,Philippines,4,120
+3004.0,455.6,4,PH,Guimaras,Province,Philippines,4,20
+3005.0,113.9,1,PH,Bacolod,Highly Urbanized City,Philippines,4,5
+3006.0,4328.2,38,PH,Negros Occidental,Province,Philippines,4,198
+3007.0,2847.5,25,PH,Negros Oriental,Province,Philippines,4,130
+3008.0,113.9,1,PH,Cebu,Highly Urbanized City,Philippines,4,5
+3010.0,3530.9,31,PH,Cebu,Province,Philippines,4,161
+3011.0,1480.7,13,PH,Puerto Princesa,Highly Urbanized City,Philippines,4,67
+3012.0,113.9,1,PH,Tacloban,Highly Urbanized City,Philippines,4,5
+3013.0,113.9,1,PH,Ormoc,Independent Component City,Philippines,4,5
+3014.0,1139.0,10,PH,Aklan,Province,Philippines,4,52
+3015.0,2164.1,19,PH,Antique,Province,Philippines,4,99
+3016.0,2505.8,22,PH,Iloilo,Province,Philippines,4,114
+3018.0,1480.7,13,PH,Capiz,Province,Philippines,4,67
+3019.0,1936.3000000000002,17,PH,Romblon,Province,Philippines,4,88
+3020.0,1822.4,16,PH,Northern Samar,Province,Philippines,4,83
+3021.0,4100.400000000001,36,PH,Masbate,Province,Philippines,4,188
+3022.0,2391.9,21,PH,Oriental Mindoro,Province,Philippines,4,109
+3023.0,3986.5,35,PH,Occidental Mindoro,Province,Philippines,4,182
+3024.0,911.2,8,PH,Marinduque,Province,Philippines,4,41
+3025.0,1252.9,11,PH,Catanduanes,Province,Philippines,4,57
+3026.0,683.4000000000001,6,PH,Batanes,Province,Philippines,4,31
+3027.0,0.5,1,GS,South Georgia and the South Sandwich Islands,,South Georgia and the Islands,4,0
+3029.0,8.5,17,FK,Falkland Islands,,Falkland Islands,4,0
+3031.0,1.5,3,NC,South,Province,New Caledonia,4,0
+3032.0,1.0,2,NC,Loyalty Islands,Province,New Caledonia,4,0
+3036.0,0.32,1,VU,Tafea,Province,Vanuatu,4,0
+3039.0,11.5,23,NU,Niue,,Niue,4,0
+3045.0,0.32,1,VU,Sanma,Province,Vanuatu,4,0
+3048.0,0.5,1,AS,Western District,,American Samoa,4,0
+3054.0,0.4,2,WS,Tuamasaga,,Samoa,4,0
+3055.0,0.2,1,WS,A'ana,,Samoa,4,0
+3057.0,0.5,1,WF,Uvea,,Wallis and Futuna,4,0
+3059.0,0.71,1,SB,Choiseul,Province,Solomon Islands,4,0
+3073.0,8.0,16,GU,Guam,,Guam,4,0
+3074.0,0.5,1,MP,Rota,,Northern Mariana Islands,4,0
+3075.0,0.5,1,MP,Tinian,,Northern Mariana Islands,4,0
+3076.0,0.5,1,MP,Saipan,,Northern Mariana Islands,4,0
+3078.0,0.5,1,MP,Northern Mariana Islands,,Northern Mariana Islands,4,0
+3079.0,101.7,9,CU,Las Tunas,Province,Cuba,4,4
+3080.0,90.4,8,CU,Mayabeque,Province,Cuba,4,4
+3081.0,22.6,2,CU,Havana,Province,Cuba,4,1
+3082.0,45.2,4,CU,Artemisa,Province,Cuba,4,2
+3083.0,316.40000000000003,28,CU,Pinar del Río,Province,Cuba,4,14
+3084.0,90.4,8,CU,Cienfuegos,Province,Cuba,4,4
+3085.0,226.0,20,CU,Granma,Province,Cuba,4,10
+3086.0,135.60000000000002,12,CU,Santiago de Cuba,Province,Cuba,4,6
+3087.0,0.5,1,TW,Penghu,County,Taiwan,4,0
+3088.0,0.5,1,BH,Capital,Governorate,Bahrain,4,0
+3089.0,1.5,3,BH,Northern,Governorate,Bahrain,4,0
+3090.0,3.0,6,BH,Southern,Governorate,Bahrain,4,0
+3092.0,40.1,1,CA,Prince Edward Island,Province,Canada,4,1
+3093.0,9.0,18,-1,Coral Sea Islands,,Coral Sea Islands,4,0
+3100.0,0.5,1,-1,Christmas Island,,Indian Ocean Territories,4,0
+3123.0,0.5,1,AI,,,Anguilla,4,0
+3129.0,10.5,21,-1,Clipperton Island,,Clipperton Island,4,0
+3132.0,0.5,1,TC,Salt Cay,,Turks and Caicos Islands,4,0
+3133.0,7.5,15,MO,Macau,,Macau S.A.R,4,0
+3135.0,2.0,4,HK,Lantau Island,,Hong Kong S.A.R.,4,0
+3136.0,0.5,1,HK,Southern District,,Hong Kong S.A.R.,4,0
+3137.0,0.5,1,HK,Central and Western District,,Hong Kong S.A.R.,4,0
+3140.0,0.5,1,HK,Tsuen Wan,,Hong Kong S.A.R.,4,0
+3141.0,261.8,2,MX,,,Mexico,4,12
+3142.0,0.5,1,HK,Tai Po,,Hong Kong S.A.R.,4,0
+3143.0,0.5,1,HK,Sha Tin,,Hong Kong S.A.R.,4,0
+3144.0,1.0,2,HK,Sai Kung,,Hong Kong S.A.R.,4,0
+3145.0,0.5,1,HK,Kwun Tong,,Hong Kong S.A.R.,4,0
+3150.0,1.5,3,HK,Tuen Mun,,Hong Kong S.A.R.,4,0
+3151.0,1.5,3,HK,Yuen Long,,Hong Kong S.A.R.,4,0
+3152.0,0.5,1,AX,Lemland,,Aland,4,0
+3153.0,0.5,1,AX,Brändö,,Aland,4,0
+3161.0,0.5,1,NZ,Otago,Regional Council,New Zealand,4,0
+3173.0,12.5,25,AU,Ashmore and Cartier Islands,,Ashmore and Cartier Islands,4,0
+3180.0,0.5,1,BH,Muharraq,Governorate,Bahrain,4,0
+3181.0,1062.6000000000001,69,ZW,Midlands,Province,Zimbabwe,4,48
+3182.0,30.8,2,ZW,Harare,City,Zimbabwe,4,1
+3184.0,1145.8000000000002,34,YE,Ma'rib,Governorate,Yemen,4,52
+3185.0,876.2,26,YE,Sanaa,Governorate,Yemen,4,40
+3186.0,101.10000000000001,3,YE,Raymah,Governorate,Yemen,4,4
+3187.0,707.7,21,YE,Al Bayda',Governorate,Yemen,4,32
+3188.0,572.9000000000001,17,YE,'Amran,Governorate,Yemen,4,26
+3189.0,269.6,8,YE,Ad Dali',Governorate,Yemen,4,12
+3190.0,370.70000000000005,11,YE,Ibb,Governorate,Yemen,4,17
+3191.0,101.10000000000001,3,YE,Al Mahwit,Governorate,Yemen,4,4
+3192.0,471.80000000000007,14,YE,Dhamar,Governorate,Yemen,4,21
+3193.0,1767.6000000000001,18,VN,Hòa Bình,Province,Vietnam,4,81
+3194.0,3044.2000000000003,31,VN,Tuyên Quang,Province,Vietnam,4,139
+3195.0,3044.2000000000003,31,VN,Yên Bái,Province,Vietnam,4,139
+3196.0,392.8,4,VN,Vĩnh Phúc,Province,Vietnam,4,18
+3197.0,1669.4,17,VN,Phú Thọ,Province,Vietnam,4,76
+3198.0,1473.0,15,VN,Hanoi,Province,Vietnam,4,67
+3199.0,2356.8,24,VN,Northeast Vietnam,Region,Vietnam,4,108
+3200.0,392.8,4,VN,Red River Delta,Region,Vietnam,4,18
+3201.0,294.6,3,VN,Bắc Ninh,Province,Vietnam,4,13
+3202.0,1767.6000000000001,18,VN,Bắc Giang,Province,Vietnam,4,81
+3203.0,1571.2,16,VN,Thái Nguyên,Province,Vietnam,4,72
+3204.0,1080.2,11,VN,Hải Dương,Province,Vietnam,4,49
+3205.0,491.0,5,VN,Hà Nam,Province,Vietnam,4,22
+3206.0,1178.4,12,VN,Bình Dương,Province,Vietnam,4,54
+3207.0,4615.400000000001,47,VN,Lâm Đồng,Province,Vietnam,4,211
+3208.0,883.8000000000001,9,VN,Cần Thơ,Province,Vietnam,4,40
+3209.0,0.5,1,UY,Tacuarembó,Department,Uruguay,4,0
+3210.0,0.5,1,UY,Durazno,Department,Uruguay,4,0
+3211.0,0.5,1,UY,Flores,Department,Uruguay,4,0
+3212.0,0.5,1,UY,Florida,Department,Uruguay,4,0
+3213.0,0.5,1,UY,Lavalleja,Department,Uruguay,4,0
+3214.0,1221.2,43,VE,Guárico State,State,Venezuela,4,56
+3215.0,284.0,10,VE,Cojedes,State,Venezuela,4,13
+3217.0,681.5999999999999,24,VE,Barinas,State,Venezuela,4,31
+3218.0,312.4,11,VE,Lara,State,Venezuela,4,14
+3219.0,340.79999999999995,12,VE,Portuguesa,State,Venezuela,4,15
+3220.0,3175.5,73,UA,Poltava,Region,Ukraine,4,145
+3221.0,2175.0,50,UA,Khmelnytskyi,Region,Ukraine,4,99
+3222.0,1696.5,39,UA,Ternopil,Region,Ukraine,4,77
+3223.0,3436.5,79,UA,Dnipropetrovsk,Region,Ukraine,4,157
+3224.0,2262.0,52,UA,Cherkasy,Region,Ukraine,4,103
+3225.0,2653.5,61,UA,Kirovohrad,Region,Ukraine,4,121
+3227.0,0.5,1,TN,Sidi Bouzid,Governorate,Tunisia,4,0
+3230.0,1.0,2,CH,Bern,Canton,Switzerland,4,0
+3231.0,0.5,1,CH,Lucerne,Canton,Switzerland,4,0
+3237.0,0.5,1,CH,Fribourg,Canton,Switzerland,4,0
+3238.0,0.5,1,CH,Obwalden,Canton,Switzerland,4,0
+3253.0,0.5,1,PG,Eastern Highlands,Province,Papua New Guinea,4,0
+3256.0,0.5,1,MD,Anenii Noi,District,Moldova,4,0
+3260.0,0.5,1,MD,Telenești,District,Moldova,4,0
+3263.0,0.5,1,MD,Rezina,District,Moldova,4,0
+3265.0,3156.1,37,TR,Bolu,Province,Turkey,4,144
+3266.0,10491.9,123,TR,Ankara,Province,Turkey,9,481
+3267.0,2132.5,25,TR,Bilecik,Province,Turkey,4,97
+3268.0,5288.599999999999,62,TR,Eskişehir,Province,Turkey,4,242
+3269.0,3156.1,37,TR,Çankırı,Province,Turkey,4,144
+3270.0,1535.3999999999999,18,TR,Karabük,Province,Turkey,4,70
+3271.0,1034306.3999999999,724,IN,Jharkhand,State,India,968,47437
+3272.0,24286.199999999997,17,IN,Delhi,Union Territory,India,22,1113
+3273.0,2857.2,2,IN,Chandigarh,Union Territory,India,4,131
+3274.0,4064366.9999999995,2845,IN,Madhya Pradesh,State,India,3804,186408
+3275.0,8064.0,24,US,Utah,State,United States of America,7,369
+3276.0,11088.0,33,US,Wyoming,State,United States of America,10,508
+3277.0,9744.0,29,US,Nevada,State,United States of America,9,446
+3278.0,11088.0,33,US,Colorado,State,United States of America,10,508
+3279.0,8064.0,24,US,South Dakota,State,United States of America,7,369
+3280.0,7392.0,22,US,Nebraska,State,United States of America,6,339
+3281.0,8064.0,24,US,Kansas,State,United States of America,7,369
+3282.0,6384.0,19,US,Oklahoma,State,United States of America,5,292
+3283.0,6384.0,19,US,Iowa,State,United States of America,5,292
+3284.0,6048.0,18,US,Missouri,State,United States of America,5,277
+3286.0,2509.5,35,TH,Khon Kaen,Province,Thailand,4,115
+3287.0,1935.9,27,TH,Sakon Nakhon,Province,Thailand,4,88
+3288.0,1075.5,15,TH,Suphan Buri,Province,Thailand,4,49
+3289.0,143.4,2,TH,Sing Buri,Province,Thailand,4,6
+3290.0,573.6,8,TH,Chai Nat,Province,Thailand,4,26
+3291.0,286.8,4,TH,Ang Thong,Province,Thailand,4,13
+3292.0,717.0,10,TH,Saraburi,Province,Thailand,4,32
+3293.0,4445.400000000001,62,TH,Nakhon Ratchasima,Province,Thailand,4,203
+3294.0,501.90000000000003,7,TH,Nakhon Nayok,Province,Thailand,4,23
+3295.0,286.8,4,TH,Pathum Thani,Province,Thailand,4,13
+3296.0,1218.9,17,TH,Uthai Thani,Province,Thailand,4,55
+3297.0,1577.4,22,TH,Kalasin,Province,Thailand,4,72
+3298.0,1505.7,21,TH,Roi Et,Province,Thailand,4,69
+3299.0,1147.2,16,TH,Maha Sarakham,Province,Thailand,4,52
+3300.0,932.1,13,TH,Nong Bua Lam Phu,Province,Thailand,4,42
+3301.0,1290.6000000000001,18,TH,Lopburi,Province,Thailand,4,59
+3302.0,2366.1,33,TH,Udon Thani,Province,Thailand,4,108
+3303.0,501.90000000000003,7,TH,Phra Nakhon Si Ayutthaya,Province,Thailand,4,23
+3304.0,143.4,2,TH,Nonthaburi,Province,Thailand,4,6
+3305.0,430.20000000000005,6,TH,Nakhon Pathom,Province,Thailand,4,19
+3306.0,1864.2,26,TH,Kamphaeng Phet,Province,Thailand,4,85
+3307.0,2868.0,40,TH,Lampang,Province,Thailand,4,131
+3308.0,1577.4,22,TH,Sukhothai,Province,Thailand,4,72
+3309.0,2151.0,30,TH,Nakhon Sawan,Province,Thailand,4,98
+3310.0,2652.9,37,TH,Phetchabun,Province,Thailand,4,121
+3311.0,932.1,13,TH,Phichit,Province,Thailand,4,42
+3312.0,2581.2000000000003,36,TH,Chaiyaphum,Province,Thailand,4,118
+3313.0,1362.3,19,TH,Phrae,Province,Thailand,4,62
+3314.0,860.4000000000001,12,TH,Lamphun,Province,Thailand,4,39
+3315.0,932.1,13,TH,Prachin Buri,Province,Thailand,4,42
+3316.0,860.4000000000001,12,TH,Yasothon,Province,Thailand,4,39
+3318.0,0.5,1,TL,Aileu,District|Regencies,East Timor,4,0
+3319.0,0.5,1,TW,Nantou,County,Taiwan,4,0
+3320.0,3753.2,44,TR,Tokat,Province,Turkey,4,172
+3321.0,10918.4,128,TR,Sivas,Province,Turkey,10,500
+3322.0,4691.5,55,TR,Çorum,Province,Turkey,4,215
+3323.0,2559.0,30,TR,Amasya,Province,Turkey,4,117
+3324.0,11330.699999999999,179,TZ,Morogoro,Region,United Republic of Tanzania,10,519
+3325.0,6836.4,108,TZ,Dodoma,Region,United Republic of Tanzania,6,313
+3326.0,7785.9,123,TZ,Manyara,Region,United Republic of Tanzania,7,357
+3327.0,14855.1,169,IR,Semnan,Province,Iran,13,681
+3328.0,3516.0,40,IR,Zanjan,Province,Iran,4,161
+3329.0,2549.1000000000004,29,IR,Qazvin,Province,Iran,4,116
+3332.0,809.4,38,SY,Hama,Province,Syria,4,37
+3339.0,0.5,1,SI,Škofja Loka,Commune|Municipality,Slovenia,4,0
+3344.0,0.5,1,SI,Šoštanj,Commune|Municipality,Slovenia,4,0
+3359.0,0.5,1,SI,Puconci,Commune|Municipality,Slovenia,4,0
+3380.0,0.5,1,SI,Zagorje ob Savi,Statistical Region,Slovenia,4,0
+3383.0,0.5,1,SI,Cerknica,Commune|Municipality,Slovenia,4,0
+3401.0,41.6,4,SE,Västmanland,County,Sweden,4,1
+3402.0,72.8,7,SE,Jönköping,County,Sweden,4,3
+3403.0,83.2,8,SE,Örebro,County,Sweden,4,3
+3404.0,41.6,4,SE,Kronoberg,County,Sweden,4,1
+3405.0,0.5,1,SR,Para,District,Suriname,4,0
+3406.0,0.5,1,SR,Brokopondo,District,Suriname,4,0
+3407.0,1216.8,26,SD,Al Jazirah,State,Sudan,4,55
+3408.0,1076.3999999999999,23,SD,Khartoum,Region,Sudan,4,49
+3409.0,11793.599999999999,252,SD,North Kordofan,State,Sudan,11,540
+3410.0,250.8,22,SS,Lakes,State,S. Sudan,4,11
+3411.0,205.20000000000002,18,SS,Warrap,State,S. Sudan,4,9
+3412.0,709.5,15,ES,Zaragoza,Autonomous Community,Spain,4,32
+3413.0,283.79999999999995,6,ES,La Rioja,Autonomous Community,Spain,4,13
+3414.0,189.2,4,ES,Araba / Álava,Autonomous Community,Spain,4,8
+3415.0,567.5999999999999,12,ES,Albacete,Autonomous Community,Spain,4,26
+3416.0,614.9,13,ES,Teruel,Autonomous Community,Spain,4,28
+3417.0,662.1999999999999,14,ES,Cuenca,Autonomous Community,Spain,4,30
+3418.0,614.9,13,ES,Toledo,Autonomous Community,Spain,4,28
+3419.0,662.1999999999999,14,ES,León,Autonomous Community,Spain,4,30
+3420.0,378.4,8,ES,Soria,Autonomous Community,Spain,4,17
+3421.0,567.5999999999999,12,ES,Burgos,Autonomous Community,Spain,4,26
+3422.0,378.4,8,ES,Ávila,Autonomous Community,Spain,4,17
+3423.0,593.0,10,ZA,Gauteng,Province,South Africa,4,27
+3432.0,0.5,1,SI,Ajdovščina,Commune|Municipality,Slovenia,4,0
+3437.0,0.5,1,SI,Šentjur,Commune|Municipality,Slovenia,4,0
+3443.0,0.5,1,SI,Žužemberk,Commune|Municipality,Slovenia,4,0
+3452.0,7483.599999999999,212,SA,Riyadh,Region,Saudi Arabia,7,343
+3453.0,1164.8999999999999,33,SA,Al-Qassim,Region,Saudi Arabia,4,53
+3454.0,2365.1,67,SA,Ha'il,Region,Saudi Arabia,4,108
+3455.0,176.5,5,SA,Al-Baha,Region,Saudi Arabia,4,8
+3458.0,0.5,1,RO,Sălaj,County,Romania,4,0
+3461.0,0.5,1,RO,Argeș,County,Romania,4,0
+3462.0,0.5,1,RO,Gorj,County,Romania,4,0
+3463.0,0.5,1,RO,Hunedoara,County,Romania,4,0
+3467.0,0.5,1,RO,Vrancea,County,Romania,4,0
+3468.0,0.5,1,RO,Buzău,County,Romania,4,0
+3469.0,0.5,1,RO,Brașov,County,Romania,4,0
+3471.0,0.5,1,RO,Mureș,County,Romania,4,0
+3473.0,0.5,1,RO,Neamț,County,Romania,4,0
+3487.0,0.5,1,SI,Slovenska Bistrica,Commune|Municipality,Slovenia,4,0
+3498.0,49.699999999999996,7,RS,Nišava,District,Republic of Serbia,4,2
+3499.0,42.599999999999994,6,RS,Pomoravski,District,Republic of Serbia,4,1
+3500.0,56.8,8,RS,Šumadija,District,Republic of Serbia,4,2
+3501.0,63.9,9,RS,Moravica,District,Republic of Serbia,4,2
+3502.0,56.8,8,RS,Kolubara,District,Republic of Serbia,4,2
+3510.0,0.5,1,MW,Ntchisi,District,Malawi,4,0
+3511.0,1.0,2,LT,Kaunas,County,Lithuania,4,0
+3516.0,0.5,1,DO,Duarte,Province,Dominican Republic,4,0
+3517.0,0.5,1,DO,Santiago,Province,Dominican Republic,4,0
+3519.0,0.5,1,DO,San Juan,Province,Dominican Republic,4,0
+3520.0,10.1,1,AZ,Nakhchivan,Municipality,Azerbaijan,4,0
+3521.0,10.1,1,AZ,Susa,District,Azerbaijan,4,0
+3522.0,40.4,4,AZ,Khojali,District,Azerbaijan,4,1
+3524.0,30.299999999999997,3,AZ,Agdam,District,Azerbaijan,4,1
+3525.0,30.299999999999997,3,AZ,Tartar,District,Azerbaijan,4,1
+3526.0,60.599999999999994,6,AZ,Goranboy,District,Azerbaijan,4,2
+3527.0,30.299999999999997,3,AZ,Khojavend,District,Azerbaijan,4,1
+3528.0,60.599999999999994,6,AZ,Hajigabul,District,Azerbaijan,4,2
+3529.0,80.8,8,AZ,Absheron,District,Azerbaijan,4,3
+3530.0,20.2,2,AZ,Goygol,District,Azerbaijan,4,0
+3531.0,60.599999999999994,6,AZ,Kurdamir,District,Azerbaijan,4,2
+3532.0,30.299999999999997,3,AZ,Zardab,District,Azerbaijan,4,1
+3533.0,40.4,4,AZ,Sabirabad,District,Azerbaijan,4,1
+3535.0,473.0,10,UG,Kamuli,District,Uganda,4,21
+3536.0,331.09999999999997,7,UG,Luuka,District,Uganda,4,15
+3537.0,756.8,16,UG,Buyende,District,Uganda,4,34
+3538.0,473.0,10,UG,Jinja,District,Uganda,4,21
+3539.0,1040.6,22,UG,Apac,District,Uganda,4,47
+3540.0,1371.6999999999998,29,UG,Nakasongola,District,Uganda,4,62
+3541.0,1466.3,31,UG,Masindi,District,Uganda,4,67
+3542.0,662.1999999999999,14,UG,Kayunga,District,Uganda,4,30
+3543.0,756.8,16,UG,Luwero,County,Uganda,4,34
+3544.0,709.5,15,UG,Amolatar,County,Uganda,4,32
+3545.0,614.9,13,UG,Mityana,County,Uganda,4,28
+3546.0,520.3,11,UG,Kiboga,District,Uganda,4,23
+3547.0,709.5,15,UG,Mpigi,District,Uganda,4,32
+3548.0,189.2,4,UG,Butambala,District,Uganda,4,8
+3549.0,567.5999999999999,12,UG,Gomba,District,Uganda,4,26
+3550.0,804.0999999999999,17,UG,Wakiso,District,Uganda,4,36
+3551.0,1324.3999999999999,28,UG,Nakaseke,District,Uganda,4,60
+3552.0,1040.6,22,UG,Kyankwanzi,District,Uganda,4,47
+3553.0,614.9,13,UG,Kaberamaido,District,Uganda,4,28
+3554.0,473.0,10,UG,Dokolo,County,Uganda,4,21
+3555.0,993.3,21,UG,Kyenjojo,District,Uganda,4,45
+3556.0,946.0,20,UG,Kamwenge,District,Uganda,4,43
+3557.0,425.7,9,UG,Kyegegwa,District,Uganda,4,19
+3558.0,851.4,18,UG,Sembabule,District,Uganda,4,39
+3559.0,1560.8999999999999,33,UG,Kibaale,District,Uganda,4,71
+3560.0,1702.8,36,UG,Mubende,District,Uganda,4,78
+3564.0,10.3,1,PT,Viseu,District,Portugal,4,0
+3565.0,3075.3,27,PH,Agusan del Sur,Province,Philippines,4,141
+3566.0,3758.7000000000003,33,PH,Bukidnon,Province,Philippines,4,172
+3567.0,2619.7000000000003,23,PH,Cotabato,Province,Philippines,4,120
+3568.0,1594.6000000000001,14,PH,South Cotabato,Province,Philippines,4,73
+3569.0,1736.8,52,PE,Cusco Departament,Department,Peru,4,79
+3570.0,1102.2,33,PE,Ayacucho,Department,Peru,4,50
+3571.0,501.0,15,PE,Apurímac,Department,Peru,4,22
+3572.0,534.4,16,PE,Huancavelica,Department,Peru,4,24
+3573.0,1269.2,38,PE,San Martín,Department,Peru,4,58
+3574.0,835.0,25,PE,Huanuco,Department,Peru,4,38
+3575.0,601.1999999999999,18,PE,Pasco,Department,Peru,4,27
+3576.0,935.1999999999999,28,PE,Junín,Department,Peru,4,42
+3577.0,0.5,1,PY,San Pedro,Department,Paraguay,4,0
+3578.0,0.5,1,PY,Caaguazú,Department,Paraguay,4,0
+3579.0,0.5,1,PY,Cordillera,Department,Paraguay,4,0
+3583.0,962.0,4,PK,Islamabad Capital Territory,Capital Territory,Pakistan,4,44
+3584.0,1.0,2,NI,Matagalpa,Department,Nicaragua,4,0
+3586.0,0.5,1,NI,Chontales,Department,Nicaragua,4,0
+3589.0,0.5,1,NI,Masaya,Department,Nicaragua,4,0
+3592.0,637.5,17,MA,Fès-méknas-boulmane,Region,Morocco,4,29
+3593.0,487.5,13,MA,Tadla-Azilal,Region,Morocco,4,22
+3595.0,0.5,1,ME,Cetinje,Municipality,Montenegro,4,0
+3596.0,0.5,1,ME,Šavnik,Municipality,Montenegro,4,0
+3597.0,0.5,1,ME,Kolašin,Municipality,Montenegro,4,0
+3608.0,0.5,1,MG,Toamasina,Autonomous Province,Madagascar,4,0
+3609.0,0.5,1,LV,Valmiera,Municipality,Latvia,4,0
+3610.0,0.5,1,LV,Balvi,Municipality,Latvia,4,0
+3615.0,0.5,1,LV,Rēzekne,Municipality,Latvia,4,0
+3620.0,0.5,1,LV,Krimulda,Municipality,Latvia,4,0
+3637.0,0.5,1,LV,Madona,Municipality,Latvia,4,0
+3645.0,0.5,1,LV,Ikskile,Municipality,Latvia,4,0
+3658.0,0.5,1,LV,Jēkabpils,Municipality,Latvia,4,0
+3662.0,0.5,1,LV,Kuldīga,Municipality,Latvia,4,0
+3666.0,0.5,1,LV,Tukums,Municipality,Latvia,4,0
+3667.0,0.5,1,LV,Dobele,Municipality,Latvia,4,0
+3672.0,0.5,1,KW,Al Farwaniyah,Province,Kuwait,4,0
+3675.0,0.5,1,XK,Klina,District,Kosovo,4,0
+3676.0,0.5,1,XK,Kosovska Mitrovica,District,Kosovo,4,0
+3677.0,0.5,1,XK,Glogovac,District,Kosovo,4,0
+3679.0,162.0,3,KE,Nairobi,National Capital Area,Kenya,4,7
+3680.0,2430.0,45,KE,Central,Province,Kenya,4,111
+3681.0,10.9,1,JO,Ajloun,Province,Jordan,4,0
+3682.0,21.8,2,JO,Jerash,Province,Jordan,4,0
+3683.0,871.5,7,JP,Gunma Prefecture,Prefecture,Japan,4,39
+3684.0,2116.5,17,JP,Nagano Prefecture,Prefecture,Japan,4,97
+3685.0,996.0,8,JP,Tochigi Prefecture,Prefecture,Japan,4,45
+3686.0,1369.5,11,JP,Gifu Prefecture,Prefecture,Japan,4,62
+3687.0,622.5,5,JP,Shiga Prefecture,Prefecture,Japan,4,28
+3688.0,498.0,4,JP,Saitama Prefecture,Prefecture,Japan,4,22
+3689.0,622.5,5,JP,Yamanashi Prefecture,Prefecture,Japan,4,28
+3690.0,622.5,5,JP,Nara Prefecture,Prefecture,Japan,4,28
+3691.0,1430.0,52,CI,Haut-Sassandra,Department,Ivory Coast,4,65
+3692.0,880.0,32,CI,Agnéby,Department,Ivory Coast,4,40
+3693.0,1925.0,70,CI,N'zi-Comoé,Department,Ivory Coast,4,88
+3694.0,852.5,31,CI,Marahoué,Department,Ivory Coast,4,39
+3695.0,632.5,23,CI,Fromager,Region,Ivory Coast,4,29
+3696.0,2722.5,99,CI,Vallée du Bandama,Region,Ivory Coast,4,124
+3697.0,880.0,32,CI,Lacs,Department,Ivory Coast,4,40
+3698.0,2200.0,80,CI,Worodougou,Region,Ivory Coast,4,100
+3704.0,0.5,1,IE,Westmeath,County,Ireland,4,0
+3706.0,0.5,1,IE,Roscommon,County,Ireland,4,0
+3711.0,0.5,1,HN,Comayagua,Department,Honduras,4,0
+3712.0,0.5,1,HN,Yoro,Department,Honduras,4,0
+3717.0,0.5,1,GN,Lélouma Prefecture,Prefecture,Guinea,4,0
+3721.0,1.0,2,GN,Kouroussa Prefecture,Prefecture,Guinea,4,0
+3727.0,0.5,1,GT,El Progreso,Department,Guatemala,4,0
+3732.0,4469.7,141,GH,Ashanti,Region,Ghana,4,204
+3733.0,3328.5,105,GH,Eastern,Region,Ghana,4,152
+3734.0,15891.2,191,DE,Hesse,State,Germany,14,728
+3735.0,11980.800000000001,144,DE,Thuringia,State,Germany,11,549
+3736.0,15891.2,191,DE,Saxony-Anhalt,State,Germany,14,728
+3737.0,665.6,8,DE,Berlin,State,Germany,4,30
+3738.0,0.5,1,GA,Moyen-Ogooué,Province,Gabon,4,0
+3739.0,0.5,1,EE,Rapla,County,Estonia,4,0
+3744.0,1926.0,18,EG,Cairo,Governorate,Egypt,4,88
+3745.0,20651.0,193,EG,Giza,Governorate,Egypt,19,947
+3746.0,10165.0,95,EG,Minya,Governorate,Egypt,9,466
+3747.0,3317.0,31,EG,Faiyum,Governorate,Egypt,4,152
+3748.0,2461.0,23,EG,Beni Suef,Governorate,Egypt,4,112
+3749.0,749.0,7,EG,Monufia,Governorate,Egypt,4,34
+3750.0,428.0,4,EG,Qalyubia,Governorate,Egypt,4,19
+3751.0,1177.0,11,EG,Gharbia,Governorate,Egypt,4,53
+3752.0,1284.0,12,EG,Sohag,Governorate,Egypt,4,58
+3753.0,2140.0,20,EG,Qena,Governorate,Egypt,4,98
+3754.0,1391.0,13,EG,Asyut,Governorate,Egypt,4,63
+3755.0,0.5,1,EC,Azuay,Province,Ecuador,4,0
+3763.0,0.5,1,EC,Los Ríos,Province,Ecuador,4,0
+3769.0,0.5,1,DO,Monte Plata,Province,Dominican Republic,4,0
+3772.0,0.5,1,HR,Požega-Slavonia,County,Croatia,4,0
+3773.0,0.5,1,CR,San José,Province,Costa Rica,4,0
+3775.0,4463.4,86,CO,Caquetá,Intendancy,Colombia,4,204
+3776.0,1193.7,23,CO,Huila,Department,Colombia,4,54
+3777.0,2698.7999999999997,52,CO,Guaviare,Commissiary,Colombia,4,123
+3778.0,415.2,8,CO,Caldas,Department,Colombia,4,19
+3779.0,2283.6,44,CO,Casanare,Intendancy,Colombia,4,104
+3780.0,4100.099999999999,79,CO,Meta,Department,Colombia,4,188
+3781.0,103.8,2,CO,Bogotá,Federal District,Colombia,4,4
+3782.0,1505.1,29,CO,Santander,Department,Colombia,4,69
+3783.0,1089.8999999999999,21,CO,Tolima,Department,Colombia,4,49
+3784.0,103.8,2,CO,Quindío,Department,Colombia,4,4
+3785.0,1038.0,20,CO,Cundinamarca,Department,Colombia,4,47
+3786.0,207.6,4,CO,Risaralda,Department,Colombia,4,9
+3787.0,85997.8,61,CN,Beijing,Municipality,China,80,3944
+3789.0,0.5,1,CD,Maniema,Province,Democratic Republic of the Congo,4,0
+3790.0,2422036.4,1718,CN,Sichuan,Province,China,2267,111084
+3791.0,403202.8,286,CN,Chongqing,Municipality,China,377,18492
+3792.0,840240.7999999999,596,CN,Guizhou,Province,China,786,38536
+3793.0,1024924.6,727,CN,Hunan,Province,China,959,47007
+3794.0,277730.6,197,CN,Ningxia,Autonomous Region,China,259,12737
+3795.0,1088365.5999999999,772,CN,Shaanxi,Province,China,1018,49916
+3796.0,3771215.0,2675,CN,Qinghai,Province,China,3529,172963
+3797.0,840240.7999999999,596,CN,Shanxi,Province,China,786,38536
+3798.0,813454.6,577,CN,Jiangxi,Province,China,761,37308
+3799.0,862797.6,612,CN,Henan,Province,China,807,39571
+3800.0,944566.0,670,CN,Hubei,Province,China,884,43321
+3801.0,704900.0,500,CN,Anhui,Province,China,659,32329
+3802.0,522.0,30,TD,Bahr el Gazel,Prefecture,Chad,4,23
+3803.0,191.39999999999998,11,TD,Tandjilé,Prefecture,Chad,4,8
+3804.0,52.199999999999996,3,TD,Logone Occidental,Prefecture,Chad,4,2
+3805.0,504.59999999999997,29,TD,Guéra,Prefecture,Chad,4,23
+3806.0,835.1999999999999,48,TD,Batha,Prefecture,Chad,4,38
+3807.0,585.9,21,CM,West,Province,Cameroon,4,26
+3808.0,3152.7,113,CM,Centre,Province,Cameroon,4,144
+3810.0,0.5,1,KH,Kampong Thom,Province,Cambodia,4,0
+3811.0,0.5,1,KH,Kam,Province,Cambodia,4,0
+3813.0,47391.6,219,BR,Goiás,State,Brazil,44,2173
+3814.0,865.6,4,BR,Federal,Federal District,Brazil,4,39
+3815.0,80500.8,372,BR,Minas Gerais,State,Brazil,75,3692
+3816.0,37870.0,175,BR,Tocantins,State,Brazil,35,1736
+3817.0,0.5,1,BW,Kweneng,District,Botswana,4,0
+3820.0,247.8,21,BO,Cochabamba,Department,Bolivia,4,11
+3821.0,1.56,2,BT,Tsirang,District,Bhutan,4,0
+3822.0,1.56,2,BT,Wangdue Phodrang,District,Bhutan,4,0
+3825.0,1.56,2,BT,Mongar,District,Bhutan,4,0
+3828.0,646.0,68,BY,Minsk,Municipality,Belarus,4,29
+3829.0,0.29,1,BB,Saint George,Parish,Barbados,4,0
+3831.0,50.5,5,AZ,Saatly,District,Azerbaijan,4,2
+3832.0,40.4,4,AZ,Barda,District,Azerbaijan,4,1
+3833.0,40.4,4,AZ,Shamkir,District,Azerbaijan,4,1
+3834.0,30.299999999999997,3,AZ,Agsu,District,Azerbaijan,4,1
+3836.0,30.299999999999997,3,AZ,Shamakhi,District,Azerbaijan,4,1
+3837.0,80.8,8,AZ,Quba,District,Azerbaijan,4,3
+3838.0,20.2,2,AZ,Ujar,District,Azerbaijan,4,0
+3839.0,40.4,4,AZ,Gobustan,District,Azerbaijan,4,1
+3840.0,50.5,5,AZ,Ismayilli,District,Azerbaijan,4,2
+3841.0,60.599999999999994,6,AZ,Yevlakh,District,Azerbaijan,4,2
+3842.0,10.1,1,AZ,Ganja,Municipality,Azerbaijan,4,0
+3844.0,20.2,2,AZ,Goychay,District,Azerbaijan,4,0
+3845.0,20.2,2,AZ,Agdash,District,Azerbaijan,4,0
+3846.0,50.5,5,AZ,Aghjabadi,District,Azerbaijan,4,2
+3848.0,0.5,1,AT,Vienna,State,Austria,4,0
+3849.0,18.0,6,AM,Kotayk,Province,Armenia,4,0
+3851.0,2427.3999999999996,53,AR,Santa Fe,Province,Argentina,4,111
+3852.0,412.2,9,AR,Tucumán,Province,Argentina,4,18
+3853.0,2473.2,54,AR,Santiago del Estero,Province,Argentina,4,113
+3854.0,1603.0,35,AR,San Luis,Province,Argentina,4,73
+3855.0,2564.7999999999997,56,AR,La Pampa,Province,Argentina,4,117
+3856.0,3022.7999999999997,66,AR,Córdoba,Province,Argentina,4,138
+3857.0,2622.0,76,AO,Bié,Province,Angola,4,120
+3858.0,862.5,25,AO,Cuanza Norte,Province,Angola,4,39
+3859.0,2829.0,82,AO,Huíla,Province,Angola,4,129
+3860.0,1138.5,33,AO,Huambo,Province,Angola,4,52
+3861.0,132.60000000000002,3,DZ,Sétif,Province,Algeria,4,6
+3862.0,176.8,4,DZ,Bordj Bou Arréridj,Province,Algeria,4,8
+3863.0,132.60000000000002,3,DZ,Bouïra,Province,Algeria,4,6
+3864.0,132.60000000000002,3,DZ,Blida,Province,Algeria,4,6
+3865.0,88.4,2,DZ,Tissemsilt,Province,Algeria,4,4
+3866.0,132.60000000000002,3,DZ,Aïn Defla,Province,Algeria,4,6
+3867.0,132.60000000000002,3,DZ,Relizane,Province,Algeria,4,6
+3868.0,2121.6000000000004,48,DZ,El Bayadh,Province,Algeria,4,97
+3869.0,265.20000000000005,6,DZ,Saïda,Province,Algeria,4,12
+3870.0,176.8,4,DZ,Sidi Bel Abbès,Province,Algeria,4,8
+3871.0,176.8,4,DZ,Mascara,Province,Algeria,4,8
+3872.0,2298.4,52,DZ,Ghardaïa,Province,Algeria,4,105
+3873.0,795.6,18,DZ,Laghouat,Province,Algeria,4,36
+3874.0,309.40000000000003,7,DZ,Médéa,Province,Algeria,4,14
+3875.0,707.2,16,DZ,Tiaret,Province,Algeria,4,32
+3876.0,486.20000000000005,11,DZ,M'Sila,Province,Algeria,4,22
+3877.0,397.8,9,DZ,Batna,Province,Algeria,4,18
+3878.0,353.6,8,DZ,Khenchela,Province,Algeria,4,16
+3879.0,88.4,2,DZ,Guelma,Province,Algeria,4,4
+3880.0,132.60000000000002,3,DZ,Constantine,Province,Algeria,4,6
+3881.0,88.4,2,DZ,Mila,Province,Algeria,4,4
+3882.0,176.8,4,DZ,Oum El Bouaghi,Province,Algeria,4,8
+3883.0,663.0,15,DZ,Biskra,Province,Algeria,4,30
+3884.0,1105.0,25,DZ,Djelfa,Province,Algeria,4,50
+3885.0,0.5,1,AL,Berat,County,Albania,4,0
+3886.0,904.2,22,AF,Urozgan,Province,Afghanistan,4,41
+3887.0,1644.0,40,AF,Ghazni,Province,Afghanistan,4,75
+3888.0,246.60000000000002,6,AF,Parwan,Province,Afghanistan,4,11
+3889.0,369.90000000000003,9,AF,Kabul,Province,Afghanistan,4,16
+3890.0,246.60000000000002,6,AF,Laghman,Province,Afghanistan,4,11
+3891.0,287.7,7,AF,Logar,Province,Afghanistan,4,13
+3892.0,123.30000000000001,3,AF,Kapisa,Province,Afghanistan,4,5
+3893.0,780.9,19,AF,Maidan Wardak,Province,Afghanistan,4,35
+3894.0,1397.4,34,AF,Bamyan,Province,Afghanistan,4,64
+3895.0,452.1,11,AF,Parwan,Province,Afghanistan,4,20
+3896.0,1356.3,33,AF,Sar-e Pol,Province,Afghanistan,4,62
+3897.0,2712.6,66,AF,Ghōr,Province,Afghanistan,4,124
+3898.0,1438.5,35,AF,Baghlan,Province,Afghanistan,4,65
+3899.0,1027.5,25,AF,Samangan,Province,Afghanistan,4,47
+3900.0,1233.0,30,AF,Urozgan,Province,Afghanistan,4,56
+3901.0,67.3,1,GB,Caerphilly,Unitary Authority (wales),United Kingdom,4,3
+3902.0,134.6,2,GB,Rhondda Cynon Taf,Unitary Authority (wales),United Kingdom,4,6
+3904.0,756.8,16,UG,Oyam,County,Uganda,4,34
+3905.0,567.5999999999999,12,UG,Lira,District,Uganda,4,26
+3906.0,236.5,5,UG,Kole,District,Uganda,4,10
+3907.0,1324.3999999999999,28,UG,Pader,District,Uganda,4,60
+3908.0,378.4,8,UG,Ibanda,County,Uganda,4,17
+3909.0,804.0999999999999,17,UG,Mbarara,County,Uganda,4,36
+3910.0,1229.8,26,UG,Gulu,County,Uganda,4,56
+3911.0,1229.8,26,UG,Kiryandongo,District,Uganda,4,56
+3912.0,283.79999999999995,6,UG,Iganga,District,Uganda,4,13
+3913.0,425.7,9,UG,Lwengo,District,Uganda,4,19
+3914.0,141.89999999999998,3,UG,Bukomansimbi,District,Uganda,4,6
+3915.0,283.79999999999995,6,UG,Kalungu,District,Uganda,4,13
+3916.0,94.6,2,UG,Kampala,District,Uganda,4,4
+3917.0,283.79999999999995,6,UG,Kaliro,County,Uganda,4,13
+3918.0,1040.6,22,UG,Agago,District,Uganda,4,47
+3919.0,1324.3999999999999,28,UG,Kotido,County,Uganda,4,60
+3920.0,709.5,15,UG,Abim,County,Uganda,4,32
+3921.0,709.5,15,UG,Otuke,District,Uganda,4,32
+3922.0,614.9,13,UG,Alebtong,District,Uganda,4,28
+3923.0,993.3,21,UG,Amuria,District,Uganda,4,45
+3924.0,804.0999999999999,17,UG,Katakwi,County,Uganda,4,36
+3925.0,614.9,13,UG,Serere,District,Uganda,4,28
+3926.0,425.7,9,UG,Soroti,District,Uganda,4,19
+3927.0,473.0,10,UG,Pallisa,District,Uganda,4,21
+3928.0,1608.1999999999998,34,UG,Mbarara,District,Uganda,4,73
+3929.0,378.4,8,UG,Lyantonde,District,Uganda,4,17
+3930.0,709.5,15,UG,Masaka,District,Uganda,4,32
+3933.0,67.3,1,GB,North Lanarkshire,Unitary District,United Kingdom,4,3
+3934.0,67.3,1,GB,East Dunbartonshire,Unitary District,United Kingdom,4,3
+3936.0,67.3,1,GB,East Renfrewshire,Unitary District,United Kingdom,4,3
+3937.0,336.5,5,GB,East Ayrshire,Unitary District,United Kingdom,4,15
+3938.0,403.79999999999995,6,GB,South Lanarkshire,Unitary District,United Kingdom,4,18
+3939.0,134.6,2,GB,Magherafelt,District,United Kingdom,4,6
+3940.0,269.2,4,GB,Omagh,District,United Kingdom,4,12
+3941.0,134.6,2,GB,Mid Ulster,Province,United Kingdom,4,6
+3942.0,67.3,1,GB,Craigavon,District,United Kingdom,4,3
+3943.0,134.6,2,GB,Banbridge,District,United Kingdom,4,6
+3944.0,201.89999999999998,3,GB,Antrim,District,United Kingdom,4,9
+3945.0,134.6,2,GB,Lisburn,District,United Kingdom,4,6
+3946.0,67.3,1,GB,Ballymoney,District,United Kingdom,4,3
+3947.0,134.6,2,GB,Ballymena,District,United Kingdom,4,6
+3956.0,67.3,1,GB,Stockton-on-Tees,Unitary Authority,United Kingdom,4,3
+3962.0,67.3,1,GB,Gateshead,Metropolitan Borough,United Kingdom,4,3
+3964.0,67.3,1,GB,York,Unitary Authority,United Kingdom,4,3
+3965.0,67.3,1,GB,Merseyside,Metropolitan Borough,United Kingdom,4,3
+3967.0,336.5,5,GB,Hertfordshire,Administrative County,United Kingdom,4,15
+3971.0,67.3,1,GB,Havering,London Borough,United Kingdom,4,3
+3972.0,673.0,10,GB,Cambridgeshire,Administrative County,United Kingdom,4,30
+3975.0,67.3,1,GB,Milton Keynes,Unitary Authority,United Kingdom,4,3
+3976.0,336.5,5,GB,Buckinghamshire,Administrative County,United Kingdom,4,15
+3978.0,67.3,1,GB,Brent,London Borough,United Kingdom,4,3
+3981.0,201.89999999999998,3,GB,Central Bedfordshire,Unitary Authority,United Kingdom,4,9
+3982.0,67.3,1,GB,Bedford,Unitary Authority,United Kingdom,4,3
+3983.0,67.3,1,GB,Rutland,Unitary Authority,United Kingdom,4,3
+3984.0,403.79999999999995,6,GB,Nottinghamshire,Administrative County,United Kingdom,4,18
+3985.0,538.4,8,GB,Northamptonshire,Administrative County,United Kingdom,4,24
+3988.0,67.3,1,GB,Peterborough,Unitary Authority,United Kingdom,4,3
+3991.0,201.89999999999998,3,GB,Doncaster,Metropolitan Borough,United Kingdom,4,9
+3992.0,67.3,1,GB,Croydon,London Borough,United Kingdom,4,3
+3995.0,67.3,1,GB,Kingston upon Thames,London Borough (royal),United Kingdom,4,3
+3998.0,67.3,1,GB,Hackney,London Borough,United Kingdom,4,3
+4000.0,538.4,8,GB,Leicestershire,Kingdom,United Kingdom,4,24
+4001.0,134.6,2,GB,Cheshire East,Unitary Authority,United Kingdom,4,6
+4002.0,538.4,8,GB,Derbyshire,Administrative County,United Kingdom,4,24
+4003.0,67.3,1,GB,Rotherham,Metropolitan Borough,United Kingdom,4,3
+4004.0,134.6,2,GB,Sheffield,Metropolitan Borough,United Kingdom,4,6
+4005.0,67.3,1,GB,Stoke-on-Trent,Unitary Authority,United Kingdom,4,3
+4006.0,67.3,1,GB,Telford and Wrekin,Unitary Authority,United Kingdom,4,3
+4007.0,471.09999999999997,7,GB,Staffordshire,Administrative County,United Kingdom,4,21
+4009.0,336.5,5,GB,Worcestershire,Administrative County,United Kingdom,4,15
+4010.0,269.2,4,GB,Warwickshire,Administrative County,United Kingdom,4,12
+4011.0,538.4,8,GB,Oxfordshire,Administrative County,United Kingdom,4,24
+4013.0,67.3,1,GB,Stockport,Metropolitan Borough,United Kingdom,4,3
+4014.0,67.3,1,GB,Warrington,Unitary Authority,United Kingdom,4,3
+4015.0,134.6,2,GB,West Berkshire,Unitary Authority,United Kingdom,4,6
+4016.0,67.3,1,GB,Wokingham,Unitary Authority,United Kingdom,4,3
+4017.0,67.3,1,GB,Bracknell Forest,Unitary Authority,United Kingdom,4,3
+4018.0,67.3,1,GB,Windsor and Maidenhead,Unitary Authority,United Kingdom,4,3
+4021.0,336.5,5,GB,Surrey,Administrative County,United Kingdom,4,15
+4022.0,67.3,1,GB,Blackburn with Darwen,Unitary Authority,United Kingdom,4,3
+4023.0,67.3,1,GB,Swindon,Unitary Authority,United Kingdom,4,3
+4024.0,67.3,1,GB,Bath and North East Somerset,Unitary Authority,United Kingdom,4,3
+4025.0,673.0,10,GB,Wiltshire,Unitary Single-Tier County,United Kingdom,4,30
+4026.0,67.3,1,GB,Calderdale,Metropolitan Borough,United Kingdom,4,3
+4027.0,67.3,1,GB,Kirklees,Metropolitan Borough,United Kingdom,4,3
+4030.0,67.3,1,GB,Derby,Unitary Authority,United Kingdom,4,3
+4031.0,851.4,18,UG,Mukono,District,Uganda,4,39
+4032.0,1040.6,22,UG,Buikwe,District,Uganda,4,47
+4033.0,1655.5,35,UG,Nakapiripirit,District,Uganda,4,75
+4034.0,331.09999999999997,7,UG,Kween,District,Uganda,4,15
+4035.0,236.5,5,UG,Buhweju,District,Uganda,4,10
+4036.0,189.2,4,UG,Sheema,District,Uganda,4,8
+4037.0,189.2,4,UG,Mitooma,District,Uganda,4,8
+4038.0,283.79999999999995,6,UG,Bushenyi,District,Uganda,4,13
+4039.0,236.5,5,UG,Bulambuli,County,Uganda,4,10
+4040.0,189.2,4,UG,Sironko,County,Uganda,4,8
+4041.0,378.4,8,UG,Bugiri,District,Uganda,4,17
+4042.0,1702.8,36,UG,Nwoya,District,Uganda,4,78
+4043.0,236.5,5,UG,Mbale,County,Uganda,4,10
+4044.0,141.89999999999998,3,UG,Budaka,County,Uganda,4,6
+4045.0,236.5,5,UG,Butaleja,County,Uganda,4,10
+4046.0,141.89999999999998,3,UG,Kibuku,County,Uganda,4,6
+4047.0,2081.2,44,UG,Napak,District,Uganda,4,95
+4048.0,331.09999999999997,7,UG,Kumi,District,Uganda,4,15
+4049.0,236.5,5,UG,Ngora,District,Uganda,4,10
+4050.0,378.4,8,UG,Bukedea,District,Uganda,4,17
+4051.0,283.79999999999995,6,UG,Namutumba,County,Uganda,4,13
+4052.0,4691.5,55,TR,Kütahya,Province,Turkey,4,215
+4053.0,15354.0,180,TR,Konya,Province,Turkey,14,704
+4054.0,3326.7,39,TR,Karaman,Province,Turkey,4,152
+4055.0,2473.7,29,TR,Niğde,Province,Turkey,4,113
+4056.0,6653.4,78,TR,Kayseri,Province,Turkey,6,305
+4057.0,3156.1,37,TR,Isparta,Province,Turkey,4,144
+4058.0,4862.099999999999,57,TR,Manisa,Province,Turkey,4,222
+4059.0,3923.7999999999997,46,TR,Denizli,Province,Turkey,4,179
+4060.0,2729.6,32,TR,Burdur,Province,Turkey,4,125
+4061.0,2729.6,32,TR,Aksaray,Province,Turkey,4,125
+4062.0,1876.6,22,TR,Nevşehir,Province,Turkey,4,86
+4063.0,5118.0,60,TR,Yozgat,Province,Turkey,4,234
+4064.0,2559.0,30,TR,Kırşehir,Province,Turkey,4,117
+4065.0,1791.3,21,TR,Uşak,Province,Turkey,4,82
+4066.0,4265.0,50,TR,Erzincan,Province,Turkey,4,195
+4067.0,3156.1,37,TR,Tunceli,Province,Turkey,4,144
+4068.0,5715.099999999999,67,TR,Afyonkarahisar,Province,Turkey,5,262
+4069.0,1706.0,20,TR,Kırıkkale,Province,Turkey,4,78
+4070.0,5629.8,66,TR,Kahramanmaraş,Province,Turkey,5,258
+4071.0,3070.7999999999997,36,TR,Muş,Province,Turkey,4,140
+4072.0,9127.1,107,TR,Erzurum,Province,Turkey,8,418
+4073.0,4350.3,51,TR,Malatya,Province,Turkey,4,199
+4074.0,3241.4,38,TR,Elazığ,Province,Turkey,4,148
+4075.0,3412.0,40,TR,Bitlis,Province,Turkey,4,156
+4076.0,3241.4,38,TR,Bingöl,Province,Turkey,4,148
+4077.0,9847.2,44,NG,Abia State,State,Nigeria,9,451
+4078.0,14099.400000000001,63,NG,Ebonyi State,State,Nigeria,13,646
+4079.0,10294.800000000001,46,NG,Anambra State,State,Nigeria,9,472
+4080.0,43641.0,195,NG,Edo State,State,Nigeria,40,2001
+4081.0,107647.8,481,NG,Bauchi State,State,Nigeria,100,4937
+4082.0,59978.4,268,NG,Plateau State,State,Nigeria,56,2750
+4083.0,57069.0,255,NG,Nasarawa State,State,Nigeria,53,2617
+4084.0,39388.8,176,NG,Gombe State,State,Nigeria,36,1806
+4085.0,17232.600000000002,77,NG,Enugu State,State,Nigeria,16,790
+4086.0,62664.0,280,NG,Kogi State,State,Nigeria,58,2874
+4087.0,20142.0,90,NG,Osun State,State,Nigeria,18,923
+4088.0,11190.0,50,NG,Imo State,State,Nigeria,10,513
+4089.0,1108.8999999999999,13,TR,Osmaniye,Province,Turkey,4,50
+4090.0,2644.2999999999997,31,TR,Adıyaman,Province,Turkey,4,121
+4091.0,5544.5,65,TR,Diyarbakır,Province,Turkey,5,254
+4092.0,1535.3999999999999,18,TR,Batman,Province,Turkey,4,70
+4093.0,2303.1,27,TR,Siirt,Province,Turkey,4,105
+4094.0,1706.0,20,TR,Bayburt,Province,Turkey,4,78
+4095.0,2132.5,25,TR,Gümüşhane,Province,Turkey,4,97
+4096.0,8229.0,130,TZ,Singida,Region,United Republic of Tanzania,7,377
+4097.0,12470.099999999999,197,TZ,Tabora,Region,United Republic of Tanzania,11,571
+4098.0,6519.9,103,TZ,Iringa,Region,United Republic of Tanzania,6,299
+4099.0,4304.4,68,TZ,Mwanza,Region,United Republic of Tanzania,4,197
+4100.0,4114.5,65,TZ,Simiyu,Region,United Republic of Tanzania,4,188
+4101.0,4114.5,65,TZ,Geita,Region,United Republic of Tanzania,4,188
+4102.0,3228.2999999999997,51,TZ,Shinyanga,Region,United Republic of Tanzania,4,148
+4103.0,897.9,41,LK,Ratnapura,District,Sri Lanka,4,41
+4104.0,1533.0,70,LK,Monaragala,District,Sri Lanka,4,70
+4105.0,481.79999999999995,22,LK,Kegalle,District,Sri Lanka,4,22
+4106.0,810.3,37,LK,Badulla,District,Sri Lanka,4,37
+4107.0,525.5999999999999,24,LK,Matale,District,Sri Lanka,4,24
+4108.0,963.5999999999999,44,LK,Polonnaruwa,District,Sri Lanka,4,44
+4109.0,1292.1,59,LK,Kurunegala,District,Sri Lanka,4,59
+4110.0,1861.4999999999998,85,LK,Anuradhapura,District,Sri Lanka,4,85
+4111.0,438.0,20,LK,Nuwara Eliya,District,Sri Lanka,4,20
+4112.0,613.1999999999999,28,LK,Vavuniya,District,Sri Lanka,4,28
+4113.0,481.79999999999995,22,LK,Kandy,District,Sri Lanka,4,22
+4114.0,506.80000000000007,28,SO,Bay,Region,Somalia,4,23
+4115.0,1444.0,10,RU,Bashkortostan,Republic,Russia,4,66
+4116.0,2743.6,19,RU,Sverdlovsk,Region,Russia,4,125
+4117.0,7220.0,50,RU,Khanty-Mansi Autonomous Okrug,Autonomous Province,Russia,6,331
+4118.0,144.4,1,RU,Lipetsk,Region,Russia,4,6
+4119.0,288.8,2,RU,Tambov,Region,Russia,4,13
+4120.0,3610.0,25,RU,Tomsk,Region,Russia,4,165
+4121.0,722.0,5,RU,Republic of Tatarstan,Republic,Russia,4,33
+4122.0,577.6,4,RU,Ulyanovsk,Region,Russia,4,26
+4123.0,433.20000000000005,3,RU,Penza,Region,Russia,4,19
+4124.0,866.4000000000001,6,RU,Kemerovo,Region,Russia,4,39
+4125.0,288.8,2,RU,Oryol,Region,Russia,4,13
+4126.0,10252.4,71,RU,Irkutsk,Region,Russia,9,470
+4127.0,1155.2,8,RU,Republic of Khakassia,Republic,Russia,4,52
+4128.0,288.8,2,RU,Republic of Mordovia,Republic,Russia,4,13
+4129.0,433.20000000000005,3,RU,Kaluga,Region,Russia,4,19
+4130.0,577.6,4,RU,Kostroma,Region,Russia,4,26
+4131.0,433.20000000000005,3,RU,Yaroslavl,Region,Russia,4,19
+4132.0,288.8,2,RU,Vladimir,Region,Russia,4,13
+4133.0,722.0,5,RU,Ryazan,Region,Russia,4,33
+4134.0,288.8,2,RU,Ivanovo,Region,Russia,4,13
+4135.0,1010.8000000000001,7,RU,Nizhny Novgorod,Region,Russia,4,46
+4136.0,288.8,2,RU,Tula,Region,Russia,4,13
+4137.0,206.8,4,KR,Seoul,Capital Metropolitan City,South Korea,4,9
+4138.0,103.4,2,KR,Daejeon,Metropolitan City,South Korea,4,4
+4139.0,206.8,4,KR,Sejong,Special self-governing city,South Korea,4,9
+4140.0,3205.4,62,KR,North Chungcheong,Province,South Korea,4,147
+4141.0,51.7,1,KR,Gwangju,Metropolitan City,South Korea,4,2
+4142.0,206.8,4,KR,Daegu,Metropolitan City,South Korea,4,9
+4143.0,288.8,2,RU,Chuvash Republic,Republic,Russia,4,13
+4144.0,2310.4,16,RU,Vologda,Region,Russia,4,105
+4145.0,722.0,5,RU,Novgorod,Region,Russia,4,33
+4146.0,1299.6000000000001,9,RU,Tver,Region,Russia,4,59
+4147.0,288.8,2,RU,Moscow,Region,Russia,4,13
+4149.0,288.8,2,RU,Mari El Republic,Republic,Russia,4,13
+4150.0,2166.0,15,RU,Kirov,Region,Russia,4,99
+4151.0,577.6,4,RU,Udmurt Republic,Republic,Russia,4,26
+4152.0,7075.6,49,RU,Komi Republic,Republic,Russia,6,324
+4153.0,1732.8000000000002,12,RU,Perm Krai,Territory,Russia,4,79
+4154.0,577.6,4,RU,Samara,Region,Russia,4,26
+4155.0,722.0,5,RU,Stavropol Krai,Territory,Russia,4,33
+4156.0,288.8,2,RU,Republic of Adygea,Republic,Russia,4,13
+4157.0,6855.7,179,PL,Masovian Voivodeship,Voivodeship|Province,Poland,6,314
+4158.0,3561.8999999999996,93,PL,Łódź Voivodeship,Voivodeship|Province,Poland,4,163
+4159.0,3753.3999999999996,98,PL,Kuyavian-Pomeranian Voivodeship,Voivodeship|Province,Poland,4,172
+4160.0,5936.5,155,PL,Greater Poland Voivodeship,Voivodeship|Province,Poland,5,272
+4161.0,2221.3999999999996,58,PL,Świętokrzyskie Voivodeship,Voivodeship|Province,Poland,4,101
+4165.0,113.9,1,PH,Valenzuela City,Highly Urbanized City,Philippines,4,5
+4166.0,113.9,1,PH,Quezon City,Highly Urbanized City,Philippines,4,5
+4167.0,2164.1,19,PH,Nueva Ecija,Province,Philippines,4,99
+4168.0,911.2,8,PH,Laguna,Province,Philippines,4,41
+4169.0,569.5,5,PH,Rizal,Province,Philippines,4,26
+4170.0,113.9,1,PH,Taguig City,Highly Urbanized City,Philippines,4,5
+4173.0,1139.0,10,PH,Quirino,Province,Philippines,4,52
+4174.0,113.9,1,PH,Santiago,Independent Component City,Philippines,4,5
+4175.0,1366.8000000000002,12,PH,Nueva Vizcaya,Province,Philippines,4,62
+4176.0,1139.0,10,PH,Benguet,Province,Philippines,4,52
+4177.0,1139.0,10,PH,Ifugao,Province,Philippines,4,52
+4178.0,911.2,8,PH,Mountain,Province,Philippines,4,41
+4179.0,1252.9,11,PH,Tarlac,Province,Philippines,4,57
+4180.0,1594.6000000000001,14,PH,Apayao,Province,Philippines,4,73
+4181.0,1366.8000000000002,12,PH,Kalinga,Province,Philippines,4,62
+4182.0,1594.6000000000001,14,PH,Abra,Province,Philippines,4,73
+4183.0,1.0,2,OM,Ad Dakhiliyah,Region,Oman,4,0
+4184.0,11413.800000000001,51,NG,Ekiti State,State,Nigeria,10,523
+4185.0,96010.20000000001,429,NG,Kaduna State,State,Nigeria,89,4403
+4186.0,44983.8,201,NG,Kano State,State,Nigeria,42,2063
+4187.0,15442.2,69,NG,Federal Capital Territory,State,Nigeria,14,708
+4188.0,338.0,13,KP,Pyongyang,Special City,North Korea,4,15
+4189.0,799.8000000000001,31,NA,Khomas,Region,Namibia,4,36
+4190.0,154.8,6,NA,Oshana,Region,Namibia,4,7
+4191.0,774.0,30,NA,Oshikoto,Region,Namibia,4,35
+4193.0,13.2,4,MN,Töv,Province,Mongolia,4,0
+4194.0,16.5,5,MN,Arkhangai,Province,Mongolia,4,0
+4196.0,16.5,5,MN,Dundgovi,Province,Mongolia,4,0
+4197.0,13.2,4,MN,Övörkhangai,Province,Mongolia,4,0
+4199.0,3403.4,26,MX,State of Mexico,State,Mexico,4,156
+4200.0,5366.900000000001,41,MX,Puebla,State,Mexico,5,246
+4201.0,654.5,5,MX,Morelos,State,Mexico,4,30
+4202.0,1963.5,15,MX,Querétaro,State,Mexico,4,90
+4203.0,3272.5,25,MX,Hidalgo,State,Mexico,4,150
+4204.0,4712.400000000001,36,MX,Guanajuato,State,Mexico,4,216
+4205.0,9817.5,75,MX,San Luis Potosí,State,Mexico,9,450
+4206.0,11781.0,90,MX,Zacatecas,State,Mexico,11,540
+4207.0,785.4000000000001,6,MX,Aguascalientes,State,Mexico,4,36
+4208.0,18980.5,145,MX,Durango,State,Mexico,17,870
+4209.0,3.3,1,MN,Ulaanbaatar,Municipality,Mongolia,4,0
+4210.0,654.5,5,MX,Tlaxcala,State,Mexico,4,30
+4211.0,130.9,1,MX,Mexico,Federal District,Mexico,4,6
+4212.0,0.5,1,MR,Tagant,Region,Mauritania,4,0
+4215.0,0.5,1,MK,Makedonski Brod,Statistical Region,Macedonia,4,0
+4227.0,0.5,1,MK,Čaška,Statistical Region,Macedonia,4,0
+4233.0,0.5,1,MK,Demir Hisar,Statistical Region,Macedonia,4,0
+4238.0,0.5,1,MK,Češinovo-Obleševo,Statistical Region,Macedonia,4,0
+4244.0,0.5,1,MK,Skopje,Statistical Region,Macedonia,4,0
+4251.0,0.5,1,MK,Štip,Statistical Region,Macedonia,4,0
+4255.0,0.5,1,MK,Demir Kapija,Statistical Region,Macedonia,4,0
+4256.0,0.5,1,MK,Vinica,Statistical Region,Macedonia,4,0
+4263.0,1.0,2,LY,Jufra,Municipality|Governarate,Libya,4,0
+4264.0,0.5,1,LY,Sabha,Municipality|Governarate,Libya,4,0
+4266.0,0.5,1,KZ,Akmola,Region,Kazakhstan,4,0
+4267.0,1.0,2,KZ,Karaganda,Region,Kazakhstan,4,0
+4268.0,130.5,3,IQ,Baghdad,Province,Iraq,4,5
+4269.0,870.0,20,IQ,Babylon,Province,Iraq,4,39
+4270.0,1174.5,27,IQ,Al-Qādisiyyah,Province,Iraq,4,53
+4271.0,1827.0,42,IQ,Dhi Qar,Province,Iraq,4,83
+4272.0,696.0,16,IQ,Karbala,Province,Iraq,4,31
+4273.0,4395.0,50,IR,Markazi,Province,Iran,4,201
+4274.0,17492.100000000002,199,IR,Isfahan,Province,Iran,16,802
+4275.0,2373.3,27,IR,Chaharmahal and Bakhtiari,Province,Iran,4,108
+4276.0,2197.5,25,IR,Kohgiluyeh and Boyer-Ahmad,Province,Iran,4,100
+4277.0,19162.2,218,IR,Fars,Province,Iran,17,878
+4278.0,27952.2,318,IR,Kerman,Province,Iran,26,1282
+4279.0,3340.2000000000003,38,IR,Hamadan,Province,Iran,4,153
+4280.0,4658.700000000001,53,IR,Lorestan,Province,Iran,4,213
+4281.0,20217.0,230,IR,Yazd,Province,Iran,18,927
+4282.0,1933.8000000000002,22,IR,Qom,Province,Iran,4,88
+4283.0,2373.3,27,IR,Tehran,Province,Iran,4,108
+4284.0,966.9000000000001,11,IR,Alborz,Province,Iran,4,44
+4285.0,1751463.5999999999,1226,IN,Chhattisgarh,State,India,1639,80329
+4286.0,610012.2,427,IN,Haryana,State,India,570,27977
+4287.0,1452886.2,1017,IN,Telangana,State,India,1359,66635
+4288.0,0.5,1,HU,Jász-Nagykun-Szolnok,County,Hungary,4,0
+4290.0,0.5,1,HU,Veszprém,County,Hungary,4,0
+4291.0,0.5,1,HU,Tolna,County,Hungary,4,0
+4303.0,29.6,8,GE,Imereti,Region,Georgia,4,1
+4304.0,0.5,1,FI,Northern Savonia,Province,Finland,4,0
+4306.0,0.5,1,FI,Central Finland,Province,Finland,4,0
+4307.0,1.0,2,FI,Southern Ostrobothnia,Province,Finland,4,0
+4309.0,0.5,1,FI,Tavastia Proper,Region,Finland,4,0
+4310.0,0.5,1,FI,Päijänne Tavastia,Province,Finland,4,0
+4311.0,493.6,4,ET,Dire Dawa,Administrative State,Ethiopia,4,22
+4312.0,246.8,2,ET,Addis Ababa,Administrative State,Ethiopia,4,11
+4313.0,123.4,1,ET,Harari,Administrative State,Ethiopia,4,5
+4314.0,344.40000000000003,28,BI,Gitega,Province,Burundi,4,15
+4315.0,159.9,13,BI,Muramvya,Province,Burundi,4,7
+4316.0,123.0,10,BI,Mwaro,Province,Burundi,4,5
+4317.0,270.6,22,BI,Karuzi,Province,Burundi,4,12
+4318.0,236.5,11,BF,Balé,Province,Burkina Faso,4,10
+4319.0,258.0,12,BF,Sanguié,Province,Burkina Faso,4,11
+4320.0,344.0,16,BF,Tuy,Province,Burkina Faso,4,15
+4321.0,172.0,8,BF,Bougouriba,Province,Burkina Faso,4,7
+4322.0,365.5,17,BF,Mouhoun,Province,Burkina Faso,4,16
+4323.0,172.0,8,BF,Kouritenga,Province,Burkina Faso,4,7
+4324.0,236.5,11,BF,Ganzourgou,Province,Burkina Faso,4,10
+4325.0,193.5,9,BF,Zoundwéogo,Province,Burkina Faso,4,8
+4326.0,236.5,11,BF,Ziro,Province,Burkina Faso,4,10
+4327.0,258.0,12,BF,Boulkiemdé,Province,Burkina Faso,4,11
+4328.0,129.0,6,BF,Kadiogo,Province,Burkina Faso,4,5
+4329.0,129.0,6,BF,Oubritenga,Province,Burkina Faso,4,5
+4330.0,602.0,28,BF,Gourma,Province,Burkina Faso,4,27
+4331.0,430.0,20,BF,Gnagna,Province,Burkina Faso,4,19
+4332.0,215.0,10,BF,Bazèga,Province,Burkina Faso,4,9
+4333.0,86.0,4,BF,Kourwéogo,Province,Burkina Faso,4,3
+4334.0,215.0,10,BF,Nayala,Province,Burkina Faso,4,9
+4335.0,172.0,8,BF,Passoré,Province,Burkina Faso,4,7
+4336.0,64.5,3,BF,Zondoma,Province,Burkina Faso,4,2
+4337.0,365.5,17,BF,Namentenga,Province,Burkina Faso,4,16
+4338.0,494.5,23,BF,Sanmatenga,Province,Burkina Faso,4,22
+4339.0,193.5,9,BF,Bam,Province,Burkina Faso,4,8
+4340.0,4111.6,76,MM,Magway,Division,Myanmar,4,188
+4341.0,3408.3,63,MM,Mandalay,Division,Myanmar,4,156
+4343.0,0.5,1,BG,Stara Zagora,Province,Bulgaria,4,0
+4347.0,0.5,1,BG,Targovishte,Province,Bulgaria,4,0
+4349.0,0.5,1,BG,Pazardzhik,Province,Bulgaria,4,0
+4352.0,186.20000000000002,14,RW,Kigali,Province,Rwanda,4,8
+4353.0,33.7,1,YE,Sanaa,Governorate,Yemen,4,1
+4354.0,7392.0,22,US,Wisconsin,State,United States of America,6,339
+4355.0,7056.0,21,US,Illinois,State,United States of America,6,323
+4356.0,4032.0,12,US,Kentucky,State,United States of America,4,184
+4357.0,5040.0,15,US,Arkansas,State,United States of America,4,231
+4358.0,4032.0,12,US,Tennessee,State,United States of America,4,184
+4359.0,2688.0,8,US,West Virginia,State,United States of America,4,123
+4360.0,3360.0,10,US,Indiana,State,United States of America,4,154
+4361.0,336.0,32,CZ,Vysočina,Region,Czech Republic,4,15
+4362.0,525.0,50,CZ,Central Bohemian,Region,Czech Republic,4,24
+4363.0,31.5,3,CZ,Prague,Region,Czech Republic,4,1
+4365.0,217.5,5,UA,Kyiv,Municipality,Ukraine,4,9
+4391.0,0.5,1,CV,São Salvador do Mundo,,Cape Verde,4,0
+4398.0,0.5,1,MU,Moka,District,Mauritius,4,0
+4408.0,238.4,4,IT,Enna,Province,Italy,4,10
+4409.0,298.0,5,IT,Benevento,Province,Italy,4,13
+4410.0,298.0,5,IT,Asti,Province,Italy,4,13
+4411.0,596.0,10,IT,Bergamo,Province,Italy,4,27
+4412.0,715.2,12,IT,Brescia,Province,Italy,4,32
+4413.0,417.2,7,IT,Cremona,Province,Italy,4,19
+4414.0,417.2,7,IT,Mantua,Province,Italy,4,19
+4415.0,178.8,3,IT,Milan,Province,Italy,4,8
+4416.0,119.2,2,IT,Lecco,Province,Italy,4,5
+4417.0,178.8,3,IT,Monza and Brianza,Province,Italy,4,8
+4418.0,119.2,2,IT,Lodi,Province,Italy,4,5
+4419.0,715.2,12,IT,Siena,Province,Italy,4,32
+4420.0,655.6,11,IT,Arezzo,Province,Italy,4,30
+4421.0,596.0,10,IT,Florence,Province,Italy,4,27
+4422.0,476.8,8,IT,Vercelli,Province,Italy,4,21
+4423.0,596.0,10,IT,Pavia,Province,Italy,4,27
+4424.0,596.0,10,IT,Rieti,Province,Italy,4,27
+4425.0,238.4,4,IT,Novara,Province,Italy,4,10
+4426.0,476.8,8,IT,Alessandria,Province,Italy,4,21
+4427.0,1192.0,20,IT,Trentino,Province,Italy,4,54
+4428.0,417.2,7,IT,Vicenza,Province,Italy,4,19
+4429.0,536.4,9,IT,Verona,Province,Italy,4,24
+4430.0,357.6,6,IT,Treviso,Province,Italy,4,16
+4431.0,476.8,8,IT,Piacenza,Province,Italy,4,21
+4432.0,596.0,10,IT,Parma,Province,Italy,4,27
+4433.0,476.8,8,IT,Reggio Emilia,Province,Italy,4,21
+4434.0,476.8,8,IT,Modena,Province,Italy,4,21
+4435.0,536.4,9,IT,Bologna,Province,Italy,4,24
+4436.0,178.8,3,IT,Pistoia,Province,Italy,4,8
+4437.0,298.0,5,IT,Terni,Province,Italy,4,13
+4438.0,1072.8,18,IT,Perugia,Province,Italy,4,49
+4439.0,596.0,10,IT,Frosinone,Province,Italy,4,27
+4440.0,536.4,9,IT,Avellino,Province,Italy,4,24
+4441.0,774.8000000000001,13,IT,L'Aquila,Province,Italy,4,35
+4442.0,417.2,7,IT,Pordenone,Province,Italy,4,19
+4443.0,298.0,5,IT,Isernia,Province,Italy,4,13
+4444.0,119.2,2,IT,Biella,Province,Italy,4,5
+4445.0,119.2,2,IT,Prato,Province,Italy,4,5
+4480.0,0.5,1,FR,Cher,Metropolitan department,France,4,0
+4498.0,9.5,1,TJ,Dushanbe,Independent City,Tajikistan,4,0
+4513.0,67.3,1,GB,Leeds,Metropolitan Borough,United Kingdom,4,3
+4514.0,67.3,1,GB,Bradford,Metropolitan Borough,United Kingdom,4,3
+4516.0,67.3,1,GB,Barnsley,Metropolitan Borough,United Kingdom,4,3
+4518.0,67.3,1,GB,Bolton,Metropolitan Borough,United Kingdom,4,3
+4521.0,67.3,1,GB,Oldham,Metropolitan Borough,United Kingdom,4,3
+4522.0,67.3,1,GB,Rochdale,Metropolitan Borough,United Kingdom,4,3
+4525.0,67.3,1,GB,Solihull,Metropolitan Borough,United Kingdom,4,3
+4526.0,67.3,1,GB,Coventry,Metropolitan Borough,United Kingdom,4,3
+4527.0,67.3,1,GB,Birmingham,Metropolitan Borough,United Kingdom,4,3
+4528.0,67.3,1,GB,Sandwell,Metropolitan Borough,United Kingdom,4,3
+4539.0,283.79999999999995,6,ES,Palencia,Autonomous Community,Spain,4,13
+4540.0,804.0999999999999,17,ES,Ciudad Real,Autonomous Community,Spain,4,36
+4541.0,473.0,10,ES,Córdoba,Autonomous Community,Spain,4,21
+4542.0,567.5999999999999,12,ES,Guadalajara,Autonomous Community,Spain,4,26
+4543.0,567.5999999999999,12,ES,Jaén,Autonomous Community,Spain,4,26
+4544.0,283.79999999999995,6,ES,Community of Madrid,Autonomous Community,Spain,4,13
+4545.0,141.89999999999998,3,ES,Segovia,Autonomous Community,Spain,4,6
+4546.0,378.4,8,ES,Valladolid,Autonomous Community,Spain,4,17
+4548.0,0.5,1,MG,Haute Matsiatra,Autonomous Province,Madagascar,4,0
+4549.0,0.5,1,MG,Antananarivo,Autonomous Province,Madagascar,4,0
+4550.0,0.5,1,XK,Suva Reka,District,Kosovo,4,0
+4555.0,0.5,1,XK,Lipljan,District,Kosovo,4,0
+4563.0,0.52,1,MT,Attard,,Malta,4,0
+4592.0,0.52,1,MT,Cospicua,,Malta,4,0
