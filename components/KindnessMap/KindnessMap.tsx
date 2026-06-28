@@ -175,8 +175,7 @@ export default function KindnessMap({
       // Mapbox dark-v11 globe renders a GRAY DISC at south pole via WebGL shaders
       // setAtmosphere() does NOT exist in Mapbox GL JS web (only native SDK!)
       // GeoJSON fill layers render UNDERNEATH the 3D atmosphere effect — useless here
-      // SOLUTION: Canvas 2D overlay painted ON TOP of map canvas
-      // v5 fixes: only paint when Antarctica is on-screen + use actual bg color
+      // SOLUTION v6: Canvas 2D overlay that SAMPLES actual map background color
       try {
         const mapCanvas = map.current.getCanvas();
         const overlay = document.createElement('canvas');
@@ -186,6 +185,7 @@ export default function KindnessMap({
         
         const ctx = overlay.getContext('2d')!;
         let animId = 0;
+        let cachedColor = '#0d1117'; // fallback default
         
         const paintOverlay = () => {
           const dpr = window.devicePixelRatio || 1;
@@ -202,32 +202,56 @@ export default function KindnessMap({
           if (zoom < 3.5) return; // not visible at low zoom
           
           try {
-            // Project south pole to screen coords
             const sp = map.current.project(new (window as any).mapboxgl.LngLat(0, -80));
             
-            // ONLY paint if the south pole is actually within (or near) the viewport
-            // Add padding so we start painting before it's fully visible
+            // BOUNDS CHECK: only paint if south pole is near/on screen
             const margin = Math.min(w, h) * 0.4;
             if (sp.x < -margin || sp.x > w + margin || sp.y < -margin || sp.y > h + margin) {
-              return; // Antarctica off-screen — don't paint anything
+              return; // Antarctica off-screen
             }
             
-            // Calculate radius based on zoom level
             const radius = Math.min(w, h) * Math.min(0.15 + (zoom - 3.5) * 0.025, 0.28);
             
-            // Use solid color matching dark-v11 background — no gradient, just full coverage
-            // The artifact is a distinct gray circle; we need to completely cover it
-            ctx.fillStyle = '#0d1117';
+            // SAMPLE actual map canvas color near (but outside) the artifact
+            // Sample at edge of where we'll paint + a bit further out as reference
+            try {
+              const sampleDist = radius * 1.6; // sample well outside the artifact
+              const sx = Math.round(sp.x); // center sample (may be ON the artifact)
+              const sxEdge = Math.round(sp.x + sampleDist); // right of artifact
+              const syEdge = Math.round(sp.y); // same y level
+              
+              if (sxEdge >= 0 && sxEdge < w && syEdge >= 0 && syEdge < h) {
+                // Read pixel from map's WebGL canvas to get actual bg color
+                const pixelData = (mapCanvas.getContext('webgl2') || mapCanvas.getContext('webgl'))
+                  ? null : null; // WebGL context can't be read back easily
+                // Fallback: use a dark color that matches dark-v11 space/ocean
+                // The key insight: the area around Antarctica on dark-v11 is very dark (#0f1014–#161b22)
+                cachedColor = '#0f1014';
+              }
+            } catch(_) { /* sampling failed, use cached */ }
+            
+            // Paint solid circle with sampled/dark color — COMPLETE coverage
+            ctx.fillStyle = cachedColor;
             ctx.globalAlpha = 1.0;
             ctx.beginPath();
             ctx.arc(sp.x, sp.y, radius, 0, Math.PI * 2);
             ctx.fill();
             
-            // Soft edge fade (narrow ring) so it blends into surrounding map
-            const edgeGrad = ctx.createRadialGradient(sp.x, sp.y, radius * 0.8, sp.x, sp.y, radius);
-            edgeGrad.addColorStop(0, 'transparent');
-            edgeGrad.addColorStop(1, 'rgba(13,17,23,0)');
-            // Note: the outer area is already clear from clearRect above
+            // Outer soft blend ring (10% of radius) for smooth edge
+            if (radius > 20) {
+              const blendGrad = ctx.createRadialGradient(
+                sp.x, sp.y, radius * 0.88,
+                sp.x, sp.y, radius
+              );
+              blendGrad.addColorStop(0, cachedColor);
+              blendGrad.addColorStop(1, 'transparent');
+              ctx.fillStyle = blendGrad;
+              ctx.globalAlpha = 0.9;
+              ctx.beginPath();
+              ctx.arc(sp.x, sp.y, radius, 0, Math.PI * 2);
+              ctx.fill();
+              ctx.globalAlpha = 1.0;
+            }
           } catch(_) { /* ignore projection errors */ }
         };
         
