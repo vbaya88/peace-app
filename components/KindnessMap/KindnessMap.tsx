@@ -176,6 +176,7 @@ export default function KindnessMap({
       // setAtmosphere() does NOT exist in Mapbox GL JS web (only native SDK!)
       // GeoJSON fill layers render UNDERNEATH the 3D atmosphere effect — useless here
       // SOLUTION: Canvas 2D overlay painted ON TOP of map canvas — covers the artifact directly
+      // KEY: Only paint when zoomed in enough to actually SEE the artifact (zoom >= 3.5)
       try {
         const mapCanvas = map.current.getCanvas();
         const overlay = document.createElement('canvas');
@@ -191,6 +192,18 @@ export default function KindnessMap({
           const w = overlay.clientWidth;
           const h = overlay.clientHeight;
           if (!w || !h) return;
+          
+          const zoom = map.current.getZoom();
+          // Only show overlay when zoomed in enough to see the artifact
+          // At zoom < 3.5, the globe is small and artifact is not noticeable — skip painting entirely
+          if (zoom < 3.5) {
+            overlay.width = w * dpr;
+            overlay.height = h * dpr;
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            ctx.clearRect(0, 0, w, h);
+            return;
+          }
+          
           overlay.width = w * dpr;
           overlay.height = h * dpr;
           ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -199,15 +212,16 @@ export default function KindnessMap({
           // Project south-pole area to screen coordinates
           try {
             const sp = map.current.project(new (window as any).mapboxgl.LngLat(0, -82));
-            // Draw large dark circle covering the gray artifact
-            const radius = Math.min(w, h) * 0.25;
-            const grad = ctx.createRadialGradient(sp.x, sp.y, 0, sp.x, sp.y, radius);
+            // Radius scales with zoom: closer = bigger screen radius needed
+            // At zoom 4-5: ~15% of screen, at zoom 8+: ~30% of screen
+            const baseRadius = Math.min(w, h) * Math.min(0.18 + (zoom - 3.5) * 0.03, 0.35);
+            const grad = ctx.createRadialGradient(sp.x, sp.y, 0, sp.x, sp.y, baseRadius);
             grad.addColorStop(0, '#0d1117');       // solid dark center
-            grad.addColorStop(0.75, '#0d1117ee');  // mostly opaque
+            grad.addColorStop(0.7, '#0d1117dd');   // mostly opaque
             grad.addColorStop(1, 'transparent');    // soft edge fade
             ctx.fillStyle = grad;
             ctx.beginPath();
-            ctx.arc(sp.x, sp.y, radius, 0, Math.PI * 2);
+            ctx.arc(sp.x, sp.y, baseRadius, 0, Math.PI * 2);
             ctx.fill();
           } catch(_) { /* ignore projection errors during init */ }
         };
