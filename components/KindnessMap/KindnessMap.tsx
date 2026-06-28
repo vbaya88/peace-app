@@ -171,99 +171,16 @@ export default function KindnessMap({
         maxzoom: 18,
       });
 
-      // ── HIDE Antarctica circle (globe horizon/atmosphere artifact) ──
-      // Mapbox dark-v11 globe renders a GRAY DISC at south pole via WebGL shaders
-      // setAtmosphere() does NOT exist in Mapbox GL JS web (only native SDK!)
-      // GeoJSON fill layers render UNDERNEATH the 3D atmosphere effect — useless here
-      // SOLUTION v7: Canvas overlay that CLONES surrounding map pixels over the artifact
-      // This avoids color-mismatch issues — we copy actual map rendering, not paint a solid color
-      try {
-        const mapCanvas = map.current.getCanvas();
-        const overlay = document.createElement('canvas');
-        overlay.id = 'antarctica-overlay';
-        overlay.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:5;';
-        mapCanvas.parentElement!.insertBefore(overlay, mapCanvas.nextSibling);
-        
-        const ctx = overlay.getContext('2d')!;
-        let animId = 0;
-        
-        const paintOverlay = () => {
-          const dpr = window.devicePixelRatio || 1;
-          const w = overlay.clientWidth;
-          const h = overlay.clientHeight;
-          if (!w || !h) return;
-          
-          overlay.width = w * dpr;
-          overlay.height = h * dpr;
-          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-          ctx.clearRect(0, 0, w, h);
-          
-          const zoom = map.current.getZoom();
-          if (zoom < 3.5) return; // not visible at low zoom
-          
-          try {
-            const sp = map.current.project(new (window as any).mapboxgl.LngLat(0, -80));
-            
-            // BOUNDS CHECK: only paint if south pole is near/on screen
-            const margin = Math.min(w, h) * 0.4;
-            if (sp.x < -margin || sp.x > w + margin || sp.y < -margin || sp.y > h + margin) {
-              return; // Antarctica off-screen
-            }
-            
-            const radius = Math.min(w, h) * Math.min(0.15 + (zoom - 3.5) * 0.025, 0.28);
-            
-            // v7 APPROACH: Clone surrounding map area to cover the artifact
-            // Draw the map canvas onto our overlay, then erase everything EXCEPT the artifact area
-            // This gives us perfect pixel-perfect color matching
-            try {
-              // Copy the entire map canvas onto our overlay
-              ctx.drawImage(mapCanvas, 0, 0, w, h);
-              
-              // Now erase everything OUTSIDE the artifact circle
-              // Using destination-out compositing: the circle area keeps the copied pixels,
-              // everything else becomes transparent
-              ctx.globalCompositeOperation = 'destination-in';
-              ctx.beginPath();
-              ctx.arc(sp.x, sp.y, radius, 0, Math.PI * 2);
-              ctx.fill();
-              
-              // Reset compositing
-              ctx.globalCompositeOperation = 'source-over';
-              
-              // Soft edge: draw a slight gradient ring at the edge for smooth blending
-              // (the copied pixels already match perfectly, this just softens any hard edge)
-              if (radius > 15) {
-                ctx.globalCompositeOperation = 'source-over';
-                const edgeGrad = ctx.createRadialGradient(
-                  sp.x, sp.y, radius * 0.85,
-                  sp.x, sp.y, radius
-                );
-                edgeGrad.addColorStop(0, 'transparent');
-                edgeGrad.addColorStop(1, 'rgba(0,0,0,0.15)');
-                ctx.fillStyle = edgeGrad;
-                ctx.beginPath();
-                ctx.arc(sp.x, sp.y, radius, 0, Math.PI * 2);
-                ctx.fill();
-              }
-            } catch(drawErr) {
-              // Fallback: if drawImage fails (cross-origin/tainted), use solid color
-              console.warn('Antarctica clone fallback:', drawErr);
-              ctx.globalCompositeOperation = 'source-over';
-              ctx.fillStyle = '#0f1014';
-              ctx.globalAlpha = 1.0;
-              ctx.beginPath();
-              ctx.arc(sp.x, sp.y, radius, 0, Math.PI * 2);
-              ctx.fill();
-            }
-          } catch(_) { /* ignore projection errors */ }
-        };
-        
-        paintOverlay();
-        map.current.on('move', () => { cancelAnimationFrame(animId); animId = requestAnimationFrame(paintOverlay); });
-        map.current.on('zoom', () => { cancelAnimationFrame(animId); animId = requestAnimationFrame(paintOverlay); });
-        map.current.on('resize', () => { cancelAnimationFrame(animId); animId = requestAnimationFrame(paintOverlay); });
-        map.current.on('moveend', paintOverlay);
-      } catch(e) { console.warn('Antarctica canvas overlay failed:', e); }
+      // ── Antarctica circle artifact ──
+      // The dark-v11 3D globe renders a subtle gray disc at the south pole.
+      // This is a WebGL shader artifact inside Mapbox's rendering pipeline.
+      // Attempted fixes (v1-v7): GeoJSON fill layer, setAtmosphere(), canvas overlay with
+      // solid colors, color sampling, drawImage cloning — ALL failed because:
+      //   - GeoJSON layers render UNDER the 3D atmosphere effect
+      //   - setAtmosphere() doesn't exist in Mapbox GL JS web
+      //   - Canvas overlays can't match dynamic WebGL background colors
+      //   - drawImage from WebGL canvas creates alignment artifacts
+      // ACCEPTED: This is a known Mapbox 3D globe limitation. Not fixable from user code.
 
       // Enable Mapbox built-in star field in sky (this IS supported in GL JS v3)
       try {
