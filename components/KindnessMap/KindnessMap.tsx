@@ -171,6 +171,46 @@ export default function KindnessMap({
         maxzoom: 18,
       });
 
+      // ── Country name labels (zoom 7-12) ──
+      if (!map.current.getLayer("country-labels")) {
+        try {
+          map.current.addLayer({
+            id: "country-labels",
+            type: "symbol",
+            source: "countries-src",
+            layout: {
+              "text-field": ["get", "NAME"],
+              "text-font": ["DIN Pro Medium", "Arial Unicode MS Regular"],
+              "text-size": [
+                "interpolate", ["linear"], ["zoom"],
+                7, 10,
+                9, 14,
+                11, 18,
+              ],
+              "text-letter-spacing": 0.5,
+              "text-allow-overlap": true,
+              "text-ignore-placement": true,
+            },
+            paint: {
+              "text-color": "#ffffff",
+              "text-halo-color": "#000000",
+              "text-halo-width": 1.5,
+              "text-opacity": [
+                "interpolate", ["linear"], ["zoom"],
+                6.5, 0,
+                7.5, 0.7,
+                12, 0.9,
+                13, 0,
+              ],
+            },
+            minzoom: 7,
+            maxzoom: 13,
+          });
+        } catch (e) {
+          console.warn("[KindnessMap] Country labels failed:", e);
+        }
+      }
+
       // ── Antarctica circle artifact ──
       // The dark-v11 3D globe renders a subtle gray disc at the south pole.
       // This is a WebGL shader artifact inside Mapbox's rendering pipeline.
@@ -203,7 +243,7 @@ export default function KindnessMap({
       // ── BASE GRID: Original population grid (182K cells, green) ──
       // This is the working grid — stable, tested, no OOM issues
       try {
-        const gridRes = await fetch("/data/population_grid_original.geojson");
+        const gridRes = await fetch("/data/population_grid.geojson");
         if (!gridRes.ok) throw new Error(`HTTP ${gridRes.status}`);
         const gridData = await gridRes.json();
         console.log(`[KindnessMap] Base grid loaded: ${gridData.features.length} cells`);
@@ -262,6 +302,108 @@ export default function KindnessMap({
           console.log("[KindnessMap] L1 loaded via URL fallback");
         } catch (e2) {
           console.warn("[KindnessMap] L1 grid unavailable:", e2);
+        }
+      }
+
+      // ════════════════════════════════════════════════════════
+      //  FLAG COLORS LAYER (World Flags Challenge)
+      //  At zoom 11+: tint each country cell with its flag color
+      //  Gives the " stained glass" look — country flags visible through grid
+      // ════════════════════════════════════════════════════════
+      if (map.current.getSource("population-grid") && !map.current.getLayer("flag-colors-tint")) {
+        try {
+          map.current.addLayer({
+            id: "flag-colors-tint",
+            type: "fill",
+            source: "population-grid",
+            paint: {
+              // Dominant flag color per country (RGB hex approximation)
+              "fill-color": [
+                "match", ["get", "cc"],
+                // ── RED-flag countries ──
+                "CN", "#de2910",   // China — red
+                "JP", "#bc002d",   // Japan — red circle
+                "US", "#3c3b6e",   // USA — navy blue (first stripe)
+                "VI", "#3c3b6e",   // US Virgin Islands
+                "GU", "#3c3b6e",   // Guam
+                "PR", "#3c3b6e",   // Puerto Rico
+                "KP", "#c60c30",   // North Korea — red/blue
+                "IN", "#ff9933",   // India — saffron
+                "VN", "#da2517",   // Vietnam — red
+                "KH", "#004fa3",    // Cambodia — blue
+                "NP", "#dc143c",   // Nepal — red
+                "AF", "#000000",   // Afghanistan — black
+                "PK", "#01411c",   // Pakistan — dark green
+                "BD", "#006a4e",   // Bangladesh — green
+                // ── BLUE-flag countries ──
+                "FR", "#0055a4",   // France — blue
+                "GB", "#012169",   // UK — blue ensign
+                "RU", "#0039a6",   // Russia — blue
+                "CN", "#de2910",   // China (overwrite — red)
+                "BR", "#009b3a",   // Brazil — green
+                "MX", "#006847",   // Mexico — green
+                "CA", "#ff0000",   // Canada — red
+                "AU", "#00008b",   // Australia — blue
+                "NZ", "#00247d",   // New Zealand — blue
+                "ZA", "#007a4d",   // South Africa — green
+                "AR", "#74acdf",   // Argentina — light blue
+                "CL", "#d52b1e",   // Chile — red/white
+                "CO", "#0033a0",   // Colombia — yellow/blue
+                "PE", "#d91023",   // Peru — red/white
+                "VE", "#ffcc00",    // Venezuela — yellow
+                // ── GREEN-flag countries ──
+                "NG", "#008751",   // Nigeria — green/white
+                "KE", "#006100",   // Kenya — red/black/green
+                "GH", "#006100",   // Ghana — green
+                "TZ", "#1eb53a",   // Tanzania — green
+                "ET", "#078930",   // Ethiopia — green
+                "DZ", "#006233",   // Algeria — green
+                "MA", "#c1272d",   // Morocco — red
+                "EG", "#c09300",   // Egypt — gold
+                // ── YELLOW-flag countries ──
+                "SE", "#006aa7",   // Sweden — blue
+                "FI", "#002f6c",   // Finland — blue
+                "NO", "#ba0c2f",   // Norway — red
+                "DK", "#c8102e",   // Denmark — red
+                "NL", "#ae1c28",   // Netherlands — red
+                "BE", "#000000",   // Belgium — black
+                "DE", "#000000",   // Germany — black
+                "PL", "#dc143c",   // Poland — red
+                "UA", "#005bbb",   // Ukraine — blue
+                "IT", "#009246",   // Italy — green
+                "ES", "#c60b1e",   // Spain — red
+                "PT", "#006600",   // Portugal — green
+                "GR", "#0d5eaf",   // Greece — blue
+                "TR", "#e30a17",   // Turkey — red
+                "IR", "#239f40",   // Iran — green
+                "SA", "#006c35",   // Saudi Arabia — green
+                "AE", "#00732f",   // UAE — green
+                // ── OTHER COLORS ──
+                "KR", "#003478",  // South Korea — indigo
+                "TH", "#241d4f",   // Thailand — purple/navy
+                "MM", "#fecb00",   // Myanmar — yellow
+                "ID", "#ff0000",   // Indonesia — red
+                "PH", "#0038a8",    // Philippines — blue
+                "MY", "#010066",   // Malaysia — blue
+                "SG", "#ed2939",   // Singapore — red
+                // Default gray for countries not listed
+                "#2a2a3a"
+              ],
+              "fill-opacity": [
+                "interpolate", ["linear"], ["zoom"],
+                11, 0.0,
+                12, 0.08,
+                13, 0.14,
+                14, 0.20,
+                16, 0.28,
+              ],
+            },
+            minzoom: 11,
+            maxzoom: 22,
+          });
+          console.log("[KindnessMap] Flag colors tint layer added (zoom 11+)");
+        } catch (e) {
+          console.warn("[KindnessMap] Flag tint layer failed:", e);
         }
       }
 
