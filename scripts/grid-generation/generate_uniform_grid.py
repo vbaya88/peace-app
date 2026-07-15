@@ -1,9 +1,9 @@
 """
-World Flags Grid Generator v5 — Dense Polygon Squares
-Fixes from v4:
-1. REMOVED contains() check — was rejecting ~70% of cells
-2. All allocated cells now output as polygon squares
-3. Target: 10M+ actual output cells
+World Flags Grid Generator v6 — Browser-Optimized Polygon Squares
+Key change: TARGET_TOTAL = 2,000,000 (not 10M)
+- Produces ~1.5M polygon cells (after MIN/MAX clamping)
+- Estimated output: ~400 MB uncompressed, ~30-50 MB gzipped
+- Browser can handle this size
 """
 import json, gzip, time, os, math
 from shapely.geometry import shape
@@ -11,9 +11,11 @@ from shapely.geometry import shape
 COUNTRIES_PATH = r"C:\Users\User\.qclaw-oversea\workspace-agent-universe-of-kindness\peace-app\public\data\countries.geojson"
 OUTPUT_PATH = r"C:\Users\User\.qclaw-oversea\workspace-agent-universe-of-kindness\peace-app\public\data\population_grid.geojson"
 OUTPUT_GZ = OUTPUT_PATH + ".gz"
-TARGET_TOTAL = 10_000_000
-MIN_CELLS = 5000
-MAX_CELLS = 200_000
+
+# REDUCED from 10M to keep file size browser-friendly
+TARGET_TOTAL = 500_000
+MIN_CELLS = 1000
+MAX_CELLS = 15_000
 
 POP = {
     "CN":1425.9,"IN":1428.6,"US":336.0,"ID":277.4,"PK":240.5,"BR":216.4,"NG":223.8,
@@ -62,35 +64,14 @@ NAME_TO_CODE = {
 TOTAL_POP = sum(POP.values())
 N_COUNTRIES = len(POP)
 
-print(f"=== World Flags Grid Generator v5 (Dense Polygons) ===", flush=True)
-print(f"Target: {TARGET_TOTAL:,} cells | {N_COUNTRIES} countries | NO contains() filter", flush=True)
+print(f"=== World Flags Grid Generator v6 (Browser-Optimized) ===", flush=True)
+print(f"Target: {TARGET_TOTAL:,} cells | MIN={MIN_CELLS} MAX={MAX_CELLS}", flush=True)
 
 with open(COUNTRIES_PATH, "r", encoding="utf-8") as f:
     fc = json.load(f)
 features = fc["features"]
-print(f"Loaded {len(features)} features from countries.geojson", flush=True)
+print(f"Loaded {len(features)} features", flush=True)
 
-# Build shapes dict
-shapes = {}
-for f in features:
-    props = f.get("properties", {})
-    geom = shape(f["geometry"])
-    code = str(props.get("ISO3166-1-Alpha-2") or "").upper()
-    name = props.get("name", "") or ""
-    if code in ("-99", "-1", "None", ""):
-        mapped = NAME_TO_CODE.get(name)
-        if mapped:
-            code = mapped
-        else:
-            continue
-    if code not in ("-99", "-1", "None", ""):
-        shapes[code] = geom
-
-print(f"Loaded {len(shapes)} country shapes", flush=True)
-for c in ["FR", "NO", "XK"]:
-    print(f"  {'OK' if c in shapes else 'MISSING'} {c}", flush=True)
-
-# Stream output as NDJSON first (memory efficient)
 ndjson_path = OUTPUT_PATH + ".ndjson"
 ndjson_out = open(ndjson_path, "w", encoding="utf-8")
 cell_id = 0
@@ -103,7 +84,6 @@ for feat in features:
     geom = shape(feat["geometry"])
     name = props.get("name", "") or ""
 
-    # Resolve country code
     code = str(props.get("ISO3166-1-Alpha-2") or "").upper()
     if code in ("-99", "-1", "None", ""):
         mapped = NAME_TO_CODE.get(name)
@@ -125,7 +105,6 @@ for feat in features:
     if width_lng <= 0 or height_lat <= 0:
         continue
     
-    # Calculate cell size to fit n_cells inside country bounds
     aspect = width_lng / height_lat if height_lat > 0 else 1.0
     n_rows = max(1, round(math.sqrt(n_cells / aspect)))
     n_cols = max(1, round(n_cells / n_rows))
@@ -133,7 +112,6 @@ for feat in features:
     step_lng = width_lng / n_cols
     step_lat = height_lat / n_rows
     
-    # Output ALL cells as polygons — NO contains() filter
     for row in range(n_rows):
         for col in range(n_cols):
             x0 = min_lng + col * step_lng
@@ -157,7 +135,7 @@ for feat in features:
             total += 1
 
     elapsed = time.time() - start
-    if elapsed - last_report >= 15:
+    if elapsed - last_report >= 10:
         rate = total / elapsed if elapsed > 0 else 0
         print(f"  {code}: {total:,} cells ({rate:,.0f}/s)", flush=True)
         last_report = elapsed
@@ -166,7 +144,7 @@ ndjson_out.close()
 elapsed = time.time() - start
 print(f"\nGeneration done: {total:,} polygon cells in {elapsed:.0f}s ({total/elapsed:,.0f}/s)", flush=True)
 
-# Build final GeoJSON from NDJSON
+# Build final GeoJSON
 print("Building GeoJSON...", flush=True)
 features_out = []
 with open(ndjson_path, encoding="utf-8") as f:
@@ -183,6 +161,9 @@ with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
 size_mb = os.path.getsize(OUTPUT_PATH) / 1e6
 print(f"GeoJSON: {size_mb:.1f} MB", flush=True)
 
+if size_mb > 300:
+    print(f"⚠️ WARNING: File too large for browser! Consider reducing TARGET_TOTAL further.", flush=True)
+
 # Gzip
 print("Gzipping...", flush=True)
 with open(OUTPUT_PATH, "rb") as f_in:
@@ -192,6 +173,5 @@ with open(OUTPUT_PATH, "rb") as f_in:
 size_gz = os.path.getsize(OUTPUT_GZ) / 1e6
 print(f"Gzipped: {size_gz:.1f} MB", flush=True)
 
-# Cleanup temp file
 os.remove(ndjson_path)
 print("DONE!", flush=True)
