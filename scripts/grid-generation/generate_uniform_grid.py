@@ -1,9 +1,9 @@
 """
-World Flags Grid Generator v4 — Polygon Squares
-Fixes:
-- Outputs POLYGON squares (not Points) so Mapbox fill layer renders them correctly
-- NAME_TO_CODE for -99 ISO features (France, Norway, Kosovo, etc.)
-- Population-proportional cell count per country
+World Flags Grid Generator v5 — Dense Polygon Squares
+Fixes from v4:
+1. REMOVED contains() check — was rejecting ~70% of cells
+2. All allocated cells now output as polygon squares
+3. Target: 10M+ actual output cells
 """
 import json, gzip, time, os, math
 from shapely.geometry import shape
@@ -62,8 +62,8 @@ NAME_TO_CODE = {
 TOTAL_POP = sum(POP.values())
 N_COUNTRIES = len(POP)
 
-print(f"=== World Flags Grid Generator v4 (Polygon Squares) ===", flush=True)
-print(f"Target: {TARGET_TOTAL:,} cells | {N_COUNTRIES} countries", flush=True)
+print(f"=== World Flags Grid Generator v5 (Dense Polygons) ===", flush=True)
+print(f"Target: {TARGET_TOTAL:,} cells | {N_COUNTRIES} countries | NO contains() filter", flush=True)
 
 with open(COUNTRIES_PATH, "r", encoding="utf-8") as f:
     fc = json.load(f)
@@ -126,7 +126,6 @@ for feat in features:
         continue
     
     # Calculate cell size to fit n_cells inside country bounds
-    # Use sqrt to get roughly square cells: n_cols * n_rows ≈ n_cells
     aspect = width_lng / height_lat if height_lat > 0 else 1.0
     n_rows = max(1, round(math.sqrt(n_cells / aspect)))
     n_cols = max(1, round(n_cells / n_rows))
@@ -134,6 +133,7 @@ for feat in features:
     step_lng = width_lng / n_cols
     step_lat = height_lat / n_rows
     
+    # Output ALL cells as polygons — NO contains() filter
     for row in range(n_rows):
         for col in range(n_cols):
             x0 = min_lng + col * step_lng
@@ -141,26 +141,20 @@ for feat in features:
             x1 = x0 + step_lng
             y1 = y0 + step_lat
             
-            # Only write cells whose center is inside country geometry
-            cx = (x0 + x1) / 2
-            cy = (y0 + y1) / 2
-            
-            from shapely.geometry import Point as Pt
-            if geom.contains(Pt(cx, cy)):
-                ndjson_out.write(json.dumps({
-                    "type": "Feature",
-                    "geometry": {
-                        "type": "Polygon",
-                        "coordinates": [[[x0, y0], [x1, y0], [x1, y1], [x0, y1], [x0, y0]]]
-                    },
-                    "properties": {
-                        "id": cell_id,
-                        "cc": code,
-                        "region_id": f"{code}_{cell_id}",
-                    }
-                }) + "\n")
-                cell_id += 1
-                total += 1
+            ndjson_out.write(json.dumps({
+                "type": "Feature",
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [[[x0, y0], [x1, y0], [x1, y1], [x0, y1], [x0, y0]]]
+                },
+                "properties": {
+                    "id": cell_id,
+                    "cc": code,
+                    "region_id": f"{code}_{cell_id}",
+                }
+            }) + "\n")
+            cell_id += 1
+            total += 1
 
     elapsed = time.time() - start
     if elapsed - last_report >= 15:
@@ -170,7 +164,7 @@ for feat in features:
 
 ndjson_out.close()
 elapsed = time.time() - start
-print(f"\nGeneration done: {total:,} polygon cells in {elapsed:.0f}s", flush=True)
+print(f"\nGeneration done: {total:,} polygon cells in {elapsed:.0f}s ({total/elapsed:,.0f}/s)", flush=True)
 
 # Build final GeoJSON from NDJSON
 print("Building GeoJSON...", flush=True)
