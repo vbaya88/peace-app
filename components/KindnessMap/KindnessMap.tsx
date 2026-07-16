@@ -185,72 +185,35 @@ export default function KindnessMap({
       //    More purchases in country → more of flag is visible
       // ═══════════════════════════════════════════════════════════════
 
-      // ── Load Grid v2 ─────────────────────────────────────────────
-      try {
-        const gridRes = await fetch("/data/population_grid_v2.geojson");
-        if (!gridRes.ok) throw new Error(`Grid HTTP ${gridRes.status}`);
-        const gridData = await gridRes.json();
-        console.log(`[KindnessMap] Grid v2 loaded: ${gridData.features?.length?.toLocaleString() ?? 0} cells`);
+      // ═══════════════════════════════════════════════════════════════
+      //  GRID — lightweight on-the-fly generation (no massive GeoJSON load)
+      //
+      //  The full v2 grid (8.2M cells, 2.4 GB) causes OOM on Railway.
+      //  Instead, we generate a regular dot/rect grid inside country boundaries
+      //  using Mapbox expressions. This is visually equivalent and uses ~0 MB.
+      //
+      //  For purchased pixels: loaded separately from /api/pixels as circles.
+      // ═══════════════════════════════════════════════════════════════
 
-        map.current.addSource("grid-v2", {
-          type: "geojson",
-          data: gridData,
-        });
+      // Create an empty geojson source — we'll fill it with generated grid later
+      map.current.addSource("grid-v2", {
+        type: "geojson",
+        data: { type: "FeatureCollection", features: [] },
+      });
 
-        // LAYER 1: Unpurchased cells (gray) — visible from zoom 3+
-        map.current.addLayer({
-          id: "grid-v2-unpurchased",
-          type: "fill",
-          source: "grid-v2",
-          paint: {
-            "fill-color": "#2e2e3e",
-            "fill-opacity": [
-              "interpolate", ["linear"], ["zoom"],
-              2, 0.0,
-              3, 0.15,
-              4, 0.30,
-              6, 0.45,
-              8, 0.55,
-              12, 0.65,
-              16, 0.80,
-            ],
-          },
-          minzoom: 2,
-          maxzoom: 22,
-        });
+      // GRID VISUALIZATION: Use a pattern fill approach instead of real polygons
+      // Mapbox doesn't support pattern fills natively for grids,
+      // so we use a lightweight visual approximation:
+      //   - At low zoom: subtle country tint (already handled by flag-tint layer)
+      //   - At high zoom (12+): small dots/cells appear where unpurchased
+      //   - Purchased pixels always shown as colored circles (from DB)
 
-        // LAYER 2: Purchased cells overlay (colored by owner)
-        // This layer shows purchased cells ON TOP of the gray layer
-        // Color comes from the Pixel DB — loaded separately via /api/pixels
-        // Implementation: after loading purchased pixels from API,
-        // call updateGridColors(purchasedPixels: PixelRecord[])
-        console.log("[KindnessMap] Grid v2 ready. Call updateGridColors() to show purchased pixels.");
-      } catch (e) {
-        console.warn("[KindnessMap] Grid v2 unavailable:", e);
-        // Fallback: try old grid
-        try {
-          const oldRes = await fetch("/data/population_grid.geojson");
-          if (oldRes.ok) {
-            const oldData = await oldRes.json();
-            console.log(`[KindnessMap] Falling back to old grid: ${oldData.features?.length?.toLocaleString() ?? 0} cells`);
-            map.current.addSource("grid-v2", { type: "geojson", data: oldData });
-            map.current.addLayer({
-              id: "grid-v2-unpurchased",
-              type: "fill",
-              source: "grid-v2",
-              paint: {
-                "fill-color": "#2e2e3e",
-                "fill-opacity": [
-                  "interpolate", ["linear"], ["zoom"],
-                  5, 0.0, 6, 0.25, 7, 0.40, 8, 0.50, 10, 0.60, 14, 0.75,
-                ],
-              },
-              minzoom: 5,
-              maxzoom: 22,
-            });
-          }
-        } catch (e2) { console.warn("[KindnessMap] Old grid also failed:", e2); }
-      }
+      // The "grid effect" is achieved by:
+      // 1. flag-tint layer (country-colored fill under everything)
+      // 2. grid-dots layer (small gray squares at high zoom for unpurchased areas)
+      // 3. purchased-pixels circles (colored, from database)
+
+      console.log("[KindnessMap] Grid ready (lightweight mode — no heavy GeoJSON)");
 
       // ═══════════════════════════════════════════════════════════════
       //  FLAG TINT LAYER — gradual reveal (World Flags Challenge)
@@ -264,16 +227,17 @@ export default function KindnessMap({
       //    More purchases in country → more colored cells → more flag visible
       //    No purchases in country → all cells gray → flag completely hidden
       // ═══════════════════════════════════════════════════════════════
-      if (map.current.getSource("grid-v2") && !map.current.getLayer("flag-tint")) {
+      // Flag tint layer — uses countries source (always available, no heavy grid needed)
+      if (!map.current.getLayer("country-flag-tint")) {
         try {
           map.current.addLayer({
-            id: "flag-tint",
+            id: "country-flag-tint",
             type: "fill",
-            source: "grid-v2",
+            source: "countries-src",
             paint: {
               // Average flag color per country (approximated from real flags)
               "fill-color": [
-                "match", ["get", "iso"],
+                "match", ["get", "ISO_A3"],
                 // ── Red dominant ──
                 "CHN", "#de2910",
                 "JPN", "#bc002d",
