@@ -197,7 +197,7 @@ export default function KindnessMap({
           data: gridData,
         });
 
-        // LAYER 1: Unpurchased cells (gray) — always visible
+        // LAYER 1: Unpurchased cells (gray) — visible from zoom 3+
         map.current.addLayer({
           id: "grid-v2-unpurchased",
           type: "fill",
@@ -206,15 +206,16 @@ export default function KindnessMap({
             "fill-color": "#2e2e3e",
             "fill-opacity": [
               "interpolate", ["linear"], ["zoom"],
-              5, 0.0,
-              6, 0.25,
-              7, 0.40,
-              8, 0.50,
-              10, 0.60,
-              14, 0.75,
+              2, 0.0,
+              3, 0.15,
+              4, 0.30,
+              6, 0.45,
+              8, 0.55,
+              12, 0.65,
+              16, 0.80,
             ],
           },
-          minzoom: 5,
+          minzoom: 2,
           maxzoom: 22,
         });
 
