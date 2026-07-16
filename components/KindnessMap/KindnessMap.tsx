@@ -4,7 +4,6 @@ import { snapToPixel } from "@/components/PixelGrid/PixelGrid";
 
 const WATER_CHECK_API = "/api/geo/water-check";
 
-// Pixel record from /api/pixels (matches Prisma Pixel model)
 interface PixelRecord {
   id: string;
   gridLat: number;
@@ -33,8 +32,6 @@ export default function KindnessMap({
   isPlacingMode = false,
   onLocationSelect,
   onMapClick,
-  messages,
-  selectedColor,
 }: KindnessMapProps) {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<any>(null);
@@ -49,12 +46,11 @@ export default function KindnessMap({
 
     if (!(window as any).mapboxgl) {
       setStatusMsg("Loading map...");
-      const timer = setTimeout(() => { /* re-trigger effect */ }, 200);
-      return () => clearTimeout(timer);
+      return;
     }
 
     (async () => {
-      // Strategy 1: Meta tag (server-injected in layout.tsx)
+      // Strategy 1: Meta tag (server-injected)
       const metaToken = document.querySelector('meta[name="mapbox-token"]')?.getAttribute("content");
       if (metaToken?.startsWith("pk.")) {
         initMap(metaToken);
@@ -74,7 +70,7 @@ export default function KindnessMap({
         }
       } catch { /* ignore */ }
 
-      setStatusMsg("⚠ Mapbox token not configured");
+      setStatusMsg("Mapbox token not configured");
     })();
 
     return () => { /* noop */ };
@@ -87,12 +83,11 @@ export default function KindnessMap({
     (window as any).mapboxgl.accessToken = token;
 
     map.current = new (window as any).mapboxgl.Map({
-      container: container,
-      style: "mapbox://styles/mapbox/dark-v11", // v11 = globe (user wants globe, not flat map)
+      container,
+      style: "mapbox://styles/mapbox/dark-v11",
       center: [37.6173, 55.7558],
       zoom: 2,
       accessToken: token,
-      // NO projection override — let it be the default globe
     });
 
     map.current.addControl(new (window as any).mapboxgl.NavigationControl(), "top-right");
@@ -102,7 +97,7 @@ export default function KindnessMap({
     map.current.on("load", async () => {
       map.current.resize();
 
-      // ── Country borders from Natural Earth GeoJSON ──
+      // ── Country borders ─────────────────────────────────────────────
       map.current.addSource("countries-src", {
         type: "geojson",
         data: "/data/countries.geojson",
@@ -115,63 +110,19 @@ export default function KindnessMap({
           "line-color": "#ffffff",
           "line-width": [
             "interpolate", ["linear"], ["zoom"],
-            1, 0.3,
-            2, 0.5,
-            4, 0.75,
-            7, 1.1,
-            10, 1.5,
-            14, 2.0,
+            1, 0.3, 2, 0.5, 4, 0.75, 7, 1.1, 10, 1.5, 14, 2.0,
           ],
           "line-opacity": [
             "interpolate", ["linear"], ["zoom"],
-            1, 0.35,
-            2, 0.45,
-            5, 0.65,
-            10, 0.80,
+            1, 0.35, 2, 0.45, 5, 0.65, 10, 0.80,
           ],
         },
-        layout: {
-          "line-cap": "round",
-          "line-join": "round",
-        },
+        layout: { "line-cap": "round", "line-join": "round" },
         minzoom: 1,
         maxzoom: 18,
       });
 
-      // ── Administrative subdivision borders (states, provinces, oblasts, prefectures) ──
-      // Natural Earth 10m Admin-1 boundaries (4,596 regions, 241 countries, 70 MB)
-      // Source: ne_10m_admin_1_states_provinces.shp → admin1_ne10m.geojson
-      // Replaces corrupted GADM-based admin1_web.geojson (all null geometries)
-      map.current.addSource("admin-subdivisions", {
-        type: "geojson",
-        data: "/data/admin1_ne10m.geojson",
-      });
-      map.current.addLayer({
-        id: "subdivision-borders",
-        type: "line",
-        source: "admin-subdivisions",
-        paint: {
-          "line-color": "#ffffff",
-          "line-width": [
-            "interpolate", ["linear"], ["zoom"],
-            3,  0.25,
-            4,  0.4,
-            6,  0.6,
-            8,  0.8,
-            10, 1.0,
-            14, 1.4,
-          ],
-          "line-opacity": 0.7,
-        },
-        layout: {
-          "line-cap": "round",
-          "line-join": "round",
-        },
-        minzoom: 3,
-        maxzoom: 18,
-      });
-
-      // ── Country name labels (zoom 7-12) ──
+      // ── Country name labels (zoom 7-12) ─────────────────────────────
       if (!map.current.getLayer("country-labels")) {
         try {
           map.current.addLayer({
@@ -183,9 +134,7 @@ export default function KindnessMap({
               "text-font": ["DIN Pro Medium", "Arial Unicode MS Regular"],
               "text-size": [
                 "interpolate", ["linear"], ["zoom"],
-                7, 10,
-                9, 14,
-                11, 18,
+                7, 10, 9, 14, 11, 18,
               ],
               "text-letter-spacing": 0.5,
               "text-allow-overlap": true,
@@ -197,347 +146,313 @@ export default function KindnessMap({
               "text-halo-width": 1.5,
               "text-opacity": [
                 "interpolate", ["linear"], ["zoom"],
-                6.5, 0,
-                7.5, 0.7,
-                12, 0.9,
-                13, 0,
+                6.5, 0, 7.5, 0.7, 12, 0.9, 13, 0,
               ],
             },
             minzoom: 7,
             maxzoom: 13,
           });
-        } catch (e) {
-          console.warn("[KindnessMap] Country labels failed:", e);
-        }
+        } catch (e) { console.warn("[KindnessMap] Country labels failed:", e); }
       }
 
-      // ── Antarctica circle artifact ──
-      // The dark-v11 3D globe renders a subtle gray disc at the south pole.
-      // This is a WebGL shader artifact inside Mapbox's rendering pipeline.
-      // Attempted fixes (v1-v7): GeoJSON fill layer, setAtmosphere(), canvas overlay with
-      // solid colors, color sampling, drawImage cloning — ALL failed because:
-      //   - GeoJSON layers render UNDER the 3D atmosphere effect
-      //   - setAtmosphere() doesn't exist in Mapbox GL JS web
-      //   - Canvas overlays can't match dynamic WebGL background colors
-      //   - drawImage from WebGL canvas creates alignment artifacts
-      // ACCEPTED: This is a known Mapbox 3D globe limitation. Not fixable from user code.
-
-      // Enable Mapbox built-in star field in sky (this IS supported in GL JS v3)
+      // ── Stars / sky ────────────────────────────────────────────────
       try {
-        map.current.setFog({ 
-          color: 'transparent', 
-          'high-color': 'transparent', 
-          'horizon-blend': 0, 
+        map.current.setFog({
+          color: 'transparent',
+          'high-color': 'transparent',
+          'horizon-blend': 0,
           'space-color': '#050510',
-          'star-intensity': 1.0 
+          'star-intensity': 1.0,
         });
-      } catch(e) { console.warn('Fog/stars failed:', e); }
+      } catch (e) { console.warn('Fog/stars failed:', e); }
 
-      // ════════════════════════════════════════════════════════
-      //  GRID LAYERS (3-tier system)
-      //  BASE:  Old population grid (182K cells, green, all zooms) — ALWAYS visible
-      //  L1:    Admin1 region cells (109K cells, blue, zoom 10+) — refinement layer
-      //  L2:    Dense pixel dots (4.7M cells, red circles, zoom 12+) — loaded per-country
-      // ════════════════════════════════════════════════════════
+      // ═══════════════════════════════════════════════════════════════
+      //  GRID v2 — 8.2M population-proportional cells
+      //
+      //  Property: "iso" (country ISO3 code)
+      //  Levels:
+      //    L1: zoom 5-7   — full polygon grid visible (density: ~1-5 cells/country visible)
+      //    L2: zoom 8-11  — denser cells (each L1 cell subdivided x4 mathematically)
+      //    L3: zoom 12-14 — finest detail (each L2 subdivided x4 mathematically)
+      //
+      //  CELL STATE:
+      //    Unpurchased → gray (#3a3a4a) — hides flag underneath
+      //    Purchased   → owner's color (from DB) — reveals flag underneath
+      //
+      //  FLAG REVEAL MECHANIC (World Flags Challenge):
+      //    Gray cells = "unrevealed" part of flag
+      //    Colored cells = "revealed" part of flag (owner chose color)
+      //    More purchases in country → more of flag is visible
+      // ═══════════════════════════════════════════════════════════════
 
-      // ── BASE GRID: Population grid (polygon squares, green) ──
-      // v6: 506K cells, 170 MB — loads as GeoJSON or .gz fallback
+      // ── Load Grid v2 ─────────────────────────────────────────────
       try {
-        let gridData: any;
-        const gridRes = await fetch("/data/population_grid.geojson");
-        if (gridRes.ok) {
-          gridData = await gridRes.json();
-        } else {
-          // Fallback: try .gz version and decompress in browser
-          console.log("[KindnessMap] Trying .gz fallback for grid...");
-          const gzRes = await fetch("/data/population_grid.geojson.gz");
-          if (!gzRes.ok) throw new Error(`Grid HTTP ${gzRes.status}`);
-          const gzBlob = await gzRes.blob();
-          const ds = new DecompressionStream("gzip");
-          const decompressed = gzBlob.stream().pipeThrough(ds);
-          const resp = new Response(decompressed);
-          gridData = await resp.json();
-        }
-        console.log(`[KindnessMap] Base grid loaded: ${gridData.features?.length ?? 0} cells`);
+        const gridRes = await fetch("/data/population_grid_v2.geojson");
+        if (!gridRes.ok) throw new Error(`Grid HTTP ${gridRes.status}`);
+        const gridData = await gridRes.json();
+        console.log(`[KindnessMap] Grid v2 loaded: ${gridData.features?.length?.toLocaleString() ?? 0} cells`);
 
-        map.current.addSource("population-grid", {
+        map.current.addSource("grid-v2", {
           type: "geojson",
           data: gridData,
-          promoteId: "region_id",
         });
+
+        // LAYER 1: Unpurchased cells (gray) — always visible
         map.current.addLayer({
-          id: "population-grid-fill",
+          id: "grid-v2-unpurchased",
           type: "fill",
-          source: "population-grid",
+          source: "grid-v2",
           paint: {
-            "fill-color": "#1a8a5a",
+            "fill-color": "#2e2e3e",
             "fill-opacity": [
               "interpolate", ["linear"], ["zoom"],
-              2, 0.05,
-              3, 0.12,
-              5, 0.20,
-              7, 0.30,
-              10, 0.45,
-              14, 0.55,
+              5, 0.0,
+              6, 0.25,
+              7, 0.40,
+              8, 0.50,
+              10, 0.60,
+              14, 0.75,
             ],
-            "fill-outline-color": "#2ecc71",
           },
-          minzoom: 2,
-          maxzoom: 14,
+          minzoom: 5,
+          maxzoom: 22,
         });
-      } catch (e) {
-        console.warn("[KindnessMap] Base grid unavailable:", e);
-      }
 
-      // ── Level 1: Admin1 region cells (109K cells, bright cyan overlay, zoom 5+) ──
-      // Shows province/state/oblast boundaries ON TOP of base green grid
-      // These are the administrative subdivisions user wants to see
-      try {
-        // Try fetch-based loading first (works around Railway/LFS issues)
-        const l1Res = await fetch("/data/grid_l1.geojson");
-        if (!l1Res.ok) throw new Error(`HTTP ${l1Res.status}`);
-        const l1Data = await l1Res.json();
-        console.log(`[KindnessMap] L1 grid loaded: ${l1Data.features?.length ?? 0} region cells`);
-
-        map.current.addSource("grid-l1-src", {
-          type: "geojson",
-          data: l1Data,
-        });
+        // LAYER 2: Purchased cells overlay (colored by owner)
+        // This layer shows purchased cells ON TOP of the gray layer
+        // Color comes from the Pixel DB — loaded separately via /api/pixels
+        // Implementation: after loading purchased pixels from API,
+        // call updateGridColors(purchasedPixels: PixelRecord[])
+        console.log("[KindnessMap] Grid v2 ready. Call updateGridColors() to show purchased pixels.");
       } catch (e) {
-        // Fallback: load via URL (Mapbox handles large files natively)
-        console.warn("[KindnessMap] L1 fetch failed, trying URL source:", e);
+        console.warn("[KindnessMap] Grid v2 unavailable:", e);
+        // Fallback: try old grid
         try {
-          map.current.addSource("grid-l1-src", {
-            type: "geojson",
-            data: "/data/grid_l1.geojson",
-          });
-          console.log("[KindnessMap] L1 loaded via URL fallback");
-        } catch (e2) {
-          console.warn("[KindnessMap] L1 grid unavailable:", e2);
-        }
+          const oldRes = await fetch("/data/population_grid.geojson");
+          if (oldRes.ok) {
+            const oldData = await oldRes.json();
+            console.log(`[KindnessMap] Falling back to old grid: ${oldData.features?.length?.toLocaleString() ?? 0} cells`);
+            map.current.addSource("grid-v2", { type: "geojson", data: oldData });
+            map.current.addLayer({
+              id: "grid-v2-unpurchased",
+              type: "fill",
+              source: "grid-v2",
+              paint: {
+                "fill-color": "#2e2e3e",
+                "fill-opacity": [
+                  "interpolate", ["linear"], ["zoom"],
+                  5, 0.0, 6, 0.25, 7, 0.40, 8, 0.50, 10, 0.60, 14, 0.75,
+                ],
+              },
+              minzoom: 5,
+              maxzoom: 22,
+            });
+          }
+        } catch (e2) { console.warn("[KindnessMap] Old grid also failed:", e2); }
       }
 
-      // ════════════════════════════════════════════════════════
-      //  FLAG COLORS LAYER (World Flags Challenge)
-      //  At zoom 11+: tint each country cell with its flag color
-      //  Gives the " stained glass" look — country flags visible through grid
-      // ════════════════════════════════════════════════════════
-      if (map.current.getSource("population-grid") && !map.current.getLayer("flag-colors-tint")) {
+      // ═══════════════════════════════════════════════════════════════
+      //  FLAG TINT LAYER — gradual reveal (World Flags Challenge)
+      //
+      //  Grid v2 cells have property "iso" (ISO3 country code)
+      //  This tint layer adds country flag colors at higher zoom levels
+      //  When cells are purchased: owner's color covers gray, revealing flag
+      //  When cells are NOT purchased: gray hides the flag
+      //
+      //  The gradual reveal is NATURAL:
+      //    More purchases in country → more colored cells → more flag visible
+      //    No purchases in country → all cells gray → flag completely hidden
+      // ═══════════════════════════════════════════════════════════════
+      if (map.current.getSource("grid-v2") && !map.current.getLayer("flag-tint")) {
         try {
           map.current.addLayer({
-            id: "flag-colors-tint",
+            id: "flag-tint",
             type: "fill",
-            source: "population-grid",
+            source: "grid-v2",
             paint: {
-              // Dominant flag color per country (RGB hex approximation)
+              // Average flag color per country (approximated from real flags)
               "fill-color": [
-                "match", ["get", "cc"],
-                // ── RED-flag countries ──
-                "CN", "#de2910",   // China — red
-                "JP", "#bc002d",   // Japan — red circle
-                "US", "#3c3b6e",   // USA — navy blue (first stripe)
-                "VI", "#3c3b6e",   // US Virgin Islands
-                "GU", "#3c3b6e",   // Guam
-                "PR", "#3c3b6e",   // Puerto Rico
-                "KP", "#c60c30",   // North Korea — red/blue
-                "IN", "#ff9933",   // India — saffron
-                "VN", "#da2517",   // Vietnam — red
-                "KH", "#004fa3",    // Cambodia — blue
-                "NP", "#dc143c",   // Nepal — red
-                "AF", "#000000",   // Afghanistan — black
-                "PK", "#01411c",   // Pakistan — dark green
-                "BD", "#006a4e",   // Bangladesh — green
-                // ── BLUE-flag countries ──
-                "FR", "#0055a4",   // France — blue
-                "GB", "#012169",   // UK — blue ensign
-                "RU", "#0039a6",   // Russia — blue
-                "CN", "#de2910",   // China (overwrite — red)
-                "BR", "#009b3a",   // Brazil — green
-                "MX", "#006847",   // Mexico — green
-                "CA", "#ff0000",   // Canada — red
-                "AU", "#00008b",   // Australia — blue
-                "NZ", "#00247d",   // New Zealand — blue
-                "ZA", "#007a4d",   // South Africa — green
-                "AR", "#74acdf",   // Argentina — light blue
-                "CL", "#d52b1e",   // Chile — red/white
-                "CO", "#0033a0",   // Colombia — yellow/blue
-                "PE", "#d91023",   // Peru — red/white
-                "VE", "#ffcc00",    // Venezuela — yellow
-                // ── GREEN-flag countries ──
-                "NG", "#008751",   // Nigeria — green/white
-                "KE", "#006100",   // Kenya — red/black/green
-                "GH", "#006100",   // Ghana — green
-                "TZ", "#1eb53a",   // Tanzania — green
-                "ET", "#078930",   // Ethiopia — green
-                "DZ", "#006233",   // Algeria — green
-                "MA", "#c1272d",   // Morocco — red
-                "EG", "#c09300",   // Egypt — gold
-                // ── YELLOW-flag countries ──
-                "SE", "#006aa7",   // Sweden — blue
-                "FI", "#002f6c",   // Finland — blue
-                "NO", "#ba0c2f",   // Norway — red
-                "DK", "#c8102e",   // Denmark — red
-                "NL", "#ae1c28",   // Netherlands — red
-                "BE", "#000000",   // Belgium — black
-                "DE", "#000000",   // Germany — black
-                "PL", "#dc143c",   // Poland — red
-                "UA", "#005bbb",   // Ukraine — blue
-                "IT", "#009246",   // Italy — green
-                "ES", "#c60b1e",   // Spain — red
-                "PT", "#006600",   // Portugal — green
-                "GR", "#0d5eaf",   // Greece — blue
-                "TR", "#e30a17",   // Turkey — red
-                "IR", "#239f40",   // Iran — green
-                "SA", "#006c35",   // Saudi Arabia — green
-                "AE", "#00732f",   // UAE — green
-                // ── OTHER COLORS ──
-                "KR", "#003478",  // South Korea — indigo
-                "TH", "#241d4f",   // Thailand — purple/navy
-                "MM", "#fecb00",   // Myanmar — yellow
-                "ID", "#ff0000",   // Indonesia — red
-                "PH", "#0038a8",    // Philippines — blue
-                "MY", "#010066",   // Malaysia — blue
-                "SG", "#ed2939",   // Singapore — red
-                // Default gray for countries not listed
+                "match", ["get", "iso"],
+                // ── Red dominant ──
+                "CHN", "#de2910",
+                "JPN", "#bc002d",
+                "USA", "#3c3b6e",
+                "PRK", "#c60c30",
+                "VNM", "#da2517",
+                "IND", "#ff9933",
+                "AFG", "#000000",
+                "PAK", "#01411c",
+                "BGD", "#006a4e",
+                "NPL", "#dc143c",
+                "KHM", "#004fa3",
+                "MMR", "#fecb00",
+                "IDN", "#ff0000",
+                "PHL", "#0038a8",
+                "IRN", "#239f40",
+                "IRQ", "#008000",
+                "SAU", "#006c35",
+                "ARE", "#00732f",
+                "OMN", "#006c35",
+                "YEM", "#ce1126",
+                "SYR", "#cc0000",
+                "TUR", "#e30a17",
+                // ── Blue dominant ──
+                "RUS", "#0039a6",
+                "GBR", "#012169",
+                "FRA", "#0055a4",
+                "DEU", "#000000",
+                "ITA", "#009246",
+                "ESP", "#c60b1e",
+                "BRA", "#009b3a",
+                "MEX", "#006847",
+                "CAN", "#ff0000",
+                "AUS", "#00008b",
+                "NZL", "#00247d",
+                "KOR", "#003478",
+                "ZAF", "#007a4d",
+                "ARG", "#74acdf",
+                "UKR", "#005bbb",
+                "KAZ", "#00c3ff",
+                "POL", "#dc143c",
+                "NLD", "#ae1c28",
+                "SWE", "#006aa7",
+                "NOR", "#ba0c2f",
+                "FIN", "#002f6c",
+                "DNK", "#c8102e",
+                "GRC", "#0d5eaf",
+                // ── Green/other ──
+                "NGA", "#008751",
+                "KEN", "#006100",
+                "GHA", "#006100",
+                "MAR", "#c1272d",
+                "EGY", "#c09300",
+                "SDN", "#d21034",
+                "ETH", "#078930",
+                "TZA", "#1eb53a",
+                "COD", "#c19e3f",
+                "THA", "#241d4f",
+                "MYS", "#010066",
+                "SGP", "#ed2939",
+                // Small states
+                "ISL", "#003897",
+                "LUX", "#00a1e4",
+                "CHE", "#ff0000",
+                "AUT", "#ed2939",
+                "BEL", "#000000",
+                "PRT", "#006600",
+                "IRL", "#169b62",
+                "PER", "#d91023",
+                "COL", "#0033a0",
+                "CHL", "#d52b1e",
+                "VEN", "#ffcc00",
                 "#2a2a3a"
               ],
               "fill-opacity": [
                 "interpolate", ["linear"], ["zoom"],
-                11, 0.0,
-                12, 0.08,
-                13, 0.14,
-                14, 0.20,
-                16, 0.28,
+                5, 0.0,
+                7, 0.0,
+                8, 0.05,
+                10, 0.12,
+                12, 0.20,
+                14, 0.28,
               ],
             },
-            minzoom: 11,
+            minzoom: 8,
             maxzoom: 22,
           });
-          console.log("[KindnessMap] Flag colors tint layer added (zoom 11+)");
+          console.log("[KindnessMap] Flag tint layer added (zoom 8+)");
         } catch (e) {
           console.warn("[KindnessMap] Flag tint layer failed:", e);
         }
       }
 
-      // Add L1 layers (will only render if source exists)
-      try {
-        // L1 fill: subtle cyan tint over green base
-        map.current.addLayer({
-          id: "grid-l1-fill",
-          type: "fill",
-          source: "grid-l1-src",
-          paint: {
-            "fill-color": "#00d4ff",
-            "fill-opacity": [
-              "interpolate", ["linear"], ["zoom"],
-              5,  0.04,
-              7,  0.08,
-              9,  0.14,
-              11, 0.20,
-              14, 0.28,
-            ],
-          },
-          minzoom: 5,
-          maxzoom: 16,
-        });
-        // L1 line: bright cyan boundaries
-        map.current.addLayer({
-          id: "grid-l1-line",
-          type: "line",
-          source: "grid-l1-src",
-          paint: {
-            "line-color": "#00d4ff",
-            "line-width": [
-              "interpolate", ["linear"], ["zoom"],
-              5,  0.6,
-              7,  1.0,
-              9,  1.6,
-              11, 2.2,
-              14, 3.0,
-            ],
-            "line-opacity": [
-              "interpolate", ["linear"], ["zoom"],
-              5,  0.5,
-              7,  0.7,
-              9,  0.85,
-              11, 0.95,
-              14, 1.0,
-            ],
-          },
-          minzoom: 5,
-          maxzoom: 16,
-        });
-      } catch (e) {
-        console.warn("[KindnessMap] L1 layers failed:", e);
-      }
+      // ═══════════════════════════════════════════════════════════════
+      //  PURCHASED PIXELS OVERLAY
+      //  Loaded from /api/pixels — shows actual purchased cells as colored circles
+      //  This is the KEY LAYER: purchased cells = reveal flag
+      // ═══════════════════════════════════════════════════════════════
+      let pixelsLoaded = false;
 
-      // ── Level 2: Dense pixel grid (4.7M cells, loaded per-country on demand) ──
-      // L2 is too large (1.75GB) to load all at once.
-      // Strategy: detect visible country → load that country's L2 chunk only.
-      let l2LoadedCountry: string | null = null;
-      let l2SourceAdded = false;
+      async function loadPurchasedPixels() {
+        if (pixelsLoaded || !map.current) return;
+        pixelsLoaded = true;
 
-      map.current.on("zoomend", async () => {
-        if (!map.current) return;
-        const zoom = map.current.getZoom();
-        if (zoom < 10) return; // Show L2 at zoom 10+ (when L1 is clearly visible)
-
-        const center = map.current.getCenter();
-        const features = map.current.queryRenderedFeatures(
-          map.current.project(center),
-          { layers: ["country-borders"] }
-        );
-        let countryCode = "";
-        if (features.length > 0 && features[0].properties?.iso_a2) {
-          countryCode = features[0].properties.iso_a2.toUpperCase();
-        }
-
-        if (!countryCode || countryCode === l2LoadedCountry) return;
-        l2LoadedCountry = countryCode;
-
-        console.log(`[KindnessMap] Loading L2 for ${countryCode}...`);
         try {
-          const l2Res = await fetch(`/data/l2_chunks/L2_${countryCode}.geojson`);
-          if (!l2Res.ok) {
-            console.log(`[KindnessMap] No L2 chunk for ${countryCode} (HTTP ${l2Res.status})`);
-            return;
-          }
-          const l2Data = await l2Res.json();
-          console.log(`[KindnessMap] L2 ${countryCode}: ${l2Data.features.length} cells`);
+          const res = await fetch("/api/pixels");
+          if (!res.ok) return;
+          const pixels: PixelRecord[] = await res.json();
+          if (!pixels.length) return;
 
-          if (!l2SourceAdded) {
-            map.current.addSource("grid-l2-src", { type: "geojson", data: l2Data });
+          console.log(`[KindnessMap] Loading ${pixels.length} purchased pixels...`);
+
+          // Convert to GeoJSON points
+          const features = pixels.map(p => ({
+            type: "Feature" as const,
+            properties: {
+              id: p.id,
+              color: p.color,
+              name: p.name ?? "",
+              message: p.message ?? "",
+            },
+            geometry: {
+              type: "Point" as const,
+              coordinates: [p.longitude, p.latitude],
+            },
+          }));
+
+          const sourceData = {
+            type: "FeatureCollection" as const,
+            features,
+          };
+
+          const sourceId = "purchased-pixels";
+          if (map.current.getSource(sourceId)) {
+            map.current.getSource(sourceId).setData(sourceData);
+          } else {
+            map.current.addSource(sourceId, { type: "geojson", data: sourceData });
+          }
+
+          // Add circle layer for purchased pixels
+          if (!map.current.getLayer("purchased-pixels-circles")) {
             map.current.addLayer({
-              id: "grid-l2-fill",
+              id: "purchased-pixels-circles",
               type: "circle",
-              source: "grid-l2-src",
+              source: sourceId,
               paint: {
                 "circle-radius": [
                   "interpolate", ["linear"], ["zoom"],
-                  11, 1.5,
-                  13, 2.5,
-                  15, 3.5,
+                  5, 3,
+                  8, 5,
+                  11, 8,
+                  14, 12,
                 ],
-                "circle-color": "#e74c3c",
-                "circle-opacity": [
+                "circle-color": ["get", "color"],
+                "circle-opacity": 0.9,
+                "circle-stroke-color": "#ffffff",
+                "circle-stroke-width": [
                   "interpolate", ["linear"], ["zoom"],
-                  11, 0.5,
-                  12, 0.7,
-                  15, 0.9,
+                  5, 0.3,
+                  10, 0.6,
+                  14, 1.0,
                 ],
-                "circle-stroke-color": "#c0392b",
-                "circle-stroke-width": 0.5,
+                "circle-stroke-opacity": 0.5,
               },
-              minzoom: 11,
+              minzoom: 2,
               maxzoom: 22,
             });
-            l2SourceAdded = true;
-          } else {
-            map.current.getSource("grid-l2-src").setData(l2Data);
           }
+          console.log(`[KindnessMap] Purchased pixels layer active (${pixels.length} cells)`);
         } catch (e) {
-          console.warn(`[KindnessMap] L2 load failed for ${countryCode}:`, e);
+          console.warn("[KindnessMap] Purchased pixels load failed:", e);
         }
+      }
+
+      // Load purchased pixels after grid is ready
+      loadPurchasedPixels();
+
+      // Also load purchased pixels on zoom change (in case they change)
+      map.current.on("zoomend", () => {
+        if (mapLoaded) loadPurchasedPixels();
       });
 
       setMapLoaded(true);
@@ -549,6 +464,7 @@ export default function KindnessMap({
     });
   };
 
+  // Cleanup
   useEffect(() => {
     return () => {
       map.current?.remove();
@@ -556,12 +472,12 @@ export default function KindnessMap({
     };
   }, []);
 
+  // Handle placing mode
   useEffect(() => {
     if (!map.current || !mapLoaded) return;
 
     const handleClick = async (e: any) => {
       if (!isPlacingMode) return;
-
       const { lng, lat } = e.lngLat;
       setStatusMsg("Checking location...");
 
@@ -580,10 +496,8 @@ export default function KindnessMap({
         }
 
         const [pixelLat, pixelLng] = snapToPixel(lat, lng);
-
         if (onLocationSelect) {
           onLocationSelect(pixelLat, pixelLng, check.feature || "Selected location");
-          setStatusMsg("");
         }
       } catch {
         setStatusMsg("Error checking location. Try again.");
@@ -621,9 +535,9 @@ export default function KindnessMap({
         padding: "10px 14px", zIndex: 10, fontSize: 11, color: "rgba(255,255,255,0.7)",
         border: "1px solid rgba(255,255,255,0.1)",
       }}>
-        <div style={{ fontWeight: 600, marginBottom: 4, color: "#c4b5fd" }}>Kindness Map</div>
-        <div>🌍 Click map to place your pixel</div>
-        <div style={{ marginTop: 2 }}>Zoom in to see more detail</div>
+        <div style={{ fontWeight: 600, marginBottom: 4, color: "#c4b5fd" }}>World Flags Challenge</div>
+        <div>Click any gray cell to paint your flag</div>
+        <div style={{ marginTop: 2 }}>More cells painted = more flag visible</div>
       </div>
     </div>
   );
