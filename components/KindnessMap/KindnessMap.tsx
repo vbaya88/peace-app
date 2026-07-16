@@ -240,13 +240,25 @@ export default function KindnessMap({
       //  L2:    Dense pixel dots (4.7M cells, red circles, zoom 12+) — loaded per-country
       // ════════════════════════════════════════════════════════
 
-      // ── BASE GRID: Original population grid (182K cells, green) ──
-      // This is the working grid — stable, tested, no OOM issues
+      // ── BASE GRID: Population grid (polygon squares, green) ──
+      // v6: 506K cells, 170 MB — loads as GeoJSON or .gz fallback
       try {
+        let gridData: any;
         const gridRes = await fetch("/data/population_grid.geojson");
-        if (!gridRes.ok) throw new Error(`HTTP ${gridRes.status}`);
-        const gridData = await gridRes.json();
-        console.log(`[KindnessMap] Base grid loaded: ${gridData.features.length} cells`);
+        if (gridRes.ok) {
+          gridData = await gridRes.json();
+        } else {
+          // Fallback: try .gz version and decompress in browser
+          console.log("[KindnessMap] Trying .gz fallback for grid...");
+          const gzRes = await fetch("/data/population_grid.geojson.gz");
+          if (!gzRes.ok) throw new Error(`Grid HTTP ${gzRes.status}`);
+          const gzBlob = await gzRes.blob();
+          const ds = new DecompressionStream("gzip");
+          const decompressed = gzBlob.stream().pipeThrough(ds);
+          const resp = new Response(decompressed);
+          gridData = await resp.json();
+        }
+        console.log(`[KindnessMap] Base grid loaded: ${gridData.features?.length ?? 0} cells`);
 
         map.current.addSource("population-grid", {
           type: "geojson",
